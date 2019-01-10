@@ -66,37 +66,37 @@
             </div>
             <ul class="nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{action('HomeController@index')}}">
+                   <!-- <a class="nav-link" href="{{action('HomeController@index')}}"> -->
                         <i class="material-icons">dashboard</i>
                         <p> Dashboard </p>
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="{{action('StudentsController@index')}}">
+                 <!--   <a class="nav-link" href="{{action('StudentsController@index')}}"> -->
                         <i class="fa fa-folder"></i>
                         <p> Students </p>
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="{{action('InstructorsController@index')}}">
+                 <!--   <a class="nav-link" href="{{action('InstructorsController@index')}}"> -->
                         <i class="fa fa-users"></i>
                         <p> Instructors </p>
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="{{action('AircraftsController@index')}}">
+                 <!--   <a class="nav-link" href="{{action('AircraftsController@index')}}"> -->
                         <i class="fa fa-plane"></i>
                         <p> Aircraft </p>
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="{{action('FlightsController@index')}}">
+                 <!--   <a class="nav-link" href="{{action('FlightsController@index')}}"> -->
                         <i class="fa fa-fighter-jet"></i>
                         <p> Flights </p>
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="{{action('AccountingController@index')}}">
+                 <!--   <a class="nav-link" href="{{action('AccountingController@index')}}"> -->
                         <i class="fa fa-list-ul"></i>
                         <p> Camp Accounting </p>
                     </a>
@@ -194,7 +194,7 @@
                     <script>
                         document.write(new Date().getFullYear())
                     </script>
-                     | Theme by <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>
+                     | Developed by Brendan Fox</a>
                 </div>
             </div>
         </footer>

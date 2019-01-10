@@ -16,14 +16,6 @@ class UsersSeeder extends Seeder
     {
         //
         User::truncate();
-
-        $admin = new User();
-        $admin->firstname = "Tim";
-        $admin->lastname = "Larkin";
-        $admin->username = "t.larkin";
-        $admin->password = bcrypt('goblin');
-        $admin->role_id = 1;
-        $admin->save();
 		
 		$admin = new User();
 		$admin->firstname = "Brendan";
