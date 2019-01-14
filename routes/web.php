@@ -14,3 +14,4 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/settings', 'SettingsController@index')->middleware('auth');

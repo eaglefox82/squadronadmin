@@ -23,7 +23,7 @@
     <div class="sidebar" data-color="rose" data-background-color="black" data-image="{{ asset('img/sidebar-1.jpg') }}">
         <div class="logo">
             <a href="#" class="simple-text logo-normal text-center">
-               AAL Flying Camp 2019
+                {{ config('app.name', 'Laravel') }}
             </a>
         </div>
         <div class="sidebar-wrapper">
@@ -66,48 +66,42 @@
             </div>
             <ul class="nav">
                 <li class="nav-item">
-                   <!-- <a class="nav-link" href="{{action('HomeController@index')}}"> -->
+                   <a class="nav-link" href="{{action('HomeController@index')}}">
                         <i class="material-icons">dashboard</i>
                         <p> Dashboard </p>
                     </a>
                 </li>
                 <li class="nav-item ">
-                 <!--   <a class="nav-link" href="{{action('StudentsController@index')}}"> -->
-                        <i class="fa fa-folder"></i>
-                        <p> Students </p>
-                    </a>
-                </li>
-                <li class="nav-item ">
-                 <!--   <a class="nav-link" href="{{action('InstructorsController@index')}}"> -->
+                
                         <i class="fa fa-users"></i>
-                        <p> Instructors </p>
+                        <p> Members </p>
                     </a>
                 </li>
                 <li class="nav-item ">
-                 <!--   <a class="nav-link" href="{{action('AircraftsController@index')}}"> -->
+                 
                         <i class="fa fa-plane"></i>
-                        <p> Aircraft </p>
+                        <p> Roll </p>
                     </a>
                 </li>
                 <li class="nav-item ">
-                 <!--   <a class="nav-link" href="{{action('FlightsController@index')}}"> -->
+                 
                         <i class="fa fa-fighter-jet"></i>
-                        <p> Flights </p>
+                        <p> Active Kids </p>
                     </a>
                 </li>
                 <li class="nav-item ">
-                 <!--   <a class="nav-link" href="{{action('AccountingController@index')}}"> -->
+                 
                         <i class="fa fa-list-ul"></i>
-                        <p> Camp Accounting </p>
+                        <p> Squadron Accounting </p>
                     </a>
                 </li>
-                {{--<li class="nav-item ">--}}
-                    {{--<a class="nav-link" data-toggle="collapse" href="#componentsExamples">--}}
-                        {{--<i class="fa fa-cog"></i>--}}
-                        {{--<p> Settings--}}
-                            {{--<b class="caret"></b>--}}
-                        {{--</p>--}}
-                    {{--</a>--}}
+
+                <li class="nav-item ">
+                   <a class="nav-link" href="{{action('SettingsController@index')}}">
+                       <i class="fa fa-cog"></i>
+                        <p> Settings</p>
+                   </a>
+                </li>
                     {{--<div class="collapse" id="componentsExamples">--}}
                         {{--<ul class="nav">--}}
                             {{--<li class="nav-item ">--}}
@@ -179,6 +173,7 @@
                     <span class="navbar-toggler-icon icon-bar"></span>
                     <span class="navbar-toggler-icon icon-bar"></span>
                 </button>
+                <h3>Todays Date:</h3>
             </div>
         </nav>
         <!-- End Navbar -->
