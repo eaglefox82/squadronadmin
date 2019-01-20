@@ -72,25 +72,25 @@
                     </a>
                 </li>
                 <li class="nav-item ">
-                
+                    <a class="nav-link" href="{{action('MemberController@index')}}">
                         <i class="fa fa-users"></i>
                         <p> Members </p>
                     </a>
                 </li>
                 <li class="nav-item ">
-                 
+                    <a class="nav-link" href="{{action('RollController@index')}}">
                         <i class="fa fa-plane"></i>
                         <p> Roll </p>
                     </a>
                 </li>
                 <li class="nav-item ">
-                 
+                    <a class="nav-link href="{{action('AcitveKidsController@index')}}">
                         <i class="fa fa-fighter-jet"></i>
                         <p> Active Kids </p>
                     </a>
                 </li>
                 <li class="nav-item ">
-                 
+                    <a class="nav-link href="{{action('SquadronAccountingController@index')}}">
                         <i class="fa fa-list-ul"></i>
                         <p> Squadron Accounting </p>
                     </a>
