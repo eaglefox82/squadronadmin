@@ -72,7 +72,7 @@
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="{{action('MemberController@index')}}">
+                    <a class="nav-link" href="{{action('MembersController@index')}}">
                         <i class="fa fa-users"></i>
                         <p> Members </p>
                     </a>
