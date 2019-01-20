@@ -15,3 +15,7 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/settings', 'SettingsController@index')->middleware('auth');
+Route::get('/roll', 'RollController@index')->middleware('auth');
+Route::get('/members', 'MembersController@index')->middleware('auth');
+Route::get('/activekids', 'ActiveKidsController@index')->middleware('auth');
+Route::get('/accounting', 'SquadronAccountingController@index')->middleware('auth');
