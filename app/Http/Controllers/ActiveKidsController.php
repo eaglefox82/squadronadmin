@@ -14,6 +14,7 @@ class ActiveKidsController extends Controller
     public function index()
     {
         //
+        return view('active.show');
     }
 
     /**
@@ -46,7 +47,7 @@ class ActiveKidsController extends Controller
     public function show($id)
     {
         //
-        return view('activekids.show');
+
     }
 
     /**

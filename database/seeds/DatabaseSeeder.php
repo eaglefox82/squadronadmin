@@ -13,6 +13,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(RolesSeeder::class);
         $this->call(UsersSeeder::class); 
-        $this->call(SettingsSeeder::class);     
+        $this->call(SettingsSeeder::class);
+        $this->call(RollStatusSeeder::class);
+
     }
 }

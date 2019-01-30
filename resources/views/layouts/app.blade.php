@@ -84,13 +84,13 @@
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link href="{{action('AcitveKidsController@index')}}">
+                    <a class="nav-link" href="{{action('ActiveKidsController@index')}}">
                         <i class="fa fa-fighter-jet"></i>
                         <p> Active Kids </p>
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link href="{{action('SquadronAccountingController@index')}}">
+                    <a class="nav-link href="">
                         <i class="fa fa-list-ul"></i>
                         <p> Squadron Accounting </p>
                     </a>
@@ -173,7 +173,9 @@
                     <span class="navbar-toggler-icon icon-bar"></span>
                     <span class="navbar-toggler-icon icon-bar"></span>
                 </button>
-                <h3>Todays Date:</h3>
+                <h3>
+                    <?php echo date('l jS \of F Y'); ?>
+                </h3>
             </div>
         </nav>
         <!-- End Navbar -->

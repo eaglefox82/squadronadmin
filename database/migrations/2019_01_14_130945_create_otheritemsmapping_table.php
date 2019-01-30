@@ -13,10 +13,13 @@ class CreateOtheritemsmappingTable extends Migration
      */
     public function up()
     {
-        Schema::create('otheritemsmapping', function (Blueprint $table) {
+       /**
+         * @param Blueprint $table
+         */
+           Schema::create('otheritemsmapping', function (Blueprint $table) {
             $table->increments('id');
             $table->string('item');
-            $table->string('active')
+            $table->string('active');
             $table->timestamps();
         });
     }

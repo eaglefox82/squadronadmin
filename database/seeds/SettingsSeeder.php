@@ -28,6 +28,11 @@ class SettingsSeeder extends Seeder
        $admin->setting = "Wing Fees";
        $admin->Value = "0.15";
        $admin->save();
+
+       $admin = new Settings();
+       $admin->setting = "Roll ID";
+       $admin->Value = "0";
+       $admin->save();
    }
 }
     

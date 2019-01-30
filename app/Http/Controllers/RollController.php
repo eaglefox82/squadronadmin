@@ -14,6 +14,7 @@ class RollController extends Controller
     public function index()
     {
         //
+        return view('roll.show');
     }
 
     /**
