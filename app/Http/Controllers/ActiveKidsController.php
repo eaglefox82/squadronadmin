@@ -3,6 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
+
+use App\ActiveKids;
+use App\Member;
 
 class ActiveKidsController extends Controller
 {
@@ -14,7 +21,12 @@ class ActiveKidsController extends Controller
     public function index()
     {
         //
-        return view('active.show');
+        $vouchers = DB::table('activekids')
+                        ->join ('members', 'activekids.member_id',  '=', 'members.id')
+                        ->select('activekids.*', 'members.first_name', 'members.last_name')
+                        ->get();
+
+        return view('active.show', compact('vouchers'));
     }
 
     /**
@@ -26,6 +38,14 @@ class ActiveKidsController extends Controller
     {
         //
     }
+    
+     public function voucher($id)
+    {
+        //
+        $member = Member::find($id);
+
+        return view('members.voucher', compact('member'));
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -36,6 +56,24 @@ class ActiveKidsController extends Controller
     public function store(Request $request)
     {
         //
+        $validateData = Validator::make($request->all(), [
+            'date' => 'required',
+            'voucher'=> 'required',
+        ]);
+        if ($validateData->fails() )
+            {
+            return Redirect::back()->WithErrors($validateData) ->withInput();
+            }
+
+            $e = new ActiveKids();
+            $e->member_id = $request->get('member');
+            $e->voucher_number = $request->get('voucher');
+            $e->date_received = $request->get('date');
+            $e->balance = 100;
+            $e->active = "Y";
+            $e->save();
+
+            return redirect(action('MembersController@show', $request->get('member')))->with ('success', 'Voucher Recored');
     }
 
     /**

@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Student;
-use App\Flight;
-use App\FuelRecord;
+use App\Member;
+use App\ActiveKids;
+use Carbon\Carbon;
+
 
 class HomeController extends Controller
 {
@@ -27,6 +28,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $members=Member::all();
+        $active=Activekids::all();
+        return view('home', compact ('members', 'active'));
     }
 }

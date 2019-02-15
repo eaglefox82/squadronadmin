@@ -32,7 +32,7 @@
                     <script>
                         document.write(new Date().getFullYear())
                     </script>
-                    | Theme by <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>
+                    | Developed by Brendan Fox</a>
                 </div>
             </div>
         </footer>

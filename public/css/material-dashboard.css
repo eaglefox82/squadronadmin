@@ -27955,4 +27955,10 @@ select.selectpicker {
   }
 }
 
+.divider{
+  width:5px;
+  height:auto;
+  display:inline-block;
+}
+
 /*# sourceMappingURL=material-dashboard.css.map */

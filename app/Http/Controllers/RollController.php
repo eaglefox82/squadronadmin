@@ -3,6 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
+
+use App\Member;
+use App\Roll;
+use App\Rollmapping;
+use App\RollStatus;
 
 class RollController extends Controller
 {
@@ -14,7 +24,15 @@ class RollController extends Controller
     public function index()
     {
         //
-        return view('roll.show');
+    $currentroll = DB::table('roll')
+                    ->join('rollmapping', 'roll.roll_id' , '=', 'rollmapping.id' )
+                    ->join('members', 'members.id', '=', 'roll.member_id')
+                    ->Select('members.*', 'roll.status')
+                    ->orderby ('rank', 'desc')
+                    ->get();
+
+
+        return view('roll.index', compact('currentroll'));
     }
 
     /**
@@ -25,6 +43,7 @@ class RollController extends Controller
     public function create()
     {
         //
+        return view('roll.create');
     }
 
     /**
@@ -34,8 +53,32 @@ class RollController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {        
+        $validateData = Validator::make($request->all(),[
+            'rolldate' => 'required|date'
+        ]);
+
+        if ($validateData ->fails())
+        {
+            return Redirect::back()->withErrors($validateData)->withInput();
+        }
+
+        //Create Rollmapping
+        $e = new Rollmapping();
+        $e->roll_date = $request->get('rolldate');
+        $e->save();
+
+        //create Roll
+        $rollid = Rollmapping::latest()->value('id');
+
+        $roll = DB::table('members')
+	   ->Select('id')
+	   ->get();
+       
+            foreach ($roll as $r)
+	        DB::table('roll')->insertGetId(
+		        ['member_id' => $r, 'roll_id' => $rollid, 'status' => 'A']
+            );
     }
 
     /**

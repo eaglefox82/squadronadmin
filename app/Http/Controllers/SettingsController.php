@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Settings;
 
 class SettingsController extends Controller
 {
@@ -14,7 +15,8 @@ class SettingsController extends Controller
     public function index()
     {
         //
-        return view('settings.show');
+        $settings = Settings::orderby('id')->get();
+        return view('settings.index', compact('settings'));
     }
 
     /**

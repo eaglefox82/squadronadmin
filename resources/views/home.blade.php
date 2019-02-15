@@ -34,12 +34,12 @@
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card card-stats">
-                    <div class="card-header card-header-rose card-header-icon">
+                    <div class="card-header card-header-danger card-header-icon">
                         <div class="card-icon">
-                            <i class="fa fa-university fa-2x"></i>
+                            <i class="fa fa-book fa-2x"></i>
                         </div>
                         <p class="card-category">Members on Roll<br><br></p>
-                        <h3 class="card-title">count</h3>
+                        <h3 class="card-title">{{$members->where ('active','Y')->count()}}</h3>
                         <div class="card-footer">
                         </div>
                     </div>
@@ -47,12 +47,12 @@
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card card-stats">
-                    <div class="card-header card-header-rose card-header-icon">
+                    <div class="card-header card-header-success card-header-icon">
                         <div class="card-icon">
-                            <i class="fa fa-university fa-2x"></i>
+                            <i class="fa fa-child fa-2x"></i>
                         </div>
                         <p class="card-category">Active Kids<br><br></p>
-                        <h3 class="card-title">count</h3>
+                        <h3 class="card-title">{{$active->where('active','Y')->count()}}</h3>
                         <div class="card-footer">
                         </div>
                     </div>

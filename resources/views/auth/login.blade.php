@@ -5,7 +5,7 @@
         <form method="POST" action="{{ route('login') }}">
             @csrf
             <div class="card card-login">
-                <div class="card-header card-header-rose text-center">
+                <div class="card-header card-header-info text-center">
                     <h4 class="card-title">{{ __('Login') }}</h4>
                 </div>
                 <div class="card-body ">
@@ -48,7 +48,7 @@
                 </span>
                 </div>
                 <div class="card-footer justify-content-center">
-                    <button type="submit" class="btn btn-rose btn-link btn-lg">
+                    <button type="submit" class="btn btn-info btn-link btn-lg">
                         {{ __('Login') }}
                     </button>
 
