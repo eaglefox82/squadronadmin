@@ -17,7 +17,7 @@
                         <div class="table-responsive">
                             <table class="table">
                                 <thead class="text-primary">
-                                <th></th>
+                                <th ></th>
                                 <th class="text-center">Membership Number</th>
                                 <th class="text-center">Name</th>
                                 <th class="text-center">Rank</th>

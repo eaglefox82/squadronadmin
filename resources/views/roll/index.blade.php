@@ -17,22 +17,25 @@
                         <table class="table">
                             <thead>
                                 <tr>
+                                    <th width="20%"></th>    
                                     <th class="text-center">Member</th>
-                                    <th class="text-center">Rank</th>
+                                    <th width = "20%" class="text-center">Rank</th>
                                     <th class="text-center">Present</th>
                                 </tr>
                             </thead>
                             <tbody>
+                            @foreach($currentroll as $r)
                                 <tr>
-                                    <td class="text-center"> </td>
-                                    <td class="text-center"> </td>
-                                    <td class="text-center"></td>
-                                <!-- <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-info btn-round">
-                                            <i class="Material-icons">edit</i>
-                                        </button>
-                                    </td> -->
+                                    <td class="text-center">
+                                        <a href="{{action('RollController@paid', $r->id)}}" title="Paid" class="btn btn-success"><i class="material-icons">done</i></a>
+                                        <a href="{{action('RollController@voucher', $r->id)}}"  title="Voucher" class="btn btn-info"><i class ="material-icons">local_activity</i></a>
+                                        <a href="{{action('RollController@notpaid', $r->id)}}" title="Paid" class="btn btn-danger"><i class="material-icons">close</i></a>
+                                    </td>
+                                    <td class="text-center">{{$r->last_name}}, {{$r->first_name}} </td>
+                                    <td class="text-center">{{$r->rank}}</td>
+                                    <td class="text-center">{{$r->status}}</td>
                                 </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>

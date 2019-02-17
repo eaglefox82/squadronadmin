@@ -26,7 +26,7 @@
                             <i class="fa fa-university fa-2x"></i>
                         </div>
                         <p class="card-category">Members Present<br><br></p>
-                        <h3 class="card-title">count</h3>
+                        <h3 class="card-title">{{$currentroll->count()}}</h3>
                         <div class="card-footer">
                         </div>
                     </div>

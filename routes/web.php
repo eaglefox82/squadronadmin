@@ -22,3 +22,8 @@ Route::resource('/accounting', 'SquadronAccountingController')->middleware('auth
 Route::resource('/settings', 'SettingsController')->middleware('auth');
 
 Route::get('/activekids/voucher/{id}', 'ActiveKidsController@voucher')->middleware('auth');
+Route::get('/roll/paid/{id}', 'RollController@paid')->middleware('auth');
+Route::get('/roll/voucher/{id}', 'RollController@voucher')->middleware('auth');
+Route::get('/roll/notpaid/{id}', 'RollController@notpaid')->middleware('auth');
+
+ 

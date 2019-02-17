@@ -26,7 +26,7 @@
                         <div class = "row">
                             <label class = "col-sm-2 col-form-label">Roll Date</label>
                             <div class = "col-sm-10">
-                                <input type = "date" class = "form-control" name="rolldate" value="{{Carbon\Carbon::now()->toDateString()}}">
+                                <input type = "Date" class = "form-control datetimepicker" name="rolldate" value="{{Carbon\Carbon::now()->toDateString()}}">
                             </div>
                         </div>
 

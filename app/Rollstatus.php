@@ -11,4 +11,5 @@ class RollStatus extends Model
         'id', 'status_id', 'status'
     ];
 
+    protected $table = 'rollstatus';
 }

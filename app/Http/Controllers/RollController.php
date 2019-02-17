@@ -24,11 +24,15 @@ class RollController extends Controller
     public function index()
     {
         //
+    $rollid = Rollmapping::latest()->value('id');
+
     $currentroll = DB::table('roll')
-                    ->join('rollmapping', 'roll.roll_id' , '=', 'rollmapping.id' )
                     ->join('members', 'members.id', '=', 'roll.member_id')
-                    ->Select('members.*', 'roll.status')
-                    ->orderby ('rank', 'desc')
+                    ->join('rankmappings', 'members.rank', '=', 'rankmappings.id' )
+                    ->join('rollstatus', 'roll.status', '=', 'status_id')
+                    ->Select('members.*', 'roll.roll_id', 'rankmappings.*', 'rollstatus.status', 'roll.id')
+                    ->where('roll.roll_id', '=', $rollid)
+                    ->orderby ('rankmappings.id')
                     ->get();
 
 
@@ -71,14 +75,18 @@ class RollController extends Controller
         //create Roll
         $rollid = Rollmapping::latest()->value('id');
 
-        $roll = DB::table('members')
-	   ->Select('id')
-	   ->get();
+        $members = Member::all();
        
-            foreach ($roll as $r)
-	        DB::table('roll')->insertGetId(
-		        ['member_id' => $r, 'roll_id' => $rollid, 'status' => 'A']
-            );
+            foreach ($members as $m)
+            {
+                $r=new Roll;
+                $r->member_id = $m->id;
+                $r->roll_id = $rollid;
+                $r->Status = 'A';
+                $r->save();
+            }
+            
+        return redirect(action('RollController@index'))->with('success', 'Roll Added');
     }
 
     /**
@@ -125,4 +133,50 @@ class RollController extends Controller
     {
         //
     }
+
+    public function paid($id)
+    {
+    
+        $r = Roll::find($id);
+
+        if ($r != null)
+     {
+        $r->status = "C";
+        $r->save();
+
+         return redirect(action('RollController@index'))->with ('success', 'Member Paid');
+     }
+
+     return redirect(action('RollController@index'));
+    
+    }
+
+    public function voucher($id)
+    {    
+        $r = Roll::find($id);
+
+        if ($r != null)
+     {
+        $r->status = "V";
+        $r->save();
+
+         return redirect(action('RollController@index'))->with ('success', 'Member Paid with Vocuher');
+     }
+     return redirect(action('RollController@index'));    
+    }
+
+    public function notpaid($id)
+    {    
+        $r = Roll::find($id);
+
+        if ($r != null)
+     {
+        $r->status = "P";
+        $r->save();
+
+         return redirect(action('RollController@index'))->with ('success', 'Member Present');
+     }
+     return redirect(action('RollController@index'));    
+    }
+
 }
