@@ -13,6 +13,7 @@ use App\Member;
 use App\Roll;
 use App\Rollmapping;
 use App\RollStatus;
+use App\ActiveKids;
 
 class RollController extends Controller
 {
@@ -34,7 +35,6 @@ class RollController extends Controller
                     ->where('roll.roll_id', '=', $rollid)
                     ->orderby ('rankmappings.id')
                     ->get();
-
 
         return view('roll.index', compact('currentroll'));
     }
@@ -153,12 +153,23 @@ class RollController extends Controller
 
     public function voucher($id)
     {    
-        $r = Roll::find($id);
+               $r = Roll::find($id);
 
         if ($r != null)
      {
+      
+        // Update Roll Status
         $r->status = "V";
         $r->save();
+
+        // Insert Record into ActiveKids Voucher
+       $voucher = new ActiveKids();
+        $voucher->member_id = $r->member_id;
+        $voucher->voucher_number = 'Weekly Subs';
+        $voucher->balance = -10;
+     //   $voucher->date = Carbon\Carbon::now()->toDateString();
+        $voucher->save();
+
 
          return redirect(action('RollController@index'))->with ('success', 'Member Paid with Vocuher');
      }

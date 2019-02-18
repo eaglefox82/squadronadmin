@@ -21,6 +21,7 @@
                                     <th class="text-center">Member</th>
                                     <th width = "20%" class="text-center">Rank</th>
                                     <th class="text-center">Present</th>
+                                    <th class="text-cetner">Voucher Balance</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -34,6 +35,7 @@
                                     <td class="text-center">{{$r->last_name}}, {{$r->first_name}} </td>
                                     <td class="text-center">{{$r->rank}}</td>
                                     <td class="text-center">{{$r->status}}</td>
+                                    <td class="text-center"></td>
                                 </tr>
                             @endforeach
                             </tbody>

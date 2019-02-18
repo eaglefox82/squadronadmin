@@ -34,4 +34,10 @@ class Member extends Model
     {
         return $this->hasOne('App\Rankmapping', 'id', 'rank');
     }
+
+    public function vouchers()
+    {
+        return $this->hasMany('App\ActiveKids');
+    }
+
 }

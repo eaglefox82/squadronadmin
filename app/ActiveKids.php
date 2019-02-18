@@ -11,4 +11,13 @@ class Activekids extends Model
         'id', 'member_id', 'voucher_number', 'date_received', 'balance', 'active'
     ];
 
+    public function member()
+    {
+        return $this->belongsTo('App\Member');
+    }
+
+    public function setting()
+    {
+        return $this->belongsTo('App\Settings');
+    }
 }

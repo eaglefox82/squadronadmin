@@ -22,6 +22,11 @@ class Roll extends Model
     {
         return $this->hasMany('App\Rollmapping','roll_id', 'id');
     }
+
+    public function member()
+    {
+        return $this->belongsTo('App\Member');
+    }
 }
 
 

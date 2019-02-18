@@ -24,6 +24,7 @@ class ActiveKidsController extends Controller
         $vouchers = DB::table('activekids')
                         ->join ('members', 'activekids.member_id',  '=', 'members.id')
                         ->select('activekids.*', 'members.first_name', 'members.last_name')
+                        ->where('activekids.active', '=', 'y')
                         ->get();
 
         return view('active.show', compact('vouchers'));

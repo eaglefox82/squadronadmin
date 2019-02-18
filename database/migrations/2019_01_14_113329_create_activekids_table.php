@@ -19,7 +19,7 @@ class CreateActivekidsTable extends Migration
             $table->string('voucher_number');
             $table->date('date_received');
             $table->decimal('balance');
-            $table->string('active');
+            $table->string('active')->nullable();
             $table->timestamps();
         });
     }

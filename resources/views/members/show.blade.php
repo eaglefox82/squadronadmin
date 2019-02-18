@@ -44,6 +44,7 @@
                              </div>
                     </div>
                     <div class="table-responsive">
+                    <h4> Voucher Balance: ${{number_format($member->ActiveKids->sum('balance'),2)}}</h4>
                         <table class="table">
                             <thead class = 'text-primary'>
                                 <th class="text-center">Date</th>
