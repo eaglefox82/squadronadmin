@@ -39,5 +39,5 @@ class Member extends Model
     {
         return $this->hasMany('App\ActiveKids');
     }
-
+    
 }

@@ -33,6 +33,52 @@
             </div>
         </div>
 
+        
+
+
+        <div class="row">
+
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-header card-header-info card-header-icon">
+                            <div class="card-icon">
+                                <i class="fa fa-user fa-2x"></i>
+                            </div>
+                            <p class="card-category">Total Subs<br><br></p>
+                            <h3 class="card-title">$</h3>
+                            <div class="card-footer">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            <div class = "col-md-6">
+                <div class = "card">
+                    <div class="card-header card-header-icon card-header-rose">
+                        <h4 class="card-title font-weight-bold">Subs Owning</h4>
+                            <div class="pull-right new-button">
+                             </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class = 'text-primary'>
+                                <th class="text-center">Date</th>
+                                <th></th>
+                            </thead>
+                            <tbody>
+                            @foreach ($member->ActiveKids as $t)
+                            <tr>
+                                <td class="text-center">{{date('j/n/Y', strtotime($t->date_received))}}</td>
+                                <td></td>
+                            </tr>
+                            @endforeach
+                            </tbody> 
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <div class="row">
             <div class = "col-sm-12">

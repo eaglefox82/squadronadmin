@@ -41,7 +41,7 @@ class HomeController extends Controller
        ->join('members', 'members.id', '=', 'roll.member_id')
        ->join('rankmappings', 'members.rank', '=', 'rankmappings.id' )
        ->join('rollstatus', 'roll.status', '=', 'status_id')
-       ->Select('members.*', 'roll.roll_id', 'rankmappings.*', 'rollstatus.status')
+       ->Select('members.*', 'roll.roll_id', 'rankmappings.*', 'rollstatus.status', 'roll.status')
        ->where('roll.roll_id', '=', $activeroll)
        ->where('roll.status', '!=', 'A')
        ->orderby ('rankmappings.id')
@@ -50,6 +50,64 @@ class HomeController extends Controller
         $members=Member::all();
         $active=Activekids::all();
         $Roll=Roll::all();
-        return view('home', compact ('members', 'active', 'currentroll'));
+
+        $subs = DB::table('roll')
+            ->where('roll.roll_id', '=', $activeroll)
+            ->where('roll.status', '=', 'C')
+            ->get();
+
+
+            $officers = DB::table('roll')
+            ->join('rollmapping', 'roll.roll_id' , '=', 'rollmapping.id' )
+            ->join('members', 'members.id', '=', 'roll.member_id')
+            ->join('rankmappings', 'members.rank', '=', 'rankmappings.id' )
+            ->join('rollstatus', 'roll.status', '=', 'status_id')
+            ->Select('members.*', 'roll.roll_id', 'rankmappings.*', 'rollstatus.status', 'roll.status')
+            ->where('roll.roll_id', '=', $activeroll)
+            ->where('roll.status', '!=', 'A')
+            ->where('members.rank', '<', 12 )
+            ->orderby ('rankmappings.id')
+            ->get();
+
+
+            $to = DB::table('roll')
+            ->join('rollmapping', 'roll.roll_id' , '=', 'rollmapping.id' )
+            ->join('members', 'members.id', '=', 'roll.member_id')
+            ->join('rankmappings', 'members.rank', '=', 'rankmappings.id' )
+            ->join('rollstatus', 'roll.status', '=', 'status_id')
+            ->Select('members.*', 'roll.roll_id', 'rankmappings.*', 'rollstatus.status', 'roll.status')
+            ->where('roll.roll_id', '=', $activeroll)
+            ->where('roll.status', '!=', 'A')
+            ->whereBetween('members.rank', [12,13])
+            ->orderby ('rankmappings.id')
+            ->get();
+
+
+            $nco = DB::table('roll')
+            ->join('rollmapping', 'roll.roll_id' , '=', 'rollmapping.id' )
+            ->join('members', 'members.id', '=', 'roll.member_id')
+            ->join('rankmappings', 'members.rank', '=', 'rankmappings.id' )
+            ->join('rollstatus', 'roll.status', '=', 'status_id')
+            ->Select('members.*', 'roll.roll_id', 'rankmappings.*', 'rollstatus.status', 'roll.status')
+            ->where('roll.roll_id', '=', $activeroll)
+            ->where('roll.status', '!=', 'A')
+            ->whereBetween('members.rank', [14,18])
+            ->orderby ('rankmappings.id')
+            ->get();
+
+
+            $cadet = DB::table('roll')
+            ->join('rollmapping', 'roll.roll_id' , '=', 'rollmapping.id' )
+            ->join('members', 'members.id', '=', 'roll.member_id')
+            ->join('rankmappings', 'members.rank', '=', 'rankmappings.id' )
+            ->join('rollstatus', 'roll.status', '=', 'status_id')
+            ->Select('members.*', 'roll.roll_id', 'rankmappings.*', 'rollstatus.status', 'roll.status')
+            ->where('roll.roll_id', '=', $activeroll)
+            ->where('roll.status', '!=', 'A')
+            ->where('members.rank', '>', 18 )
+            ->orderby ('rankmappings.id')
+            ->get();
+
+        return view('home', compact ('members', 'active', 'currentroll', 'subs', 'officers', 'to', 'nco', 'cadet'));
     }
 }

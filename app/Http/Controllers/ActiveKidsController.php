@@ -25,6 +25,7 @@ class ActiveKidsController extends Controller
                         ->join ('members', 'activekids.member_id',  '=', 'members.id')
                         ->select('activekids.*', 'members.first_name', 'members.last_name')
                         ->where('activekids.active', '=', 'y')
+                        ->orderBy('id', 'desc')
                         ->get();
 
         return view('active.show', compact('vouchers'));
@@ -121,5 +122,19 @@ class ActiveKidsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function complete($id)
+    {
+        $v = ActiveKids::find($id);
+
+        if ($v != null)
+            {
+                $v->Active = 'N';
+                $v->save();
+                return redirect(action('ActiveKidsController@index'));
+            }
+            return redirect(action('ActiveKidsControler@index'));
+
     }
 }

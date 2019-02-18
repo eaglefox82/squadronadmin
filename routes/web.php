@@ -25,5 +25,6 @@ Route::get('/activekids/voucher/{id}', 'ActiveKidsController@voucher')->middlewa
 Route::get('/roll/paid/{id}', 'RollController@paid')->middleware('auth');
 Route::get('/roll/voucher/{id}', 'RollController@voucher')->middleware('auth');
 Route::get('/roll/notpaid/{id}', 'RollController@notpaid')->middleware('auth');
+Route::get('/activekids/complete/{id}', 'ActiveKidsController@complete')->middleware('auth');
 
  
