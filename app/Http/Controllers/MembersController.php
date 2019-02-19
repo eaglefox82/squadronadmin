@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Member;
+use App\Roll;
 use App\ActiveKids;
 use Carbon\Carbon;
 
@@ -132,4 +133,5 @@ class MembersController extends Controller
         //
     }
 
+    
 }

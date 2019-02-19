@@ -44,18 +44,32 @@
                             <div class="card-icon">
                                 <i class="fa fa-user fa-2x"></i>
                             </div>
-                            <p class="card-category">Total Subs<br><br></p>
-                            <h3 class="card-title">$</h3>
+                            <p class="card-category">Voucher Balance<br><br></p>
+                            <h3 class="card-title">${{number_format($member->ActiveKids->sum('balance'),2)}}</h3>
                             <div class="card-footer">
                             </div>
                         </div>
                     </div>
                 </div>
 
-            <div class = "col-md-6">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-header card-header-danger card-header-icon">
+                            <div class="card-icon">
+                                <i class="fa fa-usd fa-2x"></i>
+                            </div>
+                            <p class="card-category">Total Subs Owning<br><br></p>
+                            <h3 class="card-title">${{($member->outstanding->where('status','P')->count())*10}}</h3>
+                            <div class="card-footer">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            <div class = "col-lg-3 col-md-6 col-sm-6">
                 <div class = "card">
                     <div class="card-header card-header-icon card-header-rose">
-                        <h4 class="card-title font-weight-bold">Subs Owning</h4>
+                        <h4 class="card-title font-weight-bold">Subs Owning</h4> 
                             <div class="pull-right new-button">
                              </div>
                     </div>
@@ -66,10 +80,10 @@
                                 <th></th>
                             </thead>
                             <tbody>
-                            @foreach ($member->ActiveKids as $t)
+                            @foreach ($member->outstanding as $o)
                             <tr>
-                                <td class="text-center">{{date('j/n/Y', strtotime($t->date_received))}}</td>
-                                <td></td>
+                                <td class="text-center">{{$o->roll_id}}</td> 
+                                <td class="text-center"><a href="{{action('RollController@updateRoll', $o->id)}}" title="Paid" class="btn btn-success"><i class="material-icons">done</i></a></td>
                             </tr>
                             @endforeach
                             </tbody> 
@@ -90,7 +104,6 @@
                              </div>
                     </div>
                     <div class="table-responsive">
-                    <h4> Voucher Balance: ${{number_format($member->ActiveKids->sum('balance'),2)}}</h4>
                         <table class="table">
                             <thead class = 'text-primary'>
                                 <th class="text-center">Date</th>

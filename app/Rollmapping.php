@@ -12,5 +12,4 @@ class Rollmapping extends Model
     ];
     
     protected $table = 'Rollmapping';
-
 }

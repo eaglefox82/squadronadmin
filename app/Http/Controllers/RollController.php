@@ -190,4 +190,18 @@ class RollController extends Controller
      return redirect(action('RollController@index'));    
     }
 
+    public function updateRoll($id)
+    {
+        $o = Roll::find($id);
+
+        if ($o != null)
+     {
+        $o->status = "C";
+        $o->save();
+
+         return redirect(action('MembersController@show', $o->member_id))->with ('success', 'Member Present');
+     }
+     return redirect(action('MembersController@index'));    
+    }
+
 }

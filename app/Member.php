@@ -39,5 +39,15 @@ class Member extends Model
     {
         return $this->hasMany('App\ActiveKids');
     }
-    
+
+    public function roll()
+    {
+        return $this->hasMany('App\Roll');
+    }
+
+    public function outstanding()
+    {
+        return $this->roll()->where('status', '=', 'P');
+    }
+
 }

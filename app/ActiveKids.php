@@ -15,9 +15,4 @@ class Activekids extends Model
     {
         return $this->belongsTo('App\Member');
     }
-
-    public function setting()
-    {
-        return $this->belongsTo('App\Settings');
-    }
 }
