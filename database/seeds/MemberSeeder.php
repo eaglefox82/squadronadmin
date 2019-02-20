@@ -18,8 +18,7 @@ class MemberSeeder extends Seeder
         Member::truncate();
 
         Member::create(['id' => 1, 'membership_number' => 'N8185', 'first_name' => 'Raymond', 'last_name' => 'Bell', 'rank' => '2', 'date_joined' => '1944-11-15', 'date_birth' => '1932-05-05', 'active' => 'Y' ]);
-        Member::create(['id' => 2, 'membership_number' => 'N18094', 'first_name' => 'Brendan', 'last_name' => 'Fox', 'rank' => '4', 'date_joined' => '1996-05-10', 'date_birth' => '1982-07-02', 'active' => 'Y']);
-        
+        Member::create(['id' => 2, 'membership_number' => 'N18094', 'first_name' => 'Brendan', 'last_name' => 'Fox', 'rank' => '4', 'date_joined' => '1996-05-10', 'date_birth' => '1982-07-02', 'active' => 'Y']);  
         Member::create(['id' => 3, 'membership_number' => 'N21432', 'first_name' => 'Lachlan', 'last_name' => 'Hyde', 'rank' => '14', 'date_joined' => '2009-04-17', 'date_birth' => '2001-03-17', 'active' => 'Y']);
         Member::create(['id' => 4, 'membership_number' => 'N21562', 'first_name' => 'Francisco', 'last_name' => 'Trostel', 'rank' => '10', 'date_joined' => '2010-02-26', 'date_birth' => '1998-11-12', 'active' => 'Y']);
         Member::create(['id' => 5, 'membership_number' => 'N221609', 'first_name' => 'Patrick', 'last_name' => 'Estasy', 'rank' => '16', 'date_joined' => '2010-05-07', 'date_birth' => '2001-03-17', 'active' => 'Y']);
