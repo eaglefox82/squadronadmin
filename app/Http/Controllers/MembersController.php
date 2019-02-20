@@ -92,7 +92,7 @@ class MembersController extends Controller
 
       if ($member !=null)
       {
-       
+       ActiveKids::orderby('id', 'desc')->get();
         return view('members.show', compact('member'));
       }
 

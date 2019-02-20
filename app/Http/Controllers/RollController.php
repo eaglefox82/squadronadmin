@@ -167,7 +167,7 @@ class RollController extends Controller
         $voucher->member_id = $r->member_id;
         $voucher->voucher_number = 'Weekly Subs';
         $voucher->balance = -10;
-     //   $voucher->date = Carbon\Carbon::now()->toDateString();
+        $voucher->date_received = Carbon::now()->toDateString();
         $voucher->save();
 
 

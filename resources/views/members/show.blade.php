@@ -7,6 +7,9 @@
             <div class = "col-sm-12">
                 <div class = "card">
                     <div class="card-header card-header-icon card-header-rose">
+                            <div class="pull-right new-button">
+                                <a href="" class="btn btn-primary" title="Add Voucher"><i class="fa fa-plus fa-2x"></i> I don't work yet</a>
+                             </div>
                         <h4 class="card-title font-weight-bold">Member Details</h4>
                     </div>
                     <div class="card-body">
@@ -82,7 +85,7 @@
                             <tbody>
                             @foreach ($member->outstanding as $o)
                             <tr>
-                                <td class="text-center">{{$o->roll_id}}</td> 
+                                <td class="text-center">{{date('j/n/Y', strtotime($o->updated_at))}}</td> 
                                 <td class="text-center"><a href="{{action('RollController@updateRoll', $o->id)}}" title="Paid" class="btn btn-success"><i class="material-icons">done</i></a></td>
                             </tr>
                             @endforeach
@@ -98,10 +101,10 @@
             <div class = "col-sm-12">
                 <div class = "card">
                     <div class="card-header card-header-icon card-header-rose">
-                        <h4 class="card-title font-weight-bold">Active Kids Vouchers</h4>
                             <div class="pull-right new-button">
                                 <a href="{{action('ActiveKidsController@voucher', $member->id)}}" class="btn btn-primary" title="Add Voucher"><i class="fa fa-plus fa-2x"></i> Add Voucher</a>
                              </div>
+                             <h4 class="card-title font-weight-bold">Active Kids Vouchers</h4>
                     </div>
                     <div class="table-responsive">
                         <table class="table">
@@ -111,7 +114,7 @@
                                 <th class="text-center">Balance</th>
                             </thead>
                             <tbody>
-                            @foreach ($member->ActiveKids as $t)
+                            @foreach ($member->Activekids as $t)
                             <tr>
                                 <td class="text-center">{{date('j/n/Y', strtotime($t->date_received))}}</td>
                                 <td class="text-center">{{$t->voucher_number}}</td>

@@ -12,4 +12,10 @@ class Rollmapping extends Model
     ];
     
     protected $table = 'Rollmapping';
+
+
+    public function roll()
+    {
+        return $this->hasMany('App\Roll');
+    }
 }

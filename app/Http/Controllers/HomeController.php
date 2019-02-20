@@ -11,6 +11,7 @@ use App\Member;
 use App\ActiveKids;
 use App\Roll;
 use App\Rollmapping;
+use App\Settings;
 use Carbon\Carbon;
 
 
@@ -50,6 +51,10 @@ class HomeController extends Controller
         $members=Member::all();
         $active=Activekids::all();
         $Roll=Roll::all();
+        
+        $subsfee=DB::table('settings')
+                ->where('setting', '=', 'Weekly Fees')
+                ->get();
 
         $subs = DB::table('roll')
             ->where('roll.roll_id', '=', $activeroll)

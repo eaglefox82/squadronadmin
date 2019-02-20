@@ -2,6 +2,7 @@
 
 namespace App;
 use Carbon\Carbon;
+use App\Activekids;
 
 use Illuminate\Database\Eloquent\Model;
 
