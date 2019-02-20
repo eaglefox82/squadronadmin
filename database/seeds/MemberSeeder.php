@@ -31,7 +31,7 @@ class MemberSeeder extends Seeder
         Member::create(['id' => 11, 'membership_number' => 'N22060', 'first_name' => 'Luke', 'last_name' => 'Passmore', 'rank' => '17', 'date_joined' => '2012-04-27', 'date_birth' => '2004-04-02', 'active' => 'Y']);
         Member::create(['id' => 12, 'membership_number' => 'N22222', 'first_name' => 'Carlos', 'last_name' => 'Munoz', 'rank' => '10', 'date_joined' => '2012-11-30', 'date_birth' => '1998-03-15', 'active' => 'Y']);
         Member::create(['id' => 13, 'membership_number' => 'N22235', 'first_name' => 'Tristan', 'last_name' => 'Sauer', 'rank' => '17', 'date_joined' => '2013-02-08', 'date_birth' => '2002-01-04', 'active' => 'Y']);
-        Member::create(['id' => 14, 'membership_number' => 'N22271', 'first_name' => 'Mitchell', 'last_name' => 'Hyde', 'rank' => '18', 'date_joined' => '2013-02-22', 'date_birth' => '2004-02-12', 'active' => 'Y']);
+        Member::create(['id' => 14, 'membership_number' => 'N22271', 'first_name' => 'Mitchell', 'last_name' => 'Hyde', 'rank' => '18', 'date_joined' => '2013-02-22', 'date_birth' => '2004-12-02', 'active' => 'Y']);
         Member::create(['id' => 15, 'membership_number' => 'N22340', 'first_name' => 'Martin', 'last_name' => 'Sauer', 'rank' => '8', 'date_joined' => '2013-06-14', 'date_birth' => '1969-11-21', 'active' => 'Y']);
         Member::create(['id' => 16, 'membership_number' => 'N22366', 'first_name' => 'Jaedenn', 'last_name' => 'Hidalgo', 'rank' => '17', 'date_joined' => '2013-07-19', 'date_birth' => '2003-09-02', 'active' => 'Y']);
         Member::create(['id' => 17, 'membership_number' => 'N22380', 'first_name' => 'Benedict', 'last_name' => 'Evans', 'rank' => '18', 'date_joined' => '2013-08-16', 'date_birth' => '2003-01-10', 'active' => 'Y']);
