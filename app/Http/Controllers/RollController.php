@@ -33,6 +33,7 @@ class RollController extends Controller
                     ->join('rollstatus', 'roll.status', '=', 'status_id')
                     ->Select('members.*', 'roll.roll_id', 'rankmappings.*', 'rollstatus.status', 'roll.id')
                     ->where('roll.roll_id', '=', $rollid)
+                    ->orderby('roll.status')
                     ->orderby ('rankmappings.id')
                     ->get();
 

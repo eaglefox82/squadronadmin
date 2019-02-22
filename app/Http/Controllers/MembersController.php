@@ -26,6 +26,7 @@ class MembersController extends Controller
         $members = DB::table('members')
                 ->join('rankmappings', 'members.rank', '=', 'rankmappings.id')
                 ->select('members.*', 'rankmappings.rank as memberrank')
+                ->orderby('rankmappings.id')
                 ->get();
 
         return view('members.index', compact('members'));
