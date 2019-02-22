@@ -17,6 +17,7 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/material-dashboard.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/circle.css') }}">
 </head>
 <body class="">
 <div class="wrapper">
