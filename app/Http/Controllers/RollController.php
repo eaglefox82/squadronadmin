@@ -68,8 +68,12 @@ class RollController extends Controller
         }
 
         //Create Rollmapping
+        $date = Carbon::parse($request->get('rolldate'))->format('Y-m-d');
         $e = new Rollmapping();
         $e->roll_date = $request->get('rolldate');
+        $e->roll_year = Carbon::parse($date)->year;
+        $e->roll_month = Carbon::parse($date)->month;
+        $e->roll_week = Carbon::parse($date)->weekNumberInMonth;
         $e->save();
 
         //create Roll

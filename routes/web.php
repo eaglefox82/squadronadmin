@@ -20,6 +20,7 @@ Route::resource('/roll', 'RollController')->middleware('auth');
 Route::resource('/activekids', 'ActiveKidsController')->middleware('auth');
 Route::resource('/accounting', 'SquadronAccountingController')->middleware('auth');
 Route::resource('/settings', 'SettingsController')->middleware('auth');
+Route::resource('/form19', 'From19Controller')->middleware('auth');
 
 Route::get('/activekids/voucher/{id}', 'ActiveKidsController@voucher')->middleware('auth');
 Route::get('/roll/paid/{id}', 'RollController@paid')->middleware('auth');

@@ -34,6 +34,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+
+        $rollweek = Carbon::now()->weekNumberInMonth;
+        
        
        $activeroll = Rollmapping::latest()->value('id');
 
@@ -113,6 +116,6 @@ class HomeController extends Controller
             ->orderby ('rankmappings.id')
             ->get();
 
-        return view('home', compact ('members', 'active', 'currentroll', 'subs', 'officers', 'to', 'nco', 'cadet'));
+        return view('home', compact ('members', 'active', 'currentroll', 'subs', 'officers', 'to', 'nco', 'cadet', 'rollweek'));
     }
 }

@@ -98,21 +98,18 @@
 
                 <li class="nav-item ">
                    <a class="nav-link" href="{{action('SettingsController@index')}}">
+                       <i class="fa fa-pied-piper"></i>
+                        <p>Form 19</p>
+                   </a>
+                </li>
+
+                <li class="nav-item ">
+                   <a class="nav-link" href="{{action('SettingsController@index')}}">
                        <i class="fa fa-cog"></i>
                         <p> Settings</p>
                    </a>
                 </li>
-                    {{--<div class="collapse" id="componentsExamples">--}}
-                        {{--<ul class="nav">--}}
-                            {{--<li class="nav-item ">--}}
-                                {{--<a class="nav-link" href="{{ action('InspectionFieldController@index') }}">--}}
-                                    {{--<span class="sidebar-mini"> IF </span>--}}
-                                    {{--<span class="sidebar-normal"> Inspection Fields </span>--}}
-                                {{--</a>--}}
-                            {{--</li>--}}
-                        {{--</ul>--}}
-                    {{--</div>--}}
-                {{--</li>--}}
+                   
 
                 {{--<li class="nav-item ">--}}
                     {{--<a class="nav-link" data-toggle="collapse" href="#pagesExamples">--}}
