@@ -26,6 +26,7 @@ class RollController extends Controller
     {
         //
     $rollid = Rollmapping::latest()->value('id');
+    $rolldate = Rollmapping::latest()->value('roll_date');
 
     $currentroll = DB::table('roll')
                     ->join('members', 'members.id', '=', 'roll.member_id')
@@ -37,7 +38,7 @@ class RollController extends Controller
                     ->orderby ('rankmappings.id')
                     ->get();
 
-        return view('roll.index', compact('currentroll'));
+        return view('roll.index', compact('currentroll', 'rolldate'));
     }
 
     /**

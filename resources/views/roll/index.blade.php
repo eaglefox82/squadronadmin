@@ -6,7 +6,9 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header card-header-icon card-header-rose">
-                
+                    <div class = "pull-left">
+                    <input type="text" name="search" id="search" class="form-control" placeholder="Seach Roll Here"/>
+                    </div>                
                     <div class="pull-right new-button">
                         <a href="{{action('RollController@create')}}" class="btn btn-primary" title="Add Voucher"><i class="fa fa-plus fa-2x"></i>Create New Roll</a>
                     </div>
@@ -14,14 +16,14 @@
                 <div class="card-body">
     
                     <div class="table-responsive">
-                        <table class="table">
+                        <table class="table" id="roll">
                             <thead>
+                            <h4> Roll Date: {{date("l - jS F Y",strtotime($rolldate))}} </h4>
                                 <tr>
                                     <th width="20%"></th>    
                                     <th class="text-center">Member</th>
                                     <th width = "20%" class="text-center">Rank</th>
                                     <th class="text-center">Present</th>
-                                    <th class="text-cetner">Voucher Balance</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -35,7 +37,6 @@
                                     <td class="text-center">{{$r->last_name}}, {{$r->first_name}} </td>
                                     <td class="text-center">{{$r->rank}}</td>
                                     <td class="text-center">{{$r->status}}</td>
-                                    <td class="text-center"></td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -46,4 +47,31 @@
         </div>
     </div>
 </div>
+
+
 @endsection
+
+
+@section ('scripts')
+<script>
+   // Write on keyup event of keyword input element
+   $(document).ready(function(){
+     $("#search").keyup(function(){
+     _this = this;
+    
+     // Show only matching TR, hide rest of them
+     $.each($("#roll tbody tr"), function() {
+       if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
+       {  
+           $(this).hide();
+       }
+       else
+       {
+          $(this).show();
+       }
+     });
+  });
+});
+</script>
+
+@stop

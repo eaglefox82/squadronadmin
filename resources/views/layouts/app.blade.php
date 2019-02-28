@@ -15,6 +15,7 @@
           href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"/>
 
+
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/material-dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('css/circle.css') }}">
@@ -245,6 +246,8 @@
 <script src="{{ asset('js/plugins/jasny-bootstrap.min.js') }}"></script>
 <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
 <script src="{{ asset('js/plugins/fullcalendar.min.js') }}"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 
 @yield('scripts')
 

@@ -5,22 +5,25 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="card">
-                    <div class="card-header card-header-icon card-header-rose">
-                        <h4 class="card-title text-center">Members</h4>
+                    <div class="card-header card-header-icon card-header-rose pull-center">
+                        <h2 class="card-title text-center">Members</h2>
                     </div>
                     <div class="card-body">
+                        <div class="pull-left">
+                            <input type="text" name="search" id="search" class="form-control" placeholder= "Search Member here"/>
+                        </div>
                         <div class="pull-right new-button">
                             <a href="{{action('MembersController@create')}}" class="btn btn-primary" title="Add Member"><i
                                         class="fa fa-plus fa-2x"></i> Add Member</a>
                         </div>
 
                         <div class="table-responsive">
-                            <table class="table">
+                            <table class="table" id="members">
                                 <thead class="text-primary">
                                 <th ></th>
-                                <th class="text-center">Membership Number</th>
-                                <th class="text-center">Name</th>
-                                <th class="text-center">Rank</th>
+                                <th width = "25%" class="text-center">Membership Number</th>
+                                <th width = "40%" class="text-center">Name</th>
+                                <th width = "25%" class="text-center">Rank</th>
                                 </thead>
                                 <tbody>
                                     @foreach($members as $m)
@@ -48,4 +51,27 @@
 
 @endsection
 
+@section ('scripts')
+<script>
+   // Write on keyup event of keyword input element
+   $(document).ready(function(){
+     $("#search").keyup(function(){
+     _this = this;
+    
+     // Show only matching TR, hide rest of them
+     $.each($("#members tbody tr"), function() {
+       if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
+       {  
+           $(this).hide();
+       }
+       else
+       {
+          $(this).show();
+       }
+     });
+  });
+});
+</script>
+
+@stop
 

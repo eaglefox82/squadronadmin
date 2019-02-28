@@ -30,8 +30,9 @@ class Roll extends Model
 
     public function rollMapping()
     {
-        return $this->belongsTo('App\Rollmapping');
+        return $this->hasOne('App\Rollmapping');
     }
+
 }
 
 
