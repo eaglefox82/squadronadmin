@@ -247,7 +247,6 @@
 <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
 <script src="{{ asset('js/plugins/fullcalendar.min.js') }}"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 
 @yield('scripts')
 
