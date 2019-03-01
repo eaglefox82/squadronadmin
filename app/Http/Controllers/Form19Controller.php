@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 
 use App\Rollmapping;
+use App\Roll;
+use App\Members;
 
 class Form19Controller extends Controller
 {
@@ -21,60 +23,188 @@ class Form19Controller extends Controller
     {
 
         $rollmonth = Rollmapping::latest()->value('roll_month');
+        
+        $officerwk1 = DB::table('roll')
+            ->join('rollmapping', "roll.roll_id", "=", "rollmapping.id")
+            ->join('members', 'roll.member_id', '=', 'members.id')
+            ->where('rollmapping.roll_month','=', $rollmonth)
+            ->where('roll.status', '!=', 'A')
+            ->where('members.rank', '<', 12)
+            ->where('rollmapping.roll_week', '=', 1)
+            ->get();
 
+        $officerwk2 = DB::table('roll')
+            ->join('rollmapping', "roll.roll_id", "=", "rollmapping.id")
+            ->join('members', 'roll.member_id', '=', 'members.id')
+            ->where('rollmapping.roll_month','=', $rollmonth)
+            ->where('roll.status', '!=', 'A')
+            ->where('members.rank', '<', 12)
+            ->where('rollmapping.roll_week', '=', 2)
+            ->get();
 
-        $officers = DB::table('roll')
-        ->join('rollmapping', 'roll.roll_id' , '=', 'rollmapping.id' )
-        ->join('members', 'members.id', '=', 'roll.member_id')
-        ->join('rankmappings', 'members.rank', '=', 'rankmappings.id' )
-        ->join('rollstatus', 'roll.status', '=', 'status_id')
-        ->Select('members.*', 'roll.roll_id', 'rankmappings.*', 'rollstatus.status', 'roll.status')
-        ->where('roll.roll_month', '=', $rollmonth)
-        ->where('roll.status', '!=', 'A')
-        ->where('members.rank', '<', 12 )
-        ->orderby ('rankmappings.id')
-        ->get();
+        $officerwk3 = DB::table('roll')
+            ->join('rollmapping', "roll.roll_id", "=", "rollmapping.id")
+            ->join('members', 'roll.member_id', '=', 'members.id')
+            ->where('rollmapping.roll_month','=', $rollmonth)
+            ->where('roll.status', '!=', 'A')
+            ->where('members.rank', '<', 12)
+            ->where('rollmapping.roll_week', '=', 3)
+            ->get();
 
+        $officerwk4 = DB::table('roll')
+            ->join('rollmapping', "roll.roll_id", "=", "rollmapping.id")
+            ->join('members', 'roll.member_id', '=', 'members.id')
+            ->where('rollmapping.roll_month','=', $rollmonth)
+            ->where('roll.status', '!=', 'A')
+            ->where('members.rank', '<', 12)
+            ->where('rollmapping.roll_week', '=', 4)
+            ->get();
 
-        $to = DB::table('roll')
-        ->join('rollmapping', 'roll.roll_id' , '=', 'rollmapping.id' )
-        ->join('members', 'members.id', '=', 'roll.member_id')
-        ->join('rankmappings', 'members.rank', '=', 'rankmappings.id' )
-        ->join('rollstatus', 'roll.status', '=', 'status_id')
-        ->Select('members.*', 'roll.roll_id', 'rankmappings.*', 'rollstatus.status', 'roll.status')
-        ->where('roll.roll_month', '=', $rollmonth)
-        ->where('roll.status', '!=', 'A')
-        ->whereBetween('members.rank', [12,13])
-        ->orderby ('rankmappings.id')
-        ->get();
+        $officerwk5 = DB::table('roll')
+            ->join('rollmapping', "roll.roll_id", "=", "rollmapping.id")
+            ->join('members', 'roll.member_id', '=', 'members.id')
+            ->where('rollmapping.roll_month','=', $rollmonth)
+            ->where('roll.status', '!=', 'A')
+            ->where('members.rank', '<', 12)
+            ->where('rollmapping.roll_week', '=', 5)
+            ->get();
 
+        $towk1 = DB::table('roll')
+            ->join('rollmapping', "roll.roll_id", "=", "rollmapping.id")
+            ->join('members', 'roll.member_id', '=', 'members.id')
+            ->where('rollmapping.roll_month','=', $rollmonth)
+            ->where('roll.status', '!=', 'A')
+            ->wherebetween('members.rank', [12,13])
+            ->where('rollmapping.roll_week', '=', 1)
+            ->get();
 
-        $nco = DB::table('roll')
-        ->join('rollmapping', 'roll.roll_id' , '=', 'rollmapping.id' )
-        ->join('members', 'members.id', '=', 'roll.member_id')
-        ->join('rankmappings', 'members.rank', '=', 'rankmappings.id' )
-        ->join('rollstatus', 'roll.status', '=', 'status_id')
-        ->Select('members.*', 'roll.roll_id', 'rankmappings.*', 'rollstatus.status', 'roll.status')
-        ->where('roll.roll_month', '=', $rollmonth)
-        ->where('roll.status', '!=', 'A')
-        ->whereBetween('members.rank', [14,18])
-        ->orderby ('rankmappings.id')
-        ->get();
+        $towk2 = DB::table('roll')
+            ->join('rollmapping', "roll.roll_id", "=", "rollmapping.id")
+            ->join('members', 'roll.member_id', '=', 'members.id')
+            ->where('rollmapping.roll_month','=', $rollmonth)
+            ->where('roll.status', '!=', 'A')
+            ->wherebetween('members.rank', [12,13])
+            ->where('rollmapping.roll_week', '=', 2)
+            ->get();
 
+        $towk3 = DB::table('roll')
+            ->join('rollmapping', "roll.roll_id", "=", "rollmapping.id")
+            ->join('members', 'roll.member_id', '=', 'members.id')
+            ->where('rollmapping.roll_month','=', $rollmonth)
+            ->where('roll.status', '!=', 'A')
+            ->wherebetween('members.rank', [12,13])
+            ->where('rollmapping.roll_week', '=', 3)
+            ->get();
 
-        $cadet = DB::table('roll')
-        ->join('rollmapping', 'roll.roll_id' , '=', 'rollmapping.id' )
-        ->join('members', 'members.id', '=', 'roll.member_id')
-        ->join('rankmappings', 'members.rank', '=', 'rankmappings.id' )
-        ->join('rollstatus', 'roll.status', '=', 'status_id')
-        ->Select('members.*', 'roll.roll_id', 'rankmappings.*', 'rollstatus.status', 'roll.status')
-        ->where('roll.roll_month', '=', $rollmonth)
-        ->where('roll.status', '!=', 'A')
-        ->where('members.rank', '>', 18 )
-        ->orderby ('rankmappings.id')
-        ->get();
+        $towk4 = DB::table('roll')
+            ->join('rollmapping', "roll.roll_id", "=", "rollmapping.id")
+            ->join('members', 'roll.member_id', '=', 'members.id')
+            ->where('rollmapping.roll_month','=', $rollmonth)
+            ->where('roll.status', '!=', 'A')
+            ->wherebetween('members.rank', [12,13])
+            ->where('rollmapping.roll_week', '=', 4)
+            ->get();
 
-    return view('form19.index', compact ('officers', 'to', 'nco', 'cadet', 'rollweek'));
+        $towk5 = DB::table('roll')
+            ->join('rollmapping', "roll.roll_id", "=", "rollmapping.id")
+            ->join('members', 'roll.member_id', '=', 'members.id')
+            ->where('rollmapping.roll_month','=', $rollmonth)
+            ->where('roll.status', '!=', 'A')
+            ->wherebetween('members.rank', [12,13])
+            ->where('rollmapping.roll_week', '=', 5)
+            ->get();
+
+        $ncowk1 = DB::table('roll')
+            ->join('rollmapping', "roll.roll_id", "=", "rollmapping.id")
+            ->join('members', 'roll.member_id', '=', 'members.id')
+            ->where('rollmapping.roll_month','=', $rollmonth)
+            ->where('roll.status', '!=', 'A')
+            ->wherebetween('members.rank', [14,18])
+            ->where('rollmapping.roll_week', '=', 1)
+            ->get();
+
+        $ncowk2 = DB::table('roll')
+            ->join('rollmapping', "roll.roll_id", "=", "rollmapping.id")
+            ->join('members', 'roll.member_id', '=', 'members.id')
+            ->where('rollmapping.roll_month','=', $rollmonth)
+            ->where('roll.status', '!=', 'A')
+            ->wherebetween('members.rank', [14,18])
+            ->where('rollmapping.roll_week', '=', 2)
+            ->get();
+
+        $ncowk3 = DB::table('roll')
+            ->join('rollmapping', "roll.roll_id", "=", "rollmapping.id")
+            ->join('members', 'roll.member_id', '=', 'members.id')
+            ->where('rollmapping.roll_month','=', $rollmonth)
+            ->where('roll.status', '!=', 'A')
+            ->wherebetween('members.rank', [14,18])
+            ->where('rollmapping.roll_week', '=', 3)
+            ->get();
+
+        $ncowk4 = DB::table('roll')
+            ->join('rollmapping', "roll.roll_id", "=", "rollmapping.id")
+            ->join('members', 'roll.member_id', '=', 'members.id')
+            ->where('rollmapping.roll_month','=', $rollmonth)
+            ->where('roll.status', '!=', 'A')
+            ->wherebetween('members.rank', [14,18])
+            ->where('rollmapping.roll_week', '=', 4)
+            ->get();
+
+        $ncowk5 = DB::table('roll')
+            ->join('rollmapping', "roll.roll_id", "=", "rollmapping.id")
+            ->join('members', 'roll.member_id', '=', 'members.id')
+            ->where('rollmapping.roll_month','=', $rollmonth)
+            ->where('roll.status', '!=', 'A')
+            ->wherebetween('members.rank', [14,18])
+            ->where('rollmapping.roll_week', '=', 5)
+            ->get();
+        
+        $cadetwk1 = DB::table('roll')
+            ->join('rollmapping', "roll.roll_id", "=", "rollmapping.id")
+            ->join('members', 'roll.member_id', '=', 'members.id')
+            ->where('rollmapping.roll_month','=', $rollmonth)
+            ->where('roll.status', '!=', 'A')
+            ->where('members.rank', '>', 18)
+            ->where('rollmapping.roll_week', '=', 1)
+            ->get();
+
+        $cadetwk2 = DB::table('roll')
+            ->join('rollmapping', "roll.roll_id", "=", "rollmapping.id")
+            ->join('members', 'roll.member_id', '=', 'members.id')
+            ->where('rollmapping.roll_month','=', $rollmonth)
+            ->where('roll.status', '!=', 'A')
+            ->where('members.rank', '>', 18)
+            ->where('rollmapping.roll_week', '=', 2)
+            ->get();
+
+        $cadetwk3 = DB::table('roll')
+            ->join('rollmapping', "roll.roll_id", "=", "rollmapping.id")
+            ->join('members', 'roll.member_id', '=', 'members.id')
+            ->where('rollmapping.roll_month','=', $rollmonth)
+            ->where('roll.status', '!=', 'A')
+            ->where('members.rank', '>', 18)
+            ->where('rollmapping.roll_week', '=', 3)
+            ->get();
+
+        $cadetwk4 = DB::table('roll')
+            ->join('rollmapping', "roll.roll_id", "=", "rollmapping.id")
+            ->join('members', 'roll.member_id', '=', 'members.id')
+            ->where('rollmapping.roll_month','=', $rollmonth)
+            ->where('roll.status', '!=', 'A')
+            ->where('members.rank', '>', 18)
+            ->where('rollmapping.roll_week', '=', 4)
+            ->get();
+
+        $cadetwk5 = DB::table('roll')
+            ->join('rollmapping', "roll.roll_id", "=", "rollmapping.id")
+            ->join('members', 'roll.member_id', '=', 'members.id')
+            ->where('rollmapping.roll_month','=', $rollmonth)
+            ->where('roll.status', '!=', 'A')
+            ->where('members.rank', '>', 18)
+            ->where('rollmapping.roll_week', '=', 5)
+            ->get();
+        
+    return view('form19.index', compact('officerwk1', 'officerwk2', 'officerwk3','officerwk4','officerwk5', 'towk1', 'towk2', 'towk3', 'towk4', 'towk5', 'ncowk1', 'ncowk2', 'ncowk3', 'ncowk4', 'ncowk5', 'cadetwk1', 'cadetwk2', 'cadetwk3', 'cadetwk4', 'cadetwk5'));
     }
 
     /**

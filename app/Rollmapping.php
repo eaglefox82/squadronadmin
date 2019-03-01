@@ -16,6 +16,6 @@ class Rollmapping extends Model
 
     public function roll()
     {
-        return $this->hasMany('App\Roll');
+        return $this->belongsTo('App\Roll');
     }
 }

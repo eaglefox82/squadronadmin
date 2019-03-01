@@ -28,5 +28,3 @@ Route::get('/roll/voucher/{id}', 'RollController@voucher')->middleware('auth');
 Route::get('/roll/notpaid/{id}', 'RollController@notpaid')->middleware('auth');
 Route::get('/activekids/complete/{id}', 'ActiveKidsController@complete')->middleware('auth');
 Route::get('/members/updateroll/{id}', 'RollController@updateRoll')->middleware('auth');
-
- 
