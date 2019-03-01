@@ -203,8 +203,87 @@ class Form19Controller extends Controller
             ->where('members.rank', '>', 18)
             ->where('rollmapping.roll_week', '=', 5)
             ->get();
+
+        $totalofficer = DB::table('roll')
+            ->join('rollmapping', "roll.roll_id", "=", "rollmapping.id")
+            ->join('members', 'roll.member_id', '=', 'members.id')
+            ->where('rollmapping.roll_month','=', $rollmonth)
+            ->where('roll.status', '!=', 'A')
+            ->where('members.rank', '<', 12)
+            ->get();
         
-    return view('form19.index', compact('officerwk1', 'officerwk2', 'officerwk3','officerwk4','officerwk5', 'towk1', 'towk2', 'towk3', 'towk4', 'towk5', 'ncowk1', 'ncowk2', 'ncowk3', 'ncowk4', 'ncowk5', 'cadetwk1', 'cadetwk2', 'cadetwk3', 'cadetwk4', 'cadetwk5'));
+        $totalto = DB::table('roll')
+            ->join('rollmapping', "roll.roll_id", "=", "rollmapping.id")
+            ->join('members', 'roll.member_id', '=', 'members.id')
+            ->where('rollmapping.roll_month','=', $rollmonth)
+            ->where('roll.status', '!=', 'A')
+            ->wherebetween('members.rank', [12,13])
+            ->get();
+        
+        $totalnco = DB::table('roll')
+            ->join('rollmapping', "roll.roll_id", "=", "rollmapping.id")
+            ->join('members', 'roll.member_id', '=', 'members.id')
+            ->where('rollmapping.roll_month','=', $rollmonth)
+            ->where('roll.status', '!=', 'A')
+            ->wherebetween('members.rank', [14,18])
+            ->get();
+
+        $totalcadet = DB::table('roll')
+            ->join('rollmapping', "roll.roll_id", "=", "rollmapping.id")
+            ->join('members', 'roll.member_id', '=', 'members.id')
+            ->where('rollmapping.roll_month','=', $rollmonth)
+            ->where('roll.status', '!=', 'A')
+            ->where('members.rank', '>', 18)
+            ->get();
+
+        $totalwk1 = DB::table('roll')
+            ->join('rollmapping', "roll.roll_id", "=", "rollmapping.id")
+            ->join('members', 'roll.member_id', '=', 'members.id')
+            ->where('rollmapping.roll_month','=', $rollmonth)
+            ->where('roll.status', '!=', 'A')
+            ->where('rollmapping.roll_week', '=', 1)
+            ->get();
+
+        $totalwk2 = DB::table('roll')
+            ->join('rollmapping', "roll.roll_id", "=", "rollmapping.id")
+            ->join('members', 'roll.member_id', '=', 'members.id')
+            ->where('rollmapping.roll_month','=', $rollmonth)
+            ->where('roll.status', '!=', 'A')
+            ->where('rollmapping.roll_week', '=', 2)
+            ->get();
+
+        $totalwk3 = DB::table('roll')
+            ->join('rollmapping', "roll.roll_id", "=", "rollmapping.id")
+            ->join('members', 'roll.member_id', '=', 'members.id')
+            ->where('rollmapping.roll_month','=', $rollmonth)
+            ->where('roll.status', '!=', 'A')
+            ->where('rollmapping.roll_week', '=', 3)
+            ->get();
+
+        $totalwk4 = DB::table('roll')
+            ->join('rollmapping', "roll.roll_id", "=", "rollmapping.id")
+            ->join('members', 'roll.member_id', '=', 'members.id')
+            ->where('rollmapping.roll_month','=', $rollmonth)
+            ->where('roll.status', '!=', 'A')
+            ->where('rollmapping.roll_week', '=', 4)
+            ->get();
+
+        $totalwk5 = DB::table('roll')
+            ->join('rollmapping', "roll.roll_id", "=", "rollmapping.id")
+            ->join('members', 'roll.member_id', '=', 'members.id')
+            ->where('rollmapping.roll_month','=', $rollmonth)
+            ->where('roll.status', '!=', 'A')
+            ->where('rollmapping.roll_week', '=', 5)
+            ->get();
+
+        $total = DB::table('roll')
+            ->join('rollmapping', "roll.roll_id", "=", "rollmapping.id")
+            ->join('members', 'roll.member_id', '=', 'members.id')
+            ->where('rollmapping.roll_month','=', $rollmonth)
+            ->where('roll.status', '!=', 'A')
+            ->get();
+        
+    return view('form19.index', compact('officerwk1', 'officerwk2', 'officerwk3','officerwk4','officerwk5', 'towk1', 'towk2', 'towk3', 'towk4', 'towk5', 'ncowk1', 'ncowk2', 'ncowk3', 'ncowk4', 'ncowk5', 'cadetwk1', 'cadetwk2', 'cadetwk3', 'cadetwk4', 'cadetwk5', 'totalofficer', 'totalto', 'totalnco', 'totalcadet', 'totalwk1', 'totalwk2', 'totalwk3', 'totalwk4', 'totalwk5', 'total'));
     }
 
     /**
