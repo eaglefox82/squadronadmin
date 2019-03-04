@@ -99,7 +99,7 @@
                 </li>
 
                 <li class="nav-item ">
-                   <a class="nav-link" href="{{action('SettingsController@index')}}">
+                   <a class="nav-link" href="{{action('Form19Controller@index')}}">
                        <i class="fa fa-pied-piper"></i>
                         <p>Form 19</p>
                    </a>

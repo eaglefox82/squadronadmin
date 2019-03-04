@@ -3,6 +3,7 @@
 namespace App;
 use Carbon\Carbon;
 use App\Activekids;
+use App\Roll;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -50,5 +51,15 @@ class Member extends Model
     {
         return $this->roll()->where('status', '=', 'P');
     }
+
+    public function rollstatus()
+    {
+        $rollid = Rollmapping::latest()->value('id');
+        return $this->hasOne('App\Roll')
+                ->where('roll_id', '=', $rollid)
+                ->join('rollstatus', 'rollstatus.status_id', '=', 'roll.status')
+                ->select('rollstatus.status as rstatus', 'roll.id as rollid');
+    }
+
 
 }

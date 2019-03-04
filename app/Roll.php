@@ -3,6 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\ActiveKids;
+use App\Rollmapping;
+use App\Member;
 
 class Roll extends Model
 {
@@ -32,6 +35,13 @@ class Roll extends Model
     {
         return $this->hasOne('App\Rollmapping');
     }
+
+    public function Activekids()
+    {
+        return $this->hasMany('App\ActiveKids', 'member_id', 'member_id');
+    }
+
+
 
 }
 

@@ -18,16 +18,17 @@
                     <div class="table-responsive">
                         <table class="table" id="roll">
                             <thead>
-                            <h4> Roll Date: {{date("l - jS F Y",strtotime($rolldate))}} </h4>
+                            <h4> Roll Date: {{date("l - jS F Y",strtotime($rolldate))}}</h4>
                                 <tr>
                                     <th width="20%"></th>    
                                     <th class="text-center">Member</th>
                                     <th width = "20%" class="text-center">Rank</th>
                                     <th class="text-center">Present</th>
+                                    <th class="text-center">Voucher Balance</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            @foreach($currentroll as $r)
+                            @foreach($member as $r)
                                 <tr>
                                     <td class="text-center">
                                         <a href="{{action('RollController@paid', $r->id)}}" title="Paid" class="btn btn-success"><i class="material-icons">done</i></a>
@@ -35,8 +36,10 @@
                                         <a href="{{action('RollController@notpaid', $r->id)}}" title="Paid" class="btn btn-danger"><i class="material-icons">close</i></a>
                                     </td>
                                     <td class="text-center">{{$r->last_name}}, {{$r->first_name}} </td>
-                                    <td class="text-center">{{$r->rank}}</td>
-                                    <td class="text-center">{{$r->status}}</td>
+                                    <td class="text-center">{{$r->memberrank->rank}}</td>
+                                    <td class="text-center">{{$r->rollstatus->rstatus}}</td>
+                                    <td class="text-center">${{$r->ActiveKids->sum('balance')}}</td>
+                                    <td class="text-centre">{{$r->rollstatus->rollid}}</td>
                                 </tr>
                             @endforeach
                             </tbody>

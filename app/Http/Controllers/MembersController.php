@@ -12,6 +12,7 @@ use App\Member;
 use App\Roll;
 use App\ActiveKids;
 use Carbon\Carbon;
+use App\Rollmapping;
 
 class MembersController extends Controller
 {
@@ -67,11 +68,20 @@ class MembersController extends Controller
      }
 
         //Create Member
+        if(Carbon::parse(date('Y-m-d',strtotime($request->get('dob'))))->DiffInYears(Carbon::now())<12)  {
+           
+            $rank = 20;
+        }
+        else{
+            
+            $rank = 19;
+        }
+
         $e = new Member();
         $e->membership_number = $request->get('membership');
         $e->first_name = $request->get('firstname');
         $e->last_name = $request->get('lastname');
-        $e->rank = "";
+        $e->rank = $rank;
         $e->date_joined = $request->get('doj');
         $e->date_birth = $request->get('dob');
         $e->active= "Y";
@@ -89,11 +99,14 @@ class MembersController extends Controller
     public function show($id)
     {
         //
-      $member = Member::find($id);
+      
+       $member = Member::find($id);
 
       if ($member !=null)
       {
        ActiveKids::orderby('id', 'desc')->get();
+
+
         return view('members.show', compact('member'));
       }
 

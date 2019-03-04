@@ -28,6 +28,8 @@ class RollController extends Controller
     $rollid = Rollmapping::latest()->value('id');
     $rolldate = Rollmapping::latest()->value('roll_date');
 
+    $member = Member::orderBy('id')->get();
+
     $currentroll = DB::table('roll')
                     ->join('members', 'members.id', '=', 'roll.member_id')
                     ->join('rankmappings', 'members.rank', '=', 'rankmappings.id' )
@@ -38,7 +40,7 @@ class RollController extends Controller
                     ->orderby ('rankmappings.id')
                     ->get();
 
-        return view('roll.index', compact('currentroll', 'rolldate'));
+        return view('roll.index', compact('member', 'currentroll', 'rolldate','activekidsbalance'));
     }
 
     /**
@@ -143,7 +145,7 @@ class RollController extends Controller
     public function paid($id)
     {
     
-        $r = Roll::find($id);
+        $r = Roll::find($id)->where(roll_id);
 
         if ($r != null)
      {
@@ -177,7 +179,6 @@ class RollController extends Controller
         $voucher->save();
 
 
-         return redirect(action('RollController@index'))->with ('success', 'Member Paid with Vocuher');
      }
      return redirect(action('RollController@index'));    
     }

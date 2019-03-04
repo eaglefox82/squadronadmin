@@ -18,4 +18,9 @@ class Rollmapping extends Model
     {
         return $this->belongsTo('App\Roll');
     }
+
+    public function totalweeks()
+    {
+        return $this->rollmappiong();
+    }
 }
