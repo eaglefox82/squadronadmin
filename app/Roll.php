@@ -16,15 +16,10 @@ class Roll extends Model
 
     protected $table = 'Roll';
 
-   public function Status()
+   public function rollstatus()
    {
-       return $this->hasOne('App\RollStatus','status_id', 'Status');
+       return $this->hasOne('App\RollStatus','status_id', 'status');
    }
-
-   public function Rollid()
-    {
-        return $this->hasMany('App\Rollmapping','roll_id', 'id');
-    }
 
     public function member()
     {

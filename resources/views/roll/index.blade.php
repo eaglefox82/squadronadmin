@@ -35,11 +35,10 @@
                                         <a href="{{action('RollController@voucher', $r->id)}}"  title="Voucher" class="btn btn-info"><i class ="material-icons">local_activity</i></a>
                                         <a href="{{action('RollController@notpaid', $r->id)}}" title="Paid" class="btn btn-danger"><i class="material-icons">close</i></a>
                                     </td>
-                                    <td class="text-center">{{$r->last_name}}, {{$r->first_name}} </td>
-                                    <td class="text-center">{{$r->memberrank->rank}}</td>
-                                    <td class="text-center">{{$r->rollstatus->rstatus}}</td>
+                                    <td class="text-center">{{$r->member->last_name}}, {{$r->member->first_name}} </td>
+                                    <td class="text-center">{{$r->member->memberrank->rank}}</td>
+                                    <td class="text-center">{{$r->rollstatus->status}}</td>
                                     <td class="text-center">${{$r->ActiveKids->sum('balance')}}</td>
-                                    <td class="text-centre">{{$r->rollstatus->rollid}}</td>
                                 </tr>
                             @endforeach
                             </tbody>

@@ -28,19 +28,9 @@ class RollController extends Controller
     $rollid = Rollmapping::latest()->value('id');
     $rolldate = Rollmapping::latest()->value('roll_date');
 
-    $member = Member::orderBy('id')->get();
+    $member = Roll::where('roll_id','=', $rollid)->orderBy('id')->get();
 
-    $currentroll = DB::table('roll')
-                    ->join('members', 'members.id', '=', 'roll.member_id')
-                    ->join('rankmappings', 'members.rank', '=', 'rankmappings.id' )
-                    ->join('rollstatus', 'roll.status', '=', 'status_id')
-                    ->Select('members.*', 'roll.roll_id', 'rankmappings.*', 'rollstatus.status', 'roll.id')
-                    ->where('roll.roll_id', '=', $rollid)
-                    ->orderby('roll.status')
-                    ->orderby ('rankmappings.id')
-                    ->get();
-
-        return view('roll.index', compact('member', 'currentroll', 'rolldate','activekidsbalance'));
+        return view('roll.index', compact('member', 'rolldate'));
     }
 
     /**
@@ -145,7 +135,7 @@ class RollController extends Controller
     public function paid($id)
     {
     
-        $r = Roll::find($id)->where(roll_id);
+        $r = Roll::find($id);
 
         if ($r != null)
      {
