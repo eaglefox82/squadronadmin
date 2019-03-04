@@ -2,6 +2,7 @@
 
 namespace App;
 
+use function foo\func;
 use Illuminate\Database\Eloquent\Model;
 
 class Rollmapping extends Model
@@ -16,11 +17,53 @@ class Rollmapping extends Model
 
     public function roll()
     {
-        return $this->belongsTo('App\Roll');
+        return $this->hasMany('App\Roll', 'roll_id', 'id');
     }
 
     public function totalweeks()
     {
-        return $this->rollmappiong();
+        return $this->rollmapping();
+    }
+
+    public function officercount()
+    {
+        return $this->roll()->where('status', '!=', 'A')
+            ->whereHas('member', function($q){
+                $q->where('rank', '<=', 11);
+            })
+            ->count();
+    }
+
+    public function tocount()
+    {
+        return $this->roll()->where('status', '!=', 'A')
+            ->whereHas('member', function($q){
+                $q->where('rank', [12,13]);
+            })
+            ->count();
+    }
+
+    public function ncocount()
+    {
+        return $this->roll()->where('status', '!=', 'A')
+            ->whereHas('member', function($q){
+                $q->where('rank', '>=', 14)->where('rank', '<=', 18);
+            })
+            ->count();
+    }
+
+    public function cadetcount()
+    {
+        return $this->roll()->where('status', '!=', 'A')
+            ->whereHas('member', function($q){
+                $q->where('rank', '>', 18);
+            })
+            ->count();
+    }
+
+    public function total()
+    {
+        return $this->roll()->where('status', '!=', 'A')
+            ->count();
     }
 }

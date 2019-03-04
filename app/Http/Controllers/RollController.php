@@ -25,10 +25,10 @@ class RollController extends Controller
     public function index()
     {
         //
-    $rollid = Rollmapping::latest()->value('id');
-    $rolldate = Rollmapping::latest()->value('roll_date');
+        $rollid = Rollmapping::latest()->value('id');
+        $rolldate = Rollmapping::latest()->value('roll_date');
 
-    $member = Roll::where('roll_id','=', $rollid)->orderBy('id')->get();
+        $member = Roll::where('roll_id','=', $rollid)->orderBy('id')->get();
 
         return view('roll.index', compact('member', 'rolldate'));
     }
@@ -138,39 +138,47 @@ class RollController extends Controller
         $r = Roll::find($id);
 
         if ($r != null)
-     {
-        $r->status = "C";
-        $r->save();
+        {
+            $r->status = "C";
+            $r->save();
 
-         return redirect(action('RollController@index'))->with ('success', 'Member Paid');
-     }
+            return redirect(action('RollController@index'))->with ('success', 'Member Paid');
+        }
 
-     return redirect(action('RollController@index'));
-    
+        return redirect(action('RollController@index'));
     }
 
     public function voucher($id)
     {    
-               $r = Roll::find($id);
+        $r = Roll::find($id);
 
         if ($r != null)
-     {
-      
-        // Update Roll Status
-        $r->status = "V";
-        $r->save();
+        {
+            // Check if ActiveKids Balance is not less than 0
+            if ($r->member->ActiveKids->sum('balance') >= 10)
+            {
+                // Update Roll Status
+                $r->status = "V";
+                $r->save();
 
-        // Insert Record into ActiveKids Voucher
-       $voucher = new ActiveKids();
-        $voucher->member_id = $r->member_id;
-        $voucher->voucher_number = 'Weekly Subs';
-        $voucher->balance = -10;
-        $voucher->date_received = Carbon::now()->toDateString();
-        $voucher->save();
+                // Insert Record into ActiveKids Voucher
+                $voucher = new ActiveKids();
+                $voucher->member_id = $r->member_id;
+                $voucher->voucher_number = 'Weekly Subs';
+                $voucher->balance = -10;
+                $voucher->date_received = Carbon::now()->toDateString();
+                $voucher->save();
 
+                return redirect(action('RollController@index'))->with ('success', 'Member Paid with Active Kids');
+            }
+            else
+            {
+                //Not Enough money in the account
+                return redirect(action('RollController@index'))->with ('failure', 'Insufficient Active Kids Balance');
+            }
+        }
 
-     }
-     return redirect(action('RollController@index'));    
+        return redirect(action('RollController@index'));
     }
 
     public function notpaid($id)
@@ -178,13 +186,14 @@ class RollController extends Controller
         $r = Roll::find($id);
 
         if ($r != null)
-     {
-        $r->status = "P";
-        $r->save();
+        {
+            $r->status = "P";
+            $r->save();
 
-         return redirect(action('RollController@index'))->with ('success', 'Member Present');
-     }
-     return redirect(action('RollController@index'));    
+            return redirect(action('RollController@index'))->with ('success', 'Member Present');
+        }
+
+        return redirect(action('RollController@index'));
     }
 
     public function updateRoll($id)
@@ -192,13 +201,13 @@ class RollController extends Controller
         $o = Roll::find($id);
 
         if ($o != null)
-     {
-        $o->status = "C";
-        $o->save();
+        {
+            $o->status = "C";
+            $o->save();
 
-         return redirect(action('MembersController@show', $o->member_id))->with ('success', 'Member Present');
-     }
-     return redirect(action('MembersController@index'));    
+            return redirect(action('MembersController@show', $o->member_id))->with ('success', 'Member Present');
+        }
+
+        return redirect(action('MembersController@index'));
     }
-
 }
