@@ -24,11 +24,7 @@ class MembersController extends Controller
     public function index()
     {
         //
-        $members = DB::table('members')
-                ->join('rankmappings', 'members.rank', '=', 'rankmappings.id')
-                ->select('members.*', 'rankmappings.rank as memberrank')
-                ->orderby('rankmappings.id')
-                ->get();
+        $members = Member::all();
 
         return view('members.index', compact('members'));
     }

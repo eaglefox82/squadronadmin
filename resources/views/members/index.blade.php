@@ -33,7 +33,7 @@
                                     </td>
                                     <td class="text-center">{{$m->membership_number}}</td>
                                     <td class="text-center">{{$m->last_name}}, {{$m->first_name}}</td>
-                                    <td class="text-center">{{$m->memberrank}}</td>
+                                    <td class="text-center">{{$m->memberrank->rank}}</td>
                                 </tr>
                                     @endforeach
                                 </tbody>
