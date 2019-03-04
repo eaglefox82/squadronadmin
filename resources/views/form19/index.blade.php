@@ -136,7 +136,7 @@
                             <i class="fa fa-money fa-2x"></i>
                         </div>
                         <p class="card-category">Total Group Levies<br><br></p>
-                        <h3 class="card-title">${{number_format(($monthTotal*2.5),2)}}</h3>
+                        <h3 class="card-title">${{number_format(($monthTotal*$groupfee),2)}}</h3>
                         <div class="card-footer">
                         </div>
                     </div>
@@ -149,7 +149,7 @@
                             <i class="fa fa-money fa-2x"></i>
                         </div>
                         <p class="card-category">Total wing Levies<br><br></p>
-                        <h3 class="card-title">${{number_format(($monthTotal*0.15),2)}}</h3>
+                        <h3 class="card-title">${{number_format(($monthTotal*$wing),2)}}</h3>
                         <div class="card-footer">
                         </div>
                     </div>
@@ -162,7 +162,7 @@
                             <i class="fa fa-money fa-2x"></i>
                         </div>
                         <p class="card-category">Total Subs<br><br></p>
-                        <h3 class="card-title">${{number_format(($monthTotal*10),2)}}</h3>
+                        <h3 class="card-title">${{number_format(($monthTotal*$subs),2)}}</h3>
                         <div class="card-footer">
                         </div>
                     </div>

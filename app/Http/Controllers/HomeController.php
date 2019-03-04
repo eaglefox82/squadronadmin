@@ -55,15 +55,14 @@ class HomeController extends Controller
         $active=Activekids::all();
         $Roll=Roll::all();
         
-        $subsfee=DB::table('settings')
-                ->where('setting', '=', 'Weekly Fees')
-                ->get();
+        $subsfee=Settings::where('setting', '=', 'Weekly Fees')->value('value');
 
         $subs = DB::table('roll')
             ->where('roll.roll_id', '=', $activeroll)
             ->where('roll.status', '=', 'C')
-            ->get();
+            ->count();
 
+        $total = $subs*$subsfee;
 
             $officers = DB::table('roll')
             ->join('rollmapping', 'roll.roll_id' , '=', 'rollmapping.id' )
@@ -116,6 +115,6 @@ class HomeController extends Controller
             ->orderby ('rankmappings.id')
             ->get();
 
-        return view('home', compact ('members', 'active', 'currentroll', 'subs', 'officers', 'to', 'nco', 'cadet', 'rollweek'));
+        return view('home', compact ('members', 'active', 'currentroll', 'total', 'officers', 'to', 'nco', 'cadet', 'rollweek'));
     }
 }

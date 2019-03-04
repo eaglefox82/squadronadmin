@@ -148,7 +148,7 @@
                             <i class="fa fa-usd fa-2x"></i>
                         </div>
                         <p class="card-category">Subs Collected<br><br></p>
-                         <h3 class="card-title">${{$subs->count()*10}}</h3>
+                         <h3 class="card-title">${{$total}}</h3>
                         <a href="{{action('RollController@index')}}" class='card-link'>View Roll</a>
                         <div class="card-footer">
                         </div>

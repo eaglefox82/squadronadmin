@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use App\Rollmapping;
 use App\Roll;
 use App\Members;
+use App\Settings;
 
 class Form19Controller extends Controller
 {
@@ -39,7 +40,11 @@ class Form19Controller extends Controller
             $nightsInMonth++;
         }
 
-        return view('form19.index', compact('monthlyRoll', 'nightsInMonth'));
+        $groupfee =Settings::where('setting', '=', 'Group Fees')->value('value');
+        $subs =Settings::where('setting', '=', 'Weekly Fees')->value('value');
+        $wing =Settings::where('setting', '=', 'wing Fees')->value('value');
+
+        return view('form19.index', compact('monthlyRoll', 'nightsInMonth', 'groupfee', 'subs', 'wing'));
     }
 
     /**
