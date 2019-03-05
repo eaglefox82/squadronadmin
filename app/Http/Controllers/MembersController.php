@@ -13,6 +13,7 @@ use App\Roll;
 use App\ActiveKids;
 use Carbon\Carbon;
 use App\Rollmapping;
+use App\Rankmapping;
 
 class MembersController extends Controller
 {
@@ -24,7 +25,7 @@ class MembersController extends Controller
     public function index()
     {
         //
-        $members = Member::all();
+        $members = Member::where('active', '!=', 'N')->get();
 
         return view('members.index', compact('members'));
     }
@@ -118,6 +119,15 @@ class MembersController extends Controller
     public function edit($id)
     {
         //
+
+        $member = Member::find($id);
+        $rank = Rankmapping::get();
+
+        if ($member != null)
+        {
+            return view('members.edit', compact('member', 'rank'));
+        }
+        return redirect(action('MembersController@index'));
     }
 
     /**
@@ -130,6 +140,28 @@ class MembersController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $validateData = Validator::make($request->all(), [
+            'membernumber' => 'required',
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'rank' => 'required',
+            'type' => 'required',
+        ]);
+
+        if ($validateData->fails())
+        {
+            return Redirect::back()->withErrors($validateData)->withInput();
+        }
+
+        $member = Member::find($id);
+        $member->membership_number = $request->get('membernumber');
+        $member->first_name = $request->get('firstname');
+        $member->last_name = $request->get('lastname');
+        $member->Member_type = $request->get('type');
+        $member->rank = $request->get('rank');
+        $member->save();
+
+        return redirect(action('MembersController@show', $request->get('member')))->with('success', 'Member Details Updated');
     }
 
     /**
@@ -141,6 +173,20 @@ class MembersController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function inactive($id)
+    {
+        //
+        $member = Member::find($id);
+
+        if ($member != null)
+        {
+            $member->active = "N";
+            $member->save();
+
+            return redirect(action('MembersController@show', $member->id))->with('success', 'Member has been made inactive');
+        }
     }
 
     

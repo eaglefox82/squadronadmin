@@ -21,8 +21,15 @@
             <div class="card">
                 <div class="card-header card-header-icon card-header-rose">
                     <div class = "pull-left">
-                    <input type="text" name="search" id="search" class="form-control" placeholder="Search Roll Here"/>
-                    </div>                
+                        <form cclass="navbar-form">
+                            <span class="bmd-form-group">
+                                <div class="input-group no-border">
+                                    <button class = "btn btn-white btn-round btn-just-icon fa fa-search"></button>
+                                    <input type="text" name="search" id="search" class="form-control" placeholder="Search Roll Here"/>
+                                </div>
+                            </span>
+                        </form>
+                    </div>
                     <div class="pull-right new-button">
                         <a href="{{action('RollController@create')}}" class="btn btn-primary" title="Create New Roll"><i class="fa fa-plus fa-2x"></i>Create New Roll</a>
                     </div>

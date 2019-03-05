@@ -9,8 +9,15 @@
                         <h2 class="card-title text-center">Members</h2>
                     </div>
                     <div class="card-body">
-                        <div class="pull-left">
-                            <input type="text" name="search" id="search" class="form-control" placeholder= "Search Member here"/>
+                        <div class = "pull-left">
+                            <form cclass="navbar-form">
+                                <span class="bmd-form-group">
+                                    <div class="input-group no-border">
+                                        <button class = "btn btn-white btn-round btn-just-icon fa fa-search"></button>
+                                        <input type="text" name="search" id="search" class="form-control" placeholder="Search member Here"/>
+                                    </div>
+                                </span>
+                            </form>
                         </div>
                         <div class="pull-right new-button">
                             <a href="{{action('MembersController@create')}}" class="btn btn-primary" title="Add Member"><i

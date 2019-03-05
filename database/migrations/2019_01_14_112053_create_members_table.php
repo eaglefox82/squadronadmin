@@ -21,6 +21,7 @@ class CreateMembersTable extends Migration
             $table->string('rank');
             $table->date('date_joined');
             $table->date('date_birth');
+            $table->string('membertype');
             $table->string('active');
             $table->timestamps();
         });

@@ -3,12 +3,28 @@
 @section('content')
     <div class="container-fluid">
 
+        @if(session()->has('success'))
+            <div class="row">
+                <div class="col-12 alert alert-success" role="alert">
+                    <strong>{{session()->get('success')}}</strong>
+                </div>
+            </div>
+        @endif
+        @if(session()->has('failure'))
+            <div class="row">
+                <div class="col-12 alert alert-danger" role="alert">
+                    <strong>{{session()->get('failure')}}</strong>
+                </div>
+            </div>
+        @endif
+
         <div class="row">
             <div class = "col-sm-12">
                 <div class = "card">
                     <div class="card-header card-header-icon card-header-rose">
                             <div class="pull-right new-button">
-                                <a href="" class="btn btn-primary" title="Add Voucher"><i class="fa fa-plus fa-2x"></i> I don't work yet</a>
+                                <a href="{{action('MembersController@edit', $member->id)}}" class="btn btn-success" title="Edit Member"><i class="fa fa-pencil fa-2x"></i> Edit Member</a>
+                                <a href="{{action('MembersController@inactive', $member->id)}}" class="btn btn-danger" title = "Remove Member"><i class="fa fa-close fa-2x"></i>Remove Member</a>
                              </div>
                         <h4 class="card-title font-weight-bold">Member Details</h4>
                     </div>
