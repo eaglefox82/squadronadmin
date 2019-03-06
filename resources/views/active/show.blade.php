@@ -26,8 +26,6 @@
                                     <td class="text-center">{{$v->voucher_number}}</td>
                                     <td class="text-center">${{$v->balance}}</td>
                                     <td class="text-center">
-                                        <a href="" class="btn btn-info" title="Edit Voucher"><i class="fa fa-pencil"></i></a>
-                                        <button type="submit" class="btn btn-danger" title="Delete Voucher"><i class="fa fa-trash"></i></button>
                                         <a href="{{action('ActiveKidsController@complete', $v->id)}}" class="btn btn-success" title="Complete Voucher"><i class="fa fa-check"></i></a>
                                     </td>
                                 </tr>

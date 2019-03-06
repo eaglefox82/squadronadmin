@@ -3,7 +3,7 @@
 @section('content')
     <div class='container-fluid'>
         <div class = 'row'>
-            <div class="col-sm-12">
+            <div class="col-sm-6">
                 <div class="card">
                     <div class = "card-header card-header-rose card-header-text">
                         <div class = "card-text">
@@ -46,15 +46,15 @@
 
                         <div class = "row">
                             <label class = "col-sm-2 col-form-label">Date of Joining:</label>
-                            <div class = "col-sm-10">
-                                <input type = "date" class = "form-control" name="doj" value="{{Carbon\Carbon::now()->toDateString()}}">
+                            <div class = "col-sm-10 form-group">
+                                <input type = "text" class = "form-control datepicker" name="doj" value="{{Carbon\Carbon::now()->toDateString()}}">
                             </div>
                         </div>
 
                         <div class = "row">
                             <label class = "col-sm-2 col-form-label">Date of Birth:</label>
                             <div class = "col-sm-10">
-                                <input type = "date" class = "form-control" name="dob" value="{{Carbon\Carbon::now()->toDateString()}}">
+                                <input type = "text" class = "form-control datepicker" name="dob" value="{{Carbon\Carbon::now()->toDateString()}}">
                             </div>
                         </div>
 
@@ -76,4 +76,17 @@
         </div>
     </div>
 
+  @endsection
+
+  @section ('scripts')
+
+    <script>
+        $(document).ready(function() {
+          // initialise Datetimepicker and Sliders
+          md.initFormExtendedDatetimepickers();
+          if ($('.slider').length != 0) {
+            md.initSliders();
+          }
+        });
+      </script>
 @endsection

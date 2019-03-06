@@ -18,6 +18,14 @@
             </div>
         @endif
 
+        @if(session()->has('done'))
+            <div class="row">
+                <div class="col-12 alert alert-warning" role="alert">
+                    <strong>{{session()->get('done')}}</strong>
+                </div>
+            </div>
+        @endif
+
         <div class="row">
             <div class = "col-sm-12">
                 <div class = "card">
@@ -37,6 +45,8 @@
                                 <td style="border-top: 1px #ddd solid">{{$member->last_name}}</td>
                                 <th>Rank:</th>
                                 <td style="border-top: 1px #ddd solid">{{$member->memberrank->rank}}</td>
+                                <th></th>
+                                <td style="border-top: 1px #ddd solid"></td>
                             </tr>
                             <tr>
                                 <th>Age:</th>
@@ -45,6 +55,8 @@
                                 <td>{{date("d/m/Y",strtotime($member->date_joined))}}</td>
                                 <th>Service:</td>
                                 <td>{{number_format((float)$member->service)}} years</td>
+                                <th>Member Type:</th>
+                                <td>{{$member->member_type}}</td>
                             </tr>
                         </table>
                     </div>

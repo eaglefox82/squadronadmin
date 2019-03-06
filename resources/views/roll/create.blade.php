@@ -26,7 +26,7 @@
                         <div class = "row">
                             <label class = "col-sm-2 col-form-label">Roll Date</label>
                             <div class = "col-sm-10">
-                                <input type = "Date" class = "form-control datetimepicker" name="rolldate" value="{{Carbon\Carbon::now()->toDateString()}}">
+                                <input type = "text" class = "form-control datepicker" name="rolldate" value="{{Carbon\Carbon::now()}}">
                             </div>
                         </div>
 
@@ -48,4 +48,17 @@
         </div>
     </div>
 
+@endsection
+
+@section ('scripts')
+
+    <script>
+        $(document).ready(function() {
+          // initialise Datetimepicker and Sliders
+          md.initFormExtendedDatetimepickers();
+          if ($('.slider').length != 0) {
+            md.initSliders();
+          }
+        });
+      </script>
 @endsection

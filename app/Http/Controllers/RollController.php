@@ -53,7 +53,7 @@ class RollController extends Controller
     public function store(Request $request)
     {        
         $validateData = Validator::make($request->all(),[
-            'rolldate' => 'required|date'
+            'rolldate' => 'required'
         ]);
 
         if ($validateData ->fails())

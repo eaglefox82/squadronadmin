@@ -21,6 +21,7 @@ class CreateOtheritemsTable extends Migration
             $table->decimal('amount');
             $table->string('paid');
             $table->date('date');
+            $table->integer('roll_id');
             $table->timestamps();
         });
     }

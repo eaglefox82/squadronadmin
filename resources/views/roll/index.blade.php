@@ -38,7 +38,7 @@
     
                     <div class="table-responsive">
                         <table class="table" id="roll">
-                            <thead>
+                            <thead class = "text-primary">
                             <h4> Roll Date: {{date("l - jS F Y",strtotime($rolldate))}}</h4>
                                 <tr>
                                     <th width="20%"></th>    
@@ -61,7 +61,11 @@
                                     <td class="text-center">{{$r->member->last_name}}, {{$r->member->first_name}} </td>
                                     <td class="text-center">{{$r->member->memberrank->rank}}</td>
                                     <td class="text-center">{{$r->rollstatus->status}}</td>
-                                    <td class="text-center">${{$r->ActiveKids->sum('balance')}}</td>
+                                    @if ($r->ActiveKids->sum('balance') != 0)
+                                        <td class="text-center"><strong>${{$r->ActiveKids->sum('balance')}}</strong></td>                                                      
+                                    @else
+                                        <td style="border-top: 1px #ddd solid"></td>
+                                    @endif
                                 </tr>
                             @endforeach
                             </tbody>

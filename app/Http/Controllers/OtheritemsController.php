@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
-use App\Settings;
 use App\Otheritemmapping;
 use App\Otheritems;
 
-class SettingsController extends Controller
+
+class OtheritemsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,9 +19,6 @@ class SettingsController extends Controller
     public function index()
     {
         //
-        $settings = Settings::orderby('id')->get();
-        $otheritems = Otheritemmapping::all();
-        return view('settings.index', compact('settings', 'otheritems'));
     }
 
     /**
@@ -32,6 +29,7 @@ class SettingsController extends Controller
     public function create()
     {
         //
+        return view('settings.item');
     }
 
     /**
@@ -43,6 +41,20 @@ class SettingsController extends Controller
     public function store(Request $request)
     {
         //
+        $validateData = Validator::make($request->all(),[
+            'item' => 'required',
+        ]);
+        if ($validateData->fails())
+        {
+            return Redirect::back()->withErrors($validateData)->withInput();
+        }
+
+        $item = new Otheritemmapping();
+        $item->item = $request->get('item');
+        $item->active = "Y";
+        $item->save();
+
+        return Redirect(action('SettingsController@index'))->with('success','Item Added');
     }
 
     /**
@@ -65,13 +77,8 @@ class SettingsController extends Controller
     public function edit($id)
     {
         //
-        $setting = Settings::find($id);
 
-        if ($setting != null)
-        {
-            return view('settings.edit', compact('setting'));
-        }
-        return redirect(action('SettingContriller@index'));
+        
     }
 
     /**
@@ -84,22 +91,6 @@ class SettingsController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $validateData = Validator::make($request->all(), [
-            'setting' => 'required',
-            'value' => 'required',
-        ]);
-
-        if ($validateData->fails())
-        {
-            return Redirect::back()->withErrors($validateData)->withInput();
-        }
-
-        $setting = Settings::find($id);
-        $setting->setting = $request->get('setting');
-        $setting->value = $request->get('value');
-        $setting->save();
-
-        return redirect(action('SettingsController@index'))->with('sucess', 'Setting Updated');
     }
 
     /**

@@ -55,8 +55,8 @@ class MembersController extends Controller
          'membership' => 'required',
          'firstname' => 'required',
          'lastname' => 'required',
-         'doj' => 'required|date',
-         'dob' => 'required|date',
+         'doj' => 'required',
+         'dob' => 'required',
      ]);
 
      if ($validateData->fails())
@@ -79,8 +79,8 @@ class MembersController extends Controller
         $e->first_name = $request->get('firstname');
         $e->last_name = $request->get('lastname');
         $e->rank = $rank;
-        $e->date_joined = $request->get('doj');
-        $e->date_birth = $request->get('dob');
+        $e->date_joined = Carbon::parse($request->get('doj'));
+        $e->date_birth = Carbon::parse($request->get('dob'));
         $e->active= "Y";
         $e->save();
 
@@ -185,7 +185,7 @@ class MembersController extends Controller
             $member->active = "N";
             $member->save();
 
-            return redirect(action('MembersController@show', $member->id))->with('success', 'Member has been made inactive');
+            return redirect(action('MembersController@show', $member->id))->with('done', 'Member has been made inactive');
         }
     }
 
