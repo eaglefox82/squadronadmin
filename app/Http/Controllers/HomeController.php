@@ -51,7 +51,7 @@ class HomeController extends Controller
        ->orderby ('rankmappings.id')
        ->get();
        
-        $members=Member::all();
+        $members=Member::where('active', '=', 'Y')->get();
         $active=Activekids::all();
         $Roll=Roll::all();
         

@@ -55,7 +55,7 @@
                                         @if ($r->status == 'A')
                                         <a href="{{action('RollController@paid', $r->id)}}" title="Paid" class="btn btn-success"><i class="material-icons">done</i></a>
                                         <a href="{{action('RollController@voucher', $r->id)}}"  title="Voucher" class="btn btn-info"><i class ="material-icons">local_activity</i></a>
-                                        <a href="{{action('RollController@notpaid', $r->id)}}" title="Paid" class="btn btn-danger"><i class="material-icons">close</i></a>
+                                        <a href="{{action('RollController@notpaid', $r->id)}}" title="Not Paid" class="btn btn-danger"><i class="material-icons">close</i></a>
                                         @endif
                                     </td>
                                     <td class="text-center">{{$r->member->last_name}}, {{$r->member->first_name}} </td>

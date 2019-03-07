@@ -64,7 +64,7 @@ class RollController extends Controller
         //Create Rollmapping
         $date = Carbon::parse($request->get('rolldate'))->format('Y-m-d');
         $e = new Rollmapping();
-        $e->roll_date = $request->get('rolldate');
+        $e->roll_date = Carbon::parse($request->get('rolldate'));
         $e->roll_year = Carbon::parse($date)->year;
         $e->roll_month = Carbon::parse($date)->month;
         $e->roll_week = Carbon::parse($date)->weekNumberInMonth;
@@ -73,7 +73,7 @@ class RollController extends Controller
         //create Roll
         $rollid = Rollmapping::latest()->value('id');
 
-        $members = Member::all();
+        $members = Member::where('active', '=', 'Y')->Where('member_type', '=', 'League')->get();
        
             foreach ($members as $m)
             {
