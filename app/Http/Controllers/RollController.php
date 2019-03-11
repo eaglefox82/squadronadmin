@@ -28,7 +28,7 @@ class RollController extends Controller
         $rollid = Rollmapping::latest()->value('id');
         $rolldate = Rollmapping::latest()->value('roll_date');
 
-        $member = Roll::where('roll_id','=', $rollid)->orderBy('status')->get();
+        $member = Roll::where('roll_id','=', $rollid)->orderBy('status', 'asc')->get();
 
         return view('roll.index', compact('member', 'rolldate'));
     }
@@ -73,7 +73,7 @@ class RollController extends Controller
         //create Roll
         $rollid = Rollmapping::latest()->value('id');
 
-        $members = Member::where('active', '=', 'Y')->Where('member_type', '=', 'League')->get();
+        $members = Member::where('active', '=', 'Y')->Where('member_type', '=', 'League')->orderBy('rank','asc')->get();
        
             foreach ($members as $m)
             {

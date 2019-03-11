@@ -38,7 +38,7 @@ class Rollmapping extends Model
     {
         return $this->roll()->where('status', '!=', 'A')
             ->whereHas('member', function($q){
-                $q->where('rank', [12,13]);
+                $q->whereBetween('rank', [12,13]);
             })
             ->count();
     }
