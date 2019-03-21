@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Settings;
 use App\Otheritemmapping;
 use App\Otheritems;
+use Alert;
 
 class SettingsController extends Controller
 {
@@ -98,6 +99,8 @@ class SettingsController extends Controller
         $setting->setting = $request->get('setting');
         $setting->value = $request->get('value');
         $setting->save();
+
+        Alert::toast('Setting Updated', 'success', 'top');
 
         return redirect(action('SettingsController@index'))->with('sucess', 'Setting Updated');
     }

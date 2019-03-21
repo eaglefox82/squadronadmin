@@ -16,9 +16,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"/>
 
 
+
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/material-dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('css/circle.css') }}">
+    <!--<link rel="stylesheet" href="{{ asset('css/sweetalert.css')}}"> -->
 </head>
 <body class="">
 <div class="wrapper">
@@ -111,7 +113,7 @@
                         <p> Settings</p>
                    </a>
                 </li>
-                   
+
 
                 {{--<li class="nav-item ">--}}
                     {{--<a class="nav-link" data-toggle="collapse" href="#pagesExamples">--}}
@@ -241,13 +243,19 @@
 <!--  DataTables.net Plugin, full documentation here: https://datatables.net/    -->
 <script src="{{ asset('js/plugins/jquery.datatables.js') }}"></script>
 <!-- Sweet Alert 2 plugin, full documentation here: https://limonte.github.io/sweetalert2/ -->
-<script src="{{ asset('js/plugins/sweetalert2.js') }}"></script>
+<!--<script src="{{ asset('js/plugins/sweetalert2.js') }}"></script>-->
 <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
 <script src="{{ asset('js/plugins/jasny-bootstrap.min.js') }}"></script>
 <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
 <script src="{{ asset('js/plugins/fullcalendar.min.js') }}"></script>
 
+<!--Sweet Alerts-->
+<script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
+
+@include('sweetalert::alert')
+
 
 @yield('scripts')
+
 
 </html>
