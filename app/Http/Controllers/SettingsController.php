@@ -99,7 +99,7 @@ class SettingsController extends Controller
         $setting->setting = $request->get('setting');
         $setting->value = $request->get('value');
         $setting->save();
-
+        /** Sweet Alert */
         Alert::toast('Setting Updated', 'success', 'top');
 
         return redirect(action('SettingsController@index'))->with('sucess', 'Setting Updated');
