@@ -175,7 +175,7 @@
                             <i class="fa fa-group fa-2x"></i>
                         </div>
                         <p class="card-category">Avg Attendance<br><br></p>
-                        <h3 class="card-title">{{$total/$weeksinmonth}}</h3>
+                        <h3 class="card-title">{{number_format(($total/$weeksinmonth),2)}}</h3>
                         <div class="card-footer">
                         </div>
                     </div>
