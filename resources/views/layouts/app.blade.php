@@ -175,8 +175,8 @@
                     <span class="navbar-toggler-icon icon-bar"></span>
                 </button>
                 <h3 class = "text-center">Australian Air League Moorebank Squadron Admin System</h3>
-                <h3>
-                    <?php echo date('l - jS F Y'); ?>
+                <h3 class = "text-right">
+
                 </h3>
             </div>
         </nav>

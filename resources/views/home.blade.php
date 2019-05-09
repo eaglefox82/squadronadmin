@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Dashboard</div> 
+                <div class="card-header">Welcome {{ Auth::user()->firstname }}, <br></br>today's date: <?php echo date('l - jS F Y'); ?></div>
                         <div class="card-body">
                             @if (session('status'))
                                 <div class="alert alert-success" role="alert">
@@ -13,7 +13,7 @@
                                 </div>
                             @endif
 
-                            Welcome {{ Auth::user()->firstname }}
+                           Dashbaord with the details for tonight
                         </div>
                 </div>
             </div>
@@ -84,7 +84,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-header card-header-primary card-header-icon">
