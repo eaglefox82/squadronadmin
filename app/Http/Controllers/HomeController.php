@@ -36,81 +36,81 @@ class HomeController extends Controller
     {
 
         $rollweek = Carbon::now()->weekNumberInMonth;
-        
-       
+
+
        $activeroll = Rollmapping::latest()->value('id');
 
-       $currentroll = DB::table('roll')
-       ->join('rollmapping', 'roll.roll_id' , '=', 'rollmapping.id' )
-       ->join('members', 'members.id', '=', 'roll.member_id')
+       $currentroll = DB::table('rolls')
+       ->join('rollmappings', 'rolls.roll_id' , '=', 'rollmappings.id' )
+       ->join('members', 'members.id', '=', 'rolls.member_id')
        ->join('rankmappings', 'members.rank', '=', 'rankmappings.id' )
-       ->join('rollstatus', 'roll.status', '=', 'status_id')
-       ->Select('members.*', 'roll.roll_id', 'rankmappings.*', 'rollstatus.status', 'roll.status')
-       ->where('roll.roll_id', '=', $activeroll)
-       ->where('roll.status', '!=', 'A')
+       ->join('rollstatus', 'rolls.status', '=', 'status_id')
+       ->Select('members.*', 'rolls.roll_id', 'rankmappings.*', 'rollstatus.status', 'rolls.status')
+       ->where('rolls.roll_id', '=', $activeroll)
+       ->where('rolls.status', '!=', 'A')
        ->orderby ('rankmappings.id')
        ->get();
-       
+
         $members=Member::where('active', '=', 'Y')->get();
         $active=Activekids::all();
         $Roll=Roll::all();
-        
+
         $subsfee=Settings::where('setting', '=', 'Weekly Fees')->value('value');
 
-        $subs = DB::table('roll')
-            ->where('roll.roll_id', '=', $activeroll)
-            ->where('roll.status', '=', 'C')
+        $subs = DB::table('rolls')
+            ->where('rolls.roll_id', '=', $activeroll)
+            ->where('rolls.status', '=', 'C')
             ->count();
 
         $total = $subs*$subsfee;
 
-            $officers = DB::table('roll')
-            ->join('rollmapping', 'roll.roll_id' , '=', 'rollmapping.id' )
-            ->join('members', 'members.id', '=', 'roll.member_id')
+            $officers = DB::table('rolls')
+            ->join('rollmappings', 'rolls.roll_id' , '=', 'rollmappings.id' )
+            ->join('members', 'members.id', '=', 'rolls.member_id')
             ->join('rankmappings', 'members.rank', '=', 'rankmappings.id' )
-            ->join('rollstatus', 'roll.status', '=', 'status_id')
-            ->Select('members.*', 'roll.roll_id', 'rankmappings.*', 'rollstatus.status', 'roll.status')
-            ->where('roll.roll_id', '=', $activeroll)
-            ->where('roll.status', '!=', 'A')
+            ->join('rollstatus', 'rolls.status', '=', 'status_id')
+            ->Select('members.*', 'rolls.roll_id', 'rankmappings.*', 'rollstatus.status', 'rolls.status')
+            ->where('rolls.roll_id', '=', $activeroll)
+            ->where('rolls.status', '!=', 'A')
             ->where('members.rank', '<', 12 )
             ->orderby ('rankmappings.id')
             ->get();
 
 
-            $to = DB::table('roll')
-            ->join('rollmapping', 'roll.roll_id' , '=', 'rollmapping.id' )
-            ->join('members', 'members.id', '=', 'roll.member_id')
+            $to = DB::table('rolls')
+            ->join('rollmappings', 'rolls.roll_id' , '=', 'rollmappings.id' )
+            ->join('members', 'members.id', '=', 'rolls.member_id')
             ->join('rankmappings', 'members.rank', '=', 'rankmappings.id' )
-            ->join('rollstatus', 'roll.status', '=', 'status_id')
-            ->Select('members.*', 'roll.roll_id', 'rankmappings.*', 'rollstatus.status', 'roll.status')
-            ->where('roll.roll_id', '=', $activeroll)
-            ->where('roll.status', '!=', 'A')
+            ->join('rollstatus', 'rolls.status', '=', 'status_id')
+            ->Select('members.*', 'rolls.roll_id', 'rankmappings.*', 'rollstatus.status', 'rolls.status')
+            ->where('rolls.roll_id', '=', $activeroll)
+            ->where('rolls.status', '!=', 'A')
             ->whereBetween('members.rank', [12,13])
             ->orderby ('rankmappings.id')
             ->get();
 
 
-            $nco = DB::table('roll')
-            ->join('rollmapping', 'roll.roll_id' , '=', 'rollmapping.id' )
-            ->join('members', 'members.id', '=', 'roll.member_id')
+            $nco = DB::table('rolls')
+            ->join('rollmappings', 'rolls.roll_id' , '=', 'rollmappings.id' )
+            ->join('members', 'members.id', '=', 'rolls.member_id')
             ->join('rankmappings', 'members.rank', '=', 'rankmappings.id' )
-            ->join('rollstatus', 'roll.status', '=', 'status_id')
-            ->Select('members.*', 'roll.roll_id', 'rankmappings.*', 'rollstatus.status', 'roll.status')
-            ->where('roll.roll_id', '=', $activeroll)
-            ->where('roll.status', '!=', 'A')
+            ->join('rollstatus', 'rolls.status', '=', 'status_id')
+            ->Select('members.*', 'rolls.roll_id', 'rankmappings.*', 'rollstatus.status', 'rolls.status')
+            ->where('rolls.roll_id', '=', $activeroll)
+            ->where('rolls.status', '!=', 'A')
             ->whereBetween('members.rank', [14,18])
             ->orderby ('rankmappings.id')
             ->get();
 
 
-            $cadet = DB::table('roll')
-            ->join('rollmapping', 'roll.roll_id' , '=', 'rollmapping.id' )
-            ->join('members', 'members.id', '=', 'roll.member_id')
+            $cadet = DB::table('rolls')
+            ->join('rollmappings', 'rolls.roll_id' , '=', 'rollmappings.id' )
+            ->join('members', 'members.id', '=', 'rolls.member_id')
             ->join('rankmappings', 'members.rank', '=', 'rankmappings.id' )
-            ->join('rollstatus', 'roll.status', '=', 'status_id')
-            ->Select('members.*', 'roll.roll_id', 'rankmappings.*', 'rollstatus.status', 'roll.status')
-            ->where('roll.roll_id', '=', $activeroll)
-            ->where('roll.status', '!=', 'A')
+            ->join('rollstatus', 'rolls.status', '=', 'status_id')
+            ->Select('members.*', 'rolls.roll_id', 'rankmappings.*', 'rollstatus.status', 'rolls.status')
+            ->where('rolls.roll_id', '=', $activeroll)
+            ->where('rolls.status', '!=', 'A')
             ->where('members.rank', '>', 18 )
             ->orderby ('rankmappings.id')
             ->get();

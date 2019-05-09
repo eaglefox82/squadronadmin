@@ -14,7 +14,6 @@ class Roll extends Model
         'id', 'roll_id', 'member_id', 'status'
     ];
 
-    protected $table = 'Roll';
 
    public function rollstatus()
    {
