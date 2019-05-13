@@ -27,7 +27,7 @@ class Roll extends Model
 
     public function rollmapping()
     {
-        return $this->hasOne('App\Rollmapping');
+        return $this->hasOne('App\Rollmapping', 'roll_id','id');
     }
 
     public function Activekids()
