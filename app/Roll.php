@@ -14,7 +14,6 @@ class Roll extends Model
         'id', 'roll_id', 'member_id', 'status'
     ];
 
-    protected $table = 'Roll';
 
    public function rollstatus()
    {
@@ -28,7 +27,7 @@ class Roll extends Model
 
     public function rollmapping()
     {
-        return $this->hasOne('App\Rollmapping');
+        return $this->hasOne('App\Rollmapping', 'roll_id','id');
     }
 
     public function Activekids()

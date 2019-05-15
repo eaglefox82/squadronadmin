@@ -28,7 +28,7 @@ class RollController extends Controller
         $rollid = Rollmapping::latest()->value('id');
         $rolldate = Rollmapping::latest()->value('roll_date');
 
-        $member = Roll::where('roll_id','=', $rollid)->orderBy('status', 'asc')->get();
+        $member = Roll::where('roll_id','=', $rollid)->orderBy('status', 'asc')->orderby('member_id','asc')->get();
 
         return view('roll.index', compact('member', 'rolldate'));
     }
@@ -51,7 +51,7 @@ class RollController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {        
+    {
         $validateData = Validator::make($request->all(),[
             'rolldate' => 'required'
         ]);
@@ -74,7 +74,7 @@ class RollController extends Controller
         $rollid = Rollmapping::latest()->value('id');
 
         $members = Member::where('active', '=', 'Y')->Where('member_type', '=', 'League')->orderBy('rank','asc')->get();
-       
+
             foreach ($members as $m)
             {
                 $r=new Roll;
@@ -83,8 +83,8 @@ class RollController extends Controller
                 $r->Status = 'A';
                 $r->save();
             }
-            
-        return redirect(action('RollController@index'))->with('success', 'Roll Added');
+
+       return redirect(action('RollController@index'))->with('success', 'Roll Added');
     }
 
     /**
@@ -134,7 +134,7 @@ class RollController extends Controller
 
     public function paid($id)
     {
-    
+
         $r = Roll::find($id);
 
         if ($r != null)
@@ -148,8 +148,10 @@ class RollController extends Controller
         return redirect(action('RollController@index'));
     }
 
+
+
     public function voucher($id)
-    {    
+    {
         $r = Roll::find($id);
 
         if ($r != null)
@@ -182,7 +184,7 @@ class RollController extends Controller
     }
 
     public function notpaid($id)
-    {    
+    {
         $r = Roll::find($id);
 
         if ($r != null)
