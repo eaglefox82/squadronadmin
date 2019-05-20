@@ -45,18 +45,18 @@
                                 <td style="border-top: 1px #ddd solid">{{$member->last_name}}</td>
                                 <th>Rank:</th>
                                 <td style="border-top: 1px #ddd solid">{{$member->memberrank->rank}}</td>
-                                <th></th>
-                                <td style="border-top: 1px #ddd solid"></td>
+                                <th>Membership:</th>
+                                <td style="border-top: 1px #ddd solid">{{$member->membership_number}}</td>
                             </tr>
                             <tr>
+                                <th>Date of Birth</th>
+                                <td>{{date("jS M Y",strtotime($member->date_birth))}}</td>
                                 <th>Age:</th>
                                 <td>{{$member->age}} years</td>
                                 <th>Date of Joining:</th>
-                                <td>{{date("d/m/Y",strtotime($member->date_joined))}}</td>
+                                <td>{{date("jS M Y",strtotime($member->date_joined))}}</td>
                                 <th>Service:</td>
                                 <td>{{number_format((float)$member->service)}} years</td>
-                                <th>Member Type:</th>
-                                <td>{{$member->member_type}}</td>
                             </tr>
                         </table>
                     </div>
@@ -68,9 +68,22 @@
 
 
         <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6">                
+                <div class = "card card-stats">
+                    <div class ="card-header card-header-info card-header-icon">
+                        <div class ="card-icon">
+                            <i class="fa fa-handshake-o fa-2x"></i>
+                        </div>
+                        <p class="card-category">Membership Type<br><br></p>
+                        <h3 class="card-title">{{$member->member_type}}</h3>
+                        <div class = "card-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="card card-stats">
+            <div class="col-lg-3 col-md-6 col-sm-6">                 
+                <div class="card card-stats">
                         <div class="card-header card-header-info card-header-icon">
                             <div class="card-icon">
                                 <i class="fa fa-user fa-2x"></i>

@@ -31,6 +31,7 @@
                                 <th width = "25%" class="text-center">Membership Number</th>
                                 <th width = "40%" class="text-center">Name</th>
                                 <th width = "25%" class="text-center">Rank</th>
+                                <th width = "20%" class="text-center">Voucher Balance</th>
                                 </thead>
                                 <tbody>
                                     @foreach($members as $m)
@@ -38,9 +39,19 @@
                                     <td class="text-center">
                                     <a href="{{action('MembersController@show', $m->id)}}" title="View" class="btn btn-success"><i class="fa fa-info"></i></a>
                                     </td>
-                                    <td class="text-center">{{$m->membership_number}}</td>
+                                    @if ($m->membership_number != "New")
+                                        <td class="text-center">{{$m->membership_number}}</td> 
+                                    @else
+                                        <td class="text-center" style="color:red"><strong>{{$m->membership_number}}</td>
+                                    @endif
+                                        
                                     <td class="text-center">{{$m->last_name}}, {{$m->first_name}}</td>
                                     <td class="text-center">{{$m->memberrank->rank}}</td>
+                                    @if ($m->ActiveKids->sum('balance') != 0)
+                                        <td class="text-center"><strong>${{number_format($m->ActiveKids->sum('balance'),2)}}</td>
+                                    @else
+                                        <td style="border-top: 1px #ddd solid"></td>
+                                    @endif
                                 </tr>
                                     @endforeach
                                 </tbody>
