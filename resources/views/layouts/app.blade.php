@@ -252,6 +252,9 @@
 <!--Sweet Alerts-->
 <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
 
+<!--Google Ajax -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 @include('sweetalert::alert')
 
 
