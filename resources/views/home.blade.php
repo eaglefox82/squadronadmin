@@ -155,6 +155,20 @@
                     </div>
                 </div>
             </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-warning card-header-icon">
+                        <div class="card-icon">
+                            <i class="fa fa-percent fa-2x"></i>
+                        </div>
+                        <p class="card-category">Yearly Sqn Attendance<br><br></p>
+                            <h3 class="card-title">{{number_format($avgattendance,2)}}%</h3>
+                            <div class="card-footer">
+                            </div>
+                    </div>
+                </div>
+            </div>
     </div>
 
 
