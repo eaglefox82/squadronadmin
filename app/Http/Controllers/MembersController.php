@@ -102,9 +102,19 @@ class MembersController extends Controller
       if ($member !=null)
       {
        ActiveKids::orderby('id', 'desc')->get();
+       
+       $count = Roll::whereHas('rollmapping', function ($query) {
+        $query->whereYear('roll_date', now()->year);
+        })
+        ->where('status', '!=', 'A')
+        ->where ('member_id', '=', $id)
+        ->count();
+
+        $weeks = Rollmapping::where('roll_year', now()->year)->count();
+        $attendance = ($count/$weeks)*100;
 
 
-        return view('members.show', compact('member'));
+        return view('members.show', compact('member', 'attendance'));
       }
 
       return redirect(action('MembersController@index'));

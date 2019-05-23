@@ -83,13 +83,13 @@
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link" href="{{action('RollController@index')}}">
-                        <i class="fa fa-plane"></i>
+                        <i class="fa fa-book"></i>
                         <p> Roll </p>
                     </a>
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link" href="{{action('ActiveKidsController@index')}}">
-                        <i class="fa fa-fighter-jet"></i>
+                        <i class="fa fa-ticket"></i>
                         <p> Active Kids </p>
                     </a>
                 </li>

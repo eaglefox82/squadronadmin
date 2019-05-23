@@ -60,6 +60,4 @@ class Member extends Model
                 ->join('rollstatus', 'rollstatus.status_id', '=', 'roll.status')
                 ->select('rollstatus.status as rstatus', 'roll.id as rollid');
     }
-
-
 }

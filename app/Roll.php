@@ -35,6 +35,11 @@ class Roll extends Model
         return $this->hasMany('App\ActiveKids', 'member_id', 'member_id');
     }
 
+    public function updateData($id, $data)
+    {
+        DB::table('roll')->where('id', $id)->update($data);
+    }
+
 }
 
 
