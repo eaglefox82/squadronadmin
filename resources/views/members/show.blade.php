@@ -50,11 +50,11 @@
                             </tr>
                             <tr>
                                 <th>Date of Birth</th>
-                                <td>{{date("jS M Y",strtotime($member->date_birth))}}</td>
+                                <td>{{date("jS F Y",strtotime($member->date_birth))}}</td>
                                 <th>Age:</th>
                                 <td>{{$member->age}} years</td>
                                 <th>Date of Joining:</th>
-                                <td>{{date("jS M Y",strtotime($member->date_joined))}}</td>
+                                <td>{{date("jS F Y",strtotime($member->date_joined))}}</td>
                                 <th>Service:</td>
                                 <td>{{number_format((float)$member->service)}} years</td>
                             </tr>
@@ -84,7 +84,11 @@
 
             <div class="col-lg-3 col-md-6 col-sm-6">                
                 <div class = "card card-stats">
+                    @if ($attendance > $attendancesetting)
                     <div class ="card-header card-header-success card-header-icon">
+                    @else
+                    <div class ="card-header card-header-danger card-header-icon">
+                    @endif
                         <div class ="card-icon">
                             <i class="fa fa-book fa-2x"></i>
                         </div>
@@ -112,7 +116,11 @@
 
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="card card-stats">
+                        @if ($member->outstanding->where('status','P')->count() != 0)
                         <div class="card-header card-header-danger card-header-icon">
+                        @else 
+                        <div class="card-header card-header-success card-header-icon">
+                        @endif
                             <div class="card-icon">
                                 <i class="fa fa-usd fa-2x"></i>
                             </div>
