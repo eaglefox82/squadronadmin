@@ -209,7 +209,7 @@ class RollController extends Controller
 
             Roll:updateData($id, $data);
 
-           /* return redirect(action('MembersController@show', $o->member_id))->with ('success', 'Member Present');*/
+           return redirect(action('MembersController@show', $o->member_id))->with ('success', 'Member Present');
         }
 
         return redirect(action('MembersController@index'));
