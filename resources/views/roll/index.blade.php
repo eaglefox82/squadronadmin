@@ -17,7 +17,7 @@
         </div>
     @endif
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-lg-12 col-sm-12">
             <div class="card">
                 <div class="card-header card-header-icon card-header-rose">
                     <div class = "pull-left">

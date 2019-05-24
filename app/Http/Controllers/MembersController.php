@@ -40,7 +40,9 @@ class MembersController extends Controller
     {
         //
 
-        return view('members.add');
+        $rank = Rankmapping::orderBy('id', 'desc')->get();
+
+        return view('members.add',compact('rank'));
     }
 
     /**
@@ -52,10 +54,12 @@ class MembersController extends Controller
     public function store(Request $request)
     {
         //
+
      $validateData  = Validator::make($request->all(), [
          'membership' => 'required',
          'firstname' => 'required',
          'lastname' => 'required',
+         'rank' => 'required',
          'doj' => 'required',
          'dob' => 'required',
      ]);
@@ -66,14 +70,14 @@ class MembersController extends Controller
      }
 
         //Create Member
-        if(Carbon::parse(date('Y-m-d',strtotime($request->get('dob'))))->DiffInYears(Carbon::now())<12)  {
+       /* if(Carbon::parse(date('Y-m-d',strtotime($request->get('dob'))))->DiffInYears(Carbon::now())<12)  {
            
             $rank = 20;
         }
         else{
             
             $rank = 19;
-        }
+        } */
 
         $e = new Member();
         $e->membership_number = $request->get('membership');
@@ -132,7 +136,7 @@ class MembersController extends Controller
         //
 
         $member = Member::find($id);
-        $rank = Rankmapping::get();
+        $rank = Rankmapping::orderBy('id','desc')->get();
 
         if ($member != null)
         {

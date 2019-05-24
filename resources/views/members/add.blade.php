@@ -45,6 +45,17 @@
                         </div>
 
                         <div class = "row">
+                            <label class = "col-sm-2 col-form-label">Rank</label>
+                            <div class = "col-sm-10">
+                                <select type="text" class = "selectpicker"  Data-style="select-with-transition" name="rank" data-size="6">
+                                    @foreach ($rank as $r)
+                                        <option value ={{$r->id}}>{{$r->rank}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class = "row">
                             <label class = "col-sm-2 col-form-label">Date of Joining:</label>
                             <div class = "col-sm-10 form-group">
                                 <input type = "text" class = "form-control datepicker" name="doj" value="{{Carbon\Carbon::now()->toDateString()}}">

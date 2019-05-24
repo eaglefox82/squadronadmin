@@ -123,7 +123,7 @@ class HomeController extends Controller
             $count2 = Roll::whereHas('rollmapping', function ($query) {
                 $query->whereYear('roll_date', now()->year);
                 })
-                ->where ('status', '=', 'A')
+                ->where ('status', '!=', 'A')
                 ->count();
 
             $avgattendance = ($count2/$count1) * 100;
