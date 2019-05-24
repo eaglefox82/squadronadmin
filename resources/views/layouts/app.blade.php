@@ -83,13 +83,13 @@
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link" href="{{action('RollController@index')}}">
-                        <i class="fa fa-plane"></i>
+                        <i class="fa fa-book"></i>
                         <p> Roll </p>
                     </a>
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link" href="{{action('ActiveKidsController@index')}}">
-                        <i class="fa fa-fighter-jet"></i>
+                        <i class="fa fa-ticket"></i>
                         <p> Active Kids </p>
                     </a>
                 </li>
@@ -251,6 +251,9 @@
 
 <!--Sweet Alerts-->
 <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
+
+<!--Google Ajax -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 @include('sweetalert::alert')
 

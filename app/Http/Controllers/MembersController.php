@@ -14,6 +14,7 @@ use App\ActiveKids;
 use Carbon\Carbon;
 use App\Rollmapping;
 use App\Rankmapping;
+use App\Settings;
 
 class MembersController extends Controller
 {
@@ -102,9 +103,19 @@ class MembersController extends Controller
       if ($member !=null)
       {
        ActiveKids::orderby('id', 'desc')->get();
+       
+       $count = Roll::whereHas('rollmapping', function ($query) {
+        $query->whereYear('roll_date', now()->year);
+        })
+        ->where('status', '!=', 'A')
+        ->where ('member_id', '=', $id)
+        ->count();
 
+        $weeks = Rollmapping::where('roll_year', now()->year)->count();
+        $attendance = ($count/$weeks)*100;
+        $attendancesetting = Settings::where('setting', 'Attendance')->value('value');
 
-        return view('members.show', compact('member'));
+        return view('members.show', compact('member', 'attendance', 'attendancesetting'));
       }
 
       return redirect(action('MembersController@index'));

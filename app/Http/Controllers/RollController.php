@@ -28,7 +28,7 @@ class RollController extends Controller
         $rollid = Rollmapping::latest()->value('id');
         $rolldate = Rollmapping::latest()->value('roll_date');
 
-        $member = Roll::where('roll_id','=', $rollid)->orderBy('status', 'asc')->orderby('member_id','asc')->get();
+        $member = Roll::where('roll_id','=', $rollid)->orderBy('status', 'asc')->orderby('member_id', 'asc')->get();
 
         return view('roll.index', compact('member', 'rolldate'));
     }
@@ -207,7 +207,9 @@ class RollController extends Controller
             $o->status = "C";
             $o->save();
 
-            return redirect(action('MembersController@show', $o->member_id))->with ('success', 'Member Present');
+            Roll:updateData($id, $data);
+
+           return redirect(action('MembersController@show', $o->member_id))->with ('success', 'Member Present');
         }
 
         return redirect(action('MembersController@index'));

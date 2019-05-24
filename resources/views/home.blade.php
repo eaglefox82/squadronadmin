@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Welcome {{ Auth::user()->firstname }}, <br></br>today's date: <?php echo date('l - jS F Y'); ?></div>
+                <div class="card-header">Welcome {{ Auth::user()->firstname }}, <br></br>Today's date: <?php echo date('l - jS F Y'); ?></div>
                         <div class="card-body">
                             @if (session('status'))
                                 <div class="alert alert-success" role="alert">
@@ -13,7 +13,7 @@
                                 </div>
                             @endif
 
-                           Dashbaord with the details for tonight
+                           This page contains information on Squadron
                         </div>
                 </div>
             </div>
@@ -76,7 +76,7 @@
                         <div class="card-icon">
                             <i class="fa fa-child fa-2x"></i>
                         </div>
-                        <p class="card-category">Active Kids<br><br></p>
+                        <p class="card-category">Active/Creative Kids<br><br></p>
                         <h3 class="card-title">{{$active->where('active','Y')->count()}}</h3>
                         <a href="{{action('ActiveKidsController@index')}}" class='card-link'>View Vouchers</a>
                         <div class="card-footer">
@@ -152,6 +152,20 @@
                         <a href="{{action('RollController@index')}}" class='card-link'>View Roll</a>
                         <div class="card-footer">
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-warning card-header-icon">
+                        <div class="card-icon">
+                            <i class="fa fa-percent fa-2x"></i>
+                        </div>
+                        <p class="card-category">Yearly Sqn Attendance<br><br></p>
+                            <h3 class="card-title">{{number_format($avgattendance,2)}}%</h3>
+                            <div class="card-footer">
+                            </div>
                     </div>
                 </div>
             </div>

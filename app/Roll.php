@@ -27,7 +27,7 @@ class Roll extends Model
 
     public function rollmapping()
     {
-        return $this->hasOne('App\Rollmapping', 'roll_id','id');
+        return $this->hasOne('App\Rollmapping', 'id','roll_id');
     }
 
     public function Activekids()
@@ -35,7 +35,10 @@ class Roll extends Model
         return $this->hasMany('App\ActiveKids', 'member_id', 'member_id');
     }
 
-
+    public function updateData($id, $data)
+    {
+        DB::table('roll')->where('id', $id)->update($data);
+    }
 
 }
 

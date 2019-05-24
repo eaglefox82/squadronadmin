@@ -115,6 +115,19 @@ class HomeController extends Controller
             ->orderby ('rankmappings.id')
             ->get();
 
-        return view('home', compact ('members', 'active', 'currentroll', 'total', 'officers', 'to', 'nco', 'cadet', 'rollweek'));
+
+            $count1 = Roll::whereHas('rollmapping', function ($query){
+                $query->whereYear('roll_date', now()->year);
+            })->count();
+
+            $count2 = Roll::whereHas('rollmapping', function ($query) {
+                $query->whereYear('roll_date', now()->year);
+                })
+                ->where ('status', '=', 'A')
+                ->count();
+
+            $avgattendance = ($count2/$count1) * 100;
+
+        return view('home', compact ('members', 'active', 'currentroll', 'total', 'officers', 'to', 'nco', 'cadet', 'rollweek', 'avgattendance'));
     }
 }
