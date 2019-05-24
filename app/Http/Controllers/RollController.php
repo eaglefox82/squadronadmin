@@ -207,8 +207,6 @@ class RollController extends Controller
             $o->status = "C";
             $o->save();
 
-            Roll:updateData($id, $data);
-
            return redirect(action('MembersController@show', $o->member_id))->with ('success', 'Member Present');
         }
 
