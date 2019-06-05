@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use Alert;
 
 use App\Member;
 use App\Roll;
@@ -41,7 +42,6 @@ class MembersController extends Controller
         //
 
         $rank = Rankmapping::orderBy('id', 'desc')->get();
-
         return view('members.add',compact('rank'));
     }
 
@@ -83,13 +83,14 @@ class MembersController extends Controller
         $e->membership_number = $request->get('membership');
         $e->first_name = $request->get('firstname');
         $e->last_name = $request->get('lastname');
-        $e->rank = $rank;
+        $e->rank = $request->get('rank');
         $e->date_joined = Carbon::parse($request->get('doj'));
         $e->date_birth = Carbon::parse($request->get('dob'));
         $e->active= "Y";
         $e->save();
-
-        return redirect(action('MembersController@index'))->with('success', 'Member Added');
+        
+        Alert::Success('New Member Added', 'New member has been created')->autoclose(2000);
+        return redirect(action('MembersController@index'));
     }
 
     /**
@@ -176,7 +177,8 @@ class MembersController extends Controller
         $member->rank = $request->get('rank');
         $member->save();
 
-        return redirect(action('MembersController@show', $request->get('member')))->with('success', 'Member Details Updated');
+        Alert::success('Member Updated', 'Members New Details have been recored')->autoclose(1500);
+        return redirect(action('MembersController@show', $request->get('member')));
     }
 
     /**
@@ -199,8 +201,9 @@ class MembersController extends Controller
         {
             $member->active = "N";
             $member->save();
-
-            return redirect(action('MembersController@show', $member->id))->with('done', 'Member has been made inactive');
+        
+            alert()->success('Complete', 'Member has been made inactive')->autoclose(1500);
+            return redirect(action('MembersController@index', $member->id));
         }
     }
 

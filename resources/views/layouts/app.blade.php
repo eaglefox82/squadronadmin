@@ -94,7 +94,7 @@
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link href="">
+                    <a class="nav-link" href="{{action('SquadronAccountingController@index')}}">
                         <i class="fa fa-list-ul"></i>
                         <p> Squadron Accounting </p>
                     </a>

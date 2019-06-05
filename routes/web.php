@@ -30,3 +30,4 @@ Route::get('/roll/notpaid/{id}', 'RollController@notpaid')->middleware('auth');
 Route::get('/activekids/complete/{id}', 'ActiveKidsController@complete')->middleware('auth');
 Route::get('/members/updateroll/{id}', 'RollController@updateRoll')->middleware('auth');
 Route::get('/members/delete/{id}', 'MembersController@inactive')->middleware('auth');
+Route::get('/outstanding', 'SquadronAccountingController@outstanding')->middleware('auth');

@@ -1662,16 +1662,16 @@
         },
         {
             "name": "realrashid/sweet-alert",
-            "version": "v1.1.1",
+            "version": "v1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/realrashid/sweet-alert.git",
-                "reference": "baf7e4f1539fa3053854eb96dd20f2fd9681d0bc"
+                "reference": "7bd78445947ef8ce483412afbddb2dec7fc40eb0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/realrashid/sweet-alert/zipball/baf7e4f1539fa3053854eb96dd20f2fd9681d0bc",
-                "reference": "baf7e4f1539fa3053854eb96dd20f2fd9681d0bc",
+                "url": "https://api.github.com/repos/realrashid/sweet-alert/zipball/7bd78445947ef8ce483412afbddb2dec7fc40eb0",
+                "reference": "7bd78445947ef8ce483412afbddb2dec7fc40eb0",
                 "shasum": ""
             },
             "require": {
@@ -1724,7 +1724,7 @@
                 "sweet",
                 "sweet-alert2"
             ],
-            "time": "2018-11-03T16:02:56+00:00"
+            "time": "2019-03-29T18:34:57+00:00"
         },
         {
             "name": "sabberworm/php-css-parser",

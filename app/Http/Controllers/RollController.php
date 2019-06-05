@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Alert;
 
 use App\Member;
 use App\Roll;
@@ -83,8 +84,8 @@ class RollController extends Controller
                 $r->Status = 'A';
                 $r->save();
             }
-
-       return redirect(action('RollController@index'))->with('success', 'Roll Added');
+        Alert::success('New Roll Created')->autoclose(1500);
+       return redirect(action('RollController@index'));
     }
 
     /**

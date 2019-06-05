@@ -148,6 +148,9 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Barryvdh\DOMPDF\ServiceProvider::class,
 
+        // Other Service Provides
+        RealRashid\SweetAlert\SweetAlertServiceProvider::class,
+
         /*
          * Package Service Providers...
          */
@@ -210,6 +213,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'Alert' => RealRashid\SweetAlert\Facade\Alert::class,
 
     ],
 
