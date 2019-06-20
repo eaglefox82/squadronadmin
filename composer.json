@@ -11,7 +11,8 @@
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.7",
-        "realrashid/sweet-alert": "^1.1"
+        "realrashid/sweet-alert": "^1.1",
+        "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

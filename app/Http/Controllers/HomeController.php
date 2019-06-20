@@ -40,7 +40,7 @@ class HomeController extends Controller
 
        $activeroll = Rollmapping::latest()->value('id');
 
-       $currentroll = DB::table('rolls')
+       $currentroll= DB::table('rolls')
        ->join('rollmappings', 'rolls.roll_id' , '=', 'rollmappings.id' )
        ->join('members', 'members.id', '=', 'rolls.member_id')
        ->join('rankmappings', 'members.rank', '=', 'rankmappings.id' )

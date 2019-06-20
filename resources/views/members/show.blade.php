@@ -133,6 +133,45 @@
                 </div>
         </div>
 
+        <!-- This is to only show the table if there is data to show -->
+        @if ($member->currentrequests->count() > 0)
+        <div class="row">
+            <div class="col-sm-12">
+                <div class ="card">
+                    <div class = "card-header card-header-icon card-header-rose">
+                        <h4 class = "text-center">Requested Items</h4>
+                    </div>
+                    <div class = "table-responsive">
+                        <table class = "table">
+                            <thead class = "text-primary">
+                                <th width = "10%"></th>
+                                <th class = "text-center">Request Number</th>
+                                <th class = "text-center">Overview</th>
+                                <th class = "text-center">Invoice Number</th>
+                                <th class = "text-center">Invoice Total</th>
+                                <th width = "25%" class = "text-center">Notes</th>
+                            </thead>
+                            <tbody>
+                             @foreach ($member->currentrequests as $r)
+                                <td>
+                                    <a href="{{action('MembersController@show', $r->id)}}" title="View" class="btn btn-success"><i class="fa fa-info"></i></a>
+                                </td>                              </td>
+                                <td class = "text-center">{{$r->id}}</td>
+                                <td class = "text-center">{{$r->overview}}</td>
+                                <td class = "text-center">{{$r->invoice_number}}</td>
+                                <td class = "text-center">${{$r->invoice_total}}</td>
+                                <td class = "text-center">{{$r->notes}}</td>
+                             @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>  
+        @endif
+
+
+
 
         <div class="row">
             <div class = "col-sm-9">

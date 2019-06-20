@@ -82,6 +82,7 @@
 
 
 @section ('scripts')
+
 <script>
    // Write on keyup event of keyword input element
    $(document).ready(function(){
@@ -102,5 +103,17 @@
   });
 });
 </script>
+
+<script>
+  $(document).ready(function(){
+      $.ajax ({
+          url: 'members/getmembbers',
+          type: "GET",
+          dataType: "json",
+
+          success:function(response){
+              alert(response);
+          }
+      })  
 
 @stop

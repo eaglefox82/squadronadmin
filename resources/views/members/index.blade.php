@@ -25,7 +25,7 @@
                         </div>
 
                         <div class="table-responsive">
-                            <table class="table" id="members">
+                            <table class="table" id="members_table">
                                 <thead class="text-primary">
                                 <th ></th>
                                 <th width = "25%" class="text-center">Membership Number</th>
@@ -34,31 +34,31 @@
                                 <th width = "20%" class="text-center">Voucher Balance</th>
                                 </thead>
                                 <tbody>
-                                    @foreach($members as $m)
-                                <tr>
-                                    <td class="text-center">
-                                    <a href="{{action('MembersController@show', $m->id)}}" title="View" class="btn btn-success"><i class="fa fa-info"></i></a>
-                                    </td>
-                                    @if ($m->membership_number != "New")
-                                        <td class="text-center">{{$m->membership_number}}</td> 
-                                    @else
-                                        <td class="text-center" style="color:red"><strong>{{$m->membership_number}}</td>
-                                    @endif
-                                        
-                                    <td class="text-center">{{$m->last_name}}, {{$m->first_name}}</td>
-                                    <td class="text-center">{{$m->memberrank->rank}}</td>
-                                    @if ($m->ActiveKids->sum('balance') != 0)
-                                        <td class="text-center"><strong>${{number_format($m->ActiveKids->sum('balance'),2)}}</td>
-                                    @else
-                                        <td style="border-top: 1px #ddd solid"></td>
-                                    @endif
-                                </tr>
-                                    @endforeach
-                                </tbody>
-                                <tfooter>
-                                    <tr>
-                                    </tr>
-                                </tfooter>
+                                        @foreach($members as $m)
+                                      <tr>
+                                          <td class="text-center">
+                                          <a href="{{action('MembersController@show', $m->id)}}" title="View" class="btn btn-success"><i class="fa fa-info"></i></a>
+                                          </td>
+                                          @if ($m->membership_number != "New")
+                                              <td class="text-center">{{$m->membership_number}}</td> 
+                                          @else
+                                              <td class="text-center" style="color:red"><strong>{{$m->membership_number}}</td>
+                                          @endif
+                                              
+                                          <td class="text-center">{{$m->last_name}}, {{$m->first_name}}</td>
+                                          <td class="text-center">{{$m->memberrank->rank}}</td>
+                                          @if ($m->ActiveKids->sum('balance') != 0)
+                                              <td class="text-center"><strong>${{number_format($m->ActiveKids->sum('balance'),2)}}</td>
+                                          @else
+                                              <td style="border-top: 1px #ddd solid"></td>
+                                          @endif
+                                      </tr>
+                                          @endforeach
+                                      </tbody>
+                                      <tfooter>
+                                          <tr>
+                                          </tr>
+                                      </tfooter>
                             </table>
                         </div>
                     </div>
@@ -71,25 +71,26 @@
 
 @section ('scripts')
 <script>
-   // Write on keyup event of keyword input element
-   $(document).ready(function(){
-     $("#search").keyup(function(){
-     _this = this;
-    
-     // Show only matching TR, hide rest of them
-     $.each($("#members tbody tr"), function() {
-       if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
-       {  
-           $(this).hide();
-       }
-       else
-       {
-          $(this).show();
-       }
+        // Write on keyup event of keyword input element
+        $(document).ready(function(){
+         
+          $("#search").keyup(function(){
+          _this = this;
+         
+          // Show only matching TR, hide rest of them
+          $.each($("#roll tbody tr"), function() {
+            if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
+            {  
+                $(this).hide();
+            }
+            else
+            {
+               $(this).show();
+            }
+          });
+       });
      });
-  });
-});
-</script>
+     </script>
 
 @stop
 

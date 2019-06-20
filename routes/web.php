@@ -31,3 +31,7 @@ Route::get('/activekids/complete/{id}', 'ActiveKidsController@complete')->middle
 Route::get('/members/updateroll/{id}', 'RollController@updateRoll')->middleware('auth');
 Route::get('/members/delete/{id}', 'MembersController@inactive')->middleware('auth');
 Route::get('/outstanding', 'SquadronAccountingController@outstanding')->middleware('auth');
+Route::get('requested', 'SquadronAccountingController@requested')->middleware('auth');
+
+// Ajax requests
+Route::get('/getMembers', 'MembersController@getmembers')->middleware('auth');

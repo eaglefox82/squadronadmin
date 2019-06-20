@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Alert;
+use DataTables;
 
 use App\Member;
 use App\Roll;
@@ -16,6 +17,7 @@ use Carbon\Carbon;
 use App\Rollmapping;
 use App\Rankmapping;
 use App\Settings;
+use App\Page;
 
 class MembersController extends Controller
 {
@@ -26,11 +28,18 @@ class MembersController extends Controller
      */
     public function index()
     {
-        //
-        $members = Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->get();
-
-        return view('members.index', compact('members'));
+       // $members = Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->get();
+        return view('members.index_ajax');//, compact('members'));
     }
+    
+     public function getmembers()
+    {
+        //
+
+        $members = Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->get();
+        return response::json($members);
+    }
+
 
     /**
      * Show the form for creating a new resource.

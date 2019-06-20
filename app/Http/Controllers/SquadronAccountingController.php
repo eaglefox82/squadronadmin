@@ -35,6 +35,7 @@ class SquadronAccountingController extends Controller
 
     $requestbalance = $requestsinvoice - $requestPayments;
 
+
         return view('accounting.index', compact('outstanding', 'requestbalance'));
     }
 
@@ -46,6 +47,8 @@ class SquadronAccountingController extends Controller
     public function create()
     {
         //
+
+        return view ('accounting.add');
     }
 
     /**
@@ -109,5 +112,12 @@ class SquadronAccountingController extends Controller
         $outstandingSubs = Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->get();
 
         return view('accounting.outstanding', compact('outstandingSubs'));
+    }
+
+    public function requested()
+    {
+        $request = Srequest::where('complete', '=', 'N')->get();
+
+        return view('accounting.requestview', compact('request'));
     }
 }

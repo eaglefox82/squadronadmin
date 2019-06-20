@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Requestitems;
 
 class Srequest extends Model
 {
@@ -17,6 +16,16 @@ class Srequest extends Model
     public function requesitem()
     {
         return $this->hasMany('App\requestitems');
+    }
+
+    public function requestpayment()
+    {
+        return $this->hasMany('App\requestpayment', 'request_id', 'id');
+    }
+
+    public function memberrequest()
+    {
+        return $this->hasOne('App\member', 'id', 'member_id');
     }
 
 }

@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\ActiveKids;
 use App\Member;
+use Alert;
 
 class ActiveKidsController extends Controller
 {
@@ -67,15 +68,24 @@ class ActiveKidsController extends Controller
             return Redirect::back()->WithErrors($validateData) ->withInput();
             }
 
+           if (($request->get('balance')) > 0) {
+                $active = 'Y';
+            }
+            else  {        
+                $active = 'N';
+            }
+
             $e = new ActiveKids();
             $e->member_id = $request->get('member');
             $e->voucher_number = $request->get('voucher');
             $e->date_received = $request->get('date');
-            $e->balance = 100;
-            $e->active = "Y";
+            $e->balance = $request->get('balance');
+            $e->active = $active;
             $e->save();
 
-            return redirect(action('MembersController@show', $request->get('member')))->with ('success', 'Voucher Recored');
+            Alert::success('Success', 'Voucher has been recored')->autoclose(1500);
+
+            return redirect(action('MembersController@show', $request->get('member')));
     }
 
     /**

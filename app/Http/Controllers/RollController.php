@@ -177,7 +177,8 @@ class RollController extends Controller
             else
             {
                 //Not Enough money in the account
-                return redirect(action('RollController@index'))->with ('failure', 'Insufficient Active Kids Balance');
+                Alert::Error("Error", "Insufficient Active Kids Balance")->autoclose(1500);
+                return redirect(action('RollController@index'));
             }
         }
 

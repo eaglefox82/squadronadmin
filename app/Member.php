@@ -4,6 +4,7 @@ namespace App;
 use Carbon\Carbon;
 use App\Activekids;
 use App\Roll;
+use App\Srequest;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -29,7 +30,7 @@ class Member extends Model
 
     public function ActiveKids()
     {
-        return $this->hasMany('App\ActiveKids', 'member_id', 'id');
+        return $this->hasMany('App\ActiveKids', 'member_id', 'id') ->where('active', '=', 'Y');
     }
     
     public function MemberRank()
@@ -59,5 +60,15 @@ class Member extends Model
                 ->where('roll_id', '=', $rollid)
                 ->join('rollstatus', 'rollstatus.status_id', '=', 'roll.status')
                 ->select('rollstatus.status as rstatus', 'roll.id as rollid');
+    }
+
+    public function requests()
+    {
+        return $this->hasMany('App\Srequest');
+    }
+
+    public function currentrequests()
+    {
+        return $this->requests()->where('complete', '=', 'N');
     }
 }

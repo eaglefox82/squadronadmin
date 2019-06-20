@@ -55,15 +55,8 @@
                             <i class="fa fa-percent fa-2x"></i>
                         </div>
                         <p class="card-category">Sqn Attendance<br><br></p>
-                            <div class = "card-title c100 p{{number_format(($currentroll->count()/$members->where ('member_type','League')->count())*100),2}} green">
-                                <span>{{number_format(($currentroll->count()/$members->where ('active','Y')->count())*100),2}}%</span>
-                                    <div class="slice">
-                                        <div class="bar"></div>
-                                        <div class="fill"></div>
-                                    </div>
-                            </div>
-
-                        <!--<h3 class="card-title">{{number_format(($currentroll->count()/$members->where ('active','Y')->count())*100),2}}%</h3> -->
+                        <h3 class="card-title">{{number_format(($currentroll->count()/$members->where ('active','Y')->count())*100),2}}%</h3>
+                        <a href="{{action('RollController@index')}}" class="card-link">View Roll</a>
                         <div class="card-footer">
                         </div>
                     </div>
