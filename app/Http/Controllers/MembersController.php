@@ -28,7 +28,7 @@ class MembersController extends Controller
      */
     public function index()
     {
-       // $members = Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->get();
+       $members = Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->get();
         return view('members.index', compact('members'));
     }
     
