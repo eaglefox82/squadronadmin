@@ -89,8 +89,18 @@
             }
           });
        });
+
+       $.ajax({
+            type:"get",
+            url:"{{ url('/getmembers') }}",
+            success: function(result){
+                    
+                }
+        });
+
      });
      </script>
+
 
 @stop
 

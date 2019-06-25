@@ -30,7 +30,7 @@ class Member extends Model
 
     public function ActiveKids()
     {
-        return $this->hasMany('App\ActiveKids', 'member_id', 'id') ->where('active', '=', 'Y');
+        return $this->hasMany('App\ActiveKids', 'member_id', 'id');
     }
     
     public function MemberRank()
@@ -71,4 +71,6 @@ class Member extends Model
     {
         return $this->requests()->where('complete', '=', 'N');
     }
+
+    protected $with = array('ActiveKids');
 }

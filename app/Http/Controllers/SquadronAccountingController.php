@@ -120,4 +120,10 @@ class SquadronAccountingController extends Controller
 
         return view('accounting.requestview', compact('request'));
     }
+
+    Public function add()
+    {
+
+        return view ('accounting.add');
+    }
 }

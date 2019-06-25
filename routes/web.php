@@ -15,6 +15,8 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
+Route::get('/getmembers', 'MembersController@getmembers');
+
 Route::resource('/members', 'MembersController')->middleware('auth');
 Route::resource('/roll', 'RollController')->middleware('auth');
 Route::resource('/activekids', 'ActiveKidsController')->middleware('auth');
@@ -34,4 +36,4 @@ Route::get('/outstanding', 'SquadronAccountingController@outstanding')->middlewa
 Route::get('requested', 'SquadronAccountingController@requested')->middleware('auth');
 
 // Ajax requests
-Route::get('/getMembers', 'MembersController@getmembers')->middleware('auth');
+

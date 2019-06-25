@@ -26,7 +26,7 @@
                         <div class = "row">
                             <label class = "col-sm-2 col-form-label">Membership Number:</label>
                             <div class = "col-sm-10">
-                                <input type = "text" class="form-control" name="membership">
+                                <input type = "text" class="form-control" name="membership" value="New">
                             </div>
                         </div>
                         

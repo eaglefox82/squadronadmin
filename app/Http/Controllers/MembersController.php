@@ -36,8 +36,8 @@ class MembersController extends Controller
     {
         //
 
-        $members = Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->get();
-        return response::json($members);
+        $members = Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->with('memberrank')->with('Activekids')->get();
+        return  $members;
     }
 
 
@@ -51,7 +51,8 @@ class MembersController extends Controller
         //
 
         $rank = Rankmapping::orderBy('id', 'desc')->get();
-        return view('members.add',compact('rank'));
+
+        //return view('members.add',compact('rank'));
     }
 
     /**

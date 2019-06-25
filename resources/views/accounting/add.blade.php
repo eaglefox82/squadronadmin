@@ -1,13 +1,13 @@
-@extends('layouts.app')
+<!--'@extends('layouts.app')
 
-@section('content')
+@section('content') -->
     <div class='container-fluid'>
         <div class = 'row'>
             <div class="col-sm-6">
                 <div class="card">
                     <div class = "card-header card-header-rose card-header-text">
                         <div class = "card-text">
-                            <h4 class="card-title">Add new Member</h4>
+                            <h4 class="card-title">Add new Request</h4>
                         </div>
                     </div>
                     {!!Form::open(array('action' => ['MembersController@store'], 'method'=>'POST', 'class'=>'form-horizontal'))!!}
@@ -87,9 +87,9 @@
         </div>
     </div>
 
-  @endsection
+ <!-- @endsection
 
-  @section ('scripts')
+  @section ('scripts') -->
 
     <script>
         $(document).ready(function() {
