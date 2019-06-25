@@ -64,11 +64,11 @@
             </div>
         </div>
 
-        
+
 
 
         <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6">                
+            <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class = "card card-stats">
                     <div class ="card-header card-header-info card-header-icon">
                         <div class ="card-icon">
@@ -82,7 +82,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-3 col-md-6 col-sm-6">                
+            <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class = "card card-stats">
                     @if ($attendance > $attendancesetting)
                     <div class ="card-header card-header-success card-header-icon">
@@ -100,7 +100,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-3 col-md-6 col-sm-6">                 
+            <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card card-stats">
                         <div class="card-header card-header-info card-header-icon">
                             <div class="card-icon">
@@ -118,7 +118,7 @@
                     <div class="card card-stats">
                         @if ($member->outstanding->where('status','P')->count() != 0)
                         <div class="card-header card-header-danger card-header-icon">
-                        @else 
+                        @else
                         <div class="card-header card-header-success card-header-icon">
                         @endif
                             <div class="card-icon">
@@ -167,7 +167,7 @@
                     </div>
                 </div>
             </div>
-        </div>  
+        </div>
         @endif
 
 
@@ -178,7 +178,7 @@
                 <div class = "card">
                     <div class="card-header card-header-icon card-header-rose">
                             <div class="pull-right new-button">
-                                <a href="{{action('ActiveKidsController@voucher', $member->id)}}" class="btn btn-primary" title="Add Voucher"><i class="fa fa-plus fa-2x"></i> Add Voucher</a>
+                                <a data-toggle="modal" data-target="#addvoucherModal" class="btn btn-primary" title="Add Voucher"><i class="fa fa-plus fa-2x"></i> Add Voucher</a>
                              </div>
                              <h4 class="card-title font-weight-bold">Active Kids Vouchers</h4>
                     </div>
@@ -197,7 +197,7 @@
                                 <td class="text-center">${{$t->balance}}</td>
                             </tr>
                             @endforeach
-                            </tbody> 
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -206,7 +206,7 @@
             <div class = "col-lg-3 col-md-6 col-sm-6">
                 <div class = "card">
                     <div class="card-header card-header-icon card-header-rose">
-                        <h4 class="card-title font-weight-bold">Subs Owning</h4> 
+                        <h4 class="card-title font-weight-bold">Subs Owning</h4>
                             <div class="pull-right new-button">
                              </div>
                     </div>
@@ -219,11 +219,11 @@
                             <tbody>
                             @foreach ($member->outstanding as $o)
                             <tr>
-                                <td class="text-center">{{date('j/n/Y', strtotime($o->rollmapping->roll_date))}}</td> 
+                                <td class="text-center">{{date('j/n/Y', strtotime($o->rollmapping->roll_date))}}</td>
                                 <td class="text-center"><a href="{{action('RollController@updateRoll', $o->id)}}" title="Paid" class="btn btn-success"><i class="material-icons">done</i></a></td>
                             </tr>
                             @endforeach
-                            </tbody> 
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -235,7 +235,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class ="modal-title" id="editmemberModal">Edit Member</h5>
+                    <h3 class ="modal-title" id="editmemberModal">Edit Member</h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -269,12 +269,12 @@
                             </div>
 
                             <label class="label-control">Membership Type</label>
-                            <div class="input-group">
+                           <div class="input-group">
                                 <select type="text" class="selectpicker" data-sytle="select-with-transition" name="type">
                                     <option value="League"<?php if($member->member_type == "League") echo 'selected="selected"';?>>League Member</option>
                                     <option value="Associate"<?php if($member->member_type == "Associate") echo 'selected="selected"';?>>Associate Member</option>
                                 </select>
-                            </div>
+                           </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -286,18 +286,41 @@
         </div>
     </div>
 
+    <div class="modal fade" id="addvoucherModal" tabindex="-1" role="dialog" aria-labelledby="NewRollLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="editmemberModal">Add Voucher</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    {!!Form::open(array('action' => ['ActiveKidsController@store'], 'method'=>'POST', 'class'=>'form-horizontal'))!!}
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="hidden" name="member" value="{{$member->id}}">
+                                <label class="label-control">Date:</label>
+                                <div class="input-group">
+                                        <input type="text" class="form-control datetimepicker" name="rolldate" value="{{Carbon\Carbon::now()->format('d-m-Y')}}">
+                                </div>
 
+                                <label class="label-control">Voucher:</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="voucher">
+                                </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
+                                <label class="label-control">Voucher Balance:</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="balance">
+                                </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                    {{!!Form::close()!!}}
+                </div>
+            </div>
+        </div>
 @endsection

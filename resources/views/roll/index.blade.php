@@ -36,13 +36,13 @@
                     <button class="btn btn-round pull-right" data-toggle="modal" data-target="#newrollModal">New Roll</button>
                 </div>
                 <div class="card-body">
-    
+
                     <div class="table-responsive">
                         <table class="table" id="roll">
                             <thead class = "text-primary">
                             <h4> Roll Date: {{date("l - jS F Y",strtotime($rolldate))}}</h4>
                                 <tr>
-                                    <th width="20%"></th>    
+                                    <th width="20%"></th>
                                     <th class="text-center">Member</th>
                                     <th width = "20%" class="text-center">Rank</th>
                                     <th class="text-center">Present</th>
@@ -63,7 +63,7 @@
                                     <td class="text-center">{{$r->member->memberrank->rank}}</td>
                                     <td class="text-center">{{$r->rollstatus->status}}</td>
                                     @if ($r->ActiveKids->sum('balance') != 0)
-                                        <td class="text-center"><strong>${{$r->ActiveKids->sum('balance')}}</strong></td>                                                      
+                                        <td class="text-center"><strong>${{$r->ActiveKids->sum('balance')}}</strong></td>
                                     @else
                                         <td style="border-top: 1px #ddd solid"></td>
                                     @endif
@@ -82,7 +82,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title" id="exampleModalLabel">New Roll</h4>
+              <h3 class="modal-title" id="exampleModalLabel">New Roll</h3>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -92,7 +92,7 @@
                     <div class="form-group">
                         <label class="label-control">Enter Date:</label>
                             <div class="input-group">
-                                <input type="text" class="form-control datetimepicker" name="rolldate" value="{{Carbon\Carbon::now()->format('d-m-Y')}}" timezone="[[timezone]]">
+                                <input type="text" class="form-control datetimepicker" name="rolldate" value="{{Carbon\Carbon::now()->format('d-m-Y')}}">
                             </div>
                         </div>
             </div>
@@ -114,11 +114,11 @@
    $(document).ready(function(){
      $("#search").keyup(function(){
      _this = this;
-    
+
      // Show only matching TR, hide rest of them
      $.each($("#roll tbody tr"), function() {
        if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
-       {  
+       {
            $(this).hide();
        }
        else
