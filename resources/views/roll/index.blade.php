@@ -92,7 +92,7 @@
                     <div class="form-group">
                         <label class="label-control">Enter Date:</label>
                             <div class="input-group">
-                                <input type="text" class="form-control datetimepicker" name="rolldate" value="{{Carbon\Carbon::now()->format('d-m-Y')}}">
+                                <input type="text" class="form-control datetimepicker" name="rolldate" value="{{Carbon\Carbon::now()->format('d-m-Y')}}" timezone="[[timezone]]">
                             </div>
                         </div>
             </div>

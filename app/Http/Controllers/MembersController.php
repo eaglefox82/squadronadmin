@@ -29,7 +29,9 @@ class MembersController extends Controller
     public function index()
     {
        $members = Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->get();
-        return view('members.index', compact('members'));
+       $rank = Rankmapping::orderBy('id', 'desc')->get(); 
+       
+       return view('members.index', compact('members', 'rank'));
     }
     
      public function getmembers()
@@ -114,6 +116,7 @@ class MembersController extends Controller
         //
       
        $member = Member::find($id);
+       $rank = Rankmapping::orderBy('id','desc')->get();
 
       if ($member !=null)
       {
@@ -130,7 +133,7 @@ class MembersController extends Controller
         $attendance = ($count/$weeks)*100;
         $attendancesetting = Settings::where('setting', 'Attendance')->value('value');
 
-        return view('members.show', compact('member', 'attendance', 'attendancesetting'));
+        return view('members.show', compact('member', 'attendance', 'attendancesetting', 'rank'));
       }
 
       return redirect(action('MembersController@index'));

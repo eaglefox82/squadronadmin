@@ -19,9 +19,8 @@
                                 </span>
                             </form>
                         </div>
-                        <div class="pull-right new-button">
-                            <a href="{{action('MembersController@create')}}" class="btn btn-primary" title="Add Member"><i
-                                        class="fa fa-plus fa-2x"></i> Add Member</a>
+                        <button class="btn btn-round pull-right" data-toggle="modal" data-target="#newmemberModal"><i
+                                        class="fa fa-plus fa-2x"></i> Add Member</a></button>
                         </div>
 
                         <div class="table-responsive">
@@ -66,6 +65,64 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="newmemberModal" tabindex="-1" role="dialog" aria-labelledby="NewRollLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="exampleModalLabel">New Roll</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                {!!Form::open(array('action' => ['MembersController@store'], 'method'=>'POST', 'class'=>'form-horizontal'))!!}
+                <div class="modal-body">
+                        <div class="form-group">
+                            <label class="label-control">Membership Number:</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="membership" value="New">
+                                </div>
+                            <label class="label-control">First Name:</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="firstname">
+                                </div>
+
+                            <label class="label-control">Last Name:</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="lastname">
+                                </div>
+
+                            <label class="label-control">Rank:</label>
+                                <div class="input-group">
+                                    <select type="text" class = "selectpicker"  Data-style="select-with-transition" name="rank" data-size="6">
+                                        @foreach ($rank as $r)
+                                            <option value ={{$r->id}}>{{$r->rank}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                            <label class="label-control">Date of Birth:</label>
+                                <div class="input-group">
+                                    <input type = "text" class = "form-control datepicker" name="dob" value="{{Carbon\Carbon::now()->toDateString()}}">
+                                </div>
+
+                            <label class="label-control">Date of Joining</label>
+                                <div class="input-group">
+                                    <input type = "text" class = "form-control datepicker" name="doj" value="{{Carbon\Carbon::now()->toDateString()}}">
+                                </div>
+                        
+                        </div> <!-- form group div close -->
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Create Member</button>
+                </div>
+                {!!Form::close()!!}
+              </div>
+            </div>
+        </div>
+
+
 
 @endsection
 

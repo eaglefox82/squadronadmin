@@ -31,7 +31,7 @@
                 <div class = "card">
                     <div class="card-header card-header-icon card-header-rose">
                             <div class="pull-right new-button">
-                                <a href="{{action('MembersController@edit', $member->id)}}" class="btn btn-success" title="Edit Member"><i class="fa fa-pencil fa-2x"></i> Edit Member</a>
+                                <a href="" data-toggle="modal" data-target="#editmemberModal" class="btn btn-success" title="Edit Member"><i class="fa fa-pencil fa-2x"></i> Edit Member</a>
                                 <a href="{{action('MembersController@inactive', $member->id)}}" class="btn btn-danger" title = "Remove Member"><i class="fa fa-close fa-2x"></i>Remove Member</a>
                              </div>
                         <h4 class="card-title font-weight-bold">Member Details</h4>
@@ -230,4 +230,74 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="editmemberModal" tabindex="-1" role="dialog" aria-labelledby="NewRollLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class ="modal-title" id="editmemberModal">Edit Member</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {!! Form::open(array('action' => ['MembersController@update', $member->id],'method'=>'PUT', 'class'=>'form-horizontal')) !!}
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="hidden" name="member" value="{{$member->id}}">
+                            <label class="label-control">Membership Number:</label>
+                            <div class="input-group">
+                                <input type = "text" class = "form-control" name = "membernumber" value="{{$member->membership_number}}">
+                            </div>
+
+                            <label class="label-control">First Name:</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="firstname" value="{{$member->first_name}}">
+                            </div>
+
+                            <label class="label-control">Last Name</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="lastname" value="{{$member->last_name}}">
+                            </div>
+
+                            <label class="label-control">Rank:</label>
+                            <div class="input-group">
+                                <select type="text" class="selectpicker" data-sytle="select-with-transition" name="rank" data-size="6">
+                                    @foreach ($rank as $r)
+                                    <option value ={{$r->id}} <?php if($member->rank == $r->id) echo 'selected="selected"';?> >{{$r->rank}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <label class="label-control">Membership Type</label>
+                            <div class="input-group">
+                                <select type="text" class="selectpicker" data-sytle="select-with-transition" name="type">
+                                    <option value="League"<?php if($member->member_type == "League") echo 'selected="selected"';?>>League Member</option>
+                                    <option value="Associate"<?php if($member->member_type == "Associate") echo 'selected="selected"';?>>Associate Member</option>
+                                </select>
+                            </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+                {{!!Form::close()!!}}
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @endsection
