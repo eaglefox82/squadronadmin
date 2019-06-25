@@ -52,7 +52,7 @@ class MembersController extends Controller
 
         $rank = Rankmapping::orderBy('id', 'desc')->get();
 
-        //return view('members.add',compact('rank'));
+        return view('members.add',compact('rank'));
     }
 
     /**
