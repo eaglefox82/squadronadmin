@@ -35,5 +35,7 @@ Route::get('/members/delete/{id}', 'MembersController@inactive')->middleware('au
 Route::get('/outstanding', 'SquadronAccountingController@outstanding')->middleware('auth');
 Route::get('requested', 'SquadronAccountingController@requested')->middleware('auth');
 
+Route::post('/accounting/payment/', 'SquadronAccountingController@payment')->middleware('auth');
+
 // Ajax requests
 

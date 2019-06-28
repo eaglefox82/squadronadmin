@@ -17,11 +17,11 @@ class CreateRequestsTable extends Migration
             $table->bigIncrements('id');
             $table->string('member_id');
             $table->string('overview');
-            $table->string('invoice_number');
-            $table->string('invoice_total');
+            $table->string('invoice_number')->nullable();
+            $table->string('invoice_total')->nullable();
             $table->string('complete');
             $table->date('requested_date');
-            $table->string('notes');
+            $table->string('notes')->nullable();
             $table->timestamps();
         });
     }

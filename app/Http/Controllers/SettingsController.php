@@ -46,6 +46,18 @@ class SettingsController extends Controller
     public function store(Request $request)
     {
         //
+        $validateData = Validator::make($request->all(),[
+         'setting' => 'required',
+         'value' => 'required',
+        ]);
+
+        $e = new Settings();
+        $e->setting = $request->get('setting');
+        $e->value = $request->get('value');
+        $e->save();
+
+        alert::Success('New Value has been added')->autoclose(2000);
+        return redirect(action('SettingsController@index'));
     }
 
     /**

@@ -26,12 +26,12 @@
                     </div>
                 </div>
                 <div class="card-body">
-    
+
                     <div class="table-responsive">
                         <h3 class="text-center"> Outstanding Subs</h3>
                         <table class="table" id="roll">
                             <thead class = "text-primary">
-                                    <th width="20%"></th>    
+                                    <th width="20%"></th>
                                     <th class="text-center">Last Name</th>
                                     <th class="text-center">First Name</th>
                                     <th class="text-center">Outstanding Subs Balance</th>
@@ -42,7 +42,7 @@
                                 @if ($o->outstanding->count() > 0)
                                 <tr>
                                     <td>
-                                        <a href="{{action('MembersController@show', $o->id)}}" title="Show Member" class="btn btn-danger"><i class="fa fa-info"></i></a>
+                                        <a href="{{action('MembersController@show', $o->id)}}" title="Show Member" class="btn btn-danger btn-round"><i class="fa fa-info"></i></a>
                                     </td>
                                     <td class="text-center">{{$o->last_name}}</td>
                                     <td class="text-center">{{$o->first_name}}</td>
@@ -69,11 +69,11 @@
    $(document).ready(function(){
      $("#search").keyup(function(){
      _this = this;
-    
+
      // Show only matching TR, hide rest of them
      $.each($("#roll tbody tr"), function() {
        if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
-       {  
+       {
            $(this).hide();
        }
        else

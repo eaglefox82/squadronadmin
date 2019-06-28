@@ -26,7 +26,7 @@
                                     <td class="text-center">{{$v->voucher_number}}</td>
                                     <td class="text-center">${{$v->balance}}</td>
                                     <td class="text-center">
-                                        <a href="{{action('ActiveKidsController@complete', $v->id)}}" class="btn btn-success" title="Complete Voucher"><i class="fa fa-check"></i></a>
+                                        <a href="{{action('ActiveKidsController@complete', $v->id)}}" class="btn btn-round btn-success" title="Complete Voucher"><i class="fa fa-check"></i></a>
                                     </td>
                                 </tr>
                             @endforeach

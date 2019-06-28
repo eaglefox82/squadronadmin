@@ -209,7 +209,8 @@ class RollController extends Controller
             $o->status = "C";
             $o->save();
 
-           return redirect(action('MembersController@show', $o->member_id))->with ('success', 'Member Present');
+            alert::success('Member Paid', 'Pass Sub has been marked as paid')->autoclose(2000);
+           return redirect(action('MembersController@show', $o->member_id));
         }
 
         return redirect(action('MembersController@index'));

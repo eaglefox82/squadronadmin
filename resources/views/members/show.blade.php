@@ -31,8 +31,8 @@
                 <div class = "card">
                     <div class="card-header card-header-icon card-header-rose">
                             <div class="pull-right new-button">
-                                <a href="" data-toggle="modal" data-target="#editmemberModal" class="btn btn-success" title="Edit Member"><i class="fa fa-pencil fa-2x"></i> Edit Member</a>
-                                <a href="{{action('MembersController@inactive', $member->id)}}" class="btn btn-danger" title = "Remove Member"><i class="fa fa-close fa-2x"></i>Remove Member</a>
+                                <a href="" data-toggle="modal" data-target="#editmemberModal" class="btn btn-success btn-round" title="Edit Member"><i class="fa fa-pencil fa-2x"></i> Edit Member</a>
+                                <a href="{{action('MembersController@inactive', $member->id)}}" class="btn btn-danger btn-round" title = "Remove Member"><i class="fa fa-close fa-2x"></i>Remove Member</a>
                              </div>
                         <h4 class="card-title font-weight-bold">Member Details</h4>
                     </div>
@@ -153,14 +153,16 @@
                             </thead>
                             <tbody>
                              @foreach ($member->currentrequests as $r)
+                             <tr>
                                 <td>
-                                    <a href="{{action('MembersController@show', $r->id)}}" title="View" class="btn btn-success"><i class="fa fa-info"></i></a>
+                                    <a href="{{action('MembersController@show', $r->id)}}" title="View" class="btn btn-success btn-round"><i class="fa fa-info"></i></a>
                                 </td>                              </td>
                                 <td class = "text-center">{{$r->id}}</td>
                                 <td class = "text-center">{{$r->overview}}</td>
                                 <td class = "text-center">{{$r->invoice_number}}</td>
                                 <td class = "text-center">${{$r->invoice_total}}</td>
                                 <td class = "text-center">{{$r->notes}}</td>
+                            </tr>
                              @endforeach
                             </tbody>
                         </table>
@@ -178,7 +180,7 @@
                 <div class = "card">
                     <div class="card-header card-header-icon card-header-rose">
                             <div class="pull-right new-button">
-                                <a data-toggle="modal" data-target="#addvoucherModal" class="btn btn-primary" title="Add Voucher"><i class="fa fa-plus fa-2x"></i> Add Voucher</a>
+                                <a data-toggle="modal" data-target="#addvoucherModal" class="btn btn-primary btn-round" title="Add Voucher"><i class="fa fa-plus fa-2x"></i> Add Voucher</a>
                              </div>
                              <h4 class="card-title font-weight-bold">Active Kids Vouchers</h4>
                     </div>
@@ -220,7 +222,7 @@
                             @foreach ($member->outstanding as $o)
                             <tr>
                                 <td class="text-center">{{date('j/n/Y', strtotime($o->rollmapping->roll_date))}}</td>
-                                <td class="text-center"><a href="{{action('RollController@updateRoll', $o->id)}}" title="Paid" class="btn btn-success"><i class="material-icons">done</i></a></td>
+                                <td class="text-center"><a href="{{action('RollController@updateRoll', $o->id)}}" title="Paid" class="btn btn-round btn-success"><i class="material-icons">done</i></a></td>
                             </tr>
                             @endforeach
                             </tbody>
@@ -278,8 +280,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <button type="button" class="btn btn-round btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-round btn-primary">Save Changes</button>
                 </div>
                 {{!!Form::close()!!}}
             </div>
@@ -290,7 +292,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h3 class="modal-title" id="editmemberModal">Add Voucher</h3>
+                        <h3 class="modal-title" id="editmemberModal">Add Voucher for {{$member->first_name}} {{$member->last_name}}</h3>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -301,7 +303,7 @@
                             <input type="hidden" name="member" value="{{$member->id}}">
                                 <label class="label-control">Date:</label>
                                 <div class="input-group">
-                                        <input type="text" class="form-control datetimepicker" name="rolldate" value="{{Carbon\Carbon::now()->format('d-m-Y')}}">
+                                        <input type="text" class="form-control datetimepicker" name="date" value="{{Carbon\Carbon::now()->format('d-m-Y')}}">
                                 </div>
 
                                 <label class="label-control">Voucher:</label>
@@ -316,8 +318,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        <button type="button" class="btn btn-round btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-round btn-primary">Save Changes</button>
                     </div>
                     {{!!Form::close()!!}}
                 </div>

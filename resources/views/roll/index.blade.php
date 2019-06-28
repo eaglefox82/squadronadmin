@@ -33,7 +33,7 @@
                   <!--  <div class="pull-right new-button">
                         <a href="{{action('RollController@create')}}" class="btn btn-primary"  title="Create New Roll"><i class="fa fa-plus fa-2x"></i>Create New Roll</a>
                     </div>  -->
-                    <button class="btn btn-round pull-right" data-toggle="modal" data-target="#newrollModal">New Roll</button>
+                    <button class="btn btn-round btn-primary pull-right" data-toggle="modal" data-target="#newrollModal"><i class="fa fa-plus fa-2x"></i>New Roll</button>
                 </div>
                 <div class="card-body">
 
@@ -54,9 +54,9 @@
                                 <tr>
                                     <td class="text-center">
                                         @if ($r->status == 'A')
-                                        <a href="{{action('RollController@paid', $r->id)}}" title="Paid" class="btn btn-success"><i class="material-icons">done</i></a>
-                                        <a href="{{action('RollController@voucher', $r->id)}}"  title="Voucher" class="btn btn-info"><i class ="material-icons">local_activity</i></a>
-                                        <a href="{{action('RollController@notpaid', $r->id)}}" title="Not Paid" class="btn btn-danger"><i class="material-icons">close</i></a>
+                                        <a href="{{action('RollController@paid', $r->id)}}" title="Paid" class="btn btn-success btn-round"><i class="material-icons">done</i></a>
+                                        <a href="{{action('RollController@voucher', $r->id)}}"  title="Voucher" class="btn btn-info btn-round"><i class ="material-icons">local_activity</i></a>
+                                        <a href="{{action('RollController@notpaid', $r->id)}}" title="Not Paid" class="btn btn-danger btn-round"><i class="material-icons">close</i></a>
                                         @endif
                                     </td>
                                     <td class="text-center">{{$r->member->last_name}}, {{$r->member->first_name}} </td>
@@ -97,8 +97,8 @@
                         </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Create Roll</button>
+              <button type="button" class="btn btn-secondary btn-round" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary btn-round">Create Roll</button>
             </div>
             {!!Form::close()!!}
           </div>
