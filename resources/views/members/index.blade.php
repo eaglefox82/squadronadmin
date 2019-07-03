@@ -78,7 +78,7 @@
                 {!!Form::open(array('action' => ['MembersController@store'], 'method'=>'POST', 'class'=>'form-horizontal'))!!}
                 <div class="modal-body">
                         <div class="form-group">
-                            <label class="label-control">Membership Number:</label>
+                            <label class="label-control">Invoice Number:</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" name="membership" value="New">
                                 </div>

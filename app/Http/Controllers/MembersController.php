@@ -28,12 +28,12 @@ class MembersController extends Controller
      */
     public function index()
     {
-       $members = Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->get();
-       $rank = Rankmapping::orderBy('id', 'desc')->get(); 
-       
+       $members = Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->orderby('rank', 'asc')->get();
+       $rank = Rankmapping::orderBy('id', 'desc')->paginate(20);
+
        return view('members.index', compact('members', 'rank'));
     }
-    
+
      public function getmembers()
     {
         //
@@ -83,11 +83,11 @@ class MembersController extends Controller
 
         //Create Member
        /* if(Carbon::parse(date('Y-m-d',strtotime($request->get('dob'))))->DiffInYears(Carbon::now())<12)  {
-           
+
             $rank = 20;
         }
         else{
-            
+
             $rank = 19;
         } */
 
@@ -100,7 +100,7 @@ class MembersController extends Controller
         $e->date_birth = Carbon::parse($request->get('dob'));
         $e->active= "Y";
         $e->save();
-        
+
         Alert::Success('New Member Added', 'New member has been created')->autoclose(2000);
         return redirect(action('MembersController@index'));
     }
@@ -114,14 +114,14 @@ class MembersController extends Controller
     public function show($id)
     {
         //
-      
+
        $member = Member::find($id);
        $rank = Rankmapping::orderBy('id','desc')->get();
 
       if ($member !=null)
       {
        ActiveKids::orderby('id', 'desc')->get();
-       
+
        $count = Roll::whereHas('rollmapping', function ($query) {
         $query->whereYear('roll_date', now()->year);
         })
@@ -214,11 +214,11 @@ class MembersController extends Controller
         {
             $member->active = "N";
             $member->save();
-        
+
             alert()->success('Complete', 'Member has been made inactive')->autoclose(1500);
             return redirect(action('MembersController@index', $member->id));
         }
     }
 
-    
+
 }
