@@ -85,9 +85,9 @@
                 <div class="modal-body">
                    <h4>Payment for Request</h4>
                     <div class="form-group">
-                        <label class="label-control">Invoice Number:</label>
+                        <label class="label-control">Invoice Number: {{$request->id}}</label>
                         <div class="input-group">
-                               <input type ="text" class="form-control" name="id" placeholder = {{$request->id}}>
+                               <input type ="hidden" class="form-control" name="id" value="{{$request->id}}">
                         </div>
                             <label class="label-control">Payment Amount:</label>
                             <div class="input-group">
