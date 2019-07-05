@@ -29,13 +29,12 @@ class RollController extends Controller
         $rollid = Rollmapping::latest()->value('id');
         $rolldate = Rollmapping::latest()->value('roll_date');
 
-        $member = Roll::join('members', 'members.id', '=', 'rolls.member_id')->
-        where('roll_id','=', $rollid)
-        ->orderBY ('rolls.status', 'asc')
-        ->orderBy ('members.rank', 'asc')
+        $member = Roll::where('rolls.roll_id','=', $rollid)
+        ->orderBY ('status', 'asc')
+        ->orderBy ('id', 'asc')
         ->get();
 
-        return view('roll.index', compact('member', 'rolldate'));
+        return view('roll.index', compact('member', 'rolldate', 'rollid'));
     }
 
     /**

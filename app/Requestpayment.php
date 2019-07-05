@@ -15,4 +15,9 @@ class Requestpayment extends Model
     {
     return $this->belongsTo('App\Srequest');
     }
+
+    Public function date()
+    {
+        return $this->hasOne('App\Rollmapping', 'id', 'roll_id');
+    }
 }
