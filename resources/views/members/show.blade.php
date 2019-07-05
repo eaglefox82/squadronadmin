@@ -155,7 +155,7 @@
                              @foreach ($member->currentrequests as $r)
                              <tr>
                                 <td>
-                                    <a href="{{action('MembersController@show', $r->id)}}" title="View" class="btn btn-success btn-round"><i class="fa fa-info"></i></a>
+                                    <a href="{{action('SquadronAccountingController@show', $r->id)}}" title="View" class="btn btn-success btn-round"><i class="fa fa-info"></i></a>
                                 </td>                              </td>
                                 <td class = "text-center">{{$r->id}}</td>
                                 <td class = "text-center">{{$r->overview}}</td>
