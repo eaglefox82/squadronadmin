@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Settings;
 use App\Otheritemmapping;
 use App\Otheritems;
+use App\User;
 use Alert;
 
 class SettingsController extends Controller
@@ -22,7 +23,8 @@ class SettingsController extends Controller
         //
         $settings = Settings::orderby('id')->get();
         $otheritems = Otheritemmapping::all();
-        return view('settings.index', compact('settings', 'otheritems'));
+        $users = User::all();
+        return view('settings.index', compact('settings', 'otheritems', 'users'));
     }
 
     /**
@@ -44,6 +46,18 @@ class SettingsController extends Controller
     public function store(Request $request)
     {
         //
+        $validateData = Validator::make($request->all(),[
+         'setting' => 'required',
+         'value' => 'required',
+        ]);
+
+        $e = new Settings();
+        $e->setting = $request->get('setting');
+        $e->value = $request->get('value');
+        $e->save();
+
+        alert::Success('New Value has been added')->autoclose(2000);
+        return redirect(action('SettingsController@index'));
     }
 
     /**
@@ -72,7 +86,7 @@ class SettingsController extends Controller
         {
             return view('settings.edit', compact('setting'));
         }
-        return redirect(action('SettingContriller@index'));
+        return redirect(action('SettingContro+ller@index'));
     }
 
     /**

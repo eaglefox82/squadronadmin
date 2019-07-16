@@ -13,6 +13,8 @@ class Activekids extends Model
 
     public function member()
     {
-        return $this->belongsTo('App\Member');
+        return $this->hasOne('App\Member', 'id', 'member_id');
     }
 }
+
+

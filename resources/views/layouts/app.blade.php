@@ -94,7 +94,7 @@
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link href="">
+                    <a class="nav-link" href="{{action('SquadronAccountingController@index')}}">
                         <i class="fa fa-list-ul"></i>
                         <p> Squadron Accounting </p>
                     </a>
@@ -113,44 +113,6 @@
                         <p> Settings</p>
                    </a>
                 </li>
-
-
-                {{--<li class="nav-item ">--}}
-                    {{--<a class="nav-link" data-toggle="collapse" href="#pagesExamples">--}}
-                        {{--<i class="material-icons">image</i>--}}
-                        {{--<p> Pages--}}
-                            {{--<b class="caret"></b>--}}
-                        {{--</p>--}}
-                    {{--</a>--}}
-                    {{--<div class="collapse" id="pagesExamples">--}}
-                        {{--<ul class="nav">--}}
-                            {{--<li class="nav-item ">--}}
-                                {{--<a class="nav-link" href="./pages/pricing.html">--}}
-                                    {{--<span class="sidebar-mini"> P </span>--}}
-                                    {{--<span class="sidebar-normal"> Pricing </span>--}}
-                                {{--</a>--}}
-                            {{--</li>--}}
-                        {{--</ul>--}}
-                    {{--</div>--}}
-                {{--</li>--}}
-                {{--<li class="nav-item ">--}}
-                    {{--<a class="nav-link" data-toggle="collapse" href="#tablesExamples">--}}
-                        {{--<i class="material-icons">grid_on</i>--}}
-                        {{--<p> Tables--}}
-                            {{--<b class="caret"></b>--}}
-                        {{--</p>--}}
-                    {{--</a>--}}
-                    {{--<div class="collapse" id="tablesExamples">--}}
-                        {{--<ul class="nav">--}}
-                            {{--<li class="nav-item ">--}}
-                                {{--<a class="nav-link" href="./tables/regular.html">--}}
-                                    {{--<span class="sidebar-mini"> RT </span>--}}
-                                    {{--<span class="sidebar-normal"> Regular Tables </span>--}}
-                                {{--</a>--}}
-                            {{--</li>--}}
-                        {{--</ul>--}}
-                    {{--</div>--}}
-                {{--</li>--}}
             </ul>
         </div>
     </div>
@@ -165,7 +127,6 @@
                             <i class="material-icons design_bullet-list-67 visible-on-sidebar-mini">view_list</i>
                         </button>
                     </div>
-                    {{--<a class="navbar-brand" href="#">Dashboard</a>--}}
                 </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
                         aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -254,6 +215,9 @@
 
 <!--Google Ajax -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Datatables -->
+<script src="https://cdn.datatables.net/1.10.12/js.dataTables.bootstrap.min.js"></script>
 
 @include('sweetalert::alert')
 

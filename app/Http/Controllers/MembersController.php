@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use Alert;
+use DataTables;
 
 use App\Member;
 use App\Roll;
@@ -15,6 +17,7 @@ use Carbon\Carbon;
 use App\Rollmapping;
 use App\Rankmapping;
 use App\Settings;
+use App\Page;
 
 class MembersController extends Controller
 {
@@ -25,11 +28,20 @@ class MembersController extends Controller
      */
     public function index()
     {
-        //
-        $members = Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->get();
+       $members = Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->orderby('rank', 'asc')->get();
+       $rank = Rankmapping::orderBy('id', 'desc')->paginate(20);
 
-        return view('members.index', compact('members'));
+       return view('members.index', compact('members', 'rank'));
     }
+
+     public function getmembers()
+    {
+        //
+
+        $members = Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->with('memberrank')->with('Activekids')->get();
+        return  $members;
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -40,7 +52,9 @@ class MembersController extends Controller
     {
         //
 
-        return view('members.add');
+        $rank = Rankmapping::orderBy('id', 'desc')->get();
+
+        return view('members.add',compact('rank'));
     }
 
     /**
@@ -52,10 +66,12 @@ class MembersController extends Controller
     public function store(Request $request)
     {
         //
+
      $validateData  = Validator::make($request->all(), [
          'membership' => 'required',
          'firstname' => 'required',
          'lastname' => 'required',
+         'rank' => 'required',
          'doj' => 'required',
          'dob' => 'required',
      ]);
@@ -66,26 +82,27 @@ class MembersController extends Controller
      }
 
         //Create Member
-        if(Carbon::parse(date('Y-m-d',strtotime($request->get('dob'))))->DiffInYears(Carbon::now())<12)  {
-           
+       /* if(Carbon::parse(date('Y-m-d',strtotime($request->get('dob'))))->DiffInYears(Carbon::now())<12)  {
+
             $rank = 20;
         }
         else{
-            
+
             $rank = 19;
-        }
+        } */
 
         $e = new Member();
         $e->membership_number = $request->get('membership');
         $e->first_name = $request->get('firstname');
         $e->last_name = $request->get('lastname');
-        $e->rank = $rank;
+        $e->rank = $request->get('rank');
         $e->date_joined = Carbon::parse($request->get('doj'));
         $e->date_birth = Carbon::parse($request->get('dob'));
         $e->active= "Y";
         $e->save();
 
-        return redirect(action('MembersController@index'))->with('success', 'Member Added');
+        Alert::Success('New Member Added', 'New member has been created')->autoclose(2000);
+        return redirect(action('MembersController@index'));
     }
 
     /**
@@ -97,13 +114,14 @@ class MembersController extends Controller
     public function show($id)
     {
         //
-      
+
        $member = Member::find($id);
+       $rank = Rankmapping::orderBy('id','desc')->get();
 
       if ($member !=null)
       {
        ActiveKids::orderby('id', 'desc')->get();
-       
+
        $count = Roll::whereHas('rollmapping', function ($query) {
         $query->whereYear('roll_date', now()->year);
         })
@@ -115,7 +133,7 @@ class MembersController extends Controller
         $attendance = ($count/$weeks)*100;
         $attendancesetting = Settings::where('setting', 'Attendance')->value('value');
 
-        return view('members.show', compact('member', 'attendance', 'attendancesetting'));
+        return view('members.show', compact('member', 'attendance', 'attendancesetting', 'rank'));
       }
 
       return redirect(action('MembersController@index'));
@@ -132,7 +150,7 @@ class MembersController extends Controller
         //
 
         $member = Member::find($id);
-        $rank = Rankmapping::get();
+        $rank = Rankmapping::orderBy('id','desc')->get();
 
         if ($member != null)
         {
@@ -172,7 +190,8 @@ class MembersController extends Controller
         $member->rank = $request->get('rank');
         $member->save();
 
-        return redirect(action('MembersController@show', $request->get('member')))->with('success', 'Member Details Updated');
+        Alert::success('Member Updated', 'Members New Details have been recored')->autoclose(1500);
+        return redirect(action('MembersController@show', $request->get('member')));
     }
 
     /**
@@ -196,9 +215,10 @@ class MembersController extends Controller
             $member->active = "N";
             $member->save();
 
-            return redirect(action('MembersController@show', $member->id))->with('done', 'Member has been made inactive');
+            alert()->success('Complete', 'Member has been made inactive')->autoclose(1500);
+            return redirect(action('MembersController@index', $member->id));
         }
     }
 
-    
+
 }

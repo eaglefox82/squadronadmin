@@ -40,7 +40,7 @@ class HomeController extends Controller
 
        $activeroll = Rollmapping::latest()->value('id');
 
-       $currentroll = DB::table('rolls')
+       $currentroll= DB::table('rolls')
        ->join('rollmappings', 'rolls.roll_id' , '=', 'rollmappings.id' )
        ->join('members', 'members.id', '=', 'rolls.member_id')
        ->join('rankmappings', 'members.rank', '=', 'rankmappings.id' )
@@ -123,7 +123,7 @@ class HomeController extends Controller
             $count2 = Roll::whereHas('rollmapping', function ($query) {
                 $query->whereYear('roll_date', now()->year);
                 })
-                ->where ('status', '=', 'A')
+                ->where ('status', '!=', 'A')
                 ->count();
 
             $avgattendance = ($count2/$count1) * 100;

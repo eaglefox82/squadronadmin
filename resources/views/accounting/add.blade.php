@@ -1,13 +1,13 @@
-@extends('layouts.app')
+<!--'@extends('layouts.app')
 
-@section('content')
+@section('content') -->
     <div class='container-fluid'>
         <div class = 'row'>
             <div class="col-sm-6">
                 <div class="card">
                     <div class = "card-header card-header-rose card-header-text">
                         <div class = "card-text">
-                            <h4 class="card-title">Add new Member</h4>
+                            <h4 class="card-title">Add new Request</h4>
                         </div>
                     </div>
                     {!!Form::open(array('action' => ['MembersController@store'], 'method'=>'POST', 'class'=>'form-horizontal'))!!}
@@ -45,6 +45,17 @@
                         </div>
 
                         <div class = "row">
+                            <label class = "col-sm-2 col-form-label">Rank</label>
+                            <div class = "col-sm-10">
+                                <select type="text" class = "selectpicker"  Data-style="select-with-transition" name="rank" data-size="6">
+                                    @foreach ($rank as $r)
+                                        <option value ={{$r->id}}>{{$r->rank}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class = "row">
                             <label class = "col-sm-2 col-form-label">Date of Joining:</label>
                             <div class = "col-sm-10 form-group">
                                 <input type = "text" class = "form-control datepicker" name="doj" value="{{Carbon\Carbon::now()->toDateString()}}">
@@ -76,9 +87,9 @@
         </div>
     </div>
 
-  @endsection
+ <!-- @endsection
 
-  @section ('scripts')
+  @section ('scripts') -->
 
     <script>
         $(document).ready(function() {

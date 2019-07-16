@@ -15,6 +15,8 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
+Route::get('/getmembers', 'MembersController@getmembers');
+
 Route::resource('/members', 'MembersController')->middleware('auth');
 Route::resource('/roll', 'RollController')->middleware('auth');
 Route::resource('/activekids', 'ActiveKidsController')->middleware('auth');
@@ -30,3 +32,10 @@ Route::get('/roll/notpaid/{id}', 'RollController@notpaid')->middleware('auth');
 Route::get('/activekids/complete/{id}', 'ActiveKidsController@complete')->middleware('auth');
 Route::get('/members/updateroll/{id}', 'RollController@updateRoll')->middleware('auth');
 Route::get('/members/delete/{id}', 'MembersController@inactive')->middleware('auth');
+Route::get('/outstanding', 'SquadronAccountingController@outstanding')->middleware('auth');
+Route::get('requested', 'SquadronAccountingController@requested')->middleware('auth');
+
+Route::post('/accounting/payment/', 'SquadronAccountingController@payment')->middleware('auth');
+
+// Ajax requests
+

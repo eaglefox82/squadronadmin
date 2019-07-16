@@ -9,7 +9,7 @@
                 <div class="card">
                     <div class="card-header card-header-rose card-header-text">
                         <div class="card-text">
-                            <h4 class="card-title">Edit Setting</h4>
+                            <h4 class="card-title">Add Item</h4>
                         </div>
                     </div>
                     {!! Form::open(array('action' => ['OtheritemsController@store'],'method'=>'POST', 'class'=>'form-horizontal')) !!}
@@ -43,7 +43,7 @@
                                 </div>
                             </div>
                             <div class ="col-md-4">
-                                <button type="submit" class="btn btn-success">Update Setting</button>
+                                    <button type="submit" class="btn btn-success">Add New Item</button>
                             </div>
                         </div>
                     </div>

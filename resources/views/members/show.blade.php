@@ -31,8 +31,8 @@
                 <div class = "card">
                     <div class="card-header card-header-icon card-header-rose">
                             <div class="pull-right new-button">
-                                <a href="{{action('MembersController@edit', $member->id)}}" class="btn btn-success" title="Edit Member"><i class="fa fa-pencil fa-2x"></i> Edit Member</a>
-                                <a href="{{action('MembersController@inactive', $member->id)}}" class="btn btn-danger" title = "Remove Member"><i class="fa fa-close fa-2x"></i>Remove Member</a>
+                                <a href="" data-toggle="modal" data-target="#editmemberModal" class="btn btn-success btn-round" title="Edit Member"><i class="fa fa-pencil fa-2x"></i> Edit Member</a>
+                                <a href="{{action('MembersController@inactive', $member->id)}}" class="btn btn-danger btn-round" title = "Remove Member"><i class="fa fa-close fa-2x"></i>Remove Member</a>
                              </div>
                         <h4 class="card-title font-weight-bold">Member Details</h4>
                     </div>
@@ -64,11 +64,11 @@
             </div>
         </div>
 
-        
+
 
 
         <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6">                
+            <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class = "card card-stats">
                     <div class ="card-header card-header-info card-header-icon">
                         <div class ="card-icon">
@@ -82,7 +82,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-3 col-md-6 col-sm-6">                
+            <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class = "card card-stats">
                     @if ($attendance > $attendancesetting)
                     <div class ="card-header card-header-success card-header-icon">
@@ -100,7 +100,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-3 col-md-6 col-sm-6">                 
+            <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card card-stats">
                         <div class="card-header card-header-info card-header-icon">
                             <div class="card-icon">
@@ -118,7 +118,7 @@
                     <div class="card card-stats">
                         @if ($member->outstanding->where('status','P')->count() != 0)
                         <div class="card-header card-header-danger card-header-icon">
-                        @else 
+                        @else
                         <div class="card-header card-header-success card-header-icon">
                         @endif
                             <div class="card-icon">
@@ -133,13 +133,54 @@
                 </div>
         </div>
 
+        <!-- This is to only show the table if there is data to show -->
+        @if ($member->currentrequests->count() > 0)
+        <div class="row">
+            <div class="col-sm-12">
+                <div class ="card">
+                    <div class = "card-header card-header-icon card-header-rose">
+                        <h4 class = "text-center">Requested Items</h4>
+                    </div>
+                    <div class = "table-responsive">
+                        <table class = "table">
+                            <thead class = "text-primary">
+                                <th width = "10%"></th>
+                                <th class = "text-center">Request Number</th>
+                                <th class = "text-center">Overview</th>
+                                <th class = "text-center">Invoice Number</th>
+                                <th class = "text-center">Invoice Total</th>
+                                <th width = "25%" class = "text-center">Notes</th>
+                            </thead>
+                            <tbody>
+                             @foreach ($member->currentrequests as $r)
+                             <tr>
+                                <td>
+                                    <a href="{{action('SquadronAccountingController@show', $r->id)}}" title="View" class="btn btn-success btn-round"><i class="fa fa-info"></i></a>
+                                </td>                              </td>
+                                <td class = "text-center">{{$r->id}}</td>
+                                <td class = "text-center">{{$r->overview}}</td>
+                                <td class = "text-center">{{$r->invoice_number}}</td>
+                                <td class = "text-center">${{$r->invoice_total}}</td>
+                                <td class = "text-center">{{$r->notes}}</td>
+                            </tr>
+                             @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
+
+
+
 
         <div class="row">
             <div class = "col-sm-9">
                 <div class = "card">
                     <div class="card-header card-header-icon card-header-rose">
                             <div class="pull-right new-button">
-                                <a href="{{action('ActiveKidsController@voucher', $member->id)}}" class="btn btn-primary" title="Add Voucher"><i class="fa fa-plus fa-2x"></i> Add Voucher</a>
+                                <a data-toggle="modal" data-target="#addvoucherModal" class="btn btn-primary btn-round" title="Add Voucher"><i class="fa fa-plus fa-2x"></i> Add Voucher</a>
                              </div>
                              <h4 class="card-title font-weight-bold">Active Kids Vouchers</h4>
                     </div>
@@ -158,7 +199,7 @@
                                 <td class="text-center">${{$t->balance}}</td>
                             </tr>
                             @endforeach
-                            </tbody> 
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -167,7 +208,7 @@
             <div class = "col-lg-3 col-md-6 col-sm-6">
                 <div class = "card">
                     <div class="card-header card-header-icon card-header-rose">
-                        <h4 class="card-title font-weight-bold">Subs Owning</h4> 
+                        <h4 class="card-title font-weight-bold">Subs Owning</h4>
                             <div class="pull-right new-button">
                              </div>
                     </div>
@@ -180,15 +221,108 @@
                             <tbody>
                             @foreach ($member->outstanding as $o)
                             <tr>
-                                <td class="text-center">{{date('j/n/Y', strtotime($o->rollmapping->roll_date))}}</td> 
-                                <td class="text-center"><a href="{{action('RollController@updateRoll', $o->id)}}" title="Paid" class="btn btn-success"><i class="material-icons">done</i></a></td>
+                                <td class="text-center">{{date('j/n/Y', strtotime($o->rollmapping->roll_date))}}</td>
+                                <td class="text-center"><a href="{{action('RollController@updateRoll', $o->id)}}" title="Paid" class="btn btn-round btn-success"><i class="material-icons">done</i></a></td>
                             </tr>
                             @endforeach
-                            </tbody> 
+                            </tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="editmemberModal" tabindex="-1" role="dialog" aria-labelledby="NewRollLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class ="modal-title" id="editmemberModal">Edit Member</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {!! Form::open(array('action' => ['MembersController@update', $member->id],'method'=>'PUT', 'class'=>'form-horizontal')) !!}
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="hidden" name="member" value="{{$member->id}}">
+                            <label class="label-control">Membership Number:</label>
+                            <div class="input-group">
+                                <input type = "text" class = "form-control" name = "membernumber" value="{{$member->membership_number}}">
+                            </div>
+
+                            <label class="label-control">First Name:</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="firstname" value="{{$member->first_name}}">
+                            </div>
+
+                            <label class="label-control">Last Name</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="lastname" value="{{$member->last_name}}">
+                            </div>
+
+                            <label class="label-control">Rank:</label>
+                            <div class="input-group">
+                                <select type="text" class="selectpicker" data-sytle="select-with-transition" name="rank" data-size="6">
+                                    @foreach ($rank as $r)
+                                    <option value ={{$r->id}} <?php if($member->rank == $r->id) echo 'selected="selected"';?> >{{$r->rank}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <label class="label-control">Membership Type</label>
+                           <div class="input-group">
+                                <select type="text" class="selectpicker" data-sytle="select-with-transition" name="type">
+                                    <option value="League"<?php if($member->member_type == "League") echo 'selected="selected"';?>>League Member</option>
+                                    <option value="Associate"<?php if($member->member_type == "Associate") echo 'selected="selected"';?>>Associate Member</option>
+                                </select>
+                           </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-round btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-round btn-primary">Save Changes</button>
+                </div>
+                {{!!Form::close()!!}}
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="addvoucherModal" tabindex="-1" role="dialog" aria-labelledby="NewRollLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="editmemberModal">Add Voucher for {{$member->first_name}} {{$member->last_name}}</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    {!!Form::open(array('action' => ['ActiveKidsController@store'], 'method'=>'POST', 'class'=>'form-horizontal'))!!}
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="hidden" name="member" value="{{$member->id}}">
+                                <label class="label-control">Date:</label>
+                                <div class="input-group">
+                                        <input type="text" class="form-control datetimepicker" name="date" value="{{Carbon\Carbon::now()->format('d-m-Y')}}">
+                                </div>
+
+                                <label class="label-control">Voucher:</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="voucher">
+                                </div>
+
+                                <label class="label-control">Voucher Balance:</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="balance">
+                                </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-round btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-round btn-primary">Save Changes</button>
+                    </div>
+                    {{!!Form::close()!!}}
+                </div>
+            </div>
+        </div>
 @endsection

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Alert;
 
 use App\Member;
 use App\Roll;
@@ -28,9 +29,12 @@ class RollController extends Controller
         $rollid = Rollmapping::latest()->value('id');
         $rolldate = Rollmapping::latest()->value('roll_date');
 
-        $member = Roll::where('roll_id','=', $rollid)->orderBy('status', 'asc')->orderby('member_id', 'asc')->get();
+        $member = Roll::where('rolls.roll_id','=', $rollid)
+        ->orderBY ('status', 'asc')
+        ->orderBy ('id', 'asc')
+        ->get();
 
-        return view('roll.index', compact('member', 'rolldate'));
+        return view('roll.index', compact('member', 'rolldate', 'rollid'));
     }
 
     /**
@@ -83,8 +87,8 @@ class RollController extends Controller
                 $r->Status = 'A';
                 $r->save();
             }
-
-       return redirect(action('RollController@index'))->with('success', 'Roll Added');
+        Alert::success('New Roll Created')->autoclose(1500);
+       return redirect(action('RollController@index'));
     }
 
     /**
@@ -176,7 +180,8 @@ class RollController extends Controller
             else
             {
                 //Not Enough money in the account
-                return redirect(action('RollController@index'))->with ('failure', 'Insufficient Active Kids Balance');
+                Alert::Error("Error", "Insufficient Active Kids Balance")->autoclose(1500);
+                return redirect(action('RollController@index'));
             }
         }
 
@@ -207,9 +212,8 @@ class RollController extends Controller
             $o->status = "C";
             $o->save();
 
-            Roll:updateData($id, $data);
-
-           return redirect(action('MembersController@show', $o->member_id))->with ('success', 'Member Present');
+            alert::success('Member Paid', 'Pass Sub has been marked as paid')->autoclose(2000);
+           return redirect(action('MembersController@show', $o->member_id));
         }
 
         return redirect(action('MembersController@index'));

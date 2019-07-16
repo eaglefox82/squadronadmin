@@ -7,9 +7,11 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 use App\ActiveKids;
 use App\Member;
+use Alert;
 
 class ActiveKidsController extends Controller
 {
@@ -40,7 +42,7 @@ class ActiveKidsController extends Controller
     {
         //
     }
-    
+
      public function voucher($id)
     {
         //
@@ -67,15 +69,24 @@ class ActiveKidsController extends Controller
             return Redirect::back()->WithErrors($validateData) ->withInput();
             }
 
+           if (($request->get('balance')) > 0) {
+                $active = 'Y';
+            }
+            else  {
+                $active = 'N';
+            }
+
             $e = new ActiveKids();
             $e->member_id = $request->get('member');
             $e->voucher_number = $request->get('voucher');
-            $e->date_received = $request->get('date');
-            $e->balance = 100;
-            $e->active = "Y";
+            $e->date_received = Carbon::parse ($request->get('date'));
+            $e->balance = $request->get('balance');
+            $e->active = $active;
             $e->save();
 
-            return redirect(action('MembersController@show', $request->get('member')))->with ('success', 'Voucher Recored');
+            Alert::success('Success', 'Voucher has been recored')->autoclose(1500);
+
+            return redirect(action('MembersController@show', $request->get('member')));
     }
 
     /**
