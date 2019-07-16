@@ -10,12 +10,12 @@ use Illuminate\Database\Eloquent\Model;
 use Alert;
 
 
-use App\roll;
+use App\Roll;
 use App\Srequest;
-use App\requestitem;
+use App\Requestitem;
 use App\Requestpayment;
-use App\rollmapping;
-use App\member;
+use App\Rollmapping;
+use App\Member;
 use Carbon\Carbon;
 
 class SquadronAccountingController extends Controller
