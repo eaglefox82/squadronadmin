@@ -27,7 +27,7 @@
                                             <td class="td-actions text-right">
                                                 <a href="{{action('SettingsController@edit', $s->id)}}" type="button" rel="tooltip" class="btn btn-info btn-round">
                                                     <i class="fa fa-pencil"></i>
-                                                </button>
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -71,9 +71,9 @@
             <div class ="card">
                 <div class ="card-header card-header-icon card-header-rose">
                     <h3 class = "card-title text-center"><Strong>Users</strong></h3>
-                        <a type="button" name="Add User" class="btn btn-success btn-round pull-right">
+                        <button data-toggle="modal" data-target="#adduserModal" type="button" name="Add User" class="btn btn-success btn-round pull-right">
                             <i class="fa fa-plus"></i>
-                        </a>
+                        </button>
                     </div>
                     <div class = "card-body">
                         <div class = "table-responsive">
@@ -135,4 +135,40 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="adduserModal" tabindex="-1" role="dialog" aria-labelledby="NewRollLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="editmemberModal">Add User</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {!!Form::open(array('action' => ['SettingsController@store'], 'method'=>'POST', 'class'=>'form-horizontal'))!!}
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="label-control">User:</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="user">
+                        </div>
+
+                        <label class="label-control">Password:</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="password">
+                        </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+            {{!!Form::close()!!}}
+        </div>
+    </div>
+</div>
+
+
+
 @endsection
