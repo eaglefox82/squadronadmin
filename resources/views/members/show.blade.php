@@ -31,6 +31,7 @@
                 <div class = "card">
                     <div class="card-header card-header-icon card-header-rose">
                             <div class="pull-right new-button">
+                                <a data-toggle="modal" data-target="#addvoucherModal" class="btn btn-primary btn-round" title="Add Voucher"><i class="fa fa-plus fa-2x"></i> Add Voucher</a>
                                 <a href="" data-toggle="modal" data-target="#editmemberModal" class="btn btn-success btn-round" title="Edit Member"><i class="fa fa-pencil fa-2x"></i> Edit Member</a>
                                 <a href="{{action('MembersController@inactive', $member->id)}}" class="btn btn-danger btn-round" title = "Remove Member"><i class="fa fa-close fa-2x"></i>Remove Member</a>
                              </div>
@@ -52,11 +53,11 @@
                                 <th>Date of Birth</th>
                                 <td>{{date("jS F Y",strtotime($member->date_birth))}}</td>
                                 <th>Age:</th>
-                                <td>{{$member->age}} years</td>
+                                <td>{{$member->age}} Years</td>
                                 <th>Date of Joining:</th>
                                 <td>{{date("jS F Y",strtotime($member->date_joined))}}</td>
                                 <th>Service:</td>
-                                <td>{{number_format((float)$member->service)}} years</td>
+                                <td>{{number_format((float)$member->service)}} Years</td>
                             </tr>
                         </table>
                     </div>
@@ -176,13 +177,12 @@
 
 
         <div class="row">
-            <div class = "col-sm-9">
+
+            @if ($member->Activekids->count() > 0)
+            <div class = "col-sm-3">
                 <div class = "card">
                     <div class="card-header card-header-icon card-header-rose">
-                            <div class="pull-right new-button">
-                                <a data-toggle="modal" data-target="#addvoucherModal" class="btn btn-primary btn-round" title="Add Voucher"><i class="fa fa-plus fa-2x"></i> Add Voucher</a>
-                             </div>
-                             <h4 class="card-title font-weight-bold">Active Kids Vouchers</h4>
+                        <h4 class="card-title font-weight-bold">Active Kids Vouchers</h4>
                     </div>
                     <div class="table-responsive">
                         <table class="table">
@@ -194,7 +194,7 @@
                             <tbody>
                             @foreach ($member->Activekids as $t)
                             <tr>
-                                <td class="text-center">{{date('j/n/Y', strtotime($t->date_received))}}</td>
+                                <td class="text-center">{{date("jS F Y", strtotime($t->date_received))}}</td>
                                 <td class="text-center">{{$t->voucher_number}}</td>
                                 <td class="text-center">${{$t->balance}}</td>
                             </tr>
@@ -204,7 +204,9 @@
                     </div>
                 </div>
             </div>
+            @endif
 
+            @if ($member->outstanding->count() > 0)
             <div class = "col-lg-3 col-md-6 col-sm-6">
                 <div class = "card">
                     <div class="card-header card-header-icon card-header-rose">
@@ -230,7 +232,9 @@
                     </div>
                 </div>
             </div>
+            @endif
         </div>
+
     </div>
 
     <div class="modal fade" id="editmemberModal" tabindex="-1" role="dialog" aria-labelledby="NewRollLabel" aria-hidden="true">
@@ -313,7 +317,7 @@
 
                                 <label class="label-control">Voucher Balance:</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" name="balance">
+                                    <input type="text" class="form-control" name="balance" value="100">
                                 </div>
                         </div>
                     </div>

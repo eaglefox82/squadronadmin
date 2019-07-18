@@ -175,7 +175,8 @@ class RollController extends Controller
                 $voucher->date_received = Carbon::now()->toDateString();
                 $voucher->save();
 
-                return redirect(action('RollController@index'))->with ('success', 'Member Paid with Active Kids');
+                Alert::Success("Paid", "Member paid from Voucher Balance")->autoclose(1500);
+                return redirect(action('RollController@index'));
             }
             else
             {

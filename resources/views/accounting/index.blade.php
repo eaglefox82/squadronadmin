@@ -7,6 +7,7 @@
             <div class="card">
                 <div class="card-header">Squadron Accounting</div>
                         <div class="card-body">
+                            <p>This page is a dashboard of squadron accounting</p>
                             @if (session('status'))
                                 <div class="alert alert-success" role="alert">
                                     {{ session('status') }}
@@ -17,8 +18,8 @@
             </div>
         </div>
         <div class = "row">
-           
-            <div class="col-lg-3 col-md-6 col-sm-6">                
+
+            <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class = "card card-stats">
                     <div class ="card-header card-header-info card-header-icon">
                         <div class ="card-icon">
@@ -30,10 +31,10 @@
                             <a href={{action('SquadronAccountingController@outstanding')}}>List Members</a>
                         </div>
                     </div>
-                </div>   
-            </div> 
+                </div>
+            </div>
 
-            <div class="col-lg-3 col-md-6 col-sm-6">                
+            <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class = "card card-stats">
                         <div class ="card-header card-header-info card-header-icon">
                             <div class ="card-icon">
@@ -45,7 +46,7 @@
                                 <a href={{action('SquadronAccountingController@requested')}}>List Invoices</a>
                             </div>
                         </div>
-                    </div>   
+                    </div>
                 </div>
 
                 <div class = "col-lg-3 col-md-6 col-sm-6">
@@ -63,7 +64,7 @@
                     </div>
                 </div>
         </div>
-        
+
        <!-- <div Class = "row">
             <div class="col-sm-8">
                 <div class = "card">
@@ -85,7 +86,7 @@
                             </table>
                         </div>
                 </div>
-            </div>              
+            </div>
         </div> -->
 
 

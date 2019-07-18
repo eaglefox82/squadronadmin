@@ -69,7 +69,7 @@
                                         <td style="border-top: 1px #ddd solid"></td>
                                     @endif
                                     <td>
-                                        <a href="{{action('MembersController@show', $r->member->id)}}" title="Show Member" class="btn btn-success btn-round"><i class="fa fa-info"></i></a>
+                                        <a href="{{action('MembersController@show', $r->member->id)}}" title="Show Member" target="_blank" class="btn btn-success btn-round"><i class="fa fa-info"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
