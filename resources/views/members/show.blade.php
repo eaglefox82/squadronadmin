@@ -221,7 +221,7 @@
                             <tbody>
                             @foreach ($member->outstanding as $o)
                             <tr>
-                                <td class="text-center">{{date('j/n/Y', strtotime($o->rollmapping->roll_date))}}</td>
+                                <td class="text-center">{{date("jS F Y", strtotime($o->rollmapping->roll_date))}}</td>
                                 <td class="text-center"><a href="{{action('RollController@updateRoll', $o->id)}}" title="Paid" class="btn btn-round btn-success"><i class="material-icons">done</i></a></td>
                             </tr>
                             @endforeach
