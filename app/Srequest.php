@@ -15,17 +15,17 @@ class Srequest extends Model
 
     public function requesitem()
     {
-        return $this->hasMany('App\requestitems');
+        return $this->hasMany('App\Requestitems');
     }
 
     public function requestpayment()
     {
-        return $this->hasMany('App\requestpayment', 'request_id', 'id');
+        return $this->hasMany('App\Requestpayment', 'request_id', 'id');
     }
 
     public function memberrequest()
     {
-        return $this->hasOne('App\member', 'id', 'member_id');
+        return $this->hasOne('App\Member', 'id', 'member_id');
     }
 
 }
