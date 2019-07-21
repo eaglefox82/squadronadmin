@@ -17,22 +17,25 @@ class Member extends Model
 
     public function getAgeAttribute()
     {
-        return Carbon::parse($this->attributes['date_birth'])->age;
+        $now = Carbon::now();
+        $age = (Carbon::parse(date('Y-m-d',strtotime($this->date_birth)))->DiffinMonths($now))/12;
+        return $age;
     }
 
     public function getServiceAttribute()
     {
       $now = Carbon::now();
 
-      $service = Carbon::parse(date('Y-m-d',strtotime($this->date_joined)))->DiffInYears($now);
-      return $service;  
+      $service = (Carbon::parse(date('Y-m-d',strtotime($this->date_joined)))->DiffInMonths($now))/12;
+
+      return $service;
     }
 
     public function ActiveKids()
     {
         return $this->hasMany('App\ActiveKids', 'member_id', 'id');
     }
-    
+
     public function MemberRank()
     {
         return $this->hasOne('App\Rankmapping', 'id', 'rank');

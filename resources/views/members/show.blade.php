@@ -53,11 +53,11 @@
                                 <th>Date of Birth</th>
                                 <td>{{date("jS F Y",strtotime($member->date_birth))}}</td>
                                 <th>Age:</th>
-                                <td>{{$member->age}} Years</td>
+                                <td>{{number_format((float)$member->age,2)}} Years</td>
                                 <th>Date of Joining:</th>
                                 <td>{{date("jS F Y",strtotime($member->date_joined))}}</td>
                                 <th>Service:</td>
-                                <td>{{number_format((float)$member->service)}} Years</td>
+                                <td>{{number_format((float)$member->service,2)}} Years</td>
                             </tr>
                         </table>
                     </div>
@@ -233,6 +233,8 @@
                 </div>
             </div>
             @endif
+
+
         </div>
 
     </div>
