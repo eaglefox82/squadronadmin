@@ -36,6 +36,7 @@ Route::get('/outstanding', 'SquadronAccountingController@outstanding')->middlewa
 Route::get('requested', 'SquadronAccountingController@requested')->middleware('auth');
 
 Route::post('/accounting/payment/', 'SquadronAccountingController@payment')->middleware('auth');
+Route::post('/accounting/request/update{id}', 'SquadronAccountingController@update')->middleware('auth');
 
 // Ajax requests
 

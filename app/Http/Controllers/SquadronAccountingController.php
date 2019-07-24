@@ -127,6 +127,14 @@ class SquadronAccountingController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $update = Srequest::find($id);
+        $update->invoice_number = $request->get('invoice');
+        $update->invoice_total = $request->get('amount');
+        $update->save();
+
+        Alert::success('Invoice Updated', 'Member Request details have been updated')->autoclose(1500);
+        return redirect(action('SquadronAccountingController@show', $request->get('id')));
+
     }
 
     /**

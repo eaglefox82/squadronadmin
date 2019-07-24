@@ -72,14 +72,16 @@
                             </select>
                         </div>
 
+                        <label class="label-control">Request Overview:</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="overview">
+                        </div>
+                        <br><br>
+                        <p> Please note the following fields are not required</p>
+
                         <label class="label-control">Invoice Number:</label>
                         <div class="input-group">
                             <input type="text" class="form-control" name="Invoice">
-                        </div>
-
-                        <label class="label-control">Overview:</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control" name="overview">
                         </div>
 
                         <label class="label-control">Total Amount:</label>
