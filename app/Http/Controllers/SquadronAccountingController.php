@@ -28,6 +28,7 @@ class SquadronAccountingController extends Controller
     public function index()
     {
 
+        $rollid = Rollmapping::latest()->value('id');
     $outstanding = Roll::where('status', '=', 'P')->count();
     $requestsinvoice = Srequest::where('complete', '=', 'N')->sum('invoice_total');
     $requestPayments = Requestpayment::whereHas('request', function ($query) {
@@ -37,10 +38,12 @@ class SquadronAccountingController extends Controller
 
     $requestbalance = $requestsinvoice - $requestPayments;
 
+    $totalsubs = Roll::where('status', '=', 'C')->where('paidrollid', '=', $rollid)->count()*10;
+
 
     $members = Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->get();
 
-        return view('accounting.index', compact('outstanding', 'requestbalance', 'members', 'rollid'));
+        return view('accounting.index', compact('outstanding', 'requestbalance', 'members', 'rollid', 'totalsubs'));
     }
 
     /**

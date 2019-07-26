@@ -40,7 +40,7 @@
                             <i class="fa fa-book fa-2x"></i>
                         </div>
                         <p class="card-category">Members on Roll<br><br></p>
-                        <h3 class="card-title">{{$members->where ('active','Y')->count()}}</h3>
+                        <h3 class="card-title">{{$members->where ('active','Y')->where('member_type', 'League')->count()}}</h3>
                         <a href="{{action('MembersController@create')}}" class="card-link">Add New Member</a>
                         <div class="card-footer">
                         </div>
@@ -55,7 +55,7 @@
                             <i class="fa fa-percent fa-2x"></i>
                         </div>
                         <p class="card-category">Sqn Attendance<br><br></p>
-                        <h3 class="card-title">{{number_format(($currentroll->count()/$members->where ('active','Y')->count())*100),2}}%</h3>
+                        <h3 class="card-title">{{number_format(($currentroll->count()/$members->where ('active','Y')->where('member_type', 'League')->count())*100),2}}%</h3>
                         <a href="{{action('RollController@index')}}" class="card-link">View Roll</a>
                         <div class="card-footer">
                         </div>
@@ -151,12 +151,18 @@
 
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <div class="card card-stats">
-                    <div class="card-header card-header-warning card-header-icon">
+                    @if($tend == 1)
+                    <div class="card-header card-header-success card-header-icon">
                         <div class="card-icon">
-                            <i class="fa fa-percent fa-2x"></i>
+                            <i class="fa fa-arrow-up fa-2x"></i>
+                    @else
+                    <div class="card-header card-header-danger card-header-icon">
+                        <div class="card-icon">
+                            <i class="fa fa-arrow-down fa-2x"></i>
+                    @endif
                         </div>
                         <p class="card-category">Yearly Sqn Attendance<br><br></p>
-                            <h3 class="card-title">{{number_format($avgattendance,2)}}%</h3>
+                            <h3 class="card-title">{{number_format($avgattendance,2)}}% </h3>
                             <div class="card-footer">
                             </div>
                     </div>

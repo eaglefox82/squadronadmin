@@ -65,6 +65,25 @@
                 </div>
         </div>
 
+        <div class ="row">
+
+                <div class = "col-lg-3 col-md-6 col-sm-6">
+                        <div class = "card card-stats">
+                            <div class = "card-header card-header-success card-header-icon">
+                                <div class = "card-icon">
+                                    <i class = "fa fa-money fa-2x"></i>
+                                </div>
+                                <p class="card-category">Total Subs<br><br></p>
+                                <h3 class ="card-title">${{$totalsubs}}</h3>
+                                <div Class = "card-footer">
+                                    <a href="">Including Past Paid Subs</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        </div>
+
+
        <!-- <div Class = "row">
             <div class="col-sm-8">
                 <div class = "card">

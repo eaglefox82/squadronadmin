@@ -126,8 +126,22 @@ class HomeController extends Controller
                 ->where ('status', '!=', 'A')
                 ->count();
 
+            $count3 = Roll::whereHas('rollmapping', function ($query) {
+                $query->whereYear('roll_date', now()->year);
+                })
+                ->where ('status', '!=', 'A')
+                ->where ('roll_id', '!=', $activeroll)
+                ->count();
+
             $avgattendance = ($count2/$count1) * 100;
 
-        return view('home', compact ('members', 'active', 'currentroll', 'total', 'officers', 'to', 'nco', 'cadet', 'rollweek', 'avgattendance'));
+            $pastavg = ($count3/($count1-1)) * 100;
+
+            if($pastavg > $avgattendance){
+                $tend = 0;
+            }
+            $tend = 1;
+
+        return view('home', compact ('members', 'active', 'currentroll', 'total', 'officers', 'to', 'nco', 'cadet', 'rollweek', 'avgattendance', 'tend'));
     }
 }

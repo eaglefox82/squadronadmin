@@ -23,6 +23,7 @@ class RollController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         //
@@ -140,10 +141,12 @@ class RollController extends Controller
     {
 
         $r = Roll::find($id);
+        $rollid = Rollmapping::latest()->value('id');
 
         if ($r != null)
         {
             $r->status = "C";
+            $r->paidrollid = $rollid;
             $r->save();
 
             return redirect(action('RollController@index'))->with ('success', 'Member Paid');
@@ -157,6 +160,7 @@ class RollController extends Controller
     public function voucher($id)
     {
         $r = Roll::find($id);
+        $rollid = Rollmapping::latest()->value('id');
 
         if ($r != null)
         {
@@ -165,6 +169,7 @@ class RollController extends Controller
             {
                 // Update Roll Status
                 $r->status = "V";
+                $r->paidrollid = $rollid;
                 $r->save();
 
                 // Insert Record into ActiveKids Voucher
@@ -207,13 +212,15 @@ class RollController extends Controller
     public function updateRoll($id)
     {
         $o = Roll::find($id);
+        $rollid = Rollmapping::latest()->value('id');
 
         if ($o != null)
         {
             $o->status = "C";
+            $o->paidrollid = $rollid;
             $o->save();
 
-            alert::success('Member Paid', 'Pass Sub has been marked as paid')->autoclose(2000);
+            alert::success('Member Paid', 'Past Sub has been marked as paid')->autoclose(2000);
            return redirect(action('MembersController@show', $o->member_id));
         }
 

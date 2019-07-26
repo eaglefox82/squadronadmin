@@ -108,7 +108,7 @@
 
                             <label class="label-control">Date of Joining</label>
                                 <div class="input-group">
-                                    <input type = "text" class = "datepicker form-control" name="doj" value="{{Carbon\Carbon::now()->format('d-m-Y')}}">
+                                    <input type = "text" class = "form-control datetimepicker" name="doj" value="{{Carbon\Carbon::now()->format('d-m-Y')}}">
                                 </div>
 
                         </div> <!-- form group div close -->
@@ -159,7 +159,17 @@
 
      <script type="text/javascript">
         $( ".datepicker" ).datetimepicker({
-            format: "dd/mm/yy"
+            icons:{
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-chevron-up",
+                down: "fa fa-chevron-down",
+                previous: 'fa fa-chevron-left',
+                next: 'fa fa-chevron-right',
+                today: 'fa fa-screenshot',
+                clear: 'fa fa-trash',
+                close: 'fa fa-remove'
+            }
             });
     </script>
 
