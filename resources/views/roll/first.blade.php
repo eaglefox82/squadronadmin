@@ -34,7 +34,7 @@
                         <a href="{{action('RollController@create')}}" class="btn btn-primary"  title="Create New Roll"><i class="fa fa-plus fa-2x"></i>Create New Roll</a>
                     </div>  -->
                     <button class="btn btn-round btn-primary pull-right" data-toggle="modal" data-target="#newrollModal"><i class="fa fa-plus fa-2x"></i>New Roll</button>
-                    <a href="{{action('RollController@parade')}}" class="btn btn-round btn-info pull-right"><i class="fa fa-book fa-2x"></i>First Parade Roll</a>
+                    <button class="btn btn-round btn-info pull-right"><i class="fa fa-book fa-2x"></i>First Parade Roll</button>
                 </div>
                 <div class="card-body">
 
@@ -52,7 +52,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            @foreach($member as $r)
+                            @foreach($fparade as $r)
                                 <tr>
                                     <td class="text-center">
                                         @if ($r->status == 'A')

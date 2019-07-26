@@ -43,7 +43,19 @@ class RollController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function parade()
+    {
+        $rollid = Rollmapping::latest()->value('id');
+        $rolldate = Rollmapping::latest()->value('roll_date');
+
+        $fparade = Roll::where('status', '!=', 'A')->where('roll_id', '=', $rollid)->get();
+
+        return view('roll.first', compact('rolldate', 'fparade'));
+    }
+
+
+
+     public function create()
     {
         //
         return view('roll.create');

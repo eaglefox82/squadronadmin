@@ -34,6 +34,7 @@ Route::get('/members/updateroll/{id}', 'RollController@updateRoll')->middleware(
 Route::get('/members/delete/{id}', 'MembersController@inactive')->middleware('auth');
 Route::get('/outstanding', 'SquadronAccountingController@outstanding')->middleware('auth');
 Route::get('requested', 'SquadronAccountingController@requested')->middleware('auth');
+Route::get('/roll/parade', 'RollController@parade')->middleware('auth');
 
 Route::post('/accounting/payment/', 'SquadronAccountingController@payment')->middleware('auth');
 Route::post('/accounting/request/update{id}', 'SquadronAccountingController@update')->middleware('auth');
