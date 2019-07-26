@@ -76,7 +76,7 @@
                                 <p class="card-category">Total Subs<br><br></p>
                                 <h3 class ="card-title">${{$totalsubs}}</h3>
                                 <div Class = "card-footer">
-                                    <a href="">Including Past Paid Subs</a>
+                                    <a href="">Including Past Subs Paid</a>
                                 </div>
                             </div>
                         </div>

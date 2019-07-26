@@ -17,6 +17,7 @@ use App\Requestpayment;
 use App\Rollmapping;
 use App\Member;
 use Carbon\Carbon;
+use App\Settings;
 
 class SquadronAccountingController extends Controller
 {
@@ -28,7 +29,9 @@ class SquadronAccountingController extends Controller
     public function index()
     {
 
-        $rollid = Rollmapping::latest()->value('id');
+    $subfee = Settings::where('setting', '=', 'Weekly Fees')->value('value');
+
+    $rollid = Rollmapping::latest()->value('id');
     $outstanding = Roll::where('status', '=', 'P')->count();
     $requestsinvoice = Srequest::where('complete', '=', 'N')->sum('invoice_total');
     $requestPayments = Requestpayment::whereHas('request', function ($query) {
@@ -38,7 +41,7 @@ class SquadronAccountingController extends Controller
 
     $requestbalance = $requestsinvoice - $requestPayments;
 
-    $totalsubs = Roll::where('status', '=', 'C')->where('paidrollid', '=', $rollid)->count()*10;
+    $totalsubs = Roll::where('status', '=', 'C')->where('paidrollid', '=', $rollid)->count()*$subfee;
 
 
     $members = Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->get();

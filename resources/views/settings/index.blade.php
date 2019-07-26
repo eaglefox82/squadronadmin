@@ -25,9 +25,9 @@
                                             <td class="text-center">{{$s->setting}} </td>
                                             <td class="text-center">{{$s->value}} </td>
                                             <td class="td-actions text-right">
-                                                <a href="{{action('SettingsController@edit', $s->id)}}" type="button" rel="tooltip" class="btn btn-info btn-round">
+                                                <button type="button" rel="tooltip" class="btn btn-info btn-round"><a href="{{action('SettingsController@edit', $s->id)}}"></a>
                                                     <i class="fa fa-pencil"></i>
-                                                </a>
+                                                </button>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -42,9 +42,9 @@
                 <div class = "card">
                     <div class="card-header card-header-icon card-header-rose">
                         <h3 class ="card-title text-center"><strong>Other Items</strong></h3>
-                        <a href="{{action('OtheritemsController@create')}}" type="button" name="Add Item" class="btn btn-success btn-round pull-right">
+                        <button type="button" name="Add Item" class="btn btn-success btn-round pull-right"><a href="{{action('OtheritemsController@create')}}"></a>
                              <i class="fa fa-plus"></i>
-                        </a>
+                    </button>
                     </div>
                     <div class = "card-body">
                         <div class="table-responsive">
