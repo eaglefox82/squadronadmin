@@ -107,6 +107,13 @@
                    </a>
                 </li>
 
+                <li class="nav-item">
+                    <a class="nav-link" href="{{action('StockController@index')}}">
+                        <i class="fa fa-barcode"></i>
+                        <p>Stock List</p>
+                    </a>
+                </li>
+
                 <li class="nav-item ">
                    <a class="nav-link" href="{{action('SettingsController@index')}}">
                        <i class="fa fa-cog"></i>

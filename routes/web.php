@@ -24,6 +24,7 @@ Route::resource('/accounting', 'SquadronAccountingController')->middleware('auth
 Route::resource('/settings', 'SettingsController')->middleware('auth');
 Route::resource('/form19', 'Form19Controller')->middleware('auth');
 Route::resource('/otheritems', 'OtheritemsController')->middleware('auth');
+Route::resource('/stocklist', 'StockController')->middleware('auth');
 
 Route::get('/activekids/voucher/{id}', 'ActiveKidsController@voucher')->middleware('auth');
 Route::get('/roll/paid/{id}', 'RollController@paid')->middleware('auth');
