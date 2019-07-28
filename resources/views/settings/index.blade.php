@@ -146,12 +146,20 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            {!!Form::open(array('action' => ['SettingsController@store'], 'method'=>'POST', 'class'=>'form-horizontal'))!!}
+            {!!Form::open(array('action' => ['UsersController@store'], 'method'=>'POST', 'class'=>'form-horizontal'))!!}
             <div class="modal-body">
                 <div class="form-group">
-                    <label class="label-control">User:</label>
+                    <label class="label-control">First Name:</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" name="user">
+                            <input type="text" class="form-control" name="firstname">
+                        </div>
+                    <label class="label-control">Last Name:</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="lastname">
+                        </div>
+                    <label class="label-control">Username:</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="username">
                         </div>
 
                         <label class="label-control">Password:</label>
@@ -168,6 +176,7 @@
         </div>
     </div>
 </div>
+
 
 
 
