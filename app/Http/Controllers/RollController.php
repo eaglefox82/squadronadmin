@@ -161,7 +161,8 @@ class RollController extends Controller
             $r->paidrollid = $rollid;
             $r->save();
 
-            return redirect(action('RollController@index'))->with ('success', 'Member Paid');
+            Alert::Success('Member Paid', 'Member Paid Cash')->autoclose(1500);
+            return redirect(action('RollController@index'));
         }
 
         return redirect(action('RollController@index'));

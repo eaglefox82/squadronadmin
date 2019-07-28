@@ -33,8 +33,7 @@
                   <!--  <div class="pull-right new-button">
                         <a href="{{action('RollController@create')}}" class="btn btn-primary"  title="Create New Roll"><i class="fa fa-plus fa-2x"></i>Create New Roll</a>
                     </div>  -->
-                    <button class="btn btn-round btn-primary pull-right" data-toggle="modal" data-target="#newrollModal"><i class="fa fa-plus fa-2x"></i>New Roll</button>
-                    <button class="btn btn-round btn-info pull-right"><i class="fa fa-book fa-2x"></i>First Parade Roll</button>
+                    <a href="{{action('RollController@index')}}" class="btn btn-round btn-info pull-right"><i class="fa fa-book fa-2x"></i>Back to Roll</a>
                 </div>
                 <div class="card-body">
 
@@ -43,34 +42,25 @@
                             <thead class = "text-primary">
                             <h4> Roll Date: {{date("l - jS F Y",strtotime($rolldate))}}</h4>
                                 <tr>
-                                    <th width="20%"></th>
                                     <th class="text-center">Member</th>
-                                    <th width = "20%" class="text-center">Rank</th>
-                                    <th class="text-center">Present</th>
-                                    <th class="text-center">Voucher Balance</th>
-                                    <th width="10%"></th>
+                                    <th class="text-center">Rank</th>
+                                    <th width="20%"></th>
                                 </tr>
                             </thead>
                             <tbody>
                             @foreach($fparade as $r)
                                 <tr>
-                                    <td class="text-center">
-                                        @if ($r->status == 'A')
-                                        <a href="{{action('RollController@paid', $r->id)}}" title="Paid" class="btn btn-success btn-round"><i class="material-icons">done</i></a>
-                                        <a href="{{action('RollController@voucher', $r->id)}}"  title="Voucher" class="btn btn-info btn-round"><i class ="material-icons">local_activity</i></a>
-                                        <a href="{{action('RollController@notpaid', $r->id)}}" title="Not Paid" class="btn btn-danger btn-round"><i class="material-icons">close</i></a>
-                                        @endif
-                                    </td>
-                                    <td class="text-center">{{$r->member->last_name}}, {{$r->member->first_name}} </td>
+                                    <td class="text-center"><strong>{{$r->member->last_name}}, {{$r->member->first_name}}</strong> </td>
                                     <td class="text-center">{{$r->member->memberrank->rank}}</td>
-                                    <td class="text-center">{{$r->rollstatus->status}}</td>
-                                    @if ($r->ActiveKids->sum('balance') != 0)
-                                        <td class="text-center"><strong>${{$r->ActiveKids->sum('balance')}}</strong></td>
-                                    @else
-                                        <td style="border-top: 1px #ddd solid"></td>
-                                    @endif
-                                    <td>
-                                        <a href="{{action('MembersController@show', $r->member->id)}}" title="Show Member" target="_blank" class="btn btn-success btn-round"><i class="fa fa-info"></i></a>
+
+                                    <td class="text-center">
+                                        @if ($r->status == 'C')
+                                        <p>Paid Cash</p>
+                                        @elseif ($r->status == 'V')
+                                        <p>Used Voucher </p>
+                                        @else ($r->status == 'P')
+                                        <p>Member did not pay</p>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
