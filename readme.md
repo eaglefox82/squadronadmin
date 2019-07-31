@@ -6,10 +6,14 @@ This site has been developed to assist with the Squadron Operations of a meeting
 ### Table of Contents
 -----
  * [Overview](#Overview)
+ * [Dashboard](#Dashboard)
+ * [Members](#Members-Page)
+ * [Member View](#Members-View-Page)
+ * [Roll](#Roll)
 
 ## Overview
 ----
-### Home Page - Dashboard
+### Dashboard
 ****
 When logging into the site, the Dashboard is the site home page. On this page you will see the following information, shown in a number of Cards
 
@@ -60,7 +64,34 @@ This is accessed from 2 locations - Member List Page or Roll Page. This page con
 * Active Kids Vouchers - This will show all transactions against Active Kids Vouchers. The recording of a voucher and each time an amount is deducted against the voucher - If there is no data to  show, the box is hidden
 * Outstanding Subs - This shows the weeks where the member didn't pay Subs. The tick icon marks that week as paid. If nothing to show the box is  hidden.
 
+###### Edit Member
+This allows you to edit the members details which are kept within the system
 
+###### Add Voucher
+This allows you to add a Active Kids or Creative Kids Voucher. The default amount is $100, however this can be changed
+
+## Roll
+The system allows the user to create a roll for each squadron meeting night, this is a very important function of the system as it drives all values which are recorded. The roll view contains the following features:
+
+###### Create New Roll
+Allows the user to create a new roll, when creating a roll everyone  is marked as away. As the members are marked present using the buttons (covered below) they are moved to the bottom of the list. The roll is sorted in the following way:
+* Members marked as away
+    * Rank
+    
+###### Present - Paid
+If a member is present and paid, clicking on the Green Box with the Tick will mark them as such. This follows though and records the value to display as subs collected on that night
+
+###### Present - Voucher
+If a member is present and using their voucher balance to pay, ticking on the light blue box with the ticket icon will mark the member as such. This system will also add an entry for the member in the Active kids table shown in the member view and reduce their balance by the sub amount. The system will also check to see if they have a balance to cover the subs, if not a warning message is shown.
+
+###### Present - Not Paid
+If a member is present but doesn't pay their subs, click on the Red Box with the cross will mark them as such. This will record them as not paying and add a record to the Outstanding Subs view for that member and increase the total outstanding amount
+
+###### Member View
+Clicking on the green box with the "i" icon will show the member page view. This is the same information as the member view. This is handy for adding a Active or Creative kids voucher without leaving the roll
+
+###### First Parade Roll
+This will show a list of all members who are present, this is sorted by Rank. The only option is to go back to the roll from this screen
 
 
 This site has been developped to assist with the Admin operation of the Squadron.
