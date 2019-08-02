@@ -168,7 +168,7 @@
                     <script>
                         document.write(new Date().getFullYear())
                     </script>
-                     | Developed by Brendan Fox</a>
+                     | Developed by Brendan Fox | Version {{$version}}</a>
                 </div>
             </div>
         </footer>
