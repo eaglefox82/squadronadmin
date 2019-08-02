@@ -120,6 +120,13 @@
                         <p> Settings</p>
                    </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="www.mailchimp.com">
+                        <i class="fa fa-envelope></i>
+                            <p>MailChimp</p>
+                         </i>
+                      </a>
+                  </li>
             </ul>
         </div>
     </div>
