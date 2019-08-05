@@ -25,9 +25,9 @@
                                             <td class="text-center">{{$s->setting}} </td>
                                             <td class="text-center">{{$s->value}} </td>
                                             <td class="td-actions text-right">
-                                                <button type="button" rel="tooltip" class="btn btn-info btn-round"><a href="{{action('SettingsController@edit', $s->id)}}"></a>
+                                                <a href="{{action('SettingsController@edit', $s->id)}}" rel="tooltip" class="btn btn-info btn-round">
                                                     <i class="fa fa-pencil"></i>
-                                                </button>
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach

@@ -122,7 +122,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="www.mailchimp.com">
-                        <i class="fa fa-envelope></i>
+                        <i class="fa fa-envelope"></i>
                             <p>MailChimp</p>
                          </i>
                       </a>
@@ -168,7 +168,7 @@
                     <script>
                         document.write(new Date().getFullYear())
                     </script>
-                     | Developed by Brendan Fox | Version {{$version}}</a>
+                     | Developed by Brendan Fox</a>
                 </div>
             </div>
         </footer>

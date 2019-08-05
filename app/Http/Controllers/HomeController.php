@@ -141,8 +141,8 @@ class HomeController extends Controller
                 $tend = 0;
             }
             $tend = 1;
-        
-            $version = 2.1
+
+            $version = 2.1;
 
         return view('home', compact ('members', 'active', 'currentroll', 'total', 'officers', 'to', 'nco', 'cadet', 'rollweek', 'avgattendance', 'tend', 'version'));
     }

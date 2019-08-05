@@ -86,7 +86,7 @@ class SettingsController extends Controller
         {
             return view('settings.edit', compact('setting'));
         }
-        return redirect(action('SettingContro+ller@index'));
+        return redirect(action('SettingController@index'));
     }
 
     /**

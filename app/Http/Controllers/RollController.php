@@ -192,15 +192,8 @@ class RollController extends Controller
                 $voucher->balance = -10;
                 $voucher->date_received = Carbon::now()->toDateString();
                 $voucher->save();
-                
-                if(ActiveKids::Where('member_id','=', $r->member_id)->sum('balance') = 0)
-                {
-                    Alert::Success("Paid", "Member Voucer Balance is now $0")->autoclose(1500);
-                }
-                else
-                {
+
                 Alert::Success("Paid", "Member paid from Voucher Balance")->autoclose(1500);
-                }
                 return redirect(action('RollController@index'));
             }
             else
