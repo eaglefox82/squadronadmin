@@ -305,23 +305,28 @@
                     </div>
                     {!!Form::open(array('action' => ['ActiveKidsController@store'], 'method'=>'POST', 'class'=>'form-horizontal'))!!}
                     <div class="modal-body">
-                        <div class="form-group">
+                   
                             <input type="hidden" name="member" value="{{$member->id}}">
                                 <label class="label-control">Date:</label>
+                                <div class="form-group">
                                 <div class="input-group">
                                         <input type="text" class="form-control datetimepicker" name="date" value="{{Carbon\Carbon::now()->format('d-m-Y')}}">
                                 </div>
+                                </div>
 
                                 <label class="label-control">Voucher:</label>
+                                <div class="form-group">
                                 <div class="input-group">
                                     <input type="text" class="form-control" name="voucher">
                                 </div>
+                                </div>
 
                                 <label class="label-control">Voucher Balance:</label>
+                                <div class="form-group">
                                 <div class="input-group">
                                     <input type="text" class="form-control" name="balance" value="100">
                                 </div>
-                        </div>
+                                </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-round btn-secondary" data-dismiss="modal">Close</button>
