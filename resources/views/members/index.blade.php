@@ -78,10 +78,11 @@
                 {!!Form::open(array('action' => ['MembersController@store'], 'method'=>'POST', 'class'=>'form-horizontal'))!!}
                 <div class="modal-body">
                         <div class="form-group">
-                            <label class="label-control">Invoice Number:</label>
+                            <label class="label-control">MemberShip Number:</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" name="membership" value="New">
                                 </div>
+
                             <label class="label-control">First Name:</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" name="firstname">
@@ -103,7 +104,7 @@
 
                             <label class="label-control">Date of Birth:</label>
                                 <div class="input-group">
-                                    <input type = "text" class = "form-control datepicker" name="dob" value="{{Carbon\Carbon::now()->format('d-m-Y')}}">
+                                    <input type = "text" class = "form-control datetimepicker" name="dob" value="{{Carbon\Carbon::now()->format('d-m-Y')}}">
                                 </div>
 
                             <label class="label-control">Date of Joining</label>
@@ -156,23 +157,6 @@
         });
      });
      </script>
-
-     <script type="text/javascript">
-        $( ".datepicker" ).datetimepicker({
-            icons:{
-                time: "fa fa-clock-o",
-                date: "fa fa-calendar",
-                up: "fa fa-chevron-up",
-                down: "fa fa-chevron-down",
-                previous: 'fa fa-chevron-left',
-                next: 'fa fa-chevron-right',
-                today: 'fa fa-screenshot',
-                clear: 'fa fa-trash',
-                close: 'fa fa-remove'
-            }
-            });
-    </script>
-
 
 
 @stop

@@ -45,7 +45,7 @@
                     <div class="collapse" id="collapseExample">
                         <ul class="nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{action('SettingsController@index')}}">
+                                <a class="nav-link" href="#">
                                     <span class="sidebar-mini"> S </span>
                                     <span class="sidebar-normal"> Settings </span>
                                 </a>
@@ -122,7 +122,46 @@
                            <p>MailChimp</p>
                         </i>
                      </a>
+                 </li>
+           </ul>
+                    </div>
                 </li>
+                {{--<li class="nav-item ">--}}
+                    {{--<a class="nav-link" data-toggle="collapse" href="#pagesExamples">--}}
+                        {{--<i class="material-icons">image</i>--}}
+                        {{--<p> Pages--}}
+                            {{--<b class="caret"></b>--}}
+                        {{--</p>--}}
+                    {{--</a>--}}
+                    {{--<div class="collapse" id="pagesExamples">--}}
+                        {{--<ul class="nav">--}}
+                            {{--<li class="nav-item ">--}}
+                                {{--<a class="nav-link" href="./pages/pricing.html">--}}
+                                    {{--<span class="sidebar-mini"> P </span>--}}
+                                    {{--<span class="sidebar-normal"> Pricing </span>--}}
+                                {{--</a>--}}
+                            {{--</li>--}}
+                        {{--</ul>--}}
+                    {{--</div>--}}
+                {{--</li>--}}
+                {{--<li class="nav-item ">--}}
+                    {{--<a class="nav-link" data-toggle="collapse" href="#tablesExamples">--}}
+                        {{--<i class="material-icons">grid_on</i>--}}
+                        {{--<p> Tables--}}
+                            {{--<b class="caret"></b>--}}
+                        {{--</p>--}}
+                    {{--</a>--}}
+                    {{--<div class="collapse" id="tablesExamples">--}}
+                        {{--<ul class="nav">--}}
+                            {{--<li class="nav-item ">--}}
+                                {{--<a class="nav-link" href="./tables/regular.html">--}}
+                                    {{--<span class="sidebar-mini"> RT </span>--}}
+                                    {{--<span class="sidebar-normal"> Regular Tables </span>--}}
+                                {{--</a>--}}
+                            {{--</li>--}}
+                        {{--</ul>--}}
+                    {{--</div>--}}
+                {{--</li>--}}
             </ul>
         </div>
     </div>

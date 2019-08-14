@@ -94,19 +94,19 @@
             </div>
             {!!Form::open(array('action' => ['RollController@store'], 'method'=>'POST', 'class'=>'form-horizontal'))!!}
             <div class="modal-body">
+                <label class="label-control">Enter Date:</label>
                     <div class="form-group">
-                        <label class="label-control">Enter Date:</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control datetimepicker" name="rolldate" value="{{Carbon\Carbon::now()->format('d-m-Y')}}">
-                            </div>
+                        <div class="input-group">
+                            <input type="text" class="form-control datetimepicker" name="rolldate" value="{{Carbon\Carbon::now()->format('d-m-Y')}}">
                         </div>
-            </div>
+                    </div>
+                </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary btn-round" data-dismiss="modal">Close</button>
               <button type="submit" class="btn btn-primary btn-round">Create Roll</button>
             </div>
+        </div>
             {!!Form::close()!!}
-          </div>
         </div>
     </div>
 @endsection
@@ -133,6 +133,23 @@
      });
   });
 });
+</script>
+
+
+<script type="text/javascript">
+    $( ".datepicker" ).datetimepicker({
+        icons:{
+            time: "fa fa-clock-o",
+            date: "fa fa-calendar",
+            up: "fa fa-chevron-up",
+            down: "fa fa-chevron-down",
+            previous: 'fa fa-chevron-left',
+            next: 'fa fa-chevron-right',
+            today: 'fa fa-screenshot',
+            clear: 'fa fa-trash',
+            close: 'fa fa-remove'
+        }
+        });
 </script>
 
 

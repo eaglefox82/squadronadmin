@@ -29,10 +29,11 @@ class RollController extends Controller
         //
         $rollid = Rollmapping::latest()->value('id');
         $rolldate = Rollmapping::latest()->value('roll_date');
-        $members =
+
+
 
         $members = Roll::with(array('member' => function($q) {
-            return $q->orderby('Rank');
+            return $q->orderby('rank');
         }))
         ->where('roll_id', '=', $rollid)->orderby('status')->get();
 
@@ -50,7 +51,7 @@ class RollController extends Controller
         $rolldate = Rollmapping::latest()->value('roll_date');
 
         $fparade = Roll::with(array('member' => function($q) {
-            return $q->orderby('Rank');
+            return $q->orderby('rank');
         }))
         ->where('status', '!=', 'A')->where('roll_id', '=', $rollid)->get();
 
@@ -178,6 +179,7 @@ class RollController extends Controller
     {
         $r = Roll::find($id);
         $rollid = Rollmapping::latest()->value('id');
+        $rolldate = Rollmapping::latest()->value('roll_date');
 
         if ($r != null)
         {
@@ -194,7 +196,7 @@ class RollController extends Controller
                 $voucher->member_id = $r->member_id;
                 $voucher->voucher_number = 'Weekly Subs';
                 $voucher->balance = -10;
-                $voucher->date_received = Carbon::now()->toDateString();
+                $voucher->date_received = $rolldate;
                 $voucher->save();
 
                 Alert::Success("Paid", "Member paid from Voucher Balance")->autoclose(1500);
