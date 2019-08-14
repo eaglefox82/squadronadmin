@@ -29,13 +29,14 @@ class RollController extends Controller
         //
         $rollid = Rollmapping::latest()->value('id');
         $rolldate = Rollmapping::latest()->value('roll_date');
+        $members =
 
-        $member = Roll::where('rolls.roll_id','=', $rollid)
-        ->orderBY ('status', 'asc')
-        ->orderBy ('id', 'asc')
-        ->get();
+        $members = Roll::with(array('member' => function($q) {
+            return $q->orderby('Rank');
+        }))
+        ->where('roll_id', '=', $rollid)->orderby('status')->get();
 
-        return view('roll.index', compact('member', 'rolldate', 'rollid'));
+        return view('roll.index', compact('members', 'rolldate', 'rollid'));
     }
 
     /**
@@ -48,7 +49,10 @@ class RollController extends Controller
         $rollid = Rollmapping::latest()->value('id');
         $rolldate = Rollmapping::latest()->value('roll_date');
 
-        $fparade = Roll::where('status', '!=', 'A')->where('roll_id', '=', $rollid)->get();
+        $fparade = Roll::with(array('member' => function($q) {
+            return $q->orderby('Rank');
+        }))
+        ->where('status', '!=', 'A')->where('roll_id', '=', $rollid)->get();
 
         return view('roll.first', compact('rolldate', 'fparade'));
     }

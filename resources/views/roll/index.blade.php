@@ -52,7 +52,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            @foreach($member as $r)
+                            @foreach($members as $r)
                                 <tr>
                                     <td class="text-center">
                                         @if ($r->status == 'A')

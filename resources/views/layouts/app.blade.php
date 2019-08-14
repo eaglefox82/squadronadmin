@@ -22,7 +22,8 @@
     <link rel="stylesheet" href="{{ asset('css/circle.css') }}">
     <!--<link rel="stylesheet" href="{{ asset('css/sweetalert.css')}}"> -->
 </head>
-<body class="">
+
+<body class="sideber-mini">
 <div class="wrapper">
     <div class="sidebar" data-color="rose" data-background-color="black" data-image="{{ asset('img/sidebar-1.jpg') }}">
         <div class="logo">
@@ -121,7 +122,7 @@
                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="www.mailchimp.com">
+                    <a class="nav-link" href="//www.mailchimp.com" target="blank_">
                         <i class="fa fa-envelope"></i>
                             <p>MailChimp</p>
                          </i>
@@ -195,7 +196,7 @@
 <!-- Plugins for presentation and navigation  -->
 <script src="{{ asset('js/modernizr.js') }}"></script>
 <!-- Material Dashboard Core initialisations of plugins and Bootstrap Material Design Library -->
-<script src="{{ asset('js/material-dashboard.js?v=2.0.1') }}"></script>
+<script src="{{ asset('js/material-dashboard.js') }}"></script>
 <!-- Dashboard scripts -->
 <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
@@ -232,6 +233,33 @@
 
 <!-- Datatables -->
 <script src="https://cdn.datatables.net/1.10.12/js.dataTables.bootstrap.min.js"></script>
+
+<script>
+     initMinimizeSidebar: function() {
+
+$('#minimizeSidebar').click(function() {
+    var $btn = $(this);
+
+    if (md.misc.sidebar_mini_active == true) {
+        $('body').removeClass('sidebar-mini');
+        md.misc.sidebar_mini_active = false;
+    } else {
+        $('body').addClass('sidebar-mini');
+        md.misc.sidebar_mini_active = true;
+    }
+
+    // we simulate the window Resize so the charts will get updated in realtime.
+    var simulateWindowResize = setInterval(function() {
+        window.dispatchEvent(new Event('resize'));
+    }, 180);
+
+    // we stop the simulation of Window Resize after the animations are completed
+    setTimeout(function() {
+        clearInterval(simulateWindowResize);
+    }, 1000);
+});
+},
+</script>
 
 @include('sweetalert::alert')
 
