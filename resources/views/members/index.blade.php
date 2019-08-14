@@ -77,23 +77,29 @@
                 </div>
                 {!!Form::open(array('action' => ['MembersController@store'], 'method'=>'POST', 'class'=>'form-horizontal'))!!}
                 <div class="modal-body">
-                        <div class="form-group">
-                            <label class="label-control">MemberShip Number:</label>
+                        <label class="label-control">MemberShip Number:</label>
+                            <div class='form-group">
                                 <div class="input-group">
                                     <input type="text" class="form-control" name="membership" value="New">
                                 </div>
+                             </div>
 
                             <label class="label-control">First Name:</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" name="firstname">
+                                 <div class="form-group">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="firstname">
+                                     </div>
                                 </div>
 
                             <label class="label-control">Last Name:</label>
+                                <div class="form-group">
                                 <div class="input-group">
                                     <input type="text" class="form-control" name="lastname">
                                 </div>
+                                </div>
 
                             <label class="label-control">Rank:</label>
+                                <div class="form-group">
                                 <div class="input-group">
                                     <select type="text" class = "selectpicker"  Data-style="select-with-transition" name="rank" data-size="6">
                                         @foreach ($rank as $r)
@@ -101,18 +107,21 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                </div>
 
                             <label class="label-control">Date of Birth:</label>
-                                <div class="input-group">
+                               <div class="form-group">
+                               <div class="input-group">
                                     <input type = "text" class = "form-control datetimepicker" name="dob" value="{{Carbon\Carbon::now()->format('d-m-Y')}}">
+                                </div>
                                 </div>
 
                             <label class="label-control">Date of Joining</label>
+                                <div class="form-group">
                                 <div class="input-group">
                                     <input type = "text" class = "form-control datetimepicker" name="doj" value="{{Carbon\Carbon::now()->format('d-m-Y')}}">
                                 </div>
-
-                        </div> <!-- form group div close -->
+                                </div>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-round btn-secondary" data-dismiss="modal">Close</button>
