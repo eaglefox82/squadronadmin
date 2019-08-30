@@ -26,7 +26,7 @@
                             <i class="fa fa-book fa-2x"></i>
                         </div>
                          <p class="card-category">Outstanding Subs<br><br></p>
-                        <h3 class="card-title">${{($outstanding*10)}}</h3>
+                        <h3 class="card-title">${{number_format(($outstanding*10),0)}}</h3>
                         <div class = "card-footer">
                             <a href={{action('SquadronAccountingController@outstanding')}}>List Members</a>
                         </div>
@@ -41,7 +41,7 @@
                                 <i class="fa fa-id-card-o fa-2x"></i>
                             </div>
                              <p class="card-category">Requests<br><br></p>
-                            <h3 class="card-title">${{$requestbalance}}</h3>
+                            <h3 class="card-title">${{number_format($requestbalance,0)}}</h3>
                             <div class = "card-footer">
                                 <a href={{action('SquadronAccountingController@requested')}}>List Invoices</a>
                             </div>
@@ -74,7 +74,7 @@
                                     <i class = "fa fa-money fa-2x"></i>
                                 </div>
                                 <p class="card-category">Total Subs<br><br></p>
-                                <h3 class ="card-title">${{$totalsubs}}</h3>
+                                <h3 class ="card-title">${{number_format($totalsubs,0)}}</h3>
                                 <div Class = "card-footer">
                                     <a href="">Including Past Subs Paid</a>
                                 </div>
