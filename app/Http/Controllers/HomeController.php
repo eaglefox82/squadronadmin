@@ -133,9 +133,18 @@ class HomeController extends Controller
                 ->where ('roll_id', '!=', $activeroll)
                 ->count();
 
-            $avgattendance = ($count2/$count1) * 100;
+            if ($count1 == 0) {
+                $avgattendance = 0;
+            } else {
 
+            $avgattendance = ($count2/$count1) * 100;
+            }
+
+            if ($count1 == 1) {
+                $pastavg = $avgattendance;
+            } else {
             $pastavg = ($count3/($count1-1)) * 100;
+            }
 
             if($pastavg > $avgattendance){
                 $tend = 0;
