@@ -13,11 +13,12 @@ class CreateRollTable extends Migration
      */
     public function up()
     {
-        Schema::create('roll', function (Blueprint $table) {
+        Schema::create('rolls', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('roll_id');
             $table->integer('member_id');
             $table->string('status');
+            $table->string('paidrollid')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateRollTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roll');
+        Schema::dropIfExists('rolls');
     }
 }

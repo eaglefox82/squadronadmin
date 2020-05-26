@@ -14,7 +14,7 @@ use App\Member;
 use App\Roll;
 use App\Rollmapping;
 use App\RollStatus;
-use App\ActiveKids;
+use App\Accounts;
 
 class RollController extends Controller
 {
@@ -50,9 +50,9 @@ class RollController extends Controller
         $rollid = Rollmapping::latest()->value('id');
         $rolldate = Rollmapping::latest()->value('roll_date');
 
-        $fparade = Roll::with(array('member' => function($q) {
-            return $q->orderby('rank');
-        }))
+        $fparade = Roll::with(['Member' => function ($q) {
+            $q->orderby('rank');
+        }])
         ->where('status', '!=', 'A')->where('roll_id', '=', $rollid)->get();
 
         return view('roll.first', compact('rolldate', 'fparade'));
@@ -89,7 +89,7 @@ class RollController extends Controller
         $e->roll_date = Carbon::parse($request->get('rolldate'));
         $e->roll_year = Carbon::parse($date)->year;
         $e->roll_month = Carbon::parse($date)->month;
-        $e->roll_week = Carbon::parse($date)->weekNumberInMonth;
+        $e->roll_week = Carbon::parse($date)->weekOfMonth;
         $e->save();
 
         //create Roll
@@ -184,7 +184,7 @@ class RollController extends Controller
         if ($r != null)
         {
             // Check if ActiveKids Balance is not less than 0
-            if ($r->member->ActiveKids->sum('balance') >= 10)
+            if ($r->member->Accounts->sum('amount') >= 10)
             {
                 // Update Roll Status
                 $r->status = "V";
@@ -192,20 +192,19 @@ class RollController extends Controller
                 $r->save();
 
                 // Insert Record into ActiveKids Voucher
-                $voucher = new ActiveKids();
+                $voucher = new Accounts();
                 $voucher->member_id = $r->member_id;
-                $voucher->voucher_number = 'Weekly Subs';
-                $voucher->balance = -10;
-                $voucher->date_received = $rolldate;
+                $voucher->Reason = 'Weekly Subs';
+                $voucher->amount = -10;
                 $voucher->save();
 
-                Alert::Success("Paid", "Member paid from Voucher Balance")->autoclose(1500);
+                Alert::Success("Paid", "Member paid from Account Balance")->autoclose(1500);
                 return redirect(action('RollController@index'));
             }
             else
             {
                 //Not Enough money in the account
-                Alert::Error("Error", "Insufficient Active Kids Balance")->autoclose(1500);
+                Alert::error("Error", "Insufficient Account Balance")->autoclose(1500);
                 return redirect(action('RollController@index'));
             }
         }
@@ -222,7 +221,8 @@ class RollController extends Controller
             $r->status = "P";
             $r->save();
 
-            return redirect(action('RollController@index'))->with ('success', 'Member Present');
+            alert::success('Member Present', 'Member has not paid')->autoclose(1500);
+            return redirect(action('RollController@index'));
         }
 
         return redirect(action('RollController@index'));

@@ -1,6 +1,6 @@
 # Squadron Admin Site
 
-Welcome to the Admin site for the Australian Air League Moorebank Squadron.
+Welcome to the Admin site for the Australian Air League Edmondson Park Squadron.
 This site has been developed to assist with the Squadron Operations of a meeting night. The main purpose of the site was to track the use of Active and Creative Kids vouchers. To assist with this function a roll was create which allows the squadron staff to check people are present and record how thay paid.
 
 ### Table of Contents

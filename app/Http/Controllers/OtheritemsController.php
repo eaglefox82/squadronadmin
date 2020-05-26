@@ -52,6 +52,8 @@ class OtheritemsController extends Controller
         $item = new Otheritemmapping();
         $item->item = $request->get('item');
         $item->active = "Y";
+        $item->amount = $request->get('amount');
+        $item->type = "F";
         $item->save();
 
         return Redirect(action('SettingsController@index'))->with('success','Item Added');
@@ -78,7 +80,7 @@ class OtheritemsController extends Controller
     {
         //
 
-        
+
     }
 
     /**

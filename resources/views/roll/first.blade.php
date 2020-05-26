@@ -44,7 +44,8 @@
                                 <tr>
                                     <th class="text-center">Member</th>
                                     <th class="text-center">Rank</th>
-                                    <th width="20%"></th>
+                                    <th class="text-center">Flight</th>
+                                    <th width="20%" class="text-center">Payment</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -52,12 +53,16 @@
                                 <tr>
                                     <td class="text-center"><strong>{{$r->member->last_name}}, {{$r->member->first_name}}</strong> </td>
                                     <td class="text-center">{{$r->member->memberrank->rank}}</td>
-
+                                    @if($r->member->flight !=0)
+                                        <td class="text-center">{{$r->member->flightmap->flight_name}}</td>
+                                    @else
+                                        <td></td>
+                                    @endif
                                     <td class="text-center">
                                         @if ($r->status == 'C')
                                         <p>Paid Cash</p>
                                         @elseif ($r->status == 'V')
-                                        <p>Used Voucher </p>
+                                        <p>Used Account </p>
                                         @else ($r->status == 'P')
                                         <p>Member did not pay</p>
                                         @endif

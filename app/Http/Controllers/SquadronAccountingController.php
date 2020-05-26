@@ -18,6 +18,7 @@ use App\Rollmapping;
 use App\Member;
 use Carbon\Carbon;
 use App\Settings;
+use App\Accounts;
 
 class SquadronAccountingController extends Controller
 {
@@ -204,4 +205,66 @@ class SquadronAccountingController extends Controller
         return redirect(action('SquadronAccountingController@requested'));
     }
    }
+
+   public function accountpayment(Request $request)
+   {
+       $rollid = Rollmapping::latest()->value('id');
+       $member = Srequest::where('id', "=", $request->get('id'))->value('member_id');
+
+       $abalance = Accounts::where('member_id', "=", $member)->sum('amount');
+
+
+        if($abalance > 0)
+        {
+            if($abalance >= $request->get('amount'))
+            {
+                $e = new Requestpayment();
+                $e -> request_id = $request->get('id');
+                $e -> roll_id = $rollid;
+                $e -> amount = $request->get('amount');
+                $e -> save();
+
+                $e = new Accounts();
+                $e-> member_id = $member;
+                $e-> amount = $request->get('amount')*-1;
+                $e-> reason = "Invoice Payment";
+                $e-> save();
+
+                Alert::Success('Payement Recored')->autoclose(2000);
+
+                $id = $request->get('id');
+
+                $invoice = Srequest::where('id', '=', $id)->value('invoice_total');
+                $payments = Requestpayment::where('request_id', "=", $id)->sum('amount');
+
+                $balance = $invoice - $payments;
+
+                if ($balance > 0)
+               {
+                return redirect(action('SquadronAccountingController@show', $request->get('id')));
+               }
+                else {
+                    $e = Srequest::find($id);
+                    $e->complete = "Y";
+                    $e->save();
+
+                    Alert::Success('Invoice Completed')->autoclose(2000);
+                    return redirect(action('SquadronAccountingController@requested'));
+                }
+            }
+            else
+            {
+                Alert::error("Error", "Insufficient Account Balance")->autoclose(1500);
+                return redirect(action('SquadronAccountingController@show', $request->get('id')));
+            }
+            }
+            else
+            {
+                Alert::error("Error", "Insufficient Account Balance")->autoclose(1500);
+                return redirect(action('SquadronAccountingController@show', $request->get('id')));
+            }
+
+   }
+
+
 }

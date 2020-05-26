@@ -45,12 +45,6 @@
                     <div class="collapse" id="collapseExample">
                         <ul class="nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{action('SettingsController@index')}}">
-                                    <span class="sidebar-mini"> S </span>
-                                    <span class="sidebar-normal"> Settings </span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     <span class="sidebar-mini"> L </span>
                                     <span class="sidebar-normal"> Logout </span>
@@ -86,7 +80,7 @@
                <li class="nav-item ">
                    <a class="nav-link" href="{{action('ActiveKidsController@index')}}">
                        <i class="fa fa-ticket"></i>
-                       <p> Active Kids </p>
+                       <p>Vouchers</p>
                    </a>
                </li>
                <li class="nav-item ">
@@ -110,19 +104,51 @@
                    </a>
                </li>
 
-               <li class="nav-item ">
-                  <a class="nav-link" href="{{action('SettingsController@index')}}">
-                      <i class="fa fa-cog"></i>
-                       <p> Settings</p>
-                  </a>
-               </li>
-               <li class="nav-item">
-                   <a class="nav-link" href="//www.mailchimp.com" target="blank_">
-                       <i class="fa fa-envelope"></i>
-                           <p>MailChimp</p>
-                        </i>
-                     </a>
+               <!-- Drop down other menu -->
+                <li class = "nav-item">
+                    <a class = "nav-link" data-toggle = "collapse" href="#others">
+                        <i class="fa fa-cog"></i>
+                            <p>Other Items
+                                <b class = "caret"></b>
+                            </p>
+                    </a>
+                    <div class = "collapse" id="others">
+                        <ul class = "nav">
+
+                           <li class = "nav-item">
+                               <a class = "nav-link"  href="{{action('SettingsController@index')}}">
+                                <span class= "sidebar-normal">Squadron Settings</span>
+                               </a>
+                            </li>
+
+                            <li class = "nav-item">
+                                <a class = "nav-link" href = "https://admin.airleague.com.au/" target="_blank">
+                                    <span class = "sidebar-normal">NAS</span>
+                                </a>
+                            </li>
+
+                            <li class = "nav-item">
+                                <a class = "nav-link" href="//www.mailchimp.com" target="_blank">
+                                    <span class = "sidebar-normal">Mailchimp</span>
+                                </a>
+                            </li>
+
+                            <li class = "nav-item">
+                                <a class = "nav-link" href="https://nsw.airleague.com.au/submit/nsw-voucher/" target="_blank">
+                                    <span class = "sidebar-normal">NSW Vouchers</span>
+                                </a>
+                            </li>
+
+                            <li class = "nav-item">
+                                <a class = "nav-link" href="https://github.com/eaglefox82/edpark/releases" target="_blank">
+                                    <span class = "sidebar-normal">Release Notes</span>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
                 </li>
+
             </ul>
         </div>
     </div>
@@ -149,6 +175,8 @@
             </div>
         </nav>
         <!-- End Navbar -->
+
+        <h2 class="text-center"> Edmondson Park Admin System</h2>
 
         <div class="content">
             @yield('content')
@@ -217,6 +245,31 @@
 <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
 <script src="{{ asset('js/plugins/fullcalendar.min.js') }}"></script>
 
+@include('sweetalert::alert')
+
 @yield('scripts')
 
+
 </html>
+
+<script type="text/javascript">
+    $( ".datepicker" ).datetimepicker({
+        icons:{
+            time: "fa fa-clock-o",
+            date: "fa fa-calendar",
+            up: "fa fa-chevron-up",
+            down: "fa fa-chevron-down",
+            previous: 'fa fa-chevron-left',
+            next: 'fa fa-chevron-right',
+            today: 'fa fa-screenshot',
+            clear: 'fa fa-trash',
+            close: 'fa fa-remove'
+        }
+        });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $('.datetimeicker').datetimepicker();
+    });
+</script>

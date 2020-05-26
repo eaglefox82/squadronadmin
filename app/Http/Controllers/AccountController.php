@@ -9,12 +9,12 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
-use App\Vouchers;
-use App\Accounts;
 use App\Member;
+use App\Accounts;
 use Alert;
 
-class ActiveKidsController extends Controller
+
+class AccountController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,9 +24,6 @@ class ActiveKidsController extends Controller
     public function index()
     {
         //
-        $vouchers = Vouchers::where('status', '!=', 'C')->get();
-
-        return view('active.show', compact('vouchers'));
     }
 
     /**
@@ -39,14 +36,6 @@ class ActiveKidsController extends Controller
         //
     }
 
-     public function voucher($id)
-    {
-        //
-        $member = Member::find($id);
-
-        return view('members.voucher', compact('member'));
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -57,29 +46,23 @@ class ActiveKidsController extends Controller
     {
         //
         $validateData = Validator::make($request->all(), [
-            'voucher'=> 'required',
+            'amount' => 'required'
         ]);
         if ($validateData->fails() )
             {
             return Redirect::back()->WithErrors($validateData) ->withInput();
             }
 
-            $e = new Vouchers();
-            $e->member_id = $request->get('member');
-            $e->voucher_number = $request->get('voucher');
-            $e->voucher_type = $request->get('type');
-            $e->status = "E";
-            $e->save();
-
             $e = new Accounts();
             $e->member_id = $request->get('member');
-            $e->amount = $request->get('balance');
-            $e->reason = "Voucher Top Up";
+            $e->amount = $request->get('amount');
+            $e->reason = "Account Top Up";
             $e->save();
 
-            Alert::success('Success', 'Voucher has been recored')->autoclose(1500);
+            Alert::success('Success', 'Account has been updated')->autoclose(1500);
 
             return redirect(action('MembersController@show', $request->get('member')));
+
     }
 
     /**
@@ -91,7 +74,6 @@ class ActiveKidsController extends Controller
     public function show($id)
     {
         //
-
     }
 
     /**
@@ -128,33 +110,24 @@ class ActiveKidsController extends Controller
         //
     }
 
-    public function complete($id)
+    public function item(Request $request)
     {
-        $v = Vouchers::find($id);
-
-        if ($v != null)
+        $validateData = Validator::make($request->all(), [
+            'amount' => 'required'
+        ]);
+        if ($validateData->fails() )
             {
-                $v->Status = 'C';
-                $v->save();
-                Alert::success('Success', 'Voucher has been marked as completed and removed from list')->autoclose(1500);
-                return redirect(action('ActiveKidsController@index'));
+            return Redirect::back()->WithErrors($validateData) ->withInput();
             }
-            return redirect(action('ActiveKidsControler@index'));
 
-    }
+            $e = new Accounts();
+            $e->member_id = $request->get('member');
+            $e->amount = $request->get('amount')*-1;
+            $e->reason = $request->get('item');
+            $e->save();
 
-    public function submit($id)
-    {
-        $v = Vouchers::find($id);
+            Alert::success('Success', 'Account has been updated')->autoclose(1500);
 
-        if ($v != null)
-        {
-            $v->Status = 'S';
-            $v->save();
-            Alert::success('Success', 'Voucher has been marked as Submitted')->autoclose(1500);
-            return redirect(action('ActiveKidsController@index'));
-        }
-        return redirect(action('ActiveKidsControler@index'));
-
+            return redirect(action('MembersController@show', $request->get('member')));
     }
 }

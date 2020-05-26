@@ -79,9 +79,9 @@
             </div>
             {!!Form::open(array('action' => ['StockController@store'], 'method'=>'POST', 'class'=>'form-horizontal'))!!}
             <div class="modal-body">
-                       
+
                        <label class="label-control">Item</label>
-                            <div class='form-group>
+                            <div class='form-group'>
                             <div class="input-group">
                                 <input type="text" class="form-control" name="item">
                             </div>
@@ -92,7 +92,7 @@
                             <input type="text" class="form-control" name="qty">
                         </div>
                         </div>
-                        
+
                         <label class="label-control">Cost</label>
                         <div class="form-group">
                         <div class="input-group">

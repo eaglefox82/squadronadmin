@@ -12,12 +12,16 @@ use DataTables;
 
 use App\Member;
 use App\Roll;
-use App\ActiveKids;
+use App\Vouchers;
+use App\Vouchertype;
 use Carbon\Carbon;
 use App\Rollmapping;
 use App\Rankmapping;
 use App\Settings;
+use App\Accounts;
 use App\Page;
+use App\Otheritemmapping;
+use App\Flight;
 
 class MembersController extends Controller
 {
@@ -30,15 +34,16 @@ class MembersController extends Controller
     {
        $members = Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->orderby('rank', 'asc')->get();
        $rank = Rankmapping::orderBy('id', 'desc')->paginate(20);
+       $flight = Flight::orderBy('id');
 
-       return view('members.index', compact('members', 'rank'));
+       return view('members.index', compact('members', 'rank', 'flight'));
     }
 
      public function getmembers()
     {
         //
 
-        $members = Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->with('memberrank')->with('Activekids')->get();
+        $members = Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->with('memberrank')->with('vouchers')->get();
         return  $members;
     }
 
@@ -74,6 +79,7 @@ class MembersController extends Controller
          'rank' => 'required',
          'doj' => 'required',
          'dob' => 'required',
+         'type' => 'required',
      ]);
 
      if ($validateData->fails())
@@ -98,7 +104,9 @@ class MembersController extends Controller
         $e->rank = $request->get('rank');
         $e->date_joined = Carbon::parse($request->get('doj'));
         $e->date_birth = Carbon::parse($request->get('dob'));
+        $e->member_type = $request->get('type');
         $e->active= "Y";
+        $e->flight=10;
         $e->save();
 
         Alert::Success('New Member Added', 'New member has been created')->autoclose(2000);
@@ -117,23 +125,39 @@ class MembersController extends Controller
 
        $member = Member::find($id);
        $rank = Rankmapping::orderBy('id','desc')->get();
+       $vtype = VoucherType::orderby('id')->get();
+       $otheritems = Otheritemmapping::orderby('id')->get();
+       $flight = Flight::orderby('id')->get();
 
       if ($member !=null)
       {
-       ActiveKids::orderby('id', 'desc')->get();
 
-       $count = Roll::whereHas('rollmapping', function ($query) {
+       $count1 = Roll::whereHas('rollmapping', function ($query) {
         $query->whereYear('roll_date', now()->year);
         })
         ->where('status', '!=', 'A')
         ->where ('member_id', '=', $id)
         ->count();
 
-        $weeks = Rollmapping::where('roll_year', now()->year)->count();
-        $attendance = ($count/$weeks)*100;
-        $attendancesetting = Settings::where('setting', 'Attendance')->value('value');
+        $count2 = Roll::whereHas('rollmapping', function ($query) {
+            $query->whereYear('roll_date', now()->year);
+            })
+            ->where ('member_id', '=', $id)
+            ->count();
 
-        return view('members.show', compact('member', 'attendance', 'attendancesetting', 'rank'));
+        $weeks = Rollmapping::where('roll_year', now()->year)->count();
+
+        if($count1 != 0){
+
+            $attendance = ($count1/$count2)*100;
+
+        }   else    {
+            $attendance = 0;
+       }
+
+       $attendancesetting = Settings::where('setting', 'Attendance')->value('value');
+
+        return view('members.show', compact('member', 'attendance', 'attendancesetting', 'rank', 'vtype','otheritems', 'flight'));
       }
 
       return redirect(action('MembersController@index'));
@@ -188,6 +212,9 @@ class MembersController extends Controller
         $member->last_name = $request->get('lastname');
         $member->Member_type = $request->get('type');
         $member->rank = $request->get('rank');
+        $member->flight = $request->get('flight');
+        $member->date_joined = Carbon::parse($request->get('doj'));
+        $member->date_birth = Carbon::parse($request->get('dob'));
         $member->save();
 
         Alert::success('Member Updated', 'Members New Details have been recored')->autoclose(1500);

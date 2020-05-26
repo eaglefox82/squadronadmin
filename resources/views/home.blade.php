@@ -35,13 +35,13 @@
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <div class="card card-stats">
-                    <div class="card-header card-header-danger card-header-icon">
+                    <div class="card-header card-header-info card-header-icon">
                         <div class="card-icon">
                             <i class="fa fa-book fa-2x"></i>
                         </div>
                         <p class="card-category">Members on Roll<br><br></p>
                         <h3 class="card-title">{{$members->where ('active','Y')->where('member_type', 'League')->count()}}</h3>
-                        <a href="{{action('MembersController@create')}}" class="card-link">Add New Member</a>
+                        <a href="{{action('MembersController@index')}}" class="card-link">View Members</a>
                         <div class="card-footer">
                         </div>
                     </div>
@@ -69,8 +69,8 @@
                         <div class="card-icon">
                             <i class="fa fa-child fa-2x"></i>
                         </div>
-                        <p class="card-category">Active/Creative Kids<br><br></p>
-                        <h3 class="card-title">{{$active->where('active','Y')->count()}}</h3>
+                        <p class="card-category">Pending Vouchers<br><br></p>
+                        <h3 class="card-title">{{$active->count()}}</h3>
                         <a href="{{action('ActiveKidsController@index')}}" class='card-link'>View Vouchers</a>
                         <div class="card-footer">
                         </div>
@@ -141,8 +141,8 @@
                             <i class="fa fa-usd fa-2x"></i>
                         </div>
                         <p class="card-category">Subs Collected<br><br></p>
+                        <br>
                          <h3 class="card-title">${{$total}}</h3>
-                        <a href="{{action('RollController@index')}}" class='card-link'>View Roll</a>
                         <div class="card-footer">
                         </div>
                     </div>

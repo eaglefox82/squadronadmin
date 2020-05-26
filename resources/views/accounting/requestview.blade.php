@@ -62,7 +62,6 @@
             </div>
             {!!Form::open(array('action' => ['SquadronAccountingController@store'], 'method'=>'POST', 'class'=>'form-horizontal'))!!}
             <div class="modal-body">
-                <div class="form-group">
                         <label class="label-control">Name:</label>
                         <div class="input-group">
                             <select type="text" class = "selectpicker"  Data-style="select-with-transition" name="membership" data-size="6">
@@ -93,7 +92,6 @@
                         <div class="input-group">
                             <input type="text" class="form-control" name="notes">
                         </div>
-                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary btn-round" data-dismiss="modal">Close</button>
