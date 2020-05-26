@@ -26,12 +26,14 @@ Route::resource('/form19', 'Form19Controller')->middleware('auth');
 Route::resource('/otheritems', 'OtheritemsController')->middleware('auth');
 Route::resource('/stocklist', 'StockController')->middleware('auth');
 Route::resource('/users', 'UsersController')->middleware('auth');
+Route::resource('/accounts', 'AccountController')->middleware('auth');
 
 Route::get('/activekids/voucher/{id}', 'ActiveKidsController@voucher')->middleware('auth');
 Route::get('/roll/paid/{id}', 'RollController@paid')->middleware('auth');
 Route::get('/roll/voucher/{id}', 'RollController@voucher')->middleware('auth');
 Route::get('/roll/notpaid/{id}', 'RollController@notpaid')->middleware('auth');
-Route::get('/activekids/complete/{id}', 'ActiveKidsController@complete')->middleware('auth');
+Route::get('/vouchers/complete/{id}', 'ActiveKidsController@complete')->middleware('auth');
+Route::get('/vouchers/submit/{id}', 'ActiveKidsController@submit')->middleware('auth');
 Route::get('/members/updateroll/{id}', 'RollController@updateRoll')->middleware('auth');
 Route::get('/members/delete/{id}', 'MembersController@inactive')->middleware('auth');
 Route::get('/outstanding', 'SquadronAccountingController@outstanding')->middleware('auth');
@@ -42,6 +44,8 @@ Route::get('/parade', 'RollController@parade')->middleware('auth');
 
 Route::post('/accounting/payment/', 'SquadronAccountingController@payment')->middleware('auth');
 Route::post('/accounting/request/update{id}', 'SquadronAccountingController@update')->middleware('auth');
+Route::post('/accounts/voucher/', 'AccountController@item')->middleware('auth');
+Route::post('/requested/accountpay', 'SquadronAccountingController@accountpayment')->middleware('auth');
 
 // Ajax requests
 

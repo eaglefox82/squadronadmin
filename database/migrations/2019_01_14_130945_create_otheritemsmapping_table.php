@@ -20,6 +20,8 @@ class CreateOtheritemsmappingTable extends Migration
             $table->increments('id');
             $table->string('item');
             $table->string('active');
+            $table->decimal('amount', 6, 2);
+            $table->string('type');
             $table->timestamps();
         });
     }

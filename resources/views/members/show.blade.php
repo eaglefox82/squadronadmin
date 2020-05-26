@@ -34,6 +34,7 @@
                                 <a data-toggle="modal" data-target="#addvoucherModal" class="btn btn-primary btn-round" title="Add Voucher"><i class="fa fa-plus fa-2x"></i> Add Voucher</a>
                                 <a href="" data-toggle="modal" data-target="#editmemberModal" class="btn btn-success btn-round" title="Edit Member"><i class="fa fa-pencil fa-2x"></i> Edit Member</a>
                                 <a href="{{action('MembersController@inactive', $member->id)}}" class="btn btn-danger btn-round" title = "Remove Member"><i class="fa fa-close fa-2x"></i>Remove Member</a>
+                                <a data-toggle="modal" data-target="#addaccountModal" class="btn btn-info btn-round" title="Add Account"><i class="fa fa-money fa-2x"></i>Add to Account</a>
                              </div>
                         <h4 class="card-title font-weight-bold">Member Details</h4>
                     </div>
@@ -48,6 +49,8 @@
                                 <td style="border-top: 1px #ddd solid">{{$member->memberrank->rank}}</td>
                                 <th>Membership:</th>
                                 <td style="border-top: 1px #ddd solid">{{$member->membership_number}}</td>
+                                <th></th>
+                                <td style="border-top: 1px #ddd solid">{{$member->countdown}}</td>
                             </tr>
                             <tr>
                                 <th>Date of Birth</th>
@@ -58,7 +61,12 @@
                                 <td>{{date("jS F Y",strtotime($member->date_joined))}}</td>
                                 <th>Service:</td>
                                 <td>{{number_format((float)$member->service,2)}} Years</td>
-                            </tr>
+                                <th>Flight:</th>
+                                @if($member->flight != 0)
+                                <td>{{$member->flightmap->flight_name}}</td>
+                                @else
+                                <td>No Assigned Flight</td>
+                                @endif
                         </table>
                     </div>
                 </div>
@@ -107,8 +115,8 @@
                             <div class="card-icon">
                                 <i class="fa fa-ticket fa-2x"></i>
                             </div>
-                            <p class="card-category">Voucher Balance<br><br></p>
-                            <h3 class="card-title">${{number_format($member->ActiveKids->sum('balance'),2)}}</h3>
+                            <p class="card-category">Account Balance<br><br></p>
+                            <h3 class="card-title">${{number_format($member->accounts->sum('amount'),2)}}</h3>
                             <div class="card-footer">
                             </div>
                         </div>
@@ -178,11 +186,12 @@
 
         <div class="row">
 
-            @if ($member->Activekids->count() > 0)
+            @if ($member->Accounts->sum('amount') > 0)
             <div class = "col-sm-3">
                 <div class = "card">
                     <div class="card-header card-header-icon card-header-rose">
-                        <h4 class="card-title font-weight-bold">Active Kids Vouchers</h4>
+                        <h4 class="card-title font-weight-bold">Account Balance</h4>
+                        <a data-toggle="modal" data-target="#accountpayModal" class="btn btn-info btn-round" title="Use Account"><i class="fa fa-money fa-2x"></i>Pay from Account</a>
                     </div>
                     <div class="table-responsive">
                         <table class="table">
@@ -192,11 +201,11 @@
                                 <th class="text-center">Balance</th>
                             </thead>
                             <tbody>
-                            @foreach ($member->Activekids as $t)
+                            @foreach ($member->Accounts as $t)
                             <tr>
-                                <td class="text-center">{{date("jS F Y", strtotime($t->date_received))}}</td>
-                                <td class="text-center">{{$t->voucher_number}}</td>
-                                <td class="text-center">${{$t->balance}}</td>
+                                <td class="text-center">{{date("jS F Y", strtotime($t->created_at))}}</td>
+                                <td class="text-center">{{$t->Reason}}</td>
+                                <td class="text-center">${{$t->amount}}</td>
                             </tr>
                             @endforeach
                             </tbody>
@@ -250,40 +259,73 @@
                 </div>
                 {!! Form::open(array('action' => ['MembersController@update', $member->id],'method'=>'PUT', 'class'=>'form-horizontal')) !!}
                 <div class="modal-body">
-                    <div class="form-group">
                         <input type="hidden" name="member" value="{{$member->id}}">
                             <label class="label-control">Membership Number:</label>
                             <div class="input-group">
+                            <div class="form-group">
                                 <input type = "text" class = "form-control" name = "membernumber" value="{{$member->membership_number}}">
                             </div>
+                        </div>
 
                             <label class="label-control">First Name:</label>
                             <div class="input-group">
+                                    <div class="form-group">
                                 <input type="text" class="form-control" name="firstname" value="{{$member->first_name}}">
                             </div>
+                        </div>
 
                             <label class="label-control">Last Name</label>
                             <div class="input-group">
+                                    <div class="form-group">
                                 <input type="text" class="form-control" name="lastname" value="{{$member->last_name}}">
+                                    </div>
                             </div>
 
                             <label class="label-control">Rank:</label>
                             <div class="input-group">
+                                    <div class="form-group">
                                 <select type="text" class="selectpicker" data-sytle="select-with-transition" name="rank" data-size="6">
                                     @foreach ($rank as $r)
                                     <option value ={{$r->id}} <?php if($member->rank == $r->id) echo 'selected="selected"';?> >{{$r->rank}}</option>
                                     @endforeach
                                 </select>
                             </div>
+                        </div>
 
                             <label class="label-control">Membership Type</label>
                            <div class="input-group">
+                                <div class="form-group">
                                 <select type="text" class="selectpicker" data-sytle="select-with-transition" name="type">
                                     <option value="League"<?php if($member->member_type == "League") echo 'selected="selected"';?>>League Member</option>
                                     <option value="Associate"<?php if($member->member_type == "Associate") echo 'selected="selected"';?>>Associate Member</option>
                                 </select>
                            </div>
                     </div>
+
+                    <label class="label-control">Flight:</label>
+                    <div class="input-group">
+                            <div class="form-group">
+                        <select type="text" class="selectpicker" data-style="select-with-transition" name="flight" data-size="6">
+                            @foreach ($flight as $f)
+                            <option value ={{$f->id}} <?php if($member->flight == $f->id) echo 'selected="selected"';?> >{{$f->flight_name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <label class="label-control">Date of Joining:</label>
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="text" class="form-control datetimepicker" name="doj" value="{{date("j-n-Y", strtotime($member->date_joined))}}">
+                    </div>
+                </div>
+
+            <label class ="label-control">Date of Birth:</label>
+                <div class ="form-group">
+                    <div class="input-group">
+                        <input type="text" class="form-control datetimepicker" name="dob" value="{{date("j-n-Y", strtotime($member->date_birth))}}">
+                    </div>
+                </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-round btn-secondary" data-dismiss="modal">Close</button>
@@ -298,23 +340,17 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h3 class="modal-title" id="editmemberModal">Add Voucher for {{$member->first_name}} {{$member->last_name}}</h3>
+                        <h3 class="modal-title" id="addvoucherModal">Add Voucher for {{$member->first_name}} {{$member->last_name}}</h3>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     {!!Form::open(array('action' => ['ActiveKidsController@store'], 'method'=>'POST', 'class'=>'form-horizontal'))!!}
                     <div class="modal-body">
-                   
-                            <input type="hidden" name="member" value="{{$member->id}}">
-                                <label class="label-control">Date:</label>
-                                <div class="form-group">
-                                <div class="input-group">
-                                        <input type="text" class="form-control datetimepicker" name="date" value="{{Carbon\Carbon::now()->format('d-m-Y')}}">
-                                </div>
-                                </div>
 
-                                <label class="label-control">Voucher:</label>
+                            <input type="hidden" name="member" value="{{$member->id}}">
+
+                                <label class="label-control">Voucher Number:</label>
                                 <div class="form-group">
                                 <div class="input-group">
                                     <input type="text" class="form-control" name="voucher">
@@ -327,6 +363,19 @@
                                     <input type="text" class="form-control" name="balance" value="100">
                                 </div>
                                 </div>
+
+                                <label class="label-control">Voucher Type:</label>
+                                <div class="input-group">
+                                    <div class="form-group">
+                                        <select type="text" class="selectpicker" data-sytle="select-with-transition" name="type" value="C">
+                                            @foreach ($vtype as $v)
+                                                <option value ={{$v->voucher_code}}>{{$v->voucher_type}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-round btn-secondary" data-dismiss="modal">Close</button>
@@ -336,4 +385,76 @@
                 </div>
             </div>
         </div>
+
+
+        <div class="modal fade" id="addaccountModal" tabindex="-1" role="dialog" aria-labelledby="NewRollLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="addaccountModal">Add to Balance for {{$member->first_name}} {{$member->last_name}}</h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        {!!Form::open(array('action' => ['AccountController@store'], 'method'=>'POST', 'class'=>'form-horizontal'))!!}
+                        <div class="modal-body">
+
+                                <input type="hidden" name="member" value="{{$member->id}}">
+                                    <label class="label-control">Amount:</label>
+                                    <div class="form-group">
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" name="amount">
+                                    </div>
+                                    </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-round btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-round btn-primary">Save Changes</button>
+                        </div>
+                        {!!Form::close()!!}
+                    </div>
+                </div>
+            </div>
+
+
+
+        <div class="modal fade" id="accountpayModal" tabindex="-1" role="dialog" aria-labelledby="accountpay" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="addaccountModal">Pay from Account of {{$member->first_name}} {{$member->last_name}}</h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        {!!Form::open(array('action' => ['AccountController@item'], 'method'=>'POST', 'class'=>'form-horizontal'))!!}
+                        <div class="modal-body">
+
+                                <input type="hidden" name="member" value="{{$member->id}}">
+                                <label class="label-control">Item:</label>
+                                <div class="input-group">
+                                    <div class="form-group">
+                                        <select type="text" class="selectpicker" data-sytle="select-with-transition" name="item" value="C">
+                                            @foreach ($otheritems as $o)
+                                                <option value ={{$o->item}}>{{$o->item}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <label class="label-control">Amount:</label>
+                                    <div class="form-group">
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" name="amount">
+                                    </div>
+                                    </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-round btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-round btn-primary">Save Changes</button>
+                        </div>
+                        {!!Form::close()!!}
+                    </div>
+                </div>
+            </div>
 @endsection

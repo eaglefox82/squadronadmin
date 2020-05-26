@@ -42,7 +42,7 @@
                 <div class = "card">
                     <div class="card-header card-header-icon card-header-rose">
                         <h3 class ="card-title text-center"><strong>Other Items</strong></h3>
-                        <button type="button" name="Add Item" class="btn btn-success btn-round pull-right"><a href="{{action('OtheritemsController@create')}}"></a>
+                        <button data-toggle="modal" data-target="#additemModal" type="button" name="Add Item" class="btn btn-success btn-round pull-right">
                              <i class="fa fa-plus"></i>
                     </button>
                     </div>
@@ -51,11 +51,13 @@
                             <table class="table">
                                 <thead class="text-primary">
                                     <th class="text-center">Item</th>
+                                    <th class="text-center">Amount</th>
                                 </thead>
                                 <tbody>
                                     @foreach ($otheritems as $o)
                                         <tr>
                                             <td class="text-center">{{$o->item}} </td>
+                                            <td class="text-center">${{number_format($o->amount, 2)}}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -115,7 +117,6 @@
             </div>
             {!!Form::open(array('action' => ['SettingsController@store'], 'method'=>'POST', 'class'=>'form-horizontal'))!!}
             <div class="modal-body">
-                <div class="form-group">
                     <label class="label-control">Setting:</label>
                         <div class="input-group">
                             <input type="text" class="form-control" name="setting">
@@ -125,13 +126,12 @@
                         <div class="input-group">
                             <input type="text" class="form-control" name="value">
                         </div>
-                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary">Save Changes</button>
             </div>
-            {{!!Form::close()!!}}
+            {!!Form::close()!!}
         </div>
     </div>
 </div>
@@ -148,7 +148,7 @@
             </div>
             {!!Form::open(array('action' => ['UsersController@store'], 'method'=>'POST', 'class'=>'form-horizontal'))!!}
             <div class="modal-body">
-                <div class="form-group">
+
                     <label class="label-control">First Name:</label>
                         <div class="input-group">
                             <input type="text" class="form-control" name="firstname">
@@ -158,6 +158,7 @@
                             <input type="text" class="form-control" name="lastname">
                         </div>
                     <label class="label-control">Username:</label>
+
                         <div class="input-group">
                             <input type="text" class="form-control" name="username">
                         </div>
@@ -166,18 +167,44 @@
                         <div class="input-group">
                             <input type="text" class="form-control" name="password">
                         </div>
-                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary">Save Changes</button>
             </div>
-            {{!!Form::close()!!}}
+            {!!Form::close()!!}
         </div>
     </div>
 </div>
 
+<div class="modal fade" id="additemModal" tabindex="-1" role="dialog" aria-labelledby="NewRollLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="additemModal">Add Setting</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {!!Form::open(array('action' => ['OtheritemsController@store'], 'method'=>'POST', 'class'=>'form-horizontal'))!!}
+                <div class="modal-body">
+                        <label class="label-control">Item:</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="item">
+                            </div>
 
-
+                            <label class="label-control">Amount:</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" name="amount">
+                            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+                {!!Form::close()!!}
+            </div>
+        </div>
+    </div>
 
 @endsection

@@ -15,19 +15,27 @@
                             <th class="text-center">Date</th>
                             <th class="text-center">Member</th>
                             <th class="text-center">Voucher</th>
-                            <th class="text-center">Balance</th>
+                            <th class="text-center">Type</th>
+                            <th class="text-center">Status</th>
                             <th width="20%"></th>
                             </thead>
                             <tbody>
-                            @foreach($vouchers as $key => $v)
+                            @foreach($vouchers as $v)
                                 <tr>
-                                    <td class="text-center">{{date('j/n/Y', strtotime($v->date_received))}}</td>
-                                    <td class="text-center">{{$v->first_name}} {{$v->last_name}}</td>
+                                    <td class="text-center">{{date('j/n/Y', strtotime($v->created_at))}}</td>
+                                    <td class="text-center">{{$v->member->first_name}} {{$v->member->last_name}}</td>
                                     <td class="text-center">{{$v->voucher_number}}</td>
-                                    <td class="text-center">${{$v->balance}}</td>
-                                    <td class="text-center">
-                                        <a href="{{action('ActiveKidsController@complete', $v->id)}}" class="btn btn-round btn-success" title="Complete Voucher"><i class="fa fa-check"></i></a>
-                                    </td>
+                                    <td class="text-center">{{$v->type->voucher_type}}</td>
+                                    <td class="text-center">{{$v->vstatus->desc}}</td>
+                                    @if($v->status != "S")
+                                        <td class="text-center">
+                                            <a href="{{action('ActiveKidsController@submit', $v->id)}}" class="btn btn-round btn-success" title="Sumbit Voucher">Submitted</a>
+                                        </td>
+                                    @else
+                                        <td class="text-center">
+                                            <a href="{{action('ActiveKidsController@complete', $v->id)}}" class="btn btn-round btn-success" title="Complete Voucher">Completed</a>
+                                        </td>
+                                    @endif
                                 </tr>
                             @endforeach
                             </tbody>

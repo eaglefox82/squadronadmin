@@ -18,11 +18,12 @@ class CreateMembersTable extends Migration
             $table->string('membership_number');
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('rank');
+            $table->decimal('rank',3,0);
             $table->date('date_joined');
             $table->date('date_birth');
             $table->string('member_type');
             $table->string('active');
+            $table->string('flight')->nullable();
             $table->timestamps();
         });
     }

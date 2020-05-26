@@ -3,15 +3,19 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\ActiveKids;
+use App\Account;
 use App\Rollmapping;
 use App\Member;
 
 class Roll extends Model
 {
     //
+
+    protected $table = 'rolls';
     protected $fillable = [
         'id', 'roll_id', 'member_id', 'status'
+
+
     ];
 
 
@@ -22,7 +26,7 @@ class Roll extends Model
 
     public function member()
     {
-        return $this->belongsTo('App\Member');
+        return $this->hasOne('App\Member', 'id', 'member_id')->orderBy('rank');
     }
 
     public function rollmapping()
@@ -30,9 +34,9 @@ class Roll extends Model
         return $this->hasOne('App\Rollmapping', 'id','roll_id');
     }
 
-    public function Activekids()
+    public function Accounts()
     {
-        return $this->hasMany('App\ActiveKids', 'member_id', 'member_id');
+        return $this->hasMany('App\Account', 'member_id', 'member_id');
     }
 
     public function updateData($id, $data)

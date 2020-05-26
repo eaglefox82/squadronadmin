@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectId" id="1Yc8WTk36a16UBLyu4TwaXkARul" />
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+  </component>
+  <component name="RunManager">
+    <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner scope="XML" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="786" y="442" key="Github.CreateGistDialog" timestamp="1583230633300">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="786" y="442" key="Github.CreateGistDialog/1920.0.1920.1050/0.0.1920.1050/3840.0.1920.1050@0.0.1920.1050" timestamp="1583230633300" />
+  </component>
+</project>

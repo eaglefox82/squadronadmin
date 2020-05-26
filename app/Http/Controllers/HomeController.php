@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 
 use App\Member;
-use App\ActiveKids;
+use App\Vouchers;
 use App\Roll;
 use App\Rollmapping;
 use App\Settings;
@@ -52,7 +52,7 @@ class HomeController extends Controller
        ->get();
 
         $members=Member::where('active', '=', 'Y')->get();
-        $active=Activekids::all();
+        $active=Vouchers::where('status', '!=', 'C');
         $Roll=Roll::all();
 
         $subsfee=Settings::where('setting', '=', 'Weekly Fees')->value('value');
@@ -133,26 +133,24 @@ class HomeController extends Controller
                 ->where ('roll_id', '!=', $activeroll)
                 ->count();
 
-            if ($count1 == 0) {
-                $avgattendance = 0;
-            } else {
-
+            if ($count1 != 0 ) {
             $avgattendance = ($count2/$count1) * 100;
-            }
 
-            if ($count1 == 1) {
-                $pastavg = $avgattendance;
-            } else {
             $pastavg = ($count3/($count1-1)) * 100;
-            }
 
-            if($pastavg > $avgattendance){
-                $tend = 0;
-            }
+        } else {
+            $avgattendance = 0;
+            $pastavg = 0;
             $tend = 1;
+            $version = 1.0;
+        }
 
-            $version = 2.1;
+        if($pastavg > $avgattendance){
+            $tend = 0;
+        } else {
+            $tend = 1;
+        }
 
-        return view('home', compact ('members', 'active', 'currentroll', 'total', 'officers', 'to', 'nco', 'cadet', 'rollweek', 'avgattendance', 'tend', 'version'));
+        return view('home', compact ('members', 'active', 'currentroll', 'total', 'officers', 'to', 'nco', 'cadet', 'rollweek', 'avgattendance', 'tend'));
     }
 }

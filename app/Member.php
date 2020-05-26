@@ -2,9 +2,10 @@
 
 namespace App;
 use Carbon\Carbon;
-use App\Activekids;
+use App\Vouchers;
 use App\Roll;
 use App\Srequest;
+use App\Flight;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -31,19 +32,14 @@ class Member extends Model
       return $service;
     }
 
-    public function ActiveKids()
+    public function Vouchers()
     {
-        return $this->hasMany('App\ActiveKids', 'member_id', 'id');
+        return $this->hasMany('App\Vouchers', 'member_id', 'id');
     }
 
     public function MemberRank()
     {
         return $this->hasOne('App\Rankmapping', 'id', 'rank');
-    }
-
-    public function vouchers()
-    {
-        return $this->hasMany('App\ActiveKids');
     }
 
     public function roll()
@@ -75,5 +71,24 @@ class Member extends Model
         return $this->requests()->where('complete', '=', 'N');
     }
 
-    protected $with = array('ActiveKids');
+    public function accounts()
+    {
+        return $this->hasmany('App\accounts', 'member_id', 'id')
+                 ->orderby('id', 'DESC');
+    }
+
+    public function flightmap()
+    {
+        return $this->hasOne('App\Flight','id', 'flight' );
+    }
+
+    protected $with = array('accounts');
+
+    public function getBirthdayAttribute()
+    {
+        $birthday = (Carbon::parse(date('Y-m-d',strtotime($this->date_birth))));
+        $birthday->year(date('Y'));
+        $countdown = Carbon::now()->diffInDays($birthday);
+        return $countdown;
+    }
 }

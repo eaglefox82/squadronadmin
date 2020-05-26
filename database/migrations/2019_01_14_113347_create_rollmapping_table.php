@@ -13,7 +13,7 @@ class CreateRollmappingTable extends Migration
      */
     public function up()
     {
-        Schema::create('rollmapping', function (Blueprint $table) {
+        Schema::create('rollmappings', function (Blueprint $table) {
             $table->increments('id');
             $table->date('roll_date');
             $table->integer('roll_year');
@@ -30,6 +30,6 @@ class CreateRollmappingTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rollmapping');
+        Schema::dropIfExists('rollmappings');
     }
 }
