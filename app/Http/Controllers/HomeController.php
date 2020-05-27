@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 use App\Member;
 use App\Vouchers;
 use App\Roll;
-use App\Rollmapping;
+use App\RollMapping;
 use App\Settings;
 use Carbon\Carbon;
 

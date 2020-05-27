@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Otheritemmapping;
 
-class Otheritem extends Model
+class OtherItem extends Model
 {
     //
     protected $fillable = [
@@ -14,7 +14,7 @@ class Otheritem extends Model
 
     public function itemmapping()
     {
-        return $this->hasOne('App\Otheritemsmapping', 'item_id', 'id');
+        return $this->hasOne('App\OtherItemsMapping', 'item_id', 'id');
     }
 
 }

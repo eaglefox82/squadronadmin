@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
-use App\Otheritemmapping;
-use App\Otheritems;
+use App\OtherItemMapping;
+use App\OtherItem;
 
 
-class OtheritemsController extends Controller
+class OtherItemsController extends Controller
 {
     /**
      * Display a listing of the resource.

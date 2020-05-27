@@ -19,11 +19,11 @@ class Vouchers extends Model
 
     Public function vstatus()
     {
-        return $this->hasOne('App\Voucherstatus', 'status_code', 'status');
+        return $this->hasOne('App\VoucherStatus', 'status_code', 'status');
     }
 
     Public function type()
     {
-        return $this->hasOne('App\Vouchertype', 'voucher_code', 'voucher_type');
+        return $this->hasOne('App\VoucherType', 'voucher_code', 'voucher_type');
     }
 }

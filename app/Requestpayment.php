@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Requestpayment extends Model
+class RequestPayment extends Model
 {
     //
     protected $fillable = [
@@ -18,6 +18,6 @@ class Requestpayment extends Model
 
     Public function date()
     {
-        return $this->hasOne('App\Rollmapping', 'id', 'roll_id');
+        return $this->hasOne('App\RollMapping', 'id', 'roll_id');
     }
 }

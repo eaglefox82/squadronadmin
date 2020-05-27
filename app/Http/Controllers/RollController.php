@@ -12,7 +12,7 @@ use Alert;
 
 use App\Member;
 use App\Roll;
-use App\Rollmapping;
+use App\RollMapping;
 use App\RollStatus;
 use App\Accounts;
 
@@ -27,10 +27,8 @@ class RollController extends Controller
     public function index()
     {
         //
-        $rollid = Rollmapping::latest()->value('id');
-        $rolldate = Rollmapping::latest()->value('roll_date');
-
-
+        $rollid = RollMapping::latest()->value('id');
+        $rolldate = RollMapping::latest()->value('roll_date');
 
         $members = Roll::with(array('member' => function($q) {
             return $q->orderby('rank');
@@ -47,8 +45,8 @@ class RollController extends Controller
      */
     public function parade()
     {
-        $rollid = Rollmapping::latest()->value('id');
-        $rolldate = Rollmapping::latest()->value('roll_date');
+        $rollid = RollMapping::latest()->value('id');
+        $rolldate = RollMapping::latest()->value('roll_date');
 
         $fparade = Roll::with(['Member' => function ($q) {
             $q->orderby('rank');
@@ -85,7 +83,7 @@ class RollController extends Controller
 
         //Create Rollmapping
         $date = Carbon::parse($request->get('rolldate'))->format('Y-m-d');
-        $e = new Rollmapping();
+        $e = new RollMapping();
         $e->roll_date = Carbon::parse($request->get('rolldate'));
         $e->roll_year = Carbon::parse($date)->year;
         $e->roll_month = Carbon::parse($date)->month;
@@ -93,20 +91,21 @@ class RollController extends Controller
         $e->save();
 
         //create Roll
-        $rollid = Rollmapping::latest()->value('id');
+        $rollid = RollMapping::latest()->value('id');
 
         $members = Member::where('active', '=', 'Y')->Where('member_type', '=', 'League')->orderBy('rank','asc')->get();
 
-            foreach ($members as $m)
-            {
-                $r=new Roll;
-                $r->member_id = $m->id;
-                $r->roll_id = $rollid;
-                $r->Status = 'A';
-                $r->save();
-            }
+        foreach ($members as $m)
+        {
+            $r=new Roll;
+            $r->member_id = $m->id;
+            $r->roll_id = $rollid;
+            $r->Status = 'A';
+            $r->save();
+        }
+
         Alert::success('New Roll Created')->autoclose(1500);
-       return redirect(action('RollController@index'));
+        return redirect(action('RollController@index'));
     }
 
     /**
@@ -158,7 +157,7 @@ class RollController extends Controller
     {
 
         $r = Roll::find($id);
-        $rollid = Rollmapping::latest()->value('id');
+        $rollid = RollMapping::latest()->value('id');
 
         if ($r != null)
         {
@@ -178,8 +177,8 @@ class RollController extends Controller
     public function voucher($id)
     {
         $r = Roll::find($id);
-        $rollid = Rollmapping::latest()->value('id');
-        $rolldate = Rollmapping::latest()->value('roll_date');
+        $rollid = RollMapping::latest()->value('id');
+        $rolldate = RollMapping::latest()->value('roll_date');
 
         if ($r != null)
         {
@@ -221,7 +220,7 @@ class RollController extends Controller
             $r->status = "P";
             $r->save();
 
-            alert::success('Member Present', 'Member has not paid')->autoclose(1500);
+            Alert::success('Member Present', 'Member has not paid')->autoclose(1500);
             return redirect(action('RollController@index'));
         }
 
@@ -231,7 +230,7 @@ class RollController extends Controller
     public function updateRoll($id)
     {
         $o = Roll::find($id);
-        $rollid = Rollmapping::latest()->value('id');
+        $rollid = RollMapping::latest()->value('id');
 
         if ($o != null)
         {
@@ -239,8 +238,8 @@ class RollController extends Controller
             $o->paidrollid = $rollid;
             $o->save();
 
-            alert::success('Member Paid', 'Past Sub has been marked as paid')->autoclose(2000);
-           return redirect(action('MembersController@show', $o->member_id));
+            Alert::success('Member Paid', 'Past Sub has been marked as paid')->autoclose(2000);
+            return redirect(action('MembersController@show', $o->member_id));
         }
 
         return redirect(action('MembersController@index'));
