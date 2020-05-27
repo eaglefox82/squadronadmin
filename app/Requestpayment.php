@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class RequestPayment extends Model
 {
+    protected $table = "requestpayments";
     //
     protected $fillable = [
         'id', 'request_id', 'roll_id', 'amount'

@@ -12,7 +12,7 @@ class Flight extends Model
         'id', 'flight_name'
     ];
 
-    protected $table = 'Flight';
+    protected $table = 'flight';
 
     public function member()
     {

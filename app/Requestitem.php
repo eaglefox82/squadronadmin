@@ -8,6 +8,8 @@ use App\Request;
 class RequestItem extends Model
 {
     //
+    protected $table = "requestitems";
+
     protected $fillable = [
         'id','request_id', 'item'
     ];
