@@ -176,7 +176,7 @@
         </nav>
         <!-- End Navbar -->
 
-        <h2 class="text-center"> Edmondson Park Admin System</h2>
+        <h2 class="text-center">{{ config('app.name', 'Squadron') }} Admin System</h2>
 
         <div class="content">
             @yield('content')

@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Admin Site') }}</title>
 
     <!-- Fonts -->
     <link rel="stylesheet" type="text/css"
@@ -23,10 +23,9 @@
     <div class="page-header login-page header-filter" filter-color="black" style="background-image: url('{{ asset('img/login.jpg') }}'); background-size: cover; background-position: top center;">
         <!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
         <div class="container">
-            <h1 class="text-center" > Edmondson Park Admin Site </h3>
+            <h1 class="text-center">{{ config('app.name', 'Squadron') }} Admin Site </h3>
             @yield('content')
         </div>
-
 
         <footer class="footer ">
             <div class="container">
