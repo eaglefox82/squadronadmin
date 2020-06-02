@@ -2,14 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\MemberBook;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Validator;
-use App\OtherItemMapping;
-use App\OtherItem;
 
-
-class OtherItemsController extends Controller
+class MemberBookController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -29,7 +25,6 @@ class OtherItemsController extends Controller
     public function create()
     {
         //
-        return view('settings.item');
     }
 
     /**
@@ -41,31 +36,15 @@ class OtherItemsController extends Controller
     public function store(Request $request)
     {
         //
-        $validateData = Validator::make($request->all(),[
-            'item' => 'required',
-        ]);
-        if ($validateData->fails())
-        {
-            return Redirect::back()->withErrors($validateData)->withInput();
-        }
-
-        $item = new Otheritemmapping();
-        $item->item = $request->get('item');
-        $item->active = "Y";
-        $item->amount = $request->get('amount');
-        $item->type = "F";
-        $item->save();
-
-        return Redirect(action('SettingsController@index'))->with('success','Item Added');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\MemberBook  $memberBook
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(MemberBook $memberBook)
     {
         //
     }
@@ -73,24 +52,22 @@ class OtherItemsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\MemberBook  $memberBook
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(MemberBook $memberBook)
     {
         //
-
-
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\MemberBook  $memberBook
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, MemberBook $memberBook)
     {
         //
     }
@@ -98,10 +75,10 @@ class OtherItemsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\MemberBook  $memberBook
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(MemberBook $memberBook)
     {
         //
     }

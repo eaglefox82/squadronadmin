@@ -12,9 +12,9 @@ use Alert;
 
 use App\Roll;
 use App\Srequest;
-use App\Requestitem;
-use App\Requestpayment;
-use App\Rollmapping;
+use App\RequestItem;
+use App\RequestPayment;
+use App\RollMapping;
 use App\Member;
 use Carbon\Carbon;
 use App\Settings;
@@ -30,22 +30,22 @@ class SquadronAccountingController extends Controller
     public function index()
     {
 
-    $subfee = Settings::where('setting', '=', 'Weekly Fees')->value('value');
+        $subfee = Settings::where('setting', '=', 'Weekly Fees')->value('value');
 
-    $rollid = Rollmapping::latest()->value('id');
-    $outstanding = Roll::where('status', '=', 'P')->count();
-    $requestsinvoice = Srequest::where('complete', '=', 'N')->sum('invoice_total');
-    $requestPayments = Requestpayment::whereHas('request', function ($query) {
-        $query->where('complete', '=', 'N');
-    })
-    ->sum('amount');
+        $rollid = RollMapping::latest()->value('id');
+        $outstanding = Roll::where('status', '=', 'P')->count();
+        $requestsinvoice = Srequest::where('complete', '=', 'N')->sum('invoice_total');
+        $requestPayments = RequestPayment::whereHas('request', function ($query) {
+            $query->where('complete', '=', 'N');
+        })
+            ->sum('amount');
 
-    $requestbalance = $requestsinvoice - $requestPayments;
+        $requestbalance = $requestsinvoice - $requestPayments;
 
-    $totalsubs = Roll::where('status', '=', 'C')->where('paidrollid', '=', $rollid)->count()*$subfee;
+        $totalsubs = Roll::where('status', '=', 'C')->where('paidrollid', '=', $rollid)->count() * $subfee;
 
 
-    $members = Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->get();
+        $members = Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->get();
 
         return view('accounting.index', compact('outstanding', 'requestbalance', 'members', 'rollid', 'totalsubs'));
     }
@@ -59,7 +59,7 @@ class SquadronAccountingController extends Controller
     {
         //
 
-        return view ('accounting.add');
+        return view('accounting.add');
     }
 
     /**
@@ -76,25 +76,22 @@ class SquadronAccountingController extends Controller
             'overview' => 'required',
         ]);
 
-        if ($validateData->fails())
-        {
+        if ($validateData->fails()) {
             return Redirect::back()->withErrors($validateData)->withInput();
         }
 
+        $e = new Srequest();
+        $e->member_id = $request->get('membership');
+        $e->overview = $request->get('overview');
+        $e->invoice_number = $request->get('Invoice');
+        $e->invoice_total = $request->get('total');
+        $e->requested_date = Carbon::now();
+        $e->notes = $request->get('notes');
+        $e->complete = 'N';
+        $e->save();
 
-
-           $e = new Srequest();
-           $e->member_id = $request->get('membership');
-           $e->overview = $request->get('overview');
-           $e->invoice_number = $request->get('Invoice');
-           $e->invoice_total = $request->get('total');
-           $e->requested_date = Carbon::now();
-           $e->notes = $request->get('notes');
-           $e->complete = 'N';
-           $e->save();
-
-           Alert::Success('New Requested Added', 'New Stock Request has been added')->autoclose(2000);
-           return redirect(action('SquadronAccountingController@requested'));
+        Alert::Success('New Requested Added', 'New Stock Request has been added')->autoclose(2000);
+        return redirect(action('SquadronAccountingController@requested'));
     }
 
     /**
@@ -106,11 +103,11 @@ class SquadronAccountingController extends Controller
     public function show($id)
     {
         //
-       $request = Srequest::find($id);
+        $request = Srequest::find($id);
 
-       $payments = Requestpayment::where('request_id','=', $id)->get();
+        $payments = Requestpayment::where('request_id', '=', $id)->get();
 
-       return view('accounting.show', compact('request', 'payments'));
+        return view('accounting.show', compact('request', 'payments'));
     }
 
     /**
@@ -141,7 +138,6 @@ class SquadronAccountingController extends Controller
 
         Alert::success('Invoice Updated', 'Member Request details have been updated')->autoclose(1500);
         return redirect(action('SquadronAccountingController@show', $request->get('id')));
-
     }
 
     /**
@@ -170,80 +166,71 @@ class SquadronAccountingController extends Controller
         return view('accounting.requestview', compact('Srequest', 'members'));
     }
 
-   public function payment(Request $request)
-   {
+    public function payment(Request $request)
+    {
+        $rollid = Rollmapping::latest()->value('id');
 
-    $rollid = Rollmapping::latest()->value('id');
-
-    $e = new Requestpayment();
-    $e -> request_id = $request->get('id');
-    $e -> roll_id = $rollid;
-    $e -> amount = $request->get('amount');
-    $e -> save();
-
-
-
-    Alert::Success('Payement Recored')->autoclose(2000);
-
-    $id = $request->get('id');
-
-    $invoice = Srequest::where('id', '=', $id)->value('invoice_total');
-    $payments = Requestpayment::where('request_id', "=", $id)->sum('amount');
-
-    $balance = $invoice - $payments;
-
-    if ($balance > 0)
-   {
-       return redirect(action('SquadronAccountingController@requested'));
-   }
-    else {
-        $e = Srequest::find($id);
-        $e->complete = "Y";
+        $e = new Requestpayment();
+        $e->request_id = $request->get('id');
+        $e->roll_id = $rollid;
+        $e->amount = $request->get('amount');
         $e->save();
 
-        Alert::Success('Invoice Completed')->autoclose(2000);
-        return redirect(action('SquadronAccountingController@requested'));
+        Alert::Success('Payement Recored')->autoclose(2000);
+
+        $id = $request->get('id');
+
+        $invoice = Srequest::where('id', '=', $id)->value('invoice_total');
+        $payments = RequestPayment::where('request_id', "=", $id)->sum('amount');
+
+        $balance = $invoice - $payments;
+
+        if ($balance > 0) {
+            return redirect(action('SquadronAccountingController@requested'));
+        } else {
+            $e = Srequest::find($id);
+            $e->complete = "Y";
+            $e->save();
+
+            Alert::Success('Invoice Completed')->autoclose(2000);
+            return redirect(action('SquadronAccountingController@requested'));
+        }
     }
-   }
 
-   public function accountpayment(Request $request)
-   {
-       $rollid = Rollmapping::latest()->value('id');
-       $member = Srequest::where('id', "=", $request->get('id'))->value('member_id');
+    public function accountpayment(Request $request)
+    {
+        $rollid = RollMapping::latest()->value('id');
+        $member = Srequest::where('id', "=", $request->get('id'))->value('member_id');
 
-       $abalance = Accounts::where('member_id', "=", $member)->sum('amount');
+        $abalance = Accounts::where('member_id', "=", $member)->sum('amount');
 
 
-        if($abalance > 0)
-        {
-            if($abalance >= $request->get('amount'))
-            {
-                $e = new Requestpayment();
-                $e -> request_id = $request->get('id');
-                $e -> roll_id = $rollid;
-                $e -> amount = $request->get('amount');
-                $e -> save();
+        if ($abalance > 0) {
+            if ($abalance >= $request->get('amount')) {
+                $e = new RequestPayment();
+                $e->request_id = $request->get('id');
+                $e->roll_id = $rollid;
+                $e->amount = $request->get('amount');
+                $e->save();
 
                 $e = new Accounts();
-                $e-> member_id = $member;
-                $e-> amount = $request->get('amount')*-1;
-                $e-> reason = "Invoice Payment";
-                $e-> save();
+                $e->member_id = $member;
+                $e->amount = $request->get('amount') * -1;
+                $e->reason = "Invoice Payment";
+                $e->save();
 
                 Alert::Success('Payement Recored')->autoclose(2000);
 
                 $id = $request->get('id');
 
                 $invoice = Srequest::where('id', '=', $id)->value('invoice_total');
-                $payments = Requestpayment::where('request_id', "=", $id)->sum('amount');
+                $payments = RequestPayment::where('request_id', "=", $id)->sum('amount');
 
                 $balance = $invoice - $payments;
 
-                if ($balance > 0)
-               {
-                return redirect(action('SquadronAccountingController@show', $request->get('id')));
-               }
-                else {
+                if ($balance > 0) {
+                    return redirect(action('SquadronAccountingController@show', $request->get('id')));
+                } else {
                     $e = Srequest::find($id);
                     $e->complete = "Y";
                     $e->save();
@@ -251,20 +238,13 @@ class SquadronAccountingController extends Controller
                     Alert::Success('Invoice Completed')->autoclose(2000);
                     return redirect(action('SquadronAccountingController@requested'));
                 }
-            }
-            else
-            {
+            } else {
                 Alert::error("Error", "Insufficient Account Balance")->autoclose(1500);
                 return redirect(action('SquadronAccountingController@show', $request->get('id')));
             }
-            }
-            else
-            {
-                Alert::error("Error", "Insufficient Account Balance")->autoclose(1500);
-                return redirect(action('SquadronAccountingController@show', $request->get('id')));
-            }
-
-   }
-
-
+        } else {
+            Alert::error("Error", "Insufficient Account Balance")->autoclose(1500);
+            return redirect(action('SquadronAccountingController@show', $request->get('id')));
+        }
+    }
 }

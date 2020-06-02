@@ -5,9 +5,10 @@ namespace App;
 use function foo\func;
 use Illuminate\Database\Eloquent\Model;
 
-class Rollmapping extends Model
+class RollMapping extends Model
 {
     //
+    protected $table = 'rollmappings';
 
     protected $fillable = [
         'id', 'roll_date', 'roll_year', 'roll_month', 'roll_week'

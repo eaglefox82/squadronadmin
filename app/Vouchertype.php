@@ -4,9 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Vouchertype extends Model
+class VoucherType extends Model
 {
     //
+    protected $table = 'vouchertype';
 
     protected $fillable = [
         'id', 'voucher_code','voucher_type'
@@ -16,6 +17,4 @@ class Vouchertype extends Model
     {
         return $this->hasMany('App\Vouchers', 'voucher_type', 'voucher_code');
     }
-
-    protected $table = 'vouchertype';
 }

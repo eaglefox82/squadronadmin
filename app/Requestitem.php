@@ -5,9 +5,11 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Request;
 
-class Requestitems extends Model
+class RequestItem extends Model
 {
     //
+    protected $table = "requestitems";
+
     protected $fillable = [
         'id','request_id', 'item'
     ];

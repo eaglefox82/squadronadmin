@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 
-use App\Rollmapping;
+use App\RollMapping;
 use App\Roll;
 use App\Members;
 use App\Settings;

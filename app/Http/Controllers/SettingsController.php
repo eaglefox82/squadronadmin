@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use App\Settings;
-use App\Otheritemmapping;
-use App\Otheritems;
+use App\OtherItemMapping;
+use App\OtherItem;
 use App\User;
 use Alert;
 
@@ -22,7 +22,7 @@ class SettingsController extends Controller
     {
         //
         $settings = Settings::orderby('id')->get();
-        $otheritems = Otheritemmapping::all();
+        $otheritems = OtherItemMapping::all();
         $users = User::all();
         return view('settings.index', compact('settings', 'otheritems', 'users'));
     }
@@ -56,7 +56,7 @@ class SettingsController extends Controller
         $e->value = $request->get('value');
         $e->save();
 
-        alert::Success('New Value has been added')->autoclose(2000);
+        Alert::Success('New Value has been added')->autoclose(2000);
         return redirect(action('SettingsController@index'));
     }
 
@@ -113,6 +113,7 @@ class SettingsController extends Controller
         $setting->setting = $request->get('setting');
         $setting->value = $request->get('value');
         $setting->save();
+
         /** Sweet Alert */
         Alert::toast('Setting Updated', 'success', 'top');
 

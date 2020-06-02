@@ -82,6 +82,11 @@ class Member extends Model
         return $this->hasOne('App\Flight','id', 'flight' );
     }
 
+    public function books()
+    {
+        return $this->hasMany('App\MemberBook', 'memberID', 'id');
+    }
+
     protected $with = array('accounts');
 
     public function getBirthdayAttribute()
