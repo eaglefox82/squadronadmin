@@ -13,9 +13,11 @@ class MemberSeeder extends Seeder
      */
     public function run()
     {
-        //
-
-        Member::truncate();
+        //Only seed if we don't have any records
+        if (sizeof(Member::all()) > 0)
+        {
+            return;
+        }
 
         Member::create(['id' => 1, 'membership_number' => 'N18094', 'first_name' => 'Brendan', 'last_name' => 'Fox', 'rank' => '4', 'date_joined' => '1996-05-10', 'date_birth' => '1982-07-02', 'active' => 'Y','member_type' => 'League', 'Flight' => 1 ]);
         Member::create(['id' => 2, 'membership_number' => 'N21669', 'first_name' => 'Lachlan', 'last_name' => 'Abernethy', 'rank' => '10', 'date_joined' => '2010-06-18', 'date_birth' => '2000-02-09', 'active' => 'Y','member_type' => 'League', 'Flight' => 1 ]);

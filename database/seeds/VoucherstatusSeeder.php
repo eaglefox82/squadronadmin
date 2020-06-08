@@ -12,8 +12,11 @@ class VoucherstatusSeeder extends Seeder
      */
     public function run()
     {
-        //
-        Voucherstatus::truncate();
+        //Only seed if we don't have any records
+        if (sizeof(Voucherstatus::all()) > 0)
+        {
+            return;
+        }
 
         Voucherstatus::create(['id' => 1, 'status_code' => 'E', 'desc' => 'Entered']);
         Voucherstatus::create(['id' => 2, 'status_code' => 'S', 'desc' => 'Submitted']);

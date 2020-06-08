@@ -12,7 +12,11 @@ class RollstatusSeeder extends Seeder
      */
     public function run()
     {
-        Rollstatus::truncate();
+        //Only seed if we don't have any records
+        if (sizeof(Rollstatus::all()) > 0)
+        {
+            return;
+        }
 
         Rollstatus::create(['id' => 1, 'status_id' => 'A', 'Status' => 'Away']);
         Rollstatus::create(['id' => 2, 'status_id' => 'C', 'Status' => 'Present/Paid']);

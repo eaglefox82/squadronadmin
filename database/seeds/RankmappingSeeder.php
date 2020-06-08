@@ -12,9 +12,11 @@ class RankmappingSeeder extends Seeder
      */
     public function run()
     {
-        //
-
-        Rankmapping::truncate();
+        //Only seed if we don't have any records
+        if (sizeof(Rankmapping::all()) > 0)
+        {
+            return;
+        }
 
         Rankmapping::create(['id' => 1, 'rank' => 'Cheif Commissioner']);
         Rankmapping::create(['id' => 2, 'rank' => 'Commissioner']);

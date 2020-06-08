@@ -12,7 +12,11 @@ class SettingsSeeder extends Seeder
      */
     public function run()
     {
-       Settings::truncate();
+       //Only seed if we don't have any records
+       if (sizeof(Settings::all()) > 0)
+       {
+           return;
+       }
 
        $admin = new Settings();
        $admin->setting = "Weekly Fees";
@@ -35,5 +39,5 @@ class SettingsSeeder extends Seeder
        $admin->save();
    }
 }
-    
+
 

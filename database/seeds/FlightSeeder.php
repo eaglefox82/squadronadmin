@@ -13,8 +13,11 @@ class FlightSeeder extends Seeder
      */
     public function run()
     {
-        //
-        Flight::truncate();
+        //Only seed if we don't have any records
+        if (sizeof(Flight::all()) > 0)
+        {
+            return;
+        }
 
         Flight::create(['id' => 1, 'Flight_name' => 'Officers']);
         Flight::create(['id' => 2, 'Flight_name' => 'Flag Party']);

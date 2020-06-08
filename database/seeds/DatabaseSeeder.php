@@ -21,6 +21,6 @@ class DatabaseSeeder extends Seeder
         $this->call(VoucherstatusSeeder::class);
         $this->call(VouchertypeSeeder::class);
         $this->call(FlightSeeder::class);
-
+        $this->call(CourseSeeder::class);
     }
 }

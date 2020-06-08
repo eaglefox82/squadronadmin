@@ -15,7 +15,11 @@ class UsersSeeder extends Seeder
     public function run()
     {
         //
-        User::truncate();
+        //Only seed if we don't have any records
+        if (sizeof(User::all()) > 0)
+        {
+            return;
+        }
 
 		$admin = new User();
 		$admin->firstname = "Brendan";

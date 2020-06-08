@@ -12,8 +12,11 @@ class RolesSeeder extends Seeder
      */
     public function run()
     {
-        //
-        Role::truncate();
+        //Only seed if we don't have any records
+        if (sizeof(Role::all()) > 0)
+        {
+            return;
+        }
 
         Role::create(['id' => 1, 'name' => 'Admin', 'description' => 'System Administrator']);
         Role::create(['id' => 2, 'name' => 'Staff', 'description' => 'Squadron Staff']);
