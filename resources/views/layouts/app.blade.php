@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
+
 <head>
     <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -12,189 +13,229 @@
 
     <!-- Fonts -->
     <link rel="stylesheet" type="text/css"
-          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"/>
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/material-dashboard.css') }}">
 </head>
+
 <body class="">
-<div class="wrapper">
-    <div class="sidebar" data-color="rose" data-background-color="black" data-image="{{ asset('img/sidebar-1.jpg') }}">
-        <div class="logo">
-            <a href="#" class="simple-text logo-normal text-center">
-               {{ config('app.name', 'Laravel') }}
-            </a>
-        </div>
-        <div class="sidebar-wrapper">
-            <div class="user">
-                <div class="photo">
-                    <img src="{{ asset('img/default-avatar.png') }}"/>
-                </div>
-                <div class="user-info">
-                    <a data-toggle="collapse" href="#collapseExample" class="username">
-                      <span>
-                          @guest
+    <div class="wrapper">
+        <div class="sidebar" data-color="rose" data-background-color="black"
+            data-image="{{ asset('img/sidebar-1.jpg') }}">
+            <div class="logo">
+                <a href="#" class="simple-text logo-normal text-center">
+                    {{ config('app.name', 'Laravel') }}
+                </a>
+            </div>
+            <div class="sidebar-wrapper">
+                <div class="user">
+                    <div class="photo">
+                        <img src="{{ asset('img/default-avatar.png') }}" />
+                    </div>
+                    <div class="user-info">
+                        <a data-toggle="collapse" href="#collapseExample" class="username">
+                            <span>
+                                @guest
 
-                          @else
-                              {{ Auth::user()->firstname }} {{Auth::user()->lastname}}
-                          @endguest
-                        <b class="caret"></b>
-                      </span>
-                    </a>
-                    <div class="collapse" id="collapseExample">
-                        <ul class="nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    <span class="sidebar-mini"> L </span>
-                                    <span class="sidebar-normal"> Logout </span>
-                                </a>
+                                @else
+                                    {{ Auth::user()->firstname }} {{ Auth::user()->lastname }}
+                                @endguest
+                                <b class="caret"></b>
+                            </span>
+                        </a>
+                        <div class="collapse" id="collapseExample">
+                            <ul class="nav">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        <span class="sidebar-mini"> L </span>
+                                        <span class="sidebar-normal"> Logout </span>
+                                    </a>
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    @csrf
-                                </form>
-                            </li>
-                        </ul>
+                                    <form id="logout-form" action="{{ route('logout') }}"
+                                        method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <ul class="nav">
-               <li class="nav-item">
-                  <a class="nav-link" href="{{action('HomeController@index')}}">
-                       <i class="material-icons">dashboard</i>
-                       <p> Dashboard </p>
-                   </a>
-               </li>
-               <li class="nav-item ">
-                   <a class="nav-link" href="{{action('MembersController@index')}}">
-                       <i class="fa fa-users"></i>
-                       <p> Members </p>
-                   </a>
-               </li>
-               <li class="nav-item ">
-                   <a class="nav-link" href="{{action('RollController@index')}}">
-                       <i class="fa fa-book"></i>
-                       <p> Roll </p>
-                   </a>
-               </li>
-               <li class="nav-item ">
-                   <a class="nav-link" href="{{action('ActiveKidsController@index')}}">
-                       <i class="fa fa-ticket"></i>
-                       <p>Vouchers</p>
-                   </a>
-               </li>
-               <li class="nav-item ">
-                   <a class="nav-link" href="{{action('SquadronAccountingController@index')}}">
-                       <i class="fa fa-list-ul"></i>
-                       <p> Squadron Accounting </p>
-                   </a>
-               </li>
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ action('HomeController@index') }}">
+                            <i class="material-icons">dashboard</i>
+                            <p> Dashboard </p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{{ action('MembersController@index') }}">
+                            <i class="fa fa-users"></i>
+                            <p> Members </p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{{ action('RollController@index') }}">
+                            <i class="fa fa-list"></i>
+                            <p> Roll </p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{{ action('ActiveKidsController@index') }}">
+                            <i class="fa fa-ticket"></i>
+                            <p>Vouchers</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link"
+                            href="{{ action('SquadronAccountingController@index') }}">
+                            <i class="fa fa-usd"></i>
+                            <p> Squadron Accounting </p>
+                        </a>
+                    </li>
 
-               <li class="nav-item ">
-                  <a class="nav-link" href="{{action('Form19Controller@index')}}">
-                      <i class="fa fa-pied-piper"></i>
-                       <p>Form 19</p>
-                  </a>
-               </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{{ action('Form19Controller@index') }}">
+                            <i class="fa fa-pied-piper"></i>
+                            <p>Form 19</p>
+                        </a>
+                    </li>
 
-               <li class="nav-item">
-                   <a class="nav-link" href="{{action('StockController@index')}}">
-                       <i class="fa fa-barcode"></i>
-                       <p>Stock List</p>
-                   </a>
-               </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ action('StockController@index') }}">
+                            <i class="fa fa-barcode"></i>
+                            <p>Stock List</p>
+                        </a>
+                    </li>
 
-               <!-- Drop down other menu -->
-                <li class = "nav-item">
-                    <a class = "nav-link" data-toggle = "collapse" href="#others">
-                        <i class="fa fa-cog"></i>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#others">
+                            <i class="fa fa-book"></i>
+                            <p>Library<b class="caret"></b></p>
+                        </a>
+                        <div class="collapse" id="others">
+                            <ul class="nav">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        <span class="sidebar-normal">Courses</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        <span class="sidebar-normal">Book Register</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        <span class="sidebar-normal">Available Books</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        <span class="sidebar-normal">On Loan</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <!-- Drop down other menu -->
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#others">
+                            <i class="fa fa-cog"></i>
                             <p>Other Items
-                                <b class = "caret"></b>
+                                <b class="caret"></b>
                             </p>
-                    </a>
-                    <div class = "collapse" id="others">
-                        <ul class = "nav">
+                        </a>
+                        <div class="collapse" id="others">
+                            <ul class="nav">
 
-                           <li class = "nav-item">
-                               <a class = "nav-link"  href="{{action('SettingsController@index')}}">
-                                <span class= "sidebar-normal">Squadron Settings</span>
-                               </a>
-                            </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                        href="{{ action('SettingsController@index') }}">
+                                        <span class="sidebar-normal">Squadron Settings</span>
+                                    </a>
+                                </li>
 
-                            <li class = "nav-item">
-                                <a class = "nav-link" href = "https://admin.airleague.com.au/" target="_blank">
-                                    <span class = "sidebar-normal">NAS</span>
-                                </a>
-                            </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="https://admin.airleague.com.au/" target="_blank">
+                                        <span class="sidebar-normal">NAS</span>
+                                    </a>
+                                </li>
 
-                            <li class = "nav-item">
-                                <a class = "nav-link" href="//www.mailchimp.com" target="_blank">
-                                    <span class = "sidebar-normal">Mailchimp</span>
-                                </a>
-                            </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="//www.mailchimp.com" target="_blank">
+                                        <span class="sidebar-normal">Mailchimp</span>
+                                    </a>
+                                </li>
 
-                            <li class = "nav-item">
-                                <a class = "nav-link" href="https://nsw.airleague.com.au/submit/nsw-voucher/" target="_blank">
-                                    <span class = "sidebar-normal">NSW Vouchers</span>
-                                </a>
-                            </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="https://nsw.airleague.com.au/submit/nsw-voucher/"
+                                        target="_blank">
+                                        <span class="sidebar-normal">NSW Vouchers</span>
+                                    </a>
+                                </li>
 
-                            <li class = "nav-item">
-                                <a class = "nav-link" href="https://github.com/eaglefox82/edpark/releases" target="_blank">
-                                    <span class = "sidebar-normal">Release Notes</span>
-                                </a>
-                            </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="https://github.com/eaglefox82/edpark/releases"
+                                        target="_blank">
+                                        <span class="sidebar-normal">Release Notes</span>
+                                    </a>
+                                </li>
 
-                        </ul>
-                    </div>
-                </li>
-
-            </ul>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-    <div class="main-panel">
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top">
-            <div class="container-fluid">
-                <div class="navbar-wrapper">
-                    <div class="navbar-minimize">
-                        <button id="minimizeSidebar" class="btn btn-just-icon btn-white btn-fab btn-round">
-                            <i class="material-icons text_align-center visible-on-sidebar-regular">more_vert</i>
-                            <i class="material-icons design_bullet-list-67 visible-on-sidebar-mini">view_list</i>
-                        </button>
+        <div class="main-panel">
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top">
+                <div class="container-fluid">
+                    <div class="navbar-wrapper">
+                        <div class="navbar-minimize">
+                            <button id="minimizeSidebar" class="btn btn-just-icon btn-white btn-fab btn-round">
+                                <i class="material-icons text_align-center visible-on-sidebar-regular">more_vert</i>
+                                <i class="material-icons design_bullet-list-67 visible-on-sidebar-mini">view_list</i>
+                            </button>
+                        </div>
+                        {{-- <a class="navbar-brand" href="#">Dashboard</a> --}}
                     </div>
-                    {{--<a class="navbar-brand" href="#">Dashboard</a>--}}
-                </div>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
                         aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="navbar-toggler-icon icon-bar"></span>
-                    <span class="navbar-toggler-icon icon-bar"></span>
-                    <span class="navbar-toggler-icon icon-bar"></span>
-                </button>
-            </div>
-        </nav>
-        <!-- End Navbar -->
-
-        <h2 class="text-center">{{ config('app.name', 'Squadron') }} Admin System</h2>
-
-        <div class="content">
-            @yield('content')
-        </div>
-
-        <footer class="footer ">
-            <div class="container">
-                <div class="copyright pull-right">
-                    &copy;
-                    <script>
-                        document.write(new Date().getFullYear())
-                    </script>
-                     | Developed by Brendan Fox</a>
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="navbar-toggler-icon icon-bar"></span>
+                        <span class="navbar-toggler-icon icon-bar"></span>
+                        <span class="navbar-toggler-icon icon-bar"></span>
+                    </button>
                 </div>
+            </nav>
+            <!-- End Navbar -->
+
+            <h2 class="text-center">{{ config('app.name', 'Squadron') }} Admin
+                System</h2>
+
+            <div class="content">
+                @yield('content')
             </div>
-        </footer>
+
+            <footer class="footer ">
+                <div class="container">
+                    <div class="copyright pull-right">
+                        &copy;
+                        <script>
+                            document.write(new Date().getFullYear())
+
+                        </script>
+                        | Developed by Brendan Fox</a>
+                    </div>
+                </div>
+            </footer>
+        </div>
     </div>
-</div>
 </body>
 <!--   Core JS Files   -->
 <script src="{{ asset('js/core/jquery.min.js') }}"></script>
@@ -253,8 +294,8 @@
 </html>
 
 <script type="text/javascript">
-    $( ".datepicker" ).datetimepicker({
-        icons:{
+    $(".datepicker").datetimepicker({
+        icons: {
             time: "fa fa-clock-o",
             date: "fa fa-calendar",
             up: "fa fa-chevron-up",
@@ -265,11 +306,13 @@
             clear: 'fa fa-trash',
             close: 'fa fa-remove'
         }
-        });
+    });
+
 </script>
 
 <script type="text/javascript">
     $(function () {
         $('.datetimeicker').datetimepicker();
     });
+
 </script>
