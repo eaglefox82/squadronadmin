@@ -47,7 +47,9 @@ class SquadronAccountingController extends Controller
 
         $members = Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->get();
 
-        return view('accounting.index', compact('outstanding', 'requestbalance', 'members', 'rollid', 'totalsubs'));
+        $accountbalance = Accounts::sum('amount');
+
+        return view('accounting.index', compact('outstanding', 'requestbalance', 'members', 'rollid', 'totalsubs', 'accountbalance'));
     }
 
     /**
