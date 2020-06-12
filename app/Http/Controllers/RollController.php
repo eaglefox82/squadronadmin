@@ -88,6 +88,7 @@ class RollController extends Controller
         $e->roll_year = Carbon::parse($date)->year;
         $e->roll_month = Carbon::parse($date)->month;
         $e->roll_week = Carbon::parse($date)->weekOfMonth;
+        $e->roll_strength = Member::Where('active', '=', 'y')->where('member_type', '=', 'League')->count();
         $e->save();
 
         //create Roll
