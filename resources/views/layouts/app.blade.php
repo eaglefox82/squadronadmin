@@ -71,12 +71,40 @@
                        <p> Members </p>
                    </a>
                </li>
-               <li class="nav-item ">
-                   <a class="nav-link" href="{{action('RollController@index')}}">
-                       <i class="fa fa-book"></i>
-                       <p> Roll </p>
-                   </a>
-               </li>
+
+               <li class = "nav-item">
+                <a class = "nav-link" data-toggle = "collapse" href="#others">
+                    <i class="fa fa-book"></i>
+                        <p>Rolls
+                            <b class = "caret"></b>
+                        </p>
+                </a>
+                <div class = "collapse" id="others">
+                    <ul class = "nav">
+
+                       <li class = "nav-item">
+                           <a class = "nav-link"  href="{{action('RollController@index')}}">
+                            <span class= "sidebar-normal">Current Roll</span>
+                           </a>
+                        </li>
+
+                        <li class = "nav-item">
+                            <a class = "nav-link" href = "{{action('RollController@index')}}">
+                                <span class = "sidebar-normal">First Parade Roll</span>
+                            </a>
+                        </li>
+
+                        <li class = "nav-item">
+                            <a class = "nav-link" href={{action('RollController@show', [1])}}>
+                                <span class = "sidebar-normal">Past Rolls</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+
+
                <li class="nav-item ">
                    <a class="nav-link" href="{{action('ActiveKidsController@index')}}">
                        <i class="fa fa-ticket"></i>
@@ -176,7 +204,7 @@
         </nav>
         <!-- End Navbar -->
 
-        <h2 class="text-center">{{ config('app.name', 'Squadron') }}  System</h2>
+        <h2 class="text-center">{{ config('app.name', 'Squadron') }} Admin System</h2>
 
         <div class="content">
             @yield('content')
@@ -244,6 +272,9 @@
 <script src="{{ asset('js/plugins/jasny-bootstrap.min.js') }}"></script>
 <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
 <script src="{{ asset('js/plugins/fullcalendar.min.js') }}"></script>
+
+<!--Ajax -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 @include('sweetalert::alert')
 

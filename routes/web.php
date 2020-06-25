@@ -11,6 +11,8 @@
 |
 */
 
+use App\Http\Controllers\PastrollController;
+
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
@@ -28,6 +30,7 @@ Route::resource('/stocklist', 'StockController')->middleware('auth');
 Route::resource('/users', 'UsersController')->middleware('auth');
 Route::resource('/accounts', 'AccountController')->middleware('auth');
 
+
 Route::get('/activekids/voucher/{id}', 'ActiveKidsController@voucher')->middleware('auth');
 Route::get('/roll/paid/{id}', 'RollController@paid')->middleware('auth');
 Route::get('/roll/voucher/{id}', 'RollController@voucher')->middleware('auth');
@@ -38,8 +41,10 @@ Route::get('/members/updateroll/{id}', 'RollController@updateRoll')->middleware(
 Route::get('/members/delete/{id}', 'MembersController@inactive')->middleware('auth');
 Route::get('/outstanding', 'SquadronAccountingController@outstanding')->middleware('auth');
 Route::get('requested', 'SquadronAccountingController@requested')->middleware('auth');
-
 Route::get('/parade', 'RollController@parade')->middleware('auth');
+
+
+Route::post('/pastroll/post','PastrollController@getRoll')->middleware('auth');
 
 
 Route::post('/accounting/payment/', 'SquadronAccountingController@payment')->middleware('auth');

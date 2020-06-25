@@ -118,6 +118,24 @@ class RollController extends Controller
     public function show($id)
     {
         //
+        if ($id==0){
+            $rollid = RollMapping::latest()->value('id');
+        } else {
+            $rollid = $id;
+        }
+        $rolldate = RollMapping::Where('id', '=', $rollid)->value('roll_date');
+
+        $members = Roll::with(array('member' => function($q) {
+            return $q->orderby('rank');
+        }))
+        ->where('roll_id', '=', $rollid)->get();
+
+        $strength = RollMapping::Where('id', '=', $rollid)->value('roll_strength');
+        $present = Roll::Where('roll_id', '=', $rollid)->where('status', '!=', 'A')->count();
+
+        $rolls = RollMapping::orderby('id','desc')->get();
+
+        return view('roll.past', compact('members', 'rolldate', 'rollid', 'strength', 'present', 'id', 'rolls'));
     }
 
     /**
