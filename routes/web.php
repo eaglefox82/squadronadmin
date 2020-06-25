@@ -52,5 +52,10 @@ Route::post('/accounting/request/update{id}', 'SquadronAccountingController@upda
 Route::post('/accounts/voucher/', 'AccountController@item')->middleware('auth');
 Route::post('/requested/accountpay', 'SquadronAccountingController@accountpayment')->middleware('auth');
 
+
+
+//Reports
+Route::get('/report/roll/print/{id}', 'ReportController@printRoll')->middleware('auth');
+
 // Ajax requests
 

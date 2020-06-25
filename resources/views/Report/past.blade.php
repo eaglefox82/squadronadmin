@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.report')
 
 @section('content')
 <div class="container-fluid">
@@ -17,24 +17,10 @@
         </div>
     @endif
 
-    <h2 style="text-align:center">Past Rolls</h2>
+    <h2 style="text-align:center">{{ config('app.name', 'Squadron') }}</h2>
+    <h3>Roll Date: {{date("l - jS F Y",strtotime($rolldate))}}</h3>
 
 <div class = "row">
-
-
-
-            <h3>Select Roll to View:</h3>
-                <div class="input-group">
-                    <div class="form-group">
-                        <select type="text" class="selectpicker" data-sytle="select-with-transition" name="rollSelect" id="rollSelect" onchange ="loadRoll()" data-size="8">
-                            @foreach ($rolls as $o)
-                                <option value ={{$o->id}} <?php if($id == $o->id) echo 'selected="selected"';?> >{{date("j/M/y",strtotime($o->roll_date))}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-
-
 
         <div class="col-lg-3 col-md-4 col-sm-6">
             <div class="card card-stats">
@@ -95,28 +81,14 @@
         <div class="col-lg-12 col-sm-12">
             <div class="card">
                 <div class="card-header card-header-icon card-header-rose">
-                    <div class = "pull-left">
-                        <form cclass="navbar-form">
-                            <span class="bmd-form-group">
-                                <div class="input-group no-border">
-                                    <button class = "btn btn-white btn-round btn-just-icon fa fa-search"></button>
-                                    <input type="text" name="search" id="search" class="form-control" placeholder="Search Roll Here"/>
-                                </div>
-                            </span>
-                        </form>
-                    </div>
-                  <!--  <div class="pull-right new-button">
-                        <a href="{{action('RollController@create')}}" class="btn btn-primary"  title="Create New Roll"><i class="fa fa-plus fa-2x"></i>Create New Roll</a>
-                    </div>  -->
-                    <a href="{{action('RollController@index')}}" class="btn btn-round btn-info pull-right"><i class="fa fa-book fa-2x"></i>Back to Roll</a>
-                    <a href="{{action('ReportController@printRoll', [$id])}}" class="btn btn-round btn-success pull-right"><i class="fa fa-book fa-2x"></i>Print Roll</a>
+
                 </div>
                 <div class="card-body">
 
                     <div class="table-responsive">
                         <table class="table" id="roll">
                             <thead class = "text-primary">
-                            <h4> Roll Date: {{date("l - jS F Y",strtotime($rolldate))}}</h4>
+
                                 <tr>
                                     <th class="text-center">Member</th>
                                     <th class="text-center">Rank</th>

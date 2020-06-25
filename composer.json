@@ -6,7 +6,8 @@
     "type": "project",
     "require": {
         "php": "^7.2",
-        "barryvdh/laravel-dompdf": "^0.8.3",
+        "barryvdh/laravel-dompdf": "^0.8.6",
+        "dompdf/dompdf": "^0.8.5",
         "facade/ignition": "^2.0",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^7.0",
