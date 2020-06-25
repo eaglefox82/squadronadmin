@@ -17,7 +17,7 @@
         </div>
     @endif
 
-    <h2 style="text-align:center">{{ config('app.name', 'Squadron') }}</h2>
+    <h2 style="text-align:center">{{ config('app.name', 'Squadron') }} Sqaudron</h2>
     <h3>Roll Date: {{date("l - jS F Y",strtotime($rolldate))}}</h3>
 
 <div class = "row">

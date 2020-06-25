@@ -73,13 +73,13 @@
                </li>
 
                <li class = "nav-item">
-                <a class = "nav-link" data-toggle = "collapse" href="#others">
+                <a class = "nav-link" data-toggle = "collapse" href="#roll">
                     <i class="fa fa-book"></i>
                         <p>Rolls
                             <b class = "caret"></b>
                         </p>
                 </a>
-                <div class = "collapse" id="others">
+                <div class = "collapse" id="roll">
                     <ul class = "nav">
 
                        <li class = "nav-item">
