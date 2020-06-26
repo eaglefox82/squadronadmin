@@ -40,11 +40,14 @@ class ReportController extends Controller
         $present = Roll::Where('roll_id', '=', $rollid)->where('status', '!=', 'A')->count();
 
         $rolls = RollMapping::orderby('id','desc')->get();
+        $reportdate = Carbon::now();
 
-        $pdf = PDF::loadView('report.past',  compact('members', 'rolldate', 'rollid', 'strength', 'present', 'id', 'rolls'));
+        $pdf = PDF::loadView('report.roll',  compact('members', 'rolldate', 'rollid', 'strength', 'present', 'id', 'rolls', 'reportdate'));
 
-        return $pdf->download(date("l - jS F Y",strtotime($rolldate)). ' roll.pdf');
-        return view('report.past',  compact('members', 'rolldate', 'rollid', 'strength', 'present', 'id', 'rolls'));
+
+
+        return $pdf->download(date("jS F Y",strtotime($rolldate)). ' roll.pdf');
+        return view('report.roll',  compact('members', 'rolldate', 'rollid', 'strength', 'present', 'id', 'rolls', 'reportdate'));
 
     }
 

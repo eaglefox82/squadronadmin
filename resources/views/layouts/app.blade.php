@@ -89,7 +89,7 @@
                         </li>
 
                         <li class = "nav-item">
-                            <a class = "nav-link" href = "{{action('RollController@index')}}">
+                            <a class = "nav-link" href = "{{action('RollController@parade')}}">
                                 <span class = "sidebar-normal">First Parade Roll</span>
                             </a>
                         </li>
