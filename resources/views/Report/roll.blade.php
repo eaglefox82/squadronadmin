@@ -1,6 +1,9 @@
 <html>
     <head>
         <style>
+            table, th, td {
+                border: 1px solid black;
+            }
             .text-center {
                 text-align: center;
             }
@@ -11,15 +14,10 @@
             <img src="{{ asset('img/aal_logo.jpg') }}" height="90" class="text-center">
         </div>
         <h1 style="text-align:center">Roll of: {{date("l - jS F Y",strtotime($rolldate))}}</h1>
-        <table style="width: 100%;">
-            <tr>
-                <td style="width: 50%;">
-                    <p style="font-weight: bold">From:</p>
-                    Australian Air League Inc.<br>
-                    {{ config('app.name', 'Squadron') }} Sqaudron<br>
-                </td>
-            </tr>
-        </table>
+             <p style="font-weight: bold">From:</p>
+              Australian Air League Inc.<br>
+              {{ config('app.name', 'Squadron') }} Sqaudron<br>
+
 
         <h4>Number on Roll: {{$strength}}</h4>
         <h4>Number Present: {{$present}}</h4>
@@ -32,7 +30,7 @@
         <br>
 
         <h3 style="text-align: center">Members Present</h3>
-        <table style = "width:100%; border: 1px black;">
+        <table style = "width:100%">
             <tr>
                 <th class="text-center">Last Name</th>
                 <th class="text-center">First Name</th>
