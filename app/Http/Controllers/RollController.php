@@ -263,4 +263,20 @@ class RollController extends Controller
 
         return redirect(action('MembersController@index'));
     }
+
+    public function notPresent($id)
+    {
+        $r = Roll::find($id);
+
+        if ($r != null)
+        {
+            $r->status = "A";
+            $r->save();
+
+            Alert::success('Member not Present', 'Member has been marked as not present')->autoclose(1500);
+            return redirect(action('RollController@index'));
+        }
+
+        return redirect(action('RollController@index'));
+    }
 }

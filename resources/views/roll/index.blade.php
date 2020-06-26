@@ -43,8 +43,8 @@
                             <thead class = "text-primary">
                             <h4> Roll Date: {{date("l - jS F Y",strtotime($rolldate))}}</h4>
                                 <tr>
-                                    <th style="display:none;">Membership</th>
                                     <th width="20%"></th>
+                                    <th class="text-center">Membership Number</th>
                                     <th class="text-center">Member</th>
                                     <th width = "20%" class="text-center">Rank</th>
                                     <th class="text-center">Present</th>
@@ -56,7 +56,6 @@
                             <tbody>
                             @foreach($members as $r)
                                 <tr>
-                                    <td style="display:none;">{{$r->member->membership_number}}</td>
                                     <td class="text-center">
                                         @if ($r->status == 'A')
                                         <a href="{{action('RollController@paid', $r->id)}}" title="Paid" class="btn btn-success btn-round"><i class="material-icons">done</i></a>
@@ -64,6 +63,7 @@
                                         <a href="{{action('RollController@notpaid', $r->id)}}" title="Not Paid" class="btn btn-danger btn-round"><i class="material-icons">close</i></a>
                                         @endif
                                     </td>
+                                    <td class="text-center">{{$r->member->membership_number}}</td>
                                     <td class="text-center">{{$r->member->last_name}}, {{$r->member->first_name}} </td>
                                     <td class="text-center">{{$r->member->memberrank->rank}}</td>
                                     @if ($r->status != 'P')

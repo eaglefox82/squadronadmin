@@ -7,6 +7,24 @@
             .text-center {
                 text-align: center;
             }
+            #leftbox {
+                float: left;
+                width: 30%;
+                height: 20px;
+            }
+
+            #middlebox {
+                float: left;
+                width: 30%;
+                height: 20px;
+            }
+
+            #rightbox {
+                float: right;
+                width: 30%;
+                height: 20px;
+            }
+
         </style>
     </head>
     <body>
@@ -18,14 +36,21 @@
               Australian Air League Inc.<br>
               {{ config('app.name', 'Squadron') }} Sqaudron<br>
 
-
-        <h4>Number on Roll: {{$strength}}</h4>
-        <h4>Number Present: {{$present}}</h4>
-        @if($strength != 0)
-            <h4>Attendance %: {{number_format(($present/$strength)*100,2)}}%</h4>
-        @else
-            <h4 class="card-title">Attendance %: N/A</h4>
-        @endif
+        <div id = "leftbox">
+            <h4>Number on Roll: {{$strength}}</h4>
+        </div>
+        <div id = "middlebox">
+            <h4>Number Present: {{$present}}</h4>
+        </div>
+        <div id = "rightbox">
+            @if($strength != 0)
+                <h4>Attendance %: {{number_format(($present/$strength)*100,2)}}%</h4>
+            @else
+                <h4 class="card-title">Attendance %: N/A</h4>
+            @endif
+        </div>
+        <br>
+        <br>
         <br>
         <br>
 
@@ -75,6 +100,7 @@
         <br>
         <br>
 
-    <small style="text-align: center">This roll report was generated on {{date("l - jS F Y",strtotime($reportdate))}} at {{date("g:i a")}}</small>
+    <small style="text-align: center">This roll report was generated on {{date("l - jS F Y",strtotime($reportdate))}} at {{date("g:i a")}}</small><br>
+    <small> Report created by {{ Auth::user()->firstname }} {{ Auth::user()->lastname }}</small>
     </body>
 </html>

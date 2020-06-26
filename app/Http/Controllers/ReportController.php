@@ -16,6 +16,7 @@ use App\RollMapping;
 use App\RollStatus;
 use App\Accounts;
 use PDF;
+use App\Users;
 
 class ReportController extends Controller
 {

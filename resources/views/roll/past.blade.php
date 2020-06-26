@@ -121,7 +121,8 @@
                                     <th class="text-center">Member</th>
                                     <th class="text-center">Rank</th>
                                     <th class="text-center">Flight</th>
-                                    <th width="20%" class="text-center">Present</th>
+                                    <th class="text-center">Payment Method</th>
+                                    <th width="20%" >Edit - Use if update is required</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -138,13 +139,32 @@
                                     @else
                                         <td></td>
                                     @endif
-                                    <td class="text-center">
-                                        @if ($r->status != 'A')
-                                        <p>Yes</p>
-                                        @else
-                                        <p style="color:red">No</p>
-                                        @endif
+                                    @if ($r->status != 'P')
+                                        <td class="text-center">{{$r->rollstatus->status}}</td>
+                                    @else
+                                        <td class="text-center" style="color:red">{{$r->rollstatus->status}}</td>
+                                    @endif
+                                    <td>
+                                    @if ($r->status == 'A')
+                                        <a href="{{action('RollController@paid', $r->id)}}" title="Paid" class="btn btn-success btn-round"><i class="material-icons">done</i></a>
+                                        <a href="{{action('RollController@voucher', $r->id)}}"  title="Voucher" class="btn btn-info btn-round"><i class ="fa fa-money fa-2x"></i></a>
+                                        <a href="{{action('RollController@notpaid', $r->id)}}" title="Not Paid" class="btn btn-danger btn-round"><i class="material-icons">close</i></a>
+                                    @elseif ($r->status == 'P')
+                                        <a href="{{action('RollController@paid', $r->id)}}" title="Paid" class="btn btn-success btn-round"><i class="material-icons">done</i></a>
+                                        <a href="{{action('RollController@voucher', $r->id)}}"  title="Voucher" class="btn btn-info btn-round"><i class ="fa fa-money fa-2x"></i></a>
+                                        <a href="{{action('RollController@notPresent', $r->id)}}" title="Not Present" class="btn btn-danger btn-round"><i class="fa fa-ban fa-2x"></i></a>
+                                    @elseif ($r->status == 'C')
+                                        <a href="{{action('RollController@voucher', $r->id)}}"  title="Voucher" class="btn btn-info btn-round"><i class ="fa fa-money fa-2x"></i></a>
+                                        <a href="{{action('RollController@notpaid', $r->id)}}" title="Not Paid" class="btn btn-danger btn-round"><i class="material-icons">close</i></a>
+                                        <a href="{{action('RollController@notPresent', $r->id)}}" title="Not Present" class="btn btn-danger btn-round"><i class="fa fa-ban fa-2x"></i></a>
+                                    @elseif ($r->status == 'V')
+                                        <a href="{{action('RollController@paid', $r->id)}}" title="Paid" class="btn btn-success btn-round"><i class="material-icons">done</i></a>
+                                        <a href="{{action('RollController@notpaid', $r->id)}}" title="Not Paid" class="btn btn-danger btn-round"><i class="material-icons">close</i></a>
+                                        <a href="{{action('RollController@notPresent', $r->id)}}" title="Not Present" class="btn btn-danger btn-round"><i class="fa fa-ban fa-2x"></i></a>
+
+                                    @endif
                                     </td>
+
                                 </tr>
                             @endforeach
                             </tbody>
