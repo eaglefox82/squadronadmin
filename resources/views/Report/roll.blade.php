@@ -61,7 +61,7 @@
             </tr>
 
             @foreach($members as $m)
-                @if($m->status = 'A')
+                @if($m->status == 'A')
                     <tr>
                         <td class="text-center">{{$m->member->last_name}}</td>
                         <td class="text-center">{{$m->member->first_name}}</td>
