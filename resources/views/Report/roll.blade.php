@@ -96,6 +96,7 @@
                 @endif
             @endforeach
         </table>
+
         <br>
         <br>
         <br>
@@ -104,3 +105,5 @@
     <small> Report created by {{ Auth::user()->firstname }} {{ Auth::user()->lastname }}</small>
     </body>
 </html>
+
+

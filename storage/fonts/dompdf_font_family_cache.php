@@ -78,7 +78,7 @@
     'normal' => $rootDir . '\lib\fonts\DejaVuSerif',
   ),
   'material icons' => array(
-    'normal' => $fontDir . '/material-icons-normal_560aba35fdecdef0fdfee71cbfa629fd',
+    'normal' => $fontDir . '/material-icons-normal_1f7280577de1c08ce8fae346f4bef286',
   ),
   'roboto' => array(
     'normal' => $fontDir . '/roboto-normal_9e96d9e23ad102bc05be47680b365314',
@@ -87,7 +87,7 @@
     'bold' => $fontDir . '/roboto-bold_fd07d89b19ff1de56e1d341daaa21df7',
   ),
   'roboto slab' => array(
-    'normal' => $fontDir . '/roboto-slab-normal_be46d3aaa4dcb2f58f0075666f762d2d',
-    'bold' => $fontDir . '/roboto-slab-bold_baf61722943762309f724b4893f9acf4',
+    'normal' => $fontDir . '/roboto-slab-normal_a44841dcd39f81fc6df81bdf7a0c20b2',
+    'bold' => $fontDir . '/roboto-slab-bold_7822227677cf5c4419c17501582f5430',
   ),
 ) ?>
