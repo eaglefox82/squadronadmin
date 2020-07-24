@@ -30,10 +30,10 @@ class SettingsSeeder extends Seeder
        $admin->save();
 
        $admin = new Settings();
-       $admin->setting = "Roll ID";
-       $admin->Value = "0";
+       $admin->setting = "Attendance";
+       $admin->Value = "80";
        $admin->save();
    }
 }
-    
+
 

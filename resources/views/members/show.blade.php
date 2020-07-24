@@ -93,10 +93,10 @@
 
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class = "card card-stats">
-                    @if ($attendance > $attendancesetting)
-                    <div class ="card-header card-header-success card-header-icon">
-                    @else
+                    @if ($attendance < $attendancesetting)
                     <div class ="card-header card-header-danger card-header-icon">
+                    @else
+                    <div class ="card-header card-header-success card-header-icon">
                     @endif
                         <div class ="card-icon">
                             <i class="fa fa-book fa-2x"></i>
@@ -243,6 +243,13 @@
             </div>
             @endif
 
+            @if( $member->Accounts->sum('amount') == 0)
+                @if( $member->currentrequests->count() == 0 )
+                    @if ($member->outstanding->count() == 0)
+                        <h3> No Outstanding Account Balance, Subs or Invoices</h3>
+                    @endif
+                @endif
+            @endif
 
         </div>
 

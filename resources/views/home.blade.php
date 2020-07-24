@@ -14,6 +14,15 @@
                             @endif
 
                            <h4>Today's date: <?php echo date('l - jS F Y'); ?></h4>
+                                <h4
+                                    @if ($rolldiff == '1')
+                                       style="color: red;"
+                                    @endif
+                                >Current Roll date: {{date("l - jS F Y",strtotime($rolldate))}}
+                                @if ($rolldiff == '1')
+                                - Please Create new Roll
+                             @endif
+                            </h4>
                         </div>
                 </div>
             </div>

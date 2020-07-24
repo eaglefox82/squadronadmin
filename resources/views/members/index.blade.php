@@ -14,7 +14,7 @@
                                 <span class="bmd-form-group">
                                     <div class="input-group no-border">
                                         <button class = "btn btn-white btn-round btn-just-icon fa fa-search"></button>
-                                        <input type="text" name="search" id="search" class="form-control" placeholder="Search member Here" autofocus/>
+                                        <input type="text" name="search" id="search" class="form-control" placeholder="Search Member Here" autofocus/>
                                     </div>
                                 </span>
                             </form>
@@ -23,7 +23,7 @@
                     </div>
 
                         <div class="table-responsive">
-                            <table class="table" id="members">
+                            <table class="table" id="membertable">
                                 <thead class="text-primary">
                                 <th ></th>
                                 <th width = "25%" class="text-center">Membership Number</th>
@@ -143,35 +143,26 @@
 
 @section ('scripts')
 <script>
-        // Write on keyup event of keyword input element
-        $(document).ready(function(){
+    // Write on keyup event of keyword input element
+    $(document).ready(function(){
+      $("#search").keyup(function(){
+      _this = this;
 
-          $("#search").keyup(function(){
-          _this = this;
+      // Show only matching TR, hide rest of them
+      $.each($("#membertable tbody tr"), function() {
+        if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
+        {
+            $(this).hide();
+        }
+        else
+        {
+           $(this).show();
+        }
+      });
+   });
+ });
+ </script>
 
-          // Show only matching TR, hide rest of them
-          $.each($("#members tbody tr"), function() {
-            if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
-            {
-                $(this).hide();
-            }
-            else
-            {
-               $(this).show();
-            }
-          });
-       });
-
-       $.ajax({
-            type:"get",
-            url:"{{ url('/getmembers') }}",
-            success: function(result){
-
-                }
-        });
-     });
-        });
-     </script>
 
      <script type="text/javascript">
             $(function () {
