@@ -36,7 +36,7 @@
                                         @foreach($members as $m)
                                       <tr>
                                           <td class="text-center">
-                                            <a href="{{action('MembersController@show', $m->id)}}" title="View" class="btn btn-round btn-success"><i class="fa fa-info"></i></a>
+                                            <a href="{{action('MembersController@show', $m->id)}}" target="_blank" title="View" class="btn btn-round btn-success"><i class="fa fa-info"></i></a>
                                           </td>
                                           @if ($m->membership_number != "New")
                                               <td class="text-center">{{$m->membership_number}}</td>
@@ -46,7 +46,7 @@
 
                                           <td class="text-center">{{$m->last_name}}, {{$m->first_name}}</td>
                                           <td class="text-center">{{$m->memberrank->rank}}</td>
-                                          @if($m->flight !=0)
+                                          @if($m->flight != 0)
                                             <td clas="text-center">{{$m->flightmap->flight_name}}</td>
                                         @else
                                              <td></td>

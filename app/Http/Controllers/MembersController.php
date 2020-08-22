@@ -106,7 +106,7 @@ class MembersController extends Controller
         $e->date_birth = Carbon::parse($request->get('dob'));
         $e->member_type = $request->get('type');
         $e->active= "Y";
-        $e->flight=10;
+        $e->flight=0;
         $e->save();
 
         Alert::Success('New Member Added', 'New member has been created')->autoclose(2000);
