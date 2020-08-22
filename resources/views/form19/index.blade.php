@@ -175,7 +175,21 @@
                             <i class="fa fa-group fa-2x"></i>
                         </div>
                         <p class="card-category">Avg Attendance<br><br></p>
-                        <h3 class="card-title">{{number_format(($total/$weeksinmonth),2)}}</h3>
+                        <h3 class="card-title">{{number_format(($total/$meetingnights),2)}}</h3>
+                        <div class="card-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                            <i class="fa fa-group fa-2x"></i>
+                        </div>
+                        <p class="card-category">Total Meeting Nights <br><br></p>
+                        <h3 class="card-title">{{$meetingnights}}</h3>
                         <div class="card-footer">
                         </div>
                     </div>

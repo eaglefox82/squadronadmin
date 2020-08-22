@@ -23,6 +23,10 @@ class Form19Controller extends Controller
     public function index()
     {
         $lastRollMap = Rollmapping::latest()->first();
+
+        $meetingnights = Rollmapping::where('roll_year', $lastRollMap->roll_year)->where('roll_month', $lastRollMap->roll_month)->count();
+
+
         $weeksinmonth = Rollmapping::latest()->value('roll_week');
 
         $monthlyRoll = Rollmapping::where('roll_month', $lastRollMap->roll_month)->get();
@@ -45,7 +49,7 @@ class Form19Controller extends Controller
         $subs =Settings::where('setting', '=', 'Weekly Fees')->value('value');
         $wing =Settings::where('setting', '=', 'wing Fees')->value('value');
 
-        return view('form19.index', compact('monthlyRoll', 'nightsInMonth', 'groupfee', 'subs', 'wing','weeksinmonth'));
+        return view('form19.index', compact('monthlyRoll', 'nightsInMonth', 'groupfee', 'subs', 'wing','weeksinmonth', 'meetingnights'));
     }
 
     /**
