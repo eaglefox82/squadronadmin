@@ -412,7 +412,9 @@
 		<td align="left" valign=middle><br></td>
 		<td align="left" valign=middle><br></td>
 		<td align="left" valign=middle><br></td>
-	</tr>
+    </tr>
+</table>
+<table>
 	<tr>
 		<td colspan=2 height="16" align="left" valign=middle><font color="#0000FF">General Report:</font></td>
 		<td colspan=10 rowspan=10 align="left" valign=middle>{{$generalreport}}<br></td>

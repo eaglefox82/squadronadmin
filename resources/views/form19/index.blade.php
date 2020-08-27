@@ -204,7 +204,7 @@
 
 
     <div class="modal fade" id="addform19reportrModal" tabindex="-1" role="dialog" aria-labelledby="NewRollLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title" id="addaccountModal">Add General Report</h3>
@@ -216,9 +216,7 @@
                 <div class="modal-body">
                         <label class ="label-control">Enter Report</label>
                             <div class="form-group">
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="report" rows="10">
-                            </div>
+                                <textarea  name="report" autocomplete="off" cols="90" rows="10"></textarea>
                             </div>
                 </div>
                 <div class="modal-footer">
