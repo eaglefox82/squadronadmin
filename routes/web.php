@@ -57,6 +57,7 @@ Route::post('/requested/accountpay', 'SquadronAccountingController@accountpaymen
 
 //Reports
 Route::get('/report/roll/print/{id}', 'ReportController@printRoll')->middleware('auth');
+Route::post('/reports/form19/print', 'Form19Controller@printForm')->middleware('auth');
 
 // Ajax requests
 

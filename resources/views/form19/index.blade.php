@@ -7,6 +7,9 @@
             <div class = "col-sm-12">
                 <div class = "card">
                     <div class="card-header card-header-icon card-header-rose">
+                        <div class="pull-right new-button">
+                            <a data-toggle="modal" data-target="#addform19reportrModal" class="btn btn-primary btn-round" title="Add Voucher"><i class="fa fa-plus fa-2x"></i>Print Form 19</a>
+                        </div>
                         <h4 class="card-title font-weight-bold">Form 19</h4>
                     </div>
                     <div class="card-body">
@@ -162,7 +165,7 @@
                             <i class="fa fa-money fa-2x"></i>
                         </div>
                         <p class="card-category">Total Subs<br><br></p>
-                        <h3 class="card-title">${{number_format(($monthTotal*$subs),2)}}</h3>
+                        <h3 class="card-title">${{number_format(($monthTotal*$groupfee),2)}}</h3>
                         <div class="card-footer">
                         </div>
                     </div>
@@ -198,4 +201,35 @@
 
         </div>
     </div>
+
+
+    <div class="modal fade" id="addform19reportrModal" tabindex="-1" role="dialog" aria-labelledby="NewRollLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="addaccountModal">Add General Report</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {!!Form::open(array('action' => ['Form19Controller@printForm'], 'method'=>'POST', 'class'=>'form-horizontal'))!!}
+                <div class="modal-body">
+                        <label class ="label-control">Enter Report</label>
+                            <div class="form-group">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="report" rows="10">
+                            </div>
+                            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-round btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-round btn-primary">Download Report</button>
+                </div>
+                {!!Form::close()!!}
+            </div>
+        </div>
+    </div>
+
+
+
 @endsection
