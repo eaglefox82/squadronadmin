@@ -246,7 +246,7 @@ class RollController extends Controller
         return redirect(action('RollController@index'));
     }
 
-    public function updateRoll($id)
+    public function updateRollCash($id)
     {
         $o = Roll::find($id);
         $rollid = RollMapping::latest()->value('id');
@@ -262,6 +262,43 @@ class RollController extends Controller
         }
 
         return redirect(action('MembersController@index'));
+    }
+
+
+    public function updateRollAccount($id)
+    {
+        $o = Roll::find($id);
+        $rollid = RollMapping::latest()->value('id');
+
+        if ($o != null)
+              {
+            // Check if ActiveKids Balance is not less than 0
+            if ($o->member->Accounts->sum('amount') >= 10)
+                {
+                // Update Roll Status
+                    $o->status = "V";
+                    $o->paidrollid = $rollid;
+                    $o->save();
+
+                // Insert Record into ActiveKids Voucher
+                $voucher = new Accounts();
+                $voucher->member_id = $o->member_id;
+                $voucher->Reason = 'Weekly Subs';
+                $voucher->amount = -10;
+                $voucher->save();
+
+                Alert::Success("Member Paid", "Past Subs have been paid from Account Balance")->autoclose(1500);
+                return redirect(action('MembersController@show', $o->member_id));
+            }
+            else
+            {
+                //Not Enough money in the account
+                Alert::error("Error", "Insufficient Account Balance")->autoclose(1500);
+                return redirect(action('MembersController@show', $o->member_id));
+            }
+        }
+
+        return redirect(action('MemberController@index'));
     }
 
     public function notPresent($id)
