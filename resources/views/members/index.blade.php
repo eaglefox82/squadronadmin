@@ -31,6 +31,7 @@
                                 <th width = "25%" class="text-center">Rank</th>
                                 <th Class="text-center">Flight</th>
                                 <th width = "20%" class="text-center">Account Balance</th>
+                                <th class="text-center">Days to Birthday</th>
                                 </thead>
                                 <tbody>
                                         @foreach($members as $m)
@@ -56,6 +57,7 @@
                                           @else
                                               <td style="border-top: 1px #ddd solid"></td>
                                           @endif
+                                                <td class="text-center">{{$m->birthday}}</td>
                                       </tr>
                                           @endforeach
                                       </tbody>

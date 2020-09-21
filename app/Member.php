@@ -89,11 +89,20 @@ class Member extends Model
 
     protected $with = array('accounts');
 
+
     public function getBirthdayAttribute()
     {
-        $birthday = (Carbon::parse(date('Y-m-d',strtotime($this->date_birth))));
+        $birthday = Carbon::parse($this->date_birth);
+
         $birthday->year(date('Y'));
-        $countdown = Carbon::now()->diffInDays($birthday);
-        return $countdown;
+
+        $birthday = Carbon::now()->diffInDays($birthday, false) +1;
+
+            if ($birthday < 0) {
+                $birthday = $birthday + 365;
+            }
+
+        return $birthday;
     }
+
 }
