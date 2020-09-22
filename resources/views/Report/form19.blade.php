@@ -18,17 +18,17 @@
 
 <body>
 <table cellspacing="0" border="0">
-	<colgroup width="70"></colgroup>
+	<colgroup width="75"></colgroup>
 	<colgroup span="2" width="60"></colgroup>
+	<colgroup width="71"></colgroup>
 	<colgroup width="66"></colgroup>
-	<colgroup width="61"></colgroup>
-	<colgroup width="74"></colgroup>
-	<colgroup width="60"></colgroup>
+	<colgroup width="79"></colgroup>
+	<colgroup width="65"></colgroup>
 	<colgroup width="21"></colgroup>
-	<colgroup width="74"></colgroup>
+	<colgroup width="79"></colgroup>
 	<colgroup width="22"></colgroup>
-	<colgroup width="103"></colgroup>
-	<colgroup width="68"></colgroup>
+	<colgroup width="108"></colgroup>
+	<colgroup width="73"></colgroup>
 	<tr>
 		<td height="17" align="left" valign=middle><br></td>
 		<td align="left" valign=middle><br></td>
@@ -417,7 +417,7 @@
 <table>
 	<tr>
 		<td colspan=2 height="16" align="left" valign=middle><font color="#0000FF">General Report:</font></td>
-		<td colspan=10 rowspan=10 align="left" valign=middle>{{$generalreport}}<br></td>
+		<td colspan=10 rowspan=10 align="left" valign=middle>{!! nl2br(e($generalreport)) !!}<br></td>
 		</tr>
 	<tr>
 		<td height="16" align="left" valign=middle><br></td>

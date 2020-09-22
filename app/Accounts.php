@@ -19,4 +19,8 @@ class Accounts extends Model
         return $this->belongsTo('App\Member', 'id', 'member_id');
     }
 
+    public function getBalanceAttribute()
+    {
+        return $this->sum('amount');
+    }
 }

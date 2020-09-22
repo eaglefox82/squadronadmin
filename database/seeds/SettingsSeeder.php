@@ -33,6 +33,11 @@ class SettingsSeeder extends Seeder
        $admin->setting = "Attendance";
        $admin->Value = "80";
        $admin->save();
+
+       $admin = new Settings();
+       $admin->setting = "Annual Subs";
+       $admin->Value = "55";
+       $admin->save();
    }
 }
 

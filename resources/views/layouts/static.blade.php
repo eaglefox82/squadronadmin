@@ -28,7 +28,7 @@
             @yield('content')
         </div>
 
-        <footer class="footer ">
+     <!--   <footer class="footer ">
             <div class="container">
                 <div class="copyright pull-right">
                     &copy;
@@ -38,7 +38,7 @@
                     | Developed by Brendan Fox</a>
                 </div>
             </div>
-        </footer>
+        </footer> -->
     </div>
 </div>
 </body>

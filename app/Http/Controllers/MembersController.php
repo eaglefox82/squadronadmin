@@ -247,5 +247,12 @@ class MembersController extends Controller
         }
     }
 
+    public function birthday()
+    {
+        $birthdays = Member::get();
+
+        return view('members.birthday', compact('birthdays'));
+    }
+
 
 }

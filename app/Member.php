@@ -99,10 +99,31 @@ class Member extends Model
         $birthday = Carbon::now()->diffInDays($birthday, false) +1;
 
             if ($birthday < 0) {
-                $birthday = $birthday + 365;
+                $birthday = Carbon::parse($this->date_birth);
+
+                $birthday->year(date('Y'))->addyear();
+
+                $birthday = Carbon::now()->diffInDays($birthday, false) +1;
             }
 
         return $birthday;
     }
+
+    public function getAnnualsubsAttribute()
+    {
+        $subs =Carbon::parse($this->date_joined);
+        $date = Carbon::now();
+        $yearstart = $date->copy()->startOfYear();
+
+        $due = 'N';
+
+        if($subs < $yearstart ) {
+            $due = 'Y';
+        }
+
+        return $due;
+
+    }
+
 
 }

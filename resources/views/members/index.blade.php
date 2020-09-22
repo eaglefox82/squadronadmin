@@ -26,9 +26,9 @@
                             <table class="table" id="membertable">
                                 <thead class="text-primary">
                                 <th ></th>
-                                <th width = "25%" class="text-center">Membership Number</th>
-                                <th width = "30%" class="text-center">Name</th>
-                                <th width = "25%" class="text-center">Rank</th>
+                                <th width = "15%" class="text-center">Membership Number</th>
+                                <th width = "20%" class="text-center">Name</th>
+                                <th width = "20%" class="text-center">Rank</th>
                                 <th Class="text-center">Flight</th>
                                 <th width = "20%" class="text-center">Account Balance</th>
                                 <th class="text-center">Days to Birthday</th>
@@ -58,7 +58,7 @@
                                               <td style="border-top: 1px #ddd solid"></td>
                                           @endif
                                                 <td class="text-center">{{$m->birthday}}</td>
-                                      </tr>
+                                                <td class="text-center">{{$m->annualsubs}}</td>                                      </tr>
                                           @endforeach
                                       </tbody>
                                       <tfooter>

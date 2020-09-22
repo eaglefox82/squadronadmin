@@ -49,7 +49,10 @@ class SquadronAccountingController extends Controller
 
         $accountbalance = Accounts::sum('amount');
 
-        return view('accounting.index', compact('outstanding', 'requestbalance', 'members', 'rollid', 'totalsubs', 'accountbalance'));
+        $annualfee = Settings::where('setting', 'annual subs')->value('value');
+
+
+        return view('accounting.index', compact('outstanding', 'requestbalance', 'members', 'rollid', 'totalsubs', 'accountbalance', 'annualfee'));
     }
 
     /**

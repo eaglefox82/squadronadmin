@@ -44,6 +44,7 @@ Route::get('/members/delete/{id}', 'MembersController@inactive')->middleware('au
 Route::get('/outstanding', 'SquadronAccountingController@outstanding')->middleware('auth');
 Route::get('requested', 'SquadronAccountingController@requested')->middleware('auth');
 Route::get('/parade', 'RollController@parade')->middleware('auth');
+Route::get('/birthday', 'MembersController@birthday')->middleware('auth');
 
 
 Route::post('/pastroll/post','PastrollController@getRoll')->middleware('auth');
