@@ -168,7 +168,7 @@
                             </li>
 
                             <li class = "nav-item">
-                                <a class = "nav-link" href="https://github.com/eaglefox82/edpark/releases" target="_blank">
+                                <a class = "nav-link" href="https://github.com/eaglefox82/squadronadmin/releases" target="_blank">
                                     <span class = "sidebar-normal">Release Notes</span>
                                 </a>
                             </li>
