@@ -201,16 +201,21 @@
                                 <th class="text-center">Balance</th>
                             </thead>
                             <tbody>
-                            @foreach ($member->Accounts as $t)
+                            @foreach ($account as $t)
                             <tr>
                                 <td class="text-center">{{date("jS F Y", strtotime($t->created_at))}}</td>
                                 <td class="text-center">{{$t->Reason}}</td>
-                                <td class="text-center">${{$t->amount}}</td>
+                                @if($t->amount > 0)
+                                    <td class="text-center">${{$t->amount}}</td>
+                                @else
+                                    <td class="text-center" style="color:red">${{$t->amount}}</td>
+                                @endif
                             </tr>
                             @endforeach
                             </tbody>
                         </table>
                     </div>
+                    {{ $account->links() }}
                 </div>
             </div>
             @endif
@@ -444,9 +449,10 @@
                                 <label class="label-control">Item:</label>
                                 <div class="input-group">
                                     <div class="form-group">
-                                        <select type="text" class="selectpicker" data-sytle="select-with-transition" name="item" value="C">
+                                        <select type="text" class="selectpicker" data-sytle="select-with-transition" name="item" value="C" id="selectBox">
+                                            <option value="">Select item</option>
                                             @foreach ($otheritems as $o)
-                                                <option value ={{$o->item}}>{{$o->item}}</option>
+                                                <option value ={{$o->id}} data-amount="{{$o->amount}}">{{$o->item}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -455,7 +461,7 @@
                                 <label class="label-control">Amount:</label>
                                     <div class="form-group">
                                     <div class="input-group">
-                                        <input type="number" class="form-control" name="amount">
+                                        <input type="number" class="form-control" name="amount" id="textField"></input>
                                     </div>
                                     </div>
                         </div>
@@ -468,3 +474,27 @@
                 </div>
             </div>
 @endsection
+
+
+@section ('scripts')
+
+<script>
+    $('#selectBox').change(function() {
+        let id = $(this).val();
+        let url = '{{ route("getPayments", ":id") }}';
+        url = url.replace(':id', id);
+
+        $.ajax({
+            url: url,
+            type: 'get',
+            dataType: 'json',
+            success: function(response) {
+                if (response != null) {
+                    $('#textField').val(response.amount);
+                }
+            }
+        });
+    });
+ </script>
+
+@Stop

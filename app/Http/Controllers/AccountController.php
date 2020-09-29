@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use App\Member;
 use App\Accounts;
 use Alert;
+use App\Otheritemmapping;
 
 
 class AccountController extends Controller
@@ -120,10 +121,12 @@ class AccountController extends Controller
             return Redirect::back()->WithErrors($validateData) ->withInput();
             }
 
+            $item = Otheritemmapping::where('id', $request->get('item'))->value('item');
+
             $e = new Accounts();
             $e->member_id = $request->get('member');
             $e->amount = $request->get('amount')*-1;
-            $e->reason = $request->get('item');
+            $e->reason = $item;
             $e->save();
 
             Alert::success('Success', 'Account has been updated')->autoclose(1500);

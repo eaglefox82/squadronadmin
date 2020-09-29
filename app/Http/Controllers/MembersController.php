@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Pagination\Paginator;
 use Alert;
 use DataTables;
 
@@ -128,6 +129,7 @@ class MembersController extends Controller
        $vtype = VoucherType::orderby('id')->get();
        $otheritems = Otheritemmapping::orderby('id')->get();
        $flight = Flight::orderby('id')->get();
+       $account = Accounts::where('member_id', $id)->orderBy('id', 'desc')->Paginate(10);
 
       if ($member !=null)
       {
@@ -157,7 +159,7 @@ class MembersController extends Controller
 
        $attendancesetting = Settings::where('setting', 'Attendance')->value('value');
 
-        return view('members.show', compact('member', 'attendance', 'attendancesetting', 'rank', 'vtype','otheritems', 'flight'));
+        return view('members.show', compact('member', 'attendance', 'attendancesetting', 'rank', 'vtype','otheritems', 'flight', 'account'));
       }
 
       return redirect(action('MembersController@index'));
@@ -252,6 +254,13 @@ class MembersController extends Controller
         $birthdays = Member::get();
 
         return view('members.birthday', compact('birthdays'));
+    }
+
+
+    public function getPayments($id = 0)
+    {
+        $data = Otheritemmapping::where('id', $id)->first();
+        return response()->json($data);
     }
 
 
