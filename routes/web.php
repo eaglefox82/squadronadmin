@@ -29,6 +29,7 @@ Route::resource('/otheritems', 'OtheritemsController')->middleware('auth');
 Route::resource('/stocklist', 'StockController')->middleware('auth');
 Route::resource('/users', 'UsersController')->middleware('auth');
 Route::resource('/accounts', 'AccountController')->middleware('auth');
+Route::resource('/points', 'PointsController')->middleware('auth');
 
 
 Route::get('/activekids/voucher/{id}', 'ActiveKidsController@voucher')->middleware('auth');

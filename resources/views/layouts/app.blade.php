@@ -118,12 +118,27 @@
                    </a>
                </li>
 
-               <li class="nav-item ">
-                  <a class="nav-link" href="{{action('Form19Controller@index')}}">
-                      <i class="fa fa-pied-piper"></i>
-                       <p>Form 19</p>
-                  </a>
-               </li>
+               <li class="nav-item">
+                   <a class = "nav-link" data-toggle = "collapse" href="#reports">
+                       <i class="fa fa-paperclip"></i>
+                        <p>Reports
+                            <b class = "caret"></b>
+                        </p>
+                   </a>
+
+                   <div class = "collapse" id="reports">
+                        <ul class = "nav">
+
+                            <li class="nav-item ">
+                                <a class="nav-link" href="{{action('Form19Controller@index')}}">
+                                    <span>Form 19</span>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </li>
+
 
                <li class="nav-item">
                    <a class="nav-link" href="{{action('StockController@index')}}">

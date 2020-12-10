@@ -4,12 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Accounts extends Model
+class Points extends Model
 {
     //
 
     protected $fillable = [
-        'id', 'member_id', 'amount'
+        'id', 'member_id', 'value','year'
     ];
 
 
@@ -19,9 +19,5 @@ class Accounts extends Model
         return $this->belongsTo('App\Member', 'id', 'member_id');
     }
 
-    public function getBalanceAttribute()
-    {
-        return $this->sum('amount');
-    }
 
 }

@@ -51,8 +51,18 @@ class SquadronAccountingController extends Controller
 
         $annualfee = Settings::where('setting', 'annual subs')->value('value');
 
+        $attendance = Roll::where ('status', '!=', 'A')->where('roll_id', '=', $rollid)->count();
 
-        return view('accounting.index', compact('outstanding', 'requestbalance', 'members', 'rollid', 'totalsubs', 'accountbalance', 'annualfee'));
+        $grouplevies = Settings::where('setting','=', 'Group Fees')->value('value') * $attendance;
+        $winglevies = Settings::where('setting', '=', 'Wing Fees')->value('value') * $attendance;
+        $annualsubs = Settings::where('setting', '=', 'Annual Sub Allocation')->value('value')* $attendance;
+        $rent = Settings::where('setting', '=', 'Weekly Rent')->value('value');
+
+        $totalcost = $grouplevies + $winglevies + $annualsubs + $rent;
+        $totalincome = $attendance * $subfee;
+        $difference = $totalincome - $totalcost;
+
+        return view('accounting.index', compact('outstanding', 'requestbalance', 'members', 'rollid', 'totalsubs', 'accountbalance', 'annualfee', 'totalcost', 'totalincome', 'difference'));
     }
 
     /**

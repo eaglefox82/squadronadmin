@@ -2,7 +2,7 @@
     <head>
         <style>
             @page {
-                margin: 100px 25px;
+                margin: 25px 25px;
             }
 
             footer {

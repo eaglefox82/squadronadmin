@@ -176,32 +176,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="newrollModal" tabindex="-1" role="dialog" aria-labelledby="NewRollLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h3 class="modal-title" id="exampleModalLabel">New Roll</h3>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            {!!Form::open(array('action' => ['RollController@store'], 'method'=>'POST', 'class'=>'form-horizontal'))!!}
-            <div class="modal-body">
-                    <div class="form-group">
-                        <label class="label-control">Enter Date:</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control datetimepicker" name="rolldate" value="{{Carbon\Carbon::now()->format('d-m-Y')}}">
-                            </div>
-                        </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary btn-round" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary btn-round">Create Roll</button>
-            </div>
-            {!!Form::close()!!}
-          </div>
-        </div>
-    </div>
+
 @endsection
 
 

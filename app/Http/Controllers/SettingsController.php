@@ -9,6 +9,7 @@ use App\Settings;
 use App\OtherItemMapping;
 use App\OtherItem;
 use App\User;
+use App\PointsMaster;
 use Alert;
 
 class SettingsController extends Controller
@@ -24,7 +25,8 @@ class SettingsController extends Controller
         $settings = Settings::orderby('id')->get();
         $otheritems = OtherItemMapping::all();
         $users = User::all();
-        return view('settings.index', compact('settings', 'otheritems', 'users'));
+        $points = PointsMaster::all();
+        return view('settings.index', compact('settings', 'otheritems', 'users', 'points'));
     }
 
     /**

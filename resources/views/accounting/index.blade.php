@@ -111,6 +111,21 @@
                         </div>
                     </div>
                 </div>
+
+                <div class ="col-lg-3 col-md-6 col-sm-6">
+                    <div class = "card card-stats">
+                        <div class = "card-header card-header-success card-header-icon">
+                            <div class = "card-icon">
+                                <i class = "fa fa-money fa-2x"></i>
+                            </div>
+                            <p class = "card-category">Profit / Loss<br><br></p>
+                            <h3 class = "card-title">${{$difference}}</h3>
+                            <div class = "card-footer">
+                                <a href=""></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         </div>
 
 

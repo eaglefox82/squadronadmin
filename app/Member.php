@@ -6,7 +6,7 @@ use App\Vouchers;
 use App\Roll;
 use App\Srequest;
 use App\Flight;
-use App\Point;
+use App\Points;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -128,12 +128,13 @@ class Member extends Model
 
     public function pointslink()
     {
-        return $this->hasMany('App\Point');
+        return $this->hasMany('App\Points', 'member_id', 'id');
     }
 
     public function points()
     {
-        $year = Carbon::year();
+        $year = Carbon::now()->year;
         return $this->pointslink()->where('year', $year);
     }
+
 }

@@ -30,12 +30,6 @@
             <div class = "col-sm-12">
                 <div class = "card">
                     <div class="card-header card-header-icon card-header-rose">
-                            <div class="pull-right new-button">
-                                <a data-toggle="modal" data-target="#addvoucherModal" class="btn btn-primary btn-round" title="Add Voucher"><i class="fa fa-plus fa-2x"></i> Add Voucher</a>
-                                <a href="" data-toggle="modal" data-target="#editmemberModal" class="btn btn-success btn-round" title="Edit Member"><i class="fa fa-pencil fa-2x"></i> Edit Member</a>
-                                <a href="{{action('MembersController@inactive', $member->id)}}" class="btn btn-danger btn-round" title = "Remove Member"><i class="fa fa-close fa-2x"></i>Remove Member</a>
-                                <a data-toggle="modal" data-target="#addaccountModal" class="btn btn-info btn-round" title="Add Account"><i class="fa fa-money fa-2x"></i>Add to Account</a>
-                             </div>
                         <h4 class="card-title font-weight-bold">Member Details</h4>
                     </div>
                     <div class="card-body">
@@ -49,8 +43,8 @@
                                 <td style="border-top: 1px #ddd solid">{{$member->memberrank->rank}}</td>
                                 <th>Membership:</th>
                                 <td style="border-top: 1px #ddd solid">{{$member->membership_number}}</td>
-                                <th></th>
-                                <td style="border-top: 1px #ddd solid">{{$member->countdown}}</td>
+                                <th>Membership Type:</th>
+                                <td style="border-top: 1px #ddd solid">{{$member->member_type}}</td>
                             </tr>
                             <tr>
                                 <th>Date of Birth</th>
@@ -68,23 +62,27 @@
                                 <td>No Assigned Flight</td>
                                 @endif
                         </table>
+                        <div class="pull-right new-button">
+                            <a href="" data-toggle="modal" data-target="#addvoucherModal" class="btn btn-primary btn-round" title="Add Voucher"><i class="fa fa-plus fa-2x"></i>&nbsp; Add Voucher</a>
+                            <a href="" data-toggle="modal" data-target="#addaccountModal" class="btn btn-info btn-round" title="Add Account"><i class="fa fa-money fa-2x"></i>&nbsp; Add to Account</a>
+                            <a href="" data-toggle="modal" data-target="#pointsModal" class="btn btn-primary btn-round" title="Member Points"><i class="fa fa-trophy fa-2x"></i>&nbsp; Member Points</a>
+                            <a href="" data-toggle="modal" data-target="#editmemberModal" class="btn btn-success btn-round" title="Edit Member"><i class="fa fa-pencil fa-2x"></i>&nbsp; Edit Member</a>
+                            <a href="{{action('MembersController@inactive', $member->id)}}" class="btn btn-danger btn-round" title = "Remove Member"><i class="fa fa-close fa-2x"></i>&nbsp; Remove Member</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
-
 
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class = "card card-stats">
                     <div class ="card-header card-header-info card-header-icon">
                         <div class ="card-icon">
-                            <i class="fa fa-handshake-o fa-2x"></i>
+                            <i class="fa fa-trophy fa-2x"></i>
                         </div>
-                        <p class="card-category">Membership Type<br><br></p>
-                        <h3 class="card-title">{{$member->member_type}}</h3>
+                        <p class="card-category">Points<br><br></p>
+                        <h3 class="card-title">{{$member->points->sum('value')}}</h3>
                         <div class = "card-footer">
                         </div>
                     </div>
@@ -473,28 +471,72 @@
                     </div>
                 </div>
             </div>
+
+
+            <div class="modal fade" id="pointsModal" tabindex="-1" role="dialog" aria-labelledby="accountpay" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="addaccountModal">Add to points to {{$member->first_name}} {{$member->last_name}}</h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        {!!Form::open(array('action' => ['AccountController@item'], 'method'=>'POST', 'class'=>'form-horizontal'))!!}
+                        <div class="modal-body">
+
+                                <input type="hidden" name="member" value="{{$member->id}}">
+                                <label class="label-control">Reason:</label>
+                                <div class="input-group">
+                                    <div class="form-group">
+                                        <select type="text" class="selectpicker" data-sytle="select-with-transition" name="item" value="C" id="selectBox">
+                                            <option value="">Select item</option>
+                                            @foreach ($otheritems as $o)
+                                                <option value ={{$o->id}} data-amount="{{$o->amount}}">{{$o->item}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <label class="label-control">Value:</label>
+                                    <div class="form-group">
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" name="amount" id="valueField"></input>
+                                    </div>
+                                    </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-round btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-round btn-primary">Save Changes</button>
+                        </div>
+                        {!!Form::close()!!}
+                    </div>
+                </div>
+            </div>
 @endsection
 
 
 @section ('scripts')
 
 <script>
-    $('#selectBox').change(function() {
-        let id = $(this).val();
-        let url = '{{ route("getPayments", ":id") }}';
-        url = url.replace(':id', id);
 
-        $.ajax({
-            url: url,
-            type: 'get',
-            dataType: 'json',
-            success: function(response) {
-                if (response != null) {
-                    $('#textField').val(response.amount);
-                }
-            }
-        });
-    });
+   $('#selectBox').change(function() {
+       let id = $(this).val();
+       let url = '{{ route("getPayments", ":id") }}';
+       url = url.replace(':id', id);
+
+       $.ajax({
+           url: url,
+           type: 'get',
+           dataType: 'json',
+           success: function(response) {
+               if (response != null) {
+                   $('#textField').val(response.amount);
+               }
+           }
+       });
+   });
+
  </script>
 
 @Stop
