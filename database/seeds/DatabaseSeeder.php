@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(VouchertypeSeeder::class);
         $this->call(FlightSeeder::class);
         $this->call(PointsmasterSeeder::class);
+        $this->call(EventlevelSeeder::class);
 
     }
 }

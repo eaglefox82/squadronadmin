@@ -17,7 +17,7 @@ use App\RollStatus;
 use App\Accounts;
 use PDF;
 use App\Users;
-use App\Function_Mapping;
+use App\Event;
 
 class ReportController extends Controller
 {
@@ -57,8 +57,9 @@ class ReportController extends Controller
     {
         $memberlist = Member::where('member_type', '=', 'League')->get();
         $totalweeks = Rollmapping::where('roll_year', '=', Carbon::now()->year)->get();
+        $totalevents = Event::Where('year', '=', Carbon::now()->year)->get();
 
-        return view('report.attendance', compact('memberlist', 'totalweeks'));
+        return view('report.attendance', compact('memberlist', 'totalweeks', 'totalevents'));
     }
 
 

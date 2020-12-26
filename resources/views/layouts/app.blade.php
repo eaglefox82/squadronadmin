@@ -104,19 +104,56 @@
                 </div>
             </li>
 
+            <li class = "nav-item">
+                <a class = "nav-link" data-toggle = "collapse" href="#events">
+                    <i class="fa fa-ticket"></i>
+                        <p>Squadron Events
+                            <b class = "caret"></b>
+                        </p>
+                </a>
+                <div class = "collapse" id="events">
+                    <ul class = "nav">
 
-               <li class="nav-item ">
-                   <a class="nav-link" href="{{action('ActiveKidsController@index')}}">
-                       <i class="fa fa-ticket"></i>
-                       <p>Vouchers</p>
-                   </a>
-               </li>
-               <li class="nav-item ">
-                   <a class="nav-link" href="{{action('SquadronAccountingController@index')}}">
-                       <i class="fa fa-list-ul"></i>
-                       <p> Squadron Accounting </p>
-                   </a>
-               </li>
+                       <li class = "nav-item">
+                           <a class = "nav-link"  href="">
+                            <span class= "sidebar-normal">Event List</span>
+                           </a>
+                        </li>
+
+                        <li class = "nav-item">
+                            <a class = "nav-link" href = "">
+                                <span class = "sidebar-normal">Event Rolls</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class = "nav-link" data-toggle = "collapse" href="#accounting">
+                    <i class="fa fa-money"></i>
+                    <p>Squadron Accounting
+                        <b class = "caret"></b>
+                    </p> 
+                </a>
+                <div class = "collapse" id="accounting">
+                    <ul class = 'nav'>
+
+                        <li class = "nav-item">
+                            <a class = "nav-link" href ="{{action('SquadronAccountingController@index')}}">
+                                <span class = "sidebar-normal">Sqaudron Accounting Overview</span>
+                            </a>
+                        </li>
+
+                        <li class = "nav-item">
+                            <a class = "nav-link" href="{{action('ActiveKidsController@index')}}">
+                                <span class = "sidebar-normal">Vouchers</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
 
                <li class="nav-item">
                    <a class = "nav-link" data-toggle = "collapse" href="#reports">
@@ -147,17 +184,17 @@
                                 </a>
                             </li>
 
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{action('StockController@index')}}">
+                                    <span>Stock List</span>
+                                </a>
+                            </li>
+
+
                         </ul>
                     </div>
                 </li>
 
-
-               <li class="nav-item">
-                   <a class="nav-link" href="{{action('StockController@index')}}">
-                       <i class="fa fa-barcode"></i>
-                       <p>Stock List</p>
-                   </a>
-               </li>
 
                <!-- Drop down other menu -->
                 <li class = "nav-item">

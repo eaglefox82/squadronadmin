@@ -22,7 +22,10 @@
                 <h2 class="text-center">Year Attendance Overview</h2>
                 <div class="card-header card-header-icon card-header-rose">
                   <div class="pull-right new-button">
-                        <a href="" class="btn btn-success"  title="Not a button"></i>Total Weeks = {{$totalweeks->count()}}</a>
+                        <a href="" class="btn btn-success"  title="Not a button"></i>Parade Nights = {{$totalweeks->count()}}</a>
+                    </div> 
+                    <div class="pull-right new-button">
+                        <a href="" class="btn btn-rose"  title="Not a button"></i>Event this Year = {{$totalevents->count()}}</a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -34,6 +37,7 @@
                                     <th class="text-center">Member</th>
                                     <th class="text-center">Rank</th>
                                     <th class="text-center">Total Weeks Present</th>
+                                    <th class="text-center">Total Events Attended</th>
                                     <th width="20%" class="text-center">Attendance Rate</th>
                                 </tr>
                             </thead>
@@ -43,6 +47,7 @@
                                     <td class="text-center"><strong>{{$r->last_name}}, {{$r->first_name}}</strong> </td>
                                     <td class="text-center">{{$r->memberrank->rank}}</td>
                                     <td class="text-center">{{$r->attendance->count()}}</td>
+                                    <td class="text-center"></td>
                                     <td class="text-center">
                                     @if($r->attendance->count() !=0)
                                         {{number_format(($r->attendance->count()/$r->memberyear->count())*100),2}}
