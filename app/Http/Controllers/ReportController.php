@@ -17,6 +17,7 @@ use App\RollStatus;
 use App\Accounts;
 use PDF;
 use App\Users;
+use App\Function_Mapping;
 
 class ReportController extends Controller
 {
@@ -50,6 +51,14 @@ class ReportController extends Controller
         return $pdf->download(date("jS F Y",strtotime($rolldate)). ' roll.pdf');
         return view('report.roll',  compact('members', 'rolldate', 'rollid', 'strength', 'present', 'id', 'rolls', 'reportdate'));
 
+    }
+
+    public function attendanceReport()
+    {
+        $memberlist = Member::where('member_type', '=', 'League')->get();
+        $totalweeks = Rollmapping::where('roll_year', '=', Carbon::now()->year)->get();
+
+        return view('report.attendance', compact('memberlist', 'totalweeks'));
     }
 
 

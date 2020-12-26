@@ -135,6 +135,18 @@
                                 </a>
                             </li>
 
+                            <li class="nav-item">
+                                <a class="nav-link" href="">
+                                    <span>Squadron Points</span>
+                                </a>
+                            <li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{action('ReportController@attendanceReport')}}">
+                                    <span>Attendance Overview</span>
+                                </a>
+                            </li>
+
                         </ul>
                     </div>
                 </li>

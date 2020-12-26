@@ -61,6 +61,7 @@ Route::post('/requested/accountpay', 'SquadronAccountingController@accountpaymen
 //Reports
 Route::get('/report/roll/print/{id}', 'ReportController@printRoll')->middleware('auth');
 Route::post('/reports/form19/print', 'Form19Controller@printForm')->middleware('auth');
+Route::get('/reports/attendance', 'ReportController@attendanceReport')->middleware('auth');
 
 // Ajax requests
 Route::get('get/payments/{id}', 'MembersController@getPayments')->middleware('auth')->name('getPayments');

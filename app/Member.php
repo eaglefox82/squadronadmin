@@ -4,6 +4,7 @@ namespace App;
 use Carbon\Carbon;
 use App\Vouchers;
 use App\Roll;
+use App\Rollmapping;
 use App\Srequest;
 use App\Flight;
 use App\Points;
@@ -135,6 +136,28 @@ class Member extends Model
     {
         $year = Carbon::now()->year;
         return $this->pointslink()->where('year', $year);
+    }
+
+    public function rolllink()
+    {
+        return $this->hasMany('App\Roll', 'member_id', 'id');
+    }
+
+    public function attendance()
+    {
+        $year = Carbon::now()->year;
+        return $this->rolllink()->wherehas('rollmapping', function ($query){
+            $query->whereYear('roll_date', now()->year);
+        })
+        ->where('status','!=', 'A');
+    }
+
+    public function memberyear()
+    {
+        $year = Carbon::now()->year;
+        return $this->rolllink()->wherehas('rollmapping', function ($query){
+            $query->whereYear('roll_date', now()->year);
+        });
     }
 
 }

@@ -131,35 +131,18 @@ class MembersController extends Controller
        $flight = Flight::orderby('id')->get();
        $account = Accounts::where('member_id', $id)->orderBy('id', 'desc')->Paginate(10);
 
-      if ($member !=null)
-      {
-
-       $count1 = Roll::whereHas('rollmapping', function ($query) {
-        $query->whereYear('roll_date', now()->year);
-        })
-        ->where('status', '!=', 'A')
-        ->where ('member_id', '=', $id)
-        ->count();
-
-        $count2 = Roll::whereHas('rollmapping', function ($query) {
-            $query->whereYear('roll_date', now()->year);
-            })
-            ->where ('member_id', '=', $id)
-            ->count();
-
-        $weeks = Rollmapping::where('roll_year', now()->year)->count();
-
-        if($count1 != 0){
-
-            $attendance = ($count1/$count2)*100;
-
-        }   else    {
-            $attendance = 0;
-       }
+       if ($member !=null)
+       {
+           if($member->attendance->count() != 0){
+               $attendance = ($member->attendance->count()/$member->memberyear->count())*100;
+           } else {
+               $attendance = 0;
+           }
+       
 
        $attendancesetting = Settings::where('setting', 'Attendance')->value('value');
 
-        return view('members.show', compact('member', 'attendance', 'attendancesetting', 'rank', 'vtype','otheritems', 'flight', 'account'));
+        return view('members.show', compact('member', 'attendance','attendancesetting', 'rank', 'vtype','otheritems', 'flight', 'account'));
       }
 
       return redirect(action('MembersController@index'));
