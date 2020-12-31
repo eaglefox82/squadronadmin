@@ -30,6 +30,7 @@ Route::resource('/stocklist', 'StockController')->middleware('auth');
 Route::resource('/users', 'UsersController')->middleware('auth');
 Route::resource('/accounts', 'AccountController')->middleware('auth');
 Route::resource('/points', 'PointsController')->middleware('auth');
+Route::resource('/events', 'EventController')->middleware('auth');
 
 
 Route::get('/activekids/voucher/{id}', 'ActiveKidsController@voucher')->middleware('auth');
@@ -46,6 +47,9 @@ Route::get('/outstanding', 'SquadronAccountingController@outstanding')->middlewa
 Route::get('requested', 'SquadronAccountingController@requested')->middleware('auth');
 Route::get('/parade', 'RollController@parade')->middleware('auth');
 Route::get('/birthday', 'MembersController@birthday')->middleware('auth');
+Route::get('/eventroll/attending/{id}', 'EventController@eventattending')->middleware('auth');
+Route::get('/eventroll/form17/{id}','EventController@eventform17')->middleware('auth');
+Route::get('/eventroll/paid/{id}', 'EventController@eventpaid')->middleware('auth');
 
 
 Route::post('/pastroll/post','PastrollController@getRoll')->middleware('auth');

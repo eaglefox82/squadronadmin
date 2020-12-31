@@ -115,13 +115,13 @@
                     <ul class = "nav">
 
                        <li class = "nav-item">
-                           <a class = "nav-link"  href="">
+                           <a class = "nav-link"  href="{{action('EventController@index')}}">
                             <span class= "sidebar-normal">Event List</span>
                            </a>
                         </li>
 
                         <li class = "nav-item">
-                            <a class = "nav-link" href = "">
+                            <a class = "nav-link" href = "{{action('EventController@index')}}">
                                 <span class = "sidebar-normal">Event Rolls</span>
                             </a>
                         </li>

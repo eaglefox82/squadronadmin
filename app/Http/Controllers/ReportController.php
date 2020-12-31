@@ -18,6 +18,7 @@ use App\Accounts;
 use PDF;
 use App\Users;
 use App\Event;
+use App\Eventroll;
 
 class ReportController extends Controller
 {

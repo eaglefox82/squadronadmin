@@ -3,6 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Pagination\Paginator;
+
+
+use App\Events;
+use App\Member;
+use App\Eventroll;
+use App\Eventlevels;
+use App\Points;
+
+
+use Carbon\Carbon;
+use Alert;
+use DataTables;
 
 class EventController extends Controller
 {
@@ -14,6 +31,32 @@ class EventController extends Controller
     public function index()
     {
         //
+        $date = Carbon::now();
+        $eventsthisyear = Events::where('year','=', Carbon::now()->year)->count();
+        $events=Events::where('finished', '!=', 'Y')->orderby('event_date')->get();
+        $yearremain=Events::where('finished', '!=', 'Y')->where('year','=', Carbon::now()->year)->count();
+        $levels = Eventlevels::get();
+
+        $memberevents = EventRoll::with(array('Events' => function($q) {
+            return $q->where('year', '=', Carbon::now()->year);
+        }))
+        ->count();
+
+        $membereventattendance = EventRoll::with(array('Events' => function($q) {
+            return $q->where('year', '=', Carbon::now()->year);
+        }))
+        ->where('status', '=', 'Y')->count();
+
+        if($memberevents != null)
+            {
+             $percentage =  ($membereventattendance / $memberevents)*100;
+            } else {
+              $percentage =  '0';
+            }
+
+       
+       
+        return view('events.index', compact('events', 'date', 'eventsthisyear', 'yearremain', 'levels', 'percentage'));
     }
 
     /**
@@ -35,6 +78,49 @@ class EventController extends Controller
     public function store(Request $request)
     {
         //
+
+        $validateData  = Validator::make($request->all(), [
+            'eventname' => 'required',
+            'eventlevel' => 'required',
+            'eventdate' => 'required',
+            'eventcost' => 'required',
+        ]);
+   
+        if ($validateData->fails())
+        {
+            return Redirect::back()->withErrors($validateData)->withInput();
+        }
+
+        // Add Event Master Record
+        $e = New Events();
+        $e->event = $request->get('eventname');
+        $e->event_level = $request->get('eventlevel');
+        $e->event_date = Carbon::parse($request->get('eventdate'));
+        $e->year = Carbon::parse($request->get('eventdate'))->year;
+        $e->amount = $request->get('eventcost');
+        $e->finished = "N";
+        $e->save();
+
+        //Create Event Roll
+        $eventid = Events::latest()->value('id');
+
+        $members = Member::where('active', '=', 'Y')->Where('member_type', '=', 'League')->orderBy('rank','asc')->get();
+
+        foreach ($members as $m)
+        {
+            $r=New EventRoll;
+            $r->event_id = $eventid;
+            $r->member_id = $m->id;
+            $r->status = "N";
+            $r->form17 = "N";
+            $r->paid = "N";
+            $r->save();
+
+        }
+
+        Alert::Success('New Event Added', 'New Event has been created')->autoclose(2000);
+        return redirect(action('EventController@index'));
+
     }
 
     /**
@@ -45,7 +131,20 @@ class EventController extends Controller
      */
     public function show($id)
     {
-        //
+        //  
+        $event = Events::find($id);
+        $roll = EventRoll::where('event_id','=', $id)->get();
+        $attendance = EventRoll::where('event_id','=', $id)->where('status', '=', 'Y')->count();
+        $form17 = EventRoll::where('event_id','=', $id)->where('form17', '=', 'Y')->count();
+        $paid = EventRoll::where('event_id','=', $id)->where('paid', '=', 'Y')->count();
+    
+        if($attendance != 0){
+         $percentage =  ($attendance / EventRoll::where('event_id','=', $id)->count()) * 100;
+        } else {
+           $percentage =  0;
+        };
+
+        return view('events.roll', compact('event', 'roll', 'attendance', 'form17', 'paid', 'percentage'));
     }
 
     /**
@@ -80,5 +179,62 @@ class EventController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function eventattending($id)
+    {
+        $r = Eventroll::find($id);
+        $event = EventRoll::where('id','=', $id)->value('event_id');
+        $level = Events::where('id', '=', $event)->value('event_level');
+        $event_level = Eventlevels::where('id', '=', $level)->value('level');
+        $points = Eventlevels::where('id', '=', $level)->value('points_rank');
+
+
+        if ($r != null)
+        {
+            $r->status = "Y";
+            $r->save();
+
+            $e=new Points;
+            $e->member_id = $r->member_id;
+            $e->value = $points;
+            $e->Reason ="Attendance - ".$event_level;
+            $e->year = Carbon::now()->year;
+            $e->save();
+
+
+            Alert::success('Member Attending Function', 'Member has been marked as Attending')->autoclose(1500); 
+            return redirect(action('EventController@show', $r->event_id));
+        }
+    }
+
+    public function eventform17($id)
+    {
+        $r = Eventroll::find($id);
+
+        if ($r != null)
+        {
+            $r->form17 = "Y";
+            $r->save();
+
+            Alert::success('Member Attending Function', 'Member has been marked as Attendning')->autoclose(1500); 
+            return redirect(action('EventController@show', $r->event_id));
+        }
+
+    }
+
+    public function eventpaid($id)
+    {
+        $r = Eventroll::find($id);
+
+        if ($r != null)
+        {
+            $r->paid = "Y";
+            $r->save();
+
+            Alert::success('Member Attending Function', 'Member has been marked as Attedning')->autoclose(1500); 
+            return redirect(action('EventController@show', $r->event_id));
+        }
+
     }
 }

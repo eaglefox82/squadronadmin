@@ -23,6 +23,8 @@ use App\Accounts;
 use App\Page;
 use App\Otheritemmapping;
 use App\Flight;
+use App\Events;
+use App\Eventroll;
 
 class MembersController extends Controller
 {
@@ -109,6 +111,21 @@ class MembersController extends Controller
         $e->active= "Y";
         $e->flight=0;
         $e->save();
+
+        //Add member to current event rolls
+        $memberid = Member::latest()->value('id');
+        $events = Events::where('finished', '=', 'N')->get();
+
+        foreach ($events as $r)
+        {
+            $e = New Eventroll;
+            $e->event_id = $r->id;
+            $e->member_id = $memberid;
+            $e->status = 'N';
+            $e->form17 = 'N';
+            $e->paid = 'N';
+            $e->save();
+        }
 
         Alert::Success('New Member Added', 'New member has been created')->autoclose(2000);
         return redirect(action('MembersController@index'));

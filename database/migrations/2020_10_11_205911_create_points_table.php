@@ -17,6 +17,7 @@ class CreatePointsTable extends Migration
             $table->id();
             $table->string('member_id');
             $table->string('value');
+            $table->string('Reason');
             $table->string('year');
             $table->timestamps();
         });

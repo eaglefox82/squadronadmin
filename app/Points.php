@@ -9,7 +9,7 @@ class Points extends Model
     //
 
     protected $fillable = [
-        'id', 'member_id', 'value','year'
+        'id', 'member_id', 'value','year', 'reason'
     ];
 
 

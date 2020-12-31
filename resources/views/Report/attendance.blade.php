@@ -47,13 +47,13 @@
                                     <td class="text-center"><strong>{{$r->last_name}}, {{$r->first_name}}</strong> </td>
                                     <td class="text-center">{{$r->memberrank->rank}}</td>
                                     <td class="text-center">{{$r->attendance->count()}}</td>
-                                    <td class="text-center"></td>
+                                    <td class="text-center">{{$r->event->count()}}</td>
                                     <td class="text-center">
                                     @if($r->attendance->count() !=0)
-                                        {{number_format(($r->attendance->count()/$r->memberyear->count())*100),2}}
+                                        {{number_format((($r->attendance->count() + $r->event->count()) / ($r->memberyear->count() + $r->eventyear()->count()))*100,2)}}                                    
                                     @else
                                         0
-                                    @endif  
+                                    @endif                              
                                     %</td>
                                 </tr>
                             @endforeach

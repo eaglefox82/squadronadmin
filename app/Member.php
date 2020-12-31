@@ -8,6 +8,8 @@ use App\Rollmapping;
 use App\Srequest;
 use App\Flight;
 use App\Points;
+use App\Eventroll;
+use App\Events;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -47,6 +49,11 @@ class Member extends Model
     public function roll()
     {
         return $this->hasMany('App\Roll');
+    }
+
+    public function eventroll()
+    {
+        return $this->hasMany('App\Eventroll');
     }
 
     public function outstanding()
@@ -143,6 +150,11 @@ class Member extends Model
         return $this->hasMany('App\Roll', 'member_id', 'id');
     }
 
+    public function eventrolls()
+    {
+        return $this->hasMany('App\Eventroll', 'member_id', 'id');
+    }
+
     public function attendance()
     {
         $year = Carbon::now()->year;
@@ -152,11 +164,26 @@ class Member extends Model
         ->where('status','!=', 'A');
     }
 
+    public function event()
+    {
+        return $this->eventrolls()->wherehas('event', function ($query){
+            $query->where('year', Carbon::now()->year);
+        })
+        ->where('status', '=', 'Y');
+    }
+
     public function memberyear()
     {
         $year = Carbon::now()->year;
         return $this->rolllink()->wherehas('rollmapping', function ($query){
             $query->whereYear('roll_date', now()->year);
+        });
+    }
+
+    public function eventyear()
+    {
+        return $this->eventrolls()->wherehas('event', function ($query){
+            $query->where('year', Carbon::now()->year);
         });
     }
 
