@@ -150,6 +150,7 @@ class MembersController extends Controller
        $flight = Flight::orderby('id')->get();
        $account = Accounts::where('member_id', $id)->orderBy('id', 'desc')->Paginate(10);
        $pointsreason = Pointsmaster::orderby('id')->get();
+       $points = Points::where('year', '=', Carbon::parse(now())->year);
 
        if ($member !=null)
        {
@@ -162,7 +163,7 @@ class MembersController extends Controller
 
        $attendancesetting = Settings::where('setting', 'Attendance')->value('value');
 
-        return view('members.show', compact('member', 'attendance','attendancesetting', 'rank', 'vtype','otheritems', 'flight', 'account', 'points'));
+        return view('members.show', compact('member', 'attendance','attendancesetting', 'rank', 'vtype','otheritems', 'flight', 'account', 'points', 'pointsreason'));
       }
 
       return redirect(action('MembersController@index'));
