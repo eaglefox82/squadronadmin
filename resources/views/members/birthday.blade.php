@@ -19,7 +19,6 @@
                                 </span>
                             </form>
                         </div>
-                        <button class="btn btn-round btn-primary pull-right" data-toggle="modal" data-target="#addmemberModal" class="btn btn-primary btn-round" title="Add Member"><i class="fa fa-plus fa-2x"></i> Add Member</button>
                     </div>
 
                         <div class="table-responsive">

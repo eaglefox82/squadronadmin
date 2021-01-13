@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cbd0e91e0f62e4ba50cd1e34e2e0d2b4",
+    "content-hash": "5af4ca4655e1a4fbfde362b8b9873afc",
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -2422,21 +2422,21 @@
         },
         {
             "name": "realrashid/sweet-alert",
-            "version": "v3.1.4",
+            "version": "v3.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/realrashid/sweet-alert.git",
-                "reference": "d78f0ff7a9e065da2c79fa1c35a5fe243ae9bb02"
+                "reference": "f9450bd8ccc5522f7e7c042bd97031f849ad44f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/realrashid/sweet-alert/zipball/d78f0ff7a9e065da2c79fa1c35a5fe243ae9bb02",
-                "reference": "d78f0ff7a9e065da2c79fa1c35a5fe243ae9bb02",
+                "url": "https://api.github.com/repos/realrashid/sweet-alert/zipball/f9450bd8ccc5522f7e7c042bd97031f849ad44f8",
+                "reference": "f9450bd8ccc5522f7e7c042bd97031f849ad44f8",
                 "shasum": ""
             },
             "require": {
-                "laravel/framework": "^5.4|^6.0|^7.0",
-                "php": "^7.2"
+                "laravel/framework": "^5.4|^6.0|^7.0|^8.0",
+                "php": "^7.2|^8.0"
             },
             "require-dev": {
                 "symfony/thanks": "^1.0"
@@ -2484,7 +2484,31 @@
                 "sweet-alert2",
                 "toast"
             ],
-            "time": "2020-03-31T15:40:35+00:00"
+            "support": {
+                "docs": "https://realrashid.github.io/sweet-alert/",
+                "email": "realrashid05@gmail.com",
+                "issues": "https://github.com/realrashid/sweet-alert/issues",
+                "source": "https://github.com/realrashid/sweet-alert"
+            },
+            "funding": [
+                {
+                    "url": "https://ko-fi.com/realrashid",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://www.buymeacoffee.com/realrashid",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://issuehunt.io/r/realrashid",
+                    "type": "issuehunt"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/realrashid/sweet-alert",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-12-02T09:39:26+00:00"
         },
         {
             "name": "sabberworm/php-css-parser",
@@ -5904,5 +5928,6 @@
     "platform": {
         "php": "^7.2"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.0.0"
 }

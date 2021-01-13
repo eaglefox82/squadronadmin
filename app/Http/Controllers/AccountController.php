@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 use App\Member;
 use App\Accounts;
@@ -58,6 +59,7 @@ class AccountController extends Controller
             $e->member_id = $request->get('member');
             $e->amount = $request->get('amount');
             $e->reason = "Account Top Up";
+            $e->user = Auth::user()->username;
             $e->save();
 
             Alert::success('Success', 'Account has been updated')->autoclose(1500);
@@ -126,7 +128,8 @@ class AccountController extends Controller
             $e = new Accounts();
             $e->member_id = $request->get('member');
             $e->amount = $request->get('amount')*-1;
-            $e->reason = $item;
+            $e->reason = "Payment for ".$item;
+            $e->user = Auth::user()->username;
             $e->save();
 
             Alert::success('Success', 'Account has been updated')->autoclose(1500);

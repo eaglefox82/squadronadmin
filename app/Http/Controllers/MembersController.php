@@ -25,6 +25,8 @@ use App\Otheritemmapping;
 use App\Flight;
 use App\Events;
 use App\Eventroll;
+use App\Points;
+use App\Pointsmaster;
 
 class MembersController extends Controller
 {
@@ -127,7 +129,7 @@ class MembersController extends Controller
             $e->save();
         }
 
-        Alert::Success('New Member Added', 'New member has been created')->autoclose(2000);
+        Alert()->success('New Member Added', 'New member has been created')->autoclose(2000);
         return redirect(action('MembersController@index'));
     }
 
@@ -147,6 +149,7 @@ class MembersController extends Controller
        $otheritems = Otheritemmapping::orderby('id')->get();
        $flight = Flight::orderby('id')->get();
        $account = Accounts::where('member_id', $id)->orderBy('id', 'desc')->Paginate(10);
+       $pointsreason = Pointsmaster::orderby('id')->get();
 
        if ($member !=null)
        {
@@ -155,11 +158,11 @@ class MembersController extends Controller
            } else {
                $attendance = 0;
            }
-       
+
 
        $attendancesetting = Settings::where('setting', 'Attendance')->value('value');
 
-        return view('members.show', compact('member', 'attendance','attendancesetting', 'rank', 'vtype','otheritems', 'flight', 'account'));
+        return view('members.show', compact('member', 'attendance','attendancesetting', 'rank', 'vtype','otheritems', 'flight', 'account', 'points'));
       }
 
       return redirect(action('MembersController@index'));
@@ -219,7 +222,7 @@ class MembersController extends Controller
         $member->date_birth = Carbon::parse($request->get('dob'));
         $member->save();
 
-        Alert::success('Member Updated', 'Members New Details have been recored')->autoclose(1500);
+        alert()->success('Member Updated', 'Members New Details have been recored')->autoclose(1500);
         return redirect(action('MembersController@show', $request->get('member')));
     }
 
@@ -251,7 +254,10 @@ class MembersController extends Controller
 
     public function birthday()
     {
-        $birthdays = Member::get();
+        $birthdays = Member::all();
+        $birthdays = $birthdays->sortby(function($q){
+            return $q->birthday;
+        });
 
         return view('members.birthday', compact('birthdays'));
     }

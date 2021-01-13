@@ -22,9 +22,11 @@
 <div class="wrapper">
     <div class="sidebar" data-color="rose" data-background-color="black" data-image="{{ asset('img/sidebar-1.jpg') }}">
         <div class="logo">
-            <a href="#" class="simple-text logo-normal text-center">
-               {{ config('app.name', 'Laravel') }}
-            </a>
+                <a href="#" class="simple-text logo-normal text-center">
+                    {{ config('app.name', 'Laravel') }}
+                </a>
+
+
         </div>
         <div class="sidebar-wrapper">
             <div class="user">
@@ -135,7 +137,7 @@
                     <i class="fa fa-money"></i>
                     <p>Squadron Accounting
                         <b class = "caret"></b>
-                    </p> 
+                    </p>
                 </a>
                 <div class = "collapse" id="accounting">
                     <ul class = 'nav'>
@@ -173,7 +175,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="">
+                                <a class="nav-link" href="{{action('PointsController@index')}}">
                                     <span>Squadron Points</span>
                                 </a>
                             <li>
@@ -268,7 +270,11 @@
         </nav>
         <!-- End Navbar -->
 
-        <h2 class="text-center">{{ config('app.name', 'Squadron') }} Admin System</h2>
+        <h2 class="text-center">{{ config('app.name', 'Squadron') }} Admin System
+            @if (App::environment() != 'Production')
+                - Development
+            @endif
+        </h2>
 
         <div class="content">
             @yield('content')
@@ -287,6 +293,7 @@
         </footer>
     </div>
 </div>
+@include('sweetalert::alert')
 </body>
 <!--   Core JS Files   -->
 <script src="{{ asset('js/core/jquery.min.js') }}"></script>
@@ -340,7 +347,9 @@
 <!--Ajax -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-@include('sweetalert::alert')
+
+
+
 
 @yield('scripts')
 

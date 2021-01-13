@@ -82,7 +82,7 @@
                             <i class="fa fa-trophy fa-2x"></i>
                         </div>
                         <p class="card-category">Points<br><br></p>
-                        <h3 class="card-title">{{$member->points->sum('value')}}</h3>
+                        <h3 class="card-title">{{$member->points->sum('value')}} (Rank = {{$member->pointrank}})</h3>
                         <div class = "card-footer">
                         </div>
                     </div>
@@ -195,13 +195,13 @@
                         <table class="table">
                             <thead class = 'text-primary'>
                                 <th class="text-center">Date</th>
-                                <th class="text-center">Voucher</th>
+                                <th class="text-center">Reason</th>
                                 <th class="text-center">Balance</th>
                             </thead>
                             <tbody>
                             @foreach ($account as $t)
                             <tr>
-                                <td class="text-center">{{date("jS F Y", strtotime($t->created_at))}}</td>
+                                <td class="text-center">{{date("d-m-Y", strtotime($t->created_at))}}</td>
                                 <td class="text-center">{{$t->Reason}}</td>
                                 @if($t->amount > 0)
                                     <td class="text-center">${{$t->amount}}</td>
@@ -447,7 +447,7 @@
                                 <label class="label-control">Item:</label>
                                 <div class="input-group">
                                     <div class="form-group">
-                                        <select type="text" class="selectpicker" data-sytle="select-with-transition" name="item" value="C" id="selectBox">
+                                        <select type="text" class="selectpicker" data-sytle="select-with-transition" name="item" value="C" id="accountselectBox">
                                             <option value="">Select item</option>
                                             @foreach ($otheritems as $o)
                                                 <option value ={{$o->id}} data-amount="{{$o->amount}}">{{$o->item}}</option>
@@ -482,17 +482,17 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        {!!Form::open(array('action' => ['AccountController@item'], 'method'=>'POST', 'class'=>'form-horizontal'))!!}
+                        {!!Form::open(array('action' => ['PointsController@addtomember'], 'method'=>'POST', 'class'=>'form-horizontal'))!!}
                         <div class="modal-body">
 
                                 <input type="hidden" name="member" value="{{$member->id}}">
                                 <label class="label-control">Reason:</label>
                                 <div class="input-group">
                                     <div class="form-group">
-                                        <select type="text" class="selectpicker" data-sytle="select-with-transition" name="item" value="C" id="selectBox">
+                                        <select type="text" class="selectpicker" data-sytle="select-with-transition" name="item" value="C" id="pointsselectBox">
                                             <option value="">Select item</option>
-                                            @foreach ($otheritems as $o)
-                                                <option value ={{$o->id}} data-amount="{{$o->amount}}">{{$o->item}}</option>
+                                            @foreach ($pointsreason as $p)
+                                                <option value ={{$p->id}} data-amount="{{$p->Value}}">{{$p->Reason}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -520,7 +520,7 @@
 
 <script>
 
-   $('#selectBox').change(function() {
+   $('#accountselectBox').change(function() {
        let id = $(this).val();
        let url = '{{ route("getPayments", ":id") }}';
        url = url.replace(':id', id);
@@ -536,6 +536,26 @@
            }
        });
    });
+
+
+   $('#pointsselectBox').change(function() {
+       let id = $(this).val();
+       let url = '{{ route("getPoints", ":id") }}';
+       url = url.replace(':id', id);
+
+       $.ajax({
+           url: url,
+           type: 'get',
+           dataType: 'json',
+           success: function(response) {
+               if (response != null) {
+                   $('#valueField').val(response.Value);
+               }
+           }
+       });
+   });
+
+
 
  </script>
 

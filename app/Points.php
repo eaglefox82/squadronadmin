@@ -16,7 +16,7 @@ class Points extends Model
 
     public function member()
     {
-        return $this->belongsTo('App\Member', 'id', 'member_id');
+        return $this->hasOne('App\Member', 'id', 'member_id');
     }
 
 

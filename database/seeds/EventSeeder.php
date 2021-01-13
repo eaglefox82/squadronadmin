@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 
 use App\Eventlevels;
 
-class EventlevelSeeder extends Seeder
+class EventSeeder extends Seeder
 {
     /**
      * Run the database seeds.

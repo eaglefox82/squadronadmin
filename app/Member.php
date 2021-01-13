@@ -187,4 +187,20 @@ class Member extends Model
         });
     }
 
+    public function getPointrankAttribute(){
+        $year = Carbon::parse(Carbon::now())->year;
+
+        $pointrank = Points::query()
+            ->select('member_id')->selectRaw('SUM(value) as TotalPoints')
+            ->where('Year','=', $year)
+            ->groupBy('member_id')
+            ->orderByDesc('Totalpoints')
+            ->get();
+
+        return $pointrank->search(function($points){
+            return $points->member_id == $this->id;
+        }) + 1;
+
+    }
+
 }

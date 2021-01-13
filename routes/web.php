@@ -50,6 +50,7 @@ Route::get('/birthday', 'MembersController@birthday')->middleware('auth');
 Route::get('/eventroll/attending/{id}', 'EventController@eventattending')->middleware('auth');
 Route::get('/eventroll/form17/{id}','EventController@eventform17')->middleware('auth');
 Route::get('/eventroll/paid/{id}', 'EventController@eventpaid')->middleware('auth');
+Route::get('/otheritems/{id}/inactive', 'OtheritemsController@inactive')->middleware('auth');
 
 
 Route::post('/pastroll/post','PastrollController@getRoll')->middleware('auth');
@@ -59,6 +60,7 @@ Route::post('/accounting/payment/', 'SquadronAccountingController@payment')->mid
 Route::post('/accounting/request/update{id}', 'SquadronAccountingController@update')->middleware('auth');
 Route::post('/accounts/voucher/', 'AccountController@item')->middleware('auth');
 Route::post('/requested/accountpay', 'SquadronAccountingController@accountpayment')->middleware('auth');
+Route::post('/member/points', 'PointsController@addtomember')->middleware('auth');
 
 
 
@@ -69,4 +71,5 @@ Route::get('/reports/attendance', 'ReportController@attendanceReport')->middlewa
 
 // Ajax requests
 Route::get('get/payments/{id}', 'MembersController@getPayments')->middleware('auth')->name('getPayments');
+Route::get('get/points/{id}', 'PointsController@getPoints')->middleware('auth')->name('getPoints');
 

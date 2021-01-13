@@ -15,6 +15,9 @@ use App\Roll;
 use App\RollMapping;
 use App\RollStatus;
 use App\Accounts;
+use Illuminate\Support\Facades\Auth;
+use App\Pointsmaster;
+use App\Points;
 
 class RollController extends Controller
 {
@@ -177,12 +180,25 @@ class RollController extends Controller
 
         $r = Roll::find($id);
         $rollid = RollMapping::latest()->value('id');
+        $points = Pointsmaster::where('Reason', '=', 'Attendance')->value('Value');
+        $member = Roll::where('id', '=', $id)->value('member_id');
+        $year = Carbon::parse(now())->year;
+
 
         if ($r != null)
         {
             $r->status = "C";
             $r->paidrollid = $rollid;
             $r->save();
+
+                //Add Points
+                $p=new Points();
+                $p->member_id = $member;
+                $p->value = $points;
+                $p->year = $year;
+                $p->reason = "Squadron Night Attendance";
+                $p->save();
+
 
             Alert::Success('Member Paid', 'Member Paid Cash')->autoclose(1500);
             return redirect(action('RollController@index'));
@@ -198,6 +214,9 @@ class RollController extends Controller
         $r = Roll::find($id);
         $rollid = RollMapping::latest()->value('id');
         $rolldate = RollMapping::latest()->value('roll_date');
+        $points = Pointsmaster::where('Reason', '=', 'Attendance')->value('Value');
+        $member = Roll::where('id', '=', $id)->value('member_id');
+        $year = Carbon::parse(now())->year;
 
         if ($r != null)
         {
@@ -214,7 +233,16 @@ class RollController extends Controller
                 $voucher->member_id = $r->member_id;
                 $voucher->Reason = 'Weekly Subs';
                 $voucher->amount = -10;
+                $voucher->user = Auth::user()->username;
                 $voucher->save();
+
+                //Add Points
+                $p=new Points();
+                $p->member_id = $member;
+                $p->value = $points;
+                $p->year = $year;
+                $p->reason = "Squadron Night Attendance";
+                $p->save();
 
                 Alert::Success("Paid", "Member paid from Account Balance")->autoclose(1500);
                 return redirect(action('RollController@index'));
@@ -233,11 +261,22 @@ class RollController extends Controller
     public function notpaid($id)
     {
         $r = Roll::find($id);
+        $points = Pointsmaster::where('Reason', '=', 'Attendance')->value('Value');
+        $member = Roll::where('id', '=', $id)->value('member_id');
+        $year = Carbon::parse(now())->year;
 
         if ($r != null)
         {
             $r->status = "P";
             $r->save();
+
+               //Add Points
+                $p=new Points();
+                $p->member_id = $member;
+                $p->value = $points;
+                $p->year = $year;
+                $p->reason = "Squadron Night Attendance";
+                $p->save();
 
             Alert::success('Member Present', 'Member has not paid')->autoclose(1500);
             return redirect(action('RollController@index'));
@@ -285,6 +324,7 @@ class RollController extends Controller
                 $voucher->member_id = $o->member_id;
                 $voucher->Reason = 'Weekly Subs';
                 $voucher->amount = -10;
+                $voucher->user = Auth::user()->username;
                 $voucher->save();
 
                 Alert::Success("Member Paid", "Past Subs have been paid from Account Balance")->autoclose(1500);

@@ -23,7 +23,7 @@ class SettingsController extends Controller
     {
         //
         $settings = Settings::orderby('id')->get();
-        $otheritems = OtherItemMapping::all();
+        $otheritems = OtherItemMapping::where('active', '=', "Y")->get();
         $users = User::all();
         $points = PointsMaster::all();
         return view('settings.index', compact('settings', 'otheritems', 'users', 'points'));

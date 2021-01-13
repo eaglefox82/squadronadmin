@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\OtherItem;
 
-class OtherItemMapping extends Model
+class Otheritemmapping extends Model
 {
     //
     protected $fillable = [

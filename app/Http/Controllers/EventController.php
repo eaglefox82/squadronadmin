@@ -15,10 +15,11 @@ use App\Member;
 use App\Eventroll;
 use App\Eventlevels;
 use App\Points;
+use App\Otheritemmapping;
 
 
 use Carbon\Carbon;
-use Alert;
+use RealRashid\SweetAlert\Facades\Alert;
 use DataTables;
 
 class EventController extends Controller
@@ -54,8 +55,8 @@ class EventController extends Controller
               $percentage =  '0';
             }
 
-       
-       
+
+
         return view('events.index', compact('events', 'date', 'eventsthisyear', 'yearremain', 'levels', 'percentage'));
     }
 
@@ -85,7 +86,7 @@ class EventController extends Controller
             'eventdate' => 'required',
             'eventcost' => 'required',
         ]);
-   
+
         if ($validateData->fails())
         {
             return Redirect::back()->withErrors($validateData)->withInput();
@@ -118,7 +119,18 @@ class EventController extends Controller
 
         }
 
-        Alert::Success('New Event Added', 'New Event has been created')->autoclose(2000);
+        if($request->get('eventcost') != 0)
+        {
+            $e=New Otheritemmapping;
+            $e->item = $request->get('eventname')." - ".Carbon::parse($request->get('eventdate'))->year;
+            $e->active = "Y";
+            $e->amount = $request->get('eventcost');
+            $e->type = "F";
+            $e->save();
+
+        }
+
+        alert()->success('New Event Added', 'New Event has been created')->autoclose(2000);
         return redirect(action('EventController@index'));
 
     }
@@ -131,13 +143,13 @@ class EventController extends Controller
      */
     public function show($id)
     {
-        //  
+        //
         $event = Events::find($id);
         $roll = EventRoll::where('event_id','=', $id)->get();
         $attendance = EventRoll::where('event_id','=', $id)->where('status', '=', 'Y')->count();
         $form17 = EventRoll::where('event_id','=', $id)->where('form17', '=', 'Y')->count();
         $paid = EventRoll::where('event_id','=', $id)->where('paid', '=', 'Y')->count();
-    
+
         if($attendance != 0){
          $percentage =  ($attendance / EventRoll::where('event_id','=', $id)->count()) * 100;
         } else {
@@ -188,36 +200,55 @@ class EventController extends Controller
         $level = Events::where('id', '=', $event)->value('event_level');
         $event_level = Eventlevels::where('id', '=', $level)->value('level');
         $points = Eventlevels::where('id', '=', $level)->value('points_rank');
+        $currentstatus = Eventroll::where('id', '=', $id)->value('status');
 
+        if($currentstatus == "Y")
+        {
+            alert()->error('Member already attending', "Nothing has been updated");
+            return redirect(action('EventController@show', $r->event_id));
+        }
 
         if ($r != null)
         {
-            $r->status = "Y";
-            $r->save();
+                $r->status = "Y";
+                $r->save();
 
-            $e=new Points;
-            $e->member_id = $r->member_id;
-            $e->value = $points;
-            $e->Reason ="Attendance - ".$event_level;
-            $e->year = Carbon::now()->year;
-            $e->save();
+                $e=new Points;
+                $e->member_id = $r->member_id;
+                $e->value = $points;
+                $e->Reason ="Attendance - ".$event_level;
+                $e->year = Carbon::now()->year;
+                $e->save();
 
 
-            Alert::success('Member Attending Function', 'Member has been marked as Attending')->autoclose(1500); 
+            Alert::success('Member Attending Function', 'Member has been marked as Attending')->autoclose(1500);
             return redirect(action('EventController@show', $r->event_id));
+
+
+
         }
+
+        Alert::warning('Record not found', "Please check and try again")->autoclose(2000);
+        return redirect(action('EventController@show', $r->event_id));
     }
 
     public function eventform17($id)
     {
         $r = Eventroll::find($id);
+        $currentstatus = Eventroll::where('id', '=', $id)->value('form17');
+
+        if($currentstatus == "Y")
+        {
+            alert()->error('Form 17 already provided', "Nothing has been updated");
+            return redirect(action('EventController@show', $r->event_id));
+        }
 
         if ($r != null)
         {
             $r->form17 = "Y";
             $r->save();
 
-            Alert::success('Member Attending Function', 'Member has been marked as Attendning')->autoclose(1500); 
+            Alert::success('Member Form 17', 'Member has Prodvided their Form 17')->autoclose(1500);
             return redirect(action('EventController@show', $r->event_id));
         }
 
@@ -226,13 +257,20 @@ class EventController extends Controller
     public function eventpaid($id)
     {
         $r = Eventroll::find($id);
+        $currentstatus = Eventroll::where('id', '=', $id)->value('paid');
+
+        if($currentstatus == "Y")
+        {
+            alert()->error('Member has paid', "Nothing has been updated");
+            return redirect(action('EventController@show', $r->event_id));
+        }
 
         if ($r != null)
         {
             $r->paid = "Y";
             $r->save();
 
-            Alert::success('Member Attending Function', 'Member has been marked as Attedning')->autoclose(1500); 
+            Alert::success('Member Paid', 'Member has been marked as Paid')->autoclose(1500);
             return redirect(action('EventController@show', $r->event_id));
         }
 
