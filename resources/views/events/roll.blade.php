@@ -118,17 +118,21 @@
                                         @else
                                             <td class="text-center">No</td>
                                         @endif
-                                        
+
                                         @if($r->form17 == 'Y')
                                             <td class="text-center">Yes</td>
                                         @else
                                             @if($r->status == 'Y')
-                                                <td class="text-center" style="color:Red">No</td>
+                                                <td class="text-center" style="color:Red"><strong>No</strong></td>
                                             @else
-                                                <td class="text-center">No</td> 
+                                                @if ($r->paid == 'Y')
+                                                    <td class="text-center" style="color:Red"><strong>No</strong></td>
+                                                @else
+                                                    <td class="text-center">No</td>
+                                                @endif
                                             @endif
                                         @endif
-                                        
+
                                         @if($r->paid == 'Y')
                                             <td class="text-center">Yes</td>
                                         @else

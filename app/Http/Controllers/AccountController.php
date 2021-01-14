@@ -62,7 +62,7 @@ class AccountController extends Controller
             $e->user = Auth::user()->username;
             $e->save();
 
-            Alert::success('Success', 'Account has been updated')->autoclose(1500);
+            Alert()->success('Success', 'Account has been updated')->autoclose(1500);
 
             return redirect(action('MembersController@show', $request->get('member')));
 
@@ -132,7 +132,7 @@ class AccountController extends Controller
             $e->user = Auth::user()->username;
             $e->save();
 
-            Alert::success('Success', 'Account has been updated')->autoclose(1500);
+            Alert()->success('Success', 'Account has been updated')->autoclose(1500);
 
             return redirect(action('MembersController@show', $request->get('member')));
     }

@@ -104,7 +104,7 @@
                                 <i class = "fa fa-money fa-2x"></i>
                             </div>
                             <p class = "card-category">Annual Subs<br><br></p>
-                            <h3 class = "card-title">${{($members->where('annualsubs','Y')->count())*$annualfee}}</h3>
+                            <h3 class = "card-title">${{number_format(($members->where('annualsubs','Y')->count())*$annualfee,0)}}</h3>
                             <div class = "card-footer">
                                 <a href="">Required to pay annual subs</a>
                             </div>
@@ -114,11 +114,15 @@
 
                 <div class ="col-lg-3 col-md-6 col-sm-6">
                     <div class = "card card-stats">
-                        <div class = "card-header card-header-success card-header-icon">
+                        @if($difference > 0)
+                            <div class = "card-header card-header-success card-header-icon">
+                        @else
+                            <div class = "card-header card-header-danger card-header-icon">
+                        @endif
                             <div class = "card-icon">
                                 <i class = "fa fa-money fa-2x"></i>
                             </div>
-                            <p class = "card-category">Profit / Loss<br><br></p>
+                                <p class = "card-category">Profit / Loss<br><br></p>
                             <h3 class = "card-title">${{$difference}}</h3>
                             <div class = "card-footer">
                                 <a href=""></a>
