@@ -123,16 +123,24 @@ class AccountController extends Controller
             return Redirect::back()->WithErrors($validateData) ->withInput();
             }
 
-            $item = Otheritemmapping::where('id', $request->get('item'))->value('item');
 
-            $e = new Accounts();
-            $e->member_id = $request->get('member');
-            $e->amount = $request->get('amount')*-1;
-            $e->reason = "Payment for ".$item;
-            $e->user = Auth::user()->username;
-            $e->save();
+            if($request->get('amount') <= Accounts::where('member_id', '=', $request->get('member'))->sum('amount'))
+            {
+                $item = Otheritemmapping::where('id', $request->get('item'))->value('item');
 
-            Alert()->success('Success', 'Account has been updated')->autoclose(1500);
+                $e = new Accounts();
+                $e->member_id = $request->get('member');
+                $e->amount = $request->get('amount')*-1;
+                $e->reason = "Payment for ".$item;
+                $e->user = Auth::user()->username;
+                $e->save();
+
+                Alert()->success('Success', 'Account has been updated')->autoclose(1500);
+
+                return redirect(action('MembersController@show', $request->get('member')));
+            }
+
+            alert()->error('Fail', 'Account balance is too small for this transaction')->autoclose(1500);
 
             return redirect(action('MembersController@show', $request->get('member')));
     }
