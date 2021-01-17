@@ -81,8 +81,13 @@
                         <div class ="card-icon">
                             <i class="fa fa-trophy fa-2x"></i>
                         </div>
-                        <p class="card-category">Points<br><br></p>
-                        <h3 class="card-title">{{$member->points->sum('value')}} (Rank = {{$member->pointrank}})</h3>
+                        <p class="card-category">Points<br>
+                            Rank -
+                                <?php
+                                    $numberFormatter = new NumberFormatter('en_US', NumberFormatter::ORDINAL);
+                                    echo $numberFormatter->format($member->pointrank);
+                                ?><br></p>
+                        <h3 class="card-title" id="pointstotal">{{$member->points->sum('value')}}</h3>
                         <div class = "card-footer">
                         </div>
                     </div>
@@ -553,6 +558,7 @@
                }
            }
        });
+
    });
 
 

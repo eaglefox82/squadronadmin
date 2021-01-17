@@ -38,6 +38,7 @@
                             <thead class = "text-primary">
                             <h4> </h4>
                                 <tr>
+                                    <th class="text-center">Postion</th>
                                     <th class="text-center">Member</th>
                                     <th class="text-center">Total Points</th>
                                     <th width="10%"></th>
@@ -46,6 +47,12 @@
                             <tbody>
                             @foreach($pointrank as $r)
                                 <tr>
+                                    <td class="text-center">
+                                        <?php
+                                            $numberFormatter = new NumberFormatter('en_US', NumberFormatter::ORDINAL);
+                                            echo $numberFormatter->format($r->member->pointrank);
+                                        ?>
+                                    </td>
                                     <td class="text-center">{{$r->member->last_name}}, {{$r->member->first_name}}</td>
                                     <td class="text-center">{{$r->TotalPoints}} </td>
                                     <td>

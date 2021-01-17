@@ -193,6 +193,27 @@
                 </div>
             </div>
 
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card card-stats">
+                    @if($membershipdiff > 0)
+                    <div class="card-header card-header-success card-header-icon">
+                        <div class="card-icon">
+                            <i class="fa fa-user-plus fa-2x"></i>
+                    @else
+                    <div class="card-header card-header-danger card-header-icon">
+                        <div class="card-icon">
+                            <i class="fa fa-user-plus fa-2x"></i>
+                    @endif
+                        </div>
+                        <p class="card-category">Membership Increase YTD<br><br></p>
+                            <h3 class="card-title">{{$membershipdiff}}</h3>
+                            <div class="card-footer">
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+
 
     </div>
 

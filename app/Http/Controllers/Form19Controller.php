@@ -49,8 +49,9 @@ class Form19Controller extends Controller
         $groupfee =Settings::where('setting', '=', 'Group Fees')->value('value');
         $subs =Settings::where('setting', '=', 'Weekly Fees')->value('value');
         $wing =Settings::where('setting', '=', 'wing Fees')->value('value');
+        $newmembers = Member::Where('join_year','=', $lastRollMap->roll_year)->where('join_month','=', $lastRollMap->roll_month)->count();
 
-        return view('form19.index', compact('monthlyRoll', 'nightsInMonth', 'groupfee', 'subs', 'wing','weeksinmonth', 'meetingnights'));
+        return view('form19.index', compact('monthlyRoll', 'nightsInMonth', 'groupfee', 'subs', 'wing','weeksinmonth', 'meetingnights', 'newmembers'));
     }
 
     /**
@@ -126,6 +127,9 @@ class Form19Controller extends Controller
         $generalreport = $request->get('report');
 
         $lastRollMap = Rollmapping::latest()->first();
+        $joinyear = Rollmapping::latest()->value('roll_year');
+        $joinmonth = Rollmapping::latest()->value('roll_month');
+
         $month_name = date("F", mktime(0,0,0,$lastRollMap->roll_month,10));
 
         $meetingnights = Rollmapping::where('roll_year', $lastRollMap->roll_year)->where('roll_month', $lastRollMap->roll_month)->count();
@@ -153,11 +157,13 @@ class Form19Controller extends Controller
         $subs =Settings::where('setting', '=', 'Weekly Fees')->value('value');
         $wing =Settings::where('setting', '=', 'wing Fees')->value('value');
 
+
         $totalofficer = Member::Where('rank' ,'<=', 11)->Where('member_type', '=' , 'League')->where('active','=', 'Y')->count();
         $totalto = Member::WhereBetween('rank' , [12,13])->Where('member_type', '=' , 'League')->where('active','=', 'Y')->count();
         $totalnco = Member::WhereBetween('rank', [14,18])->Where('member_type', '=' , 'League')->where('active','=', 'Y')->count();
         $totalcadets = Member::Where('rank' ,'>', 18)->Where('member_type', '=' , 'League')->where('active','=', 'Y')->count();
         $totalmember = Member::Where('member_type', '=' , 'League')->where('active','=', 'Y')->count();
+        $newmembers = Member::Where(Carbon::createFromFormat('d/m/Y', ['date_joined'])->parse()->year(),'=', $joinyear)->where(Carbon::createFromFormat('d/m/Y', ['date_joined'])->parse()->month(),'=', $joinmonth)->get();
 
         $pdf = PDF::loadView('report.form19',  compact('generalreport','monthlyRoll', 'nightsInMonth', 'groupfee', 'subs', 'wing','weeksinmonth', 'meetingnights', 'lastRollMap', 'month_name', 'totalmember', 'totalcadets', 'totalnco', 'totalto', 'totalofficer'));
 

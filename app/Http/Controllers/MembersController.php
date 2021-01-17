@@ -112,6 +112,8 @@ class MembersController extends Controller
         $e->member_type = $request->get('type');
         $e->active= "Y";
         $e->flight=0;
+        $e->join_month = Carbon::parse($request->get('doj'))->month;
+        $e->join_year = Carbon::parse($request->get('doj'))->year;
         $e->save();
 
         //Add member to current event rolls
