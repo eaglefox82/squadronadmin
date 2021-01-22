@@ -78,9 +78,14 @@ class ReportController extends Controller
 
     public function downloadpast($id)
     {
-        
+
         $data = Completedform::find($id)->value('form_name');
-        return Storage::disk('completedforms')->download($data);
+
+        if($data != null)
+        {
+            return Storage::disk('completedforms')->download($data);
+        }
+        alert()->error('No Report Found');
 
 
     }

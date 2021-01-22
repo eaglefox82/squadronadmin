@@ -140,6 +140,47 @@
 
 </div>
 
+<div class="modal fade" id="adduserModal" tabindex="-1" role="dialog" aria-labelledby="NewRollLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="editmemberModal">Add New User</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {!!Form::open(array('action' => ['UsersController@store'], 'method'=>'POST', 'class'=>'form-horizontal'))!!}
+            <div class="modal-body">
+                    <label class="label-control">First Name:</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="firstname">
+                        </div>
+
+                    <label class="label-control">Last Name:</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="lastname">
+                        </div>
+
+                     <label class="label-control">Username:</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="username">
+                        </div> 
+
+                    <label class="label-control">Password:</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="password">
+                        </div>     
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+            {!!Form::close()!!}
+        </div>
+    </div>
+</div>
+
 
 <div class="modal fade" id="addsettingModal" tabindex="-1" role="dialog" aria-labelledby="NewRollLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

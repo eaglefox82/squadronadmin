@@ -31,6 +31,7 @@ Route::resource('/users', 'UsersController')->middleware('auth');
 Route::resource('/accounts', 'AccountController')->middleware('auth');
 Route::resource('/points', 'PointsController')->middleware('auth');
 Route::resource('/events', 'EventController')->middleware('auth');
+Route::resource('/user', 'UsersController')->middleware('auth');
 
 
 Route::get('/activekids/voucher/{id}', 'ActiveKidsController@voucher')->middleware('auth');
@@ -52,10 +53,8 @@ Route::get('/eventroll/form17/{id}','EventController@eventform17')->middleware('
 Route::get('/eventroll/paid/{id}', 'EventController@eventpaid')->middleware('auth');
 Route::get('/otheritems/{id}/inactive', 'OtheritemsController@inactive')->middleware('auth');
 
-
+Route::post('/profile/update/avatar', 'UsersController@update_avatar')->middleware('auth');
 Route::post('/pastroll/post','PastrollController@getRoll')->middleware('auth');
-
-
 Route::post('/accounting/payment/', 'SquadronAccountingController@payment')->middleware('auth');
 Route::post('/accounting/request/update{id}', 'SquadronAccountingController@update')->middleware('auth');
 Route::post('/accounts/voucher/', 'AccountController@item')->middleware('auth');
