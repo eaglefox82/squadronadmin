@@ -68,6 +68,9 @@ Route::post('/member/points', 'PointsController@addtomember')->middleware('auth'
 Route::get('/report/roll/print/{id}', 'ReportController@printRoll')->middleware('auth');
 Route::post('/reports/form19/print', 'Form19Controller@printForm')->middleware('auth');
 Route::get('/reports/attendance', 'ReportController@attendanceReport')->middleware('auth');
+Route::get('/reports/welcome', 'ReportController@welcome')->middleware('auth');
+Route::get('reports/past', 'ReportController@past')->middleware('auth');
+Route::get('reports/download/{id}', 'ReportController@downloadpast')->middleware('auth');
 
 // Ajax requests
 Route::get('get/payments/{id}', 'MembersController@getPayments')->middleware('auth')->name('getPayments');

@@ -23,7 +23,7 @@
                 <div class="card-header card-header-icon card-header-rose">
                   <div class="pull-right new-button">
                         <a href="" class="btn btn-success"  title="Not a button"></i>Parade Nights = {{$totalweeks->count()}}</a>
-                    </div>
+                    </div> 
                     <div class="pull-right new-button">
                         <a href="" class="btn btn-rose"  title="Not a button"></i>Event this Year = {{$totalevents->count()}}</a>
                     </div>
@@ -50,10 +50,10 @@
                                     <td class="text-center">{{$r->event->count()}}</td>
                                     <td class="text-center">
                                     @if($r->attendance->count() !=0)
-                                        {{number_format((($r->attendance->count() + $r->event->count()) / ($r->memberyear->count() + $r->eventyear()->count()))*100,2)}}
+                                        {{number_format((($r->attendance->count() + $r->event->count()) / ($r->memberyear->count() + $r->eventyear()->count()))*100,2)}}                                    
                                     @else
                                         0
-                                    @endif
+                                    @endif                              
                                     %</td>
                                 </tr>
                             @endforeach

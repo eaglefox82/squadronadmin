@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use Alert;
 
@@ -19,6 +20,7 @@ use PDF;
 use App\Users;
 use App\Event;
 use App\Eventroll;
+use App\Completedform;
 
 class ReportController extends Controller
 {
@@ -63,5 +65,24 @@ class ReportController extends Controller
         return view('report.attendance', compact('memberlist', 'totalweeks', 'totalevents'));
     }
 
+    public function welcome()
+    {
+        return view('report.welcome');
+    }
+
+    public function past()
+    {
+        $form19 = Completedform::orderby('id','DESC')->get();
+        return view('report.past',compact('form19'));
+    }
+
+    public function downloadpast($id)
+    {
+        
+        $data = Completedform::find($id)->value('form_name');
+        return Storage::disk('completedforms')->download($data);
+
+
+    }
 
 }

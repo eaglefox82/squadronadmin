@@ -82,7 +82,7 @@
                             <i class="fa fa-trophy fa-2x"></i>
                         </div>
                         <p class="card-category">Points<br>
-                            Rank -
+                            Rank - 
                                 <?php
                                     $numberFormatter = new NumberFormatter('en_US', NumberFormatter::ORDINAL);
                                     echo $numberFormatter->format($member->pointrank);

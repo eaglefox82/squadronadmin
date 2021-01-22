@@ -192,6 +192,12 @@
                                 </a>
                             </li>
 
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{action('ReportController@past')}}">
+                                    <span>Saved Reports</span>
+                                </a>
+                            </li>
+
 
                         </ul>
                     </div>

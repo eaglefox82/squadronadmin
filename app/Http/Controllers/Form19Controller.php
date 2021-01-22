@@ -7,12 +7,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use PDF;
 
 use App\RollMapping;
 use App\Roll;
 use App\Member;
 use App\Settings;
+use App\Completedform;
 
 class Form19Controller extends Controller
 {
@@ -163,11 +165,19 @@ class Form19Controller extends Controller
         $totalnco = Member::WhereBetween('rank', [14,18])->Where('member_type', '=' , 'League')->where('active','=', 'Y')->count();
         $totalcadets = Member::Where('rank' ,'>', 18)->Where('member_type', '=' , 'League')->where('active','=', 'Y')->count();
         $totalmember = Member::Where('member_type', '=' , 'League')->where('active','=', 'Y')->count();
-        $newmembers = Member::Where(Carbon::createFromFormat('d/m/Y', ['date_joined'])->parse()->year(),'=', $joinyear)->where(Carbon::createFromFormat('d/m/Y', ['date_joined'])->parse()->month(),'=', $joinmonth)->get();
 
         $pdf = PDF::loadView('report.form19',  compact('generalreport','monthlyRoll', 'nightsInMonth', 'groupfee', 'subs', 'wing','weeksinmonth', 'meetingnights', 'lastRollMap', 'month_name', 'totalmember', 'totalcadets', 'totalnco', 'totalto', 'totalofficer'));
+        Storage::disk('completedforms')->put('Form 19 - '.$month_name . ' ' . $lastRollMap->roll_year.'.pdf', $pdf->output());
 
+        $e = new Completedform();
+        $e->form_name = 'Form 19 - '.$month_name . ' ' . $lastRollMap->roll_year.'.pdf';
+        $e->month = date("F", mktime(0,0,0,$lastRollMap->roll_month,10));
+        $e->year = $lastRollMap->roll_year;
+        $e->type = 'Form 19';
+        $e->save();
+        
         return $pdf->download ('Form 19 - '.$month_name . ' ' . $lastRollMap->roll_year.'.pdf');
+    
         return view('report.form19', compact('generalreport','monthlyRoll', 'nightsInMonth', 'groupfee', 'subs', 'wing','weeksinmonth', 'meetingnights', 'lastRollMap', 'month_name', 'totalmember', 'totalcadets', 'totalnco', 'totalto', 'totalofficer'));
     }
 }

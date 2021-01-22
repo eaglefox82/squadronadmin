@@ -194,12 +194,13 @@ class Member extends Model
             ->select('member_id')->selectRaw('SUM(value) as TotalPoints')
             ->where('Year','=', $year)
             ->groupBy('member_id')
-            ->orderByDesc('Totalpoints')
             ->get();
 
         return $pointrank->search(function($points){
             return $points->member_id == $this->id;
         }) + 1;
+
+        return $pointrank;
 
     }
 
