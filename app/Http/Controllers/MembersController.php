@@ -165,6 +165,12 @@ class MembersController extends Controller
 
        $attendancesetting = Settings::where('setting', 'Attendance')->value('value');
 
+       if($member->attendancewarning == 3)
+       {
+           alert()->info('Member has missed the last 3 nights', 'Please contact member to cross off roll')->autoclose(2000);
+          
+       }
+
         return view('members.show', compact('member', 'attendance','attendancesetting', 'rank', 'vtype','otheritems', 'flight', 'account', 'points', 'pointsreason'));
       }
 
