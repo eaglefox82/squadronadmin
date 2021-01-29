@@ -35,7 +35,7 @@
                 </div>
             </div>
         </div>
-       
+
         <div class="col-lg-3 col-md-4 col-sm-6">
             <div class="card card-stats">
                 <div class="card-header card-header-info card-header-icon">
@@ -79,7 +79,7 @@
                             </span>
                         </form>
                     </div>
-                    <button class="btn btn-round btn-primary pull-right" data-toggle="modal" data-target="#addeventModal" class="btn btn-primary btn-round" title="Add Event"><i class="fa fa-plus fa-2x"></i> Add Event</button>                      
+                    <button class="btn btn-round btn-primary pull-right" data-toggle="modal" data-target="#addeventModal" class="btn btn-primary btn-round" title="Add Event"><i class="fa fa-plus fa-2x"></i> Add Event</button>
                 </div>
                 <div class="card-body">
 
@@ -102,7 +102,9 @@
                                     <td class="text-center">{{$e->level->level}}</td>
                                     <td class="text-center">${{$e->amount}}</td>
                                     <td>
-                                        <a href="{{action('EventController@show', $e->id)}}" title="Show Member" target="_blank" class="btn btn-success btn-round"><i class="fa fa-info"></i></a>
+                                        <a href="{{action('EventController@show', $e->id)}}" title="Show Event Roll" target="_blank" class="btn btn-success btn-round"><i class="fa fa-info"></i></a>
+                                        <a href="{{action('EventController@inactive', $e->id)}}" title="Remove Event"  class="btn btn-danger btn-round"><i class="material-icons">close</i></a></a>
+
                                     </td>
                                 </tr>
                                 </tr>

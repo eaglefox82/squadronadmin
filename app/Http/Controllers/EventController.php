@@ -192,6 +192,27 @@ class EventController extends Controller
     public function destroy($id)
     {
         //
+
+        $r = Events::find($id);
+        $r->finished = 'Y';
+        $r->save();
+
+
+        if($r->amount != 0)
+        {
+            $item = $r->event." - ".$r->year;
+            $e=Otheritemmapping::find($item);
+            $e->active = "N";
+            $e->save();
+
+        }
+
+        alert()->error("Event Removed", "Event has been removed");
+
+        return redirect(action('EventController@index'));
+
+
+
     }
 
     public function eventattending($id)
@@ -277,6 +298,32 @@ class EventController extends Controller
             Alert::success('Member Paid', 'Member has been marked as Paid')->autoclose(1500);
             return redirect(action('EventController@show', $r->event_id));
         }
+
+    }
+
+    public function inactive($id)
+    {
+        //
+
+        $r = Events::find($id);
+        $r->finished = 'Y';
+        $r->save();
+
+
+        if($r->amount != 0)
+        {
+            $item = $r->event." - ".$r->year;
+            $e=Otheritemmapping::where('item', $item)->first();
+            $e->active = "N";
+            $e->save();
+
+        }
+
+        alert()->error("Event Removed", "Event has been removed")->autoclose(1500);
+
+        return redirect(action('EventController@index'));
+
+
 
     }
 }
