@@ -208,6 +208,7 @@
                         <p class="card-category">New Members this Month <br><br></p>
                         <h3 class="card-title">{{$newmembers}}</h3>
                         <div class="card-footer">
+                            <a href="{{action ('MembersController@newmembers')}}">View new members</a>
                         </div>
                     </div>
                 </div>

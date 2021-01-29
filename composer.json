@@ -6,6 +6,7 @@
     "type": "project",
     "require": {
         "php": "^7.2",
+        "a6digital/laravel-default-profile-image": "^2.0",
         "barryvdh/laravel-dompdf": "^0.8.6",
         "dompdf/dompdf": "^0.8.5",
         "facade/ignition": "^2.0",

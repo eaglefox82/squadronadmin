@@ -151,6 +151,7 @@ return [
 
         // Other Service Provides
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
+        A6digital\Image\DefaultProfileImageServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -215,7 +216,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
-        'Image' => Intervention\Image\Facades\Image::class,
+        'Image' => Intervention\Image\ImageManagerStatic::class,
+        'DefaultProfileImage' => A6digital\Image\DefaultProfileImageServiceProvider::class,
 
     ],
 

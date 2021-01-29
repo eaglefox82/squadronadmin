@@ -18,6 +18,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/material-dashboard.css') }}">
 </head>
+
 <body class="">
 <div class="wrapper">
     <div class="sidebar" data-color="rose" data-background-color="black" data-image="{{ asset('img/sidebar-1.jpg') }}">
@@ -31,7 +32,8 @@
         <div class="sidebar-wrapper">
             <div class="user">
                 <div class="photo">
-                   <img src="{{ asset('img/avatars/'.Auth::user()->avatar) }}"/>
+                    <img src="{{asset("storage/avatar/".Auth::user()->avatar)}}" alt="">
+                  <!-- <img src="{{ asset('img/avatars/'.Auth::user()->avatar) }}"/> -->
                 </div>
                 <div class="user-info">
                     <a data-toggle="collapse" href="#collapseExample" class="username">
@@ -180,11 +182,15 @@
                                 </a>
                             </li>
 
+                        </li>
+
+
                             <li class="nav-item">
                                 <a class="nav-link" href="{{action('PointsController@index')}}">
                                     <span>Squadron Points</span>
                                 </a>
                             <li>
+
 
                             <li class="nav-item">
                                 <a class="nav-link" href="{{action('ReportController@attendanceReport')}}">
@@ -296,9 +302,10 @@
             <div class="container">
                 <div class="copyright pull-right">
                     &copy;
-                    <script>
+                    {{ config('global.year') }}
+                   <!-- <script>
                         document.write(new Date().getFullYear())
-                    </script>
+                    </script> -->
                      | Developed by Brendan Fox</a>
                 </div>
             </div>

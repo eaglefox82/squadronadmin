@@ -167,8 +167,8 @@ class MembersController extends Controller
 
        if($member->attendancewarning == 3)
        {
-           alert()->info('Member has missed the last 3 nights', 'Please contact member to cross off roll')->autoclose(2000);
-          
+           alert()->info('Member has missed the last 3 nights', 'Please contact member to cross off roll')->autoclose(2500);
+
        }
 
         return view('members.show', compact('member', 'attendance','attendancesetting', 'rank', 'vtype','otheritems', 'flight', 'account', 'points', 'pointsreason'));
@@ -276,6 +276,16 @@ class MembersController extends Controller
     {
         $data = Otheritemmapping::where('id', $id)->first();
         return response()->json($data);
+    }
+
+    public function newmembers()
+    {
+        $month = Rollmapping::latest()->value('roll_month');
+        $year = Rollmapping::latest()->value('roll_year');
+
+        $newmembers = Member::where('join_year', $year)->where('join_month', $month)->get();
+
+        return view('members.new', compact('newmembers'));
     }
 
 

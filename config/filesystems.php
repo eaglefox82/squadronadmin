@@ -71,7 +71,7 @@ return [
 
         'profile' => [
             'driver' => 'local',
-            'root' => storage_path('avatar'),
+            'root' => storage_path('app/public/avatar'),
         ],
 
     ],
