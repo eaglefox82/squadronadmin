@@ -35,7 +35,12 @@
                                 </thead>
                                 <tbody>
                                         @foreach($members as $m)
-                                      <tr>
+
+                                        @if($m->attendancewarning == 3)
+                                            <tr bgcolor="#FED3D4">
+                                        @else
+                                            <tr>
+                                        @endif
                                           <td class="text-center">
                                             <a href="{{action('MembersController@show', $m->id)}}" target="_blank" title="View" class="btn btn-round btn-success"><i class="fa fa-info"></i></a>
                                           </td>
