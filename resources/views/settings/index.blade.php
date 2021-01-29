@@ -105,6 +105,7 @@
             </div>
         </div>
 
+    @if(config('global.Squadron_Points') != 'N')
         <div class = "col-sm-6">
             <div class ="card">
                 <div class ="card-header card-header-icon card-header-rose">
@@ -134,6 +135,7 @@
                 </div>
             </div>
         </div>
+    @endif
 
     </div>
 
@@ -164,12 +166,12 @@
                      <label class="label-control">Username:</label>
                         <div class="input-group">
                             <input type="text" class="form-control" name="username">
-                        </div> 
+                        </div>
 
                     <label class="label-control">Password:</label>
                         <div class="input-group">
                             <input type="text" class="form-control" name="password">
-                        </div>     
+                        </div>
 
             </div>
             <div class="modal-footer">

@@ -188,12 +188,13 @@
 
                         </li>
 
-
+                        @if(config('global.Squadron_Points') != 'N')
                             <li class="nav-item">
                                 <a class="nav-link" href="{{action('PointsController@index')}}">
                                     <span>Squadron Points</span>
                                 </a>
                             <li>
+                        @endif
 
 
                             <li class="nav-item">

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use Alert;
@@ -192,13 +193,15 @@ class RollController extends Controller
             $r->save();
 
                 //Add Points
+            if (config('global.Squadron_Points') != 'N')
+            {
                 $p=new Points();
                 $p->member_id = $member;
                 $p->value = $points;
                 $p->year = $year;
                 $p->reason = "Squadron Night Attendance";
                 $p->save();
-
+            }
 
             Alert::Success('Member Paid', 'Member Paid Cash')->autoclose(1500);
             return redirect(action('RollController@index'));
@@ -236,13 +239,16 @@ class RollController extends Controller
                 $voucher->user = Auth::user()->username;
                 $voucher->save();
 
-                //Add Points
-                $p=new Points();
-                $p->member_id = $member;
-                $p->value = $points;
-                $p->year = $year;
-                $p->reason = "Squadron Night Attendance";
-                $p->save();
+                // Add Points
+                if (config('global.Squadron_Points') != 'N')
+                {
+                    $p=new Points();
+                    $p->member_id = $member;
+                    $p->value = $points;
+                    $p->year = $year;
+                    $p->reason = "Squadron Night Attendance";
+                    $p->save();
+                }
 
                 Alert::Success("Paid", "Member paid from Account Balance")->autoclose(1500);
                 return redirect(action('RollController@index'));
@@ -271,12 +277,15 @@ class RollController extends Controller
             $r->save();
 
                //Add Points
-                $p=new Points();
-                $p->member_id = $member;
-                $p->value = $points;
-                $p->year = $year;
-                $p->reason = "Squadron Night Attendance";
-                $p->save();
+               if (config('global.Squadron_Points') != 'N')
+               {
+                   $p=new Points();
+                   $p->member_id = $member;
+                   $p->value = $points;
+                   $p->year = $year;
+                   $p->reason = "Squadron Night Attendance";
+                   $p->save();
+               }
 
             Alert::success('Member Present', 'Member has not paid')->autoclose(1500);
             return redirect(action('RollController@index'));

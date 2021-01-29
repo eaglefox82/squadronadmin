@@ -65,7 +65,9 @@
                         <div class="pull-right new-button">
                             <a href="" data-toggle="modal" data-target="#addvoucherModal" class="btn btn-primary btn-round" title="Add Voucher"><i class="fa fa-plus fa-2x"></i>&nbsp; Add Voucher</a>
                             <a href="" data-toggle="modal" data-target="#addaccountModal" class="btn btn-info btn-round" title="Add Account"><i class="fa fa-money fa-2x"></i>&nbsp; Add to Account</a>
-                            <a href="" data-toggle="modal" data-target="#pointsModal" class="btn btn-primary btn-round" title="Member Points"><i class="fa fa-trophy fa-2x"></i>&nbsp; Member Points</a>
+                            @if(config('global.Squadron_Points') != 'N')
+                                <a href="" data-toggle="modal" data-target="#pointsModal" class="btn btn-primary btn-round" title="Member Points"><i class="fa fa-trophy fa-2x"></i>&nbsp; Member Points</a>
+                            @endif
                             <a href="" data-toggle="modal" data-target="#editmemberModal" class="btn btn-success btn-round" title="Edit Member"><i class="fa fa-pencil fa-2x"></i>&nbsp; Edit Member</a>
                             <a href="{{action('MembersController@inactive', $member->id)}}" class="btn btn-danger btn-round" title = "Remove Member"><i class="fa fa-close fa-2x"></i>&nbsp; Remove Member</a>
                         </div>
@@ -75,24 +77,32 @@
         </div>
 
         <div class="row">
+            @if(config('global.Squadron_Points') != 'N')
             <div class="col-lg-3 col-md-6 col-sm-6">
+
                 <div class = "card card-stats">
                     <div class ="card-header card-header-info card-header-icon">
                         <div class ="card-icon">
                             <i class="fa fa-trophy fa-2x"></i>
                         </div>
                         <p class="card-category">Points<br>
-                            Rank - 
+                            Rank -
+                            @if($member->points->sum('value') != 0)
                                 <?php
                                     $numberFormatter = new NumberFormatter('en_US', NumberFormatter::ORDINAL);
                                     echo $numberFormatter->format($member->pointrank);
-                                ?><br></p>
+                                ?>
+                            @else
+                                N/A
+                            @endif
+                                <br></p>
                         <h3 class="card-title" id="pointstotal">{{$member->points->sum('value')}}</h3>
                         <div class = "card-footer">
                         </div>
                     </div>
                 </div>
             </div>
+            @endif
 
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class = "card card-stats">

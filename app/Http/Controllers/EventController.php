@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Config;
 
 
 use App\Events;
@@ -213,12 +214,15 @@ class EventController extends Controller
                 $r->status = "Y";
                 $r->save();
 
+            if (config('global.Squadron_Points') != 'N')
+            {
                 $e=new Points;
                 $e->member_id = $r->member_id;
                 $e->value = $points;
                 $e->Reason ="Attendance - ".$event_level;
                 $e->year = Carbon::now()->year;
                 $e->save();
+            }
 
 
             Alert::success('Member Attending Function', 'Member has been marked as Attending')->autoclose(1500);

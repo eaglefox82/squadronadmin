@@ -10,7 +10,7 @@ return [
 
        'year' => Carbon::parse(now())->year,
 
-       'Squadron_Points' => 'N',
+       'Squadron_Points' => 'Y',
 ];
 
 ?>
