@@ -215,9 +215,18 @@
                                 </a>
                             </li>
 
+                            <li class="nav-item">
+                                <a class="nav-link">
+                                    <span>{{config('gloabl.Release_Name')}} ({{config('global.Release')}})</span>
+                                </a>
+                            </li>
+
 
                         </ul>
                     </div>
+
+
+
                 </li>
 
 
@@ -264,9 +273,9 @@
 
                         </ul>
                     </div>
-                </li>
 
             </ul>
+        </li>
         </div>
     </div>
     <div class="main-panel">
@@ -305,13 +314,16 @@
 
         <footer class="footer ">
             <div class="container">
+                <div class="copyright pull-left">
+                    <span> Release - {{config('global.Release_Name')}} ({{config('global.Release')}})</span>
+                </div>
                 <div class="copyright pull-right">
                     &copy;
                     {{ config('global.year') }}
                    <!-- <script>
                         document.write(new Date().getFullYear())
                     </script> -->
-                     | Developed by Brendan Fox</a>
+                     | Developed by {{config('global.Developer')}}</a>
                 </div>
             </div>
         </footer>

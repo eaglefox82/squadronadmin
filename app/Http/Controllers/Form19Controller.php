@@ -160,13 +160,16 @@ class Form19Controller extends Controller
         $wing =Settings::where('setting', '=', 'wing Fees')->value('value');
 
 
+
+
         $totalofficer = Member::Where('rank' ,'<=', 11)->Where('member_type', '=' , 'League')->where('active','=', 'Y')->count();
         $totalto = Member::WhereBetween('rank' , [12,13])->Where('member_type', '=' , 'League')->where('active','=', 'Y')->count();
         $totalnco = Member::WhereBetween('rank', [14,18])->Where('member_type', '=' , 'League')->where('active','=', 'Y')->count();
         $totalcadets = Member::Where('rank' ,'>', 18)->Where('member_type', '=' , 'League')->where('active','=', 'Y')->count();
         $totalmember = Member::Where('member_type', '=' , 'League')->where('active','=', 'Y')->count();
+        $newmembers = Member::Where('join_year','=', $lastRollMap->roll_year)->where('join_month','=', $lastRollMap->roll_month)->get();
 
-        $pdf = PDF::loadView('report.form19',  compact('generalreport','monthlyRoll', 'nightsInMonth', 'groupfee', 'subs', 'wing','weeksinmonth', 'meetingnights', 'lastRollMap', 'month_name', 'totalmember', 'totalcadets', 'totalnco', 'totalto', 'totalofficer'));
+        $pdf = PDF::loadView('report.form19',  compact('generalreport','monthlyRoll', 'nightsInMonth', 'groupfee', 'subs', 'wing','weeksinmonth', 'meetingnights', 'lastRollMap', 'month_name', 'totalmember', 'totalcadets', 'totalnco', 'totalto', 'totalofficer', 'newmembers'));
         Storage::disk('completedforms')->put('Form 19 - '.$month_name . ' ' . $lastRollMap->roll_year.'.pdf', $pdf->output());
 
         $e = new Completedform();
@@ -175,9 +178,9 @@ class Form19Controller extends Controller
         $e->year = $lastRollMap->roll_year;
         $e->type = 'Form 19';
         $e->save();
-        
+
         return $pdf->download ('Form 19 - '.$month_name . ' ' . $lastRollMap->roll_year.'.pdf');
-    
-        return view('report.form19', compact('generalreport','monthlyRoll', 'nightsInMonth', 'groupfee', 'subs', 'wing','weeksinmonth', 'meetingnights', 'lastRollMap', 'month_name', 'totalmember', 'totalcadets', 'totalnco', 'totalto', 'totalofficer'));
+
+        return view('report.form19', compact('generalreport','monthlyRoll', 'nightsInMonth', 'groupfee', 'subs', 'wing','weeksinmonth', 'meetingnights', 'lastRollMap', 'month_name', 'totalmember', 'totalcadets', 'totalnco', 'totalto', 'totalofficer', 'newmembers'));
     }
 }

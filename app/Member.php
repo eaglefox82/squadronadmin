@@ -194,6 +194,7 @@ class Member extends Model
             ->select('member_id')->selectRaw('SUM(value) as TotalPoints')
             ->where('Year','=', $year)
             ->groupBy('member_id')
+            ->orderbyDesc('TotalPoints')
             ->get();
 
         return $pointrank->search(function($points){
@@ -233,7 +234,7 @@ class Member extends Model
            $warning = $warning + 1;
        }
 
-       return $warning;   
+       return $warning;
 
     }
 

@@ -19,16 +19,16 @@
 <body>
 <table cellspacing="0" border="0">
 	<colgroup width="75"></colgroup>
-	<colgroup span="2" width="60"></colgroup>
-	<colgroup width="71"></colgroup>
-	<colgroup width="66"></colgroup>
-	<colgroup width="79"></colgroup>
-	<colgroup width="65"></colgroup>
-	<colgroup width="21"></colgroup>
-	<colgroup width="79"></colgroup>
-	<colgroup width="22"></colgroup>
+	<colgroup span="2" width="75"></colgroup>
+	<colgroup width="75"></colgroup>
+	<colgroup width="75"></colgroup>
+	<colgroup width="75"></colgroup>
+	<colgroup width="75"></colgroup>
+	<colgroup width="75"></colgroup>
+	<colgroup width="75"></colgroup>
+	<colgroup width="75"></colgroup>
 	<colgroup width="108"></colgroup>
-	<colgroup width="73"></colgroup>
+	<colgroup width="75"></colgroup>
 	<tr>
 		<td height="17" align="left" valign=middle><br></td>
 		<td align="left" valign=middle><br></td>
@@ -99,7 +99,7 @@
 	</tr>
 	<tr>
 		<td style="border-top: 1px solid #0000ff; border-left: 1px solid #0000ff" colspan=4 height="16" align="center" valign=middle>{{ config('app.name', 'Squadron') }}<b><br></b></td>
-		<td style="border-top: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" colspan=5 align="center" valign=middle>Robey<b><br></b></td>
+		<td style="border-top: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" colspan=5 align="center" valign=middle>{{config('global.Wing')}}<b><br></b></td>
 		<td style="border-top: 1px solid #0000ff" colspan=2 align="center" valign=middle>{{$month_name}}<b><br></b></td>
 		<td style="border-top: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle>{{$lastRollMap->roll_year}}<b><br></b></td>
 	</tr>
@@ -162,7 +162,7 @@
              <td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle>{{$count}}<b><br></b></td>
 
             @if($i == 4)
-                <td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle><b><br></b></td>
+                <td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle>-<b><br></b></td>
             @endif
 
         @endfor
@@ -171,7 +171,7 @@
 		<td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle>{{$totalofficer}}<br></td>
 		<td align="center" valign=middle><br></td>
 		<td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="left" valign=middle><font color="#0000FF">Officers</font><br></td>
-		<td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle><br></td>
+		<td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle>{{$newmembers->where('rank', '<=', 11)->count()}}<br></td>
 	</tr>
 	<tr>
         @php
@@ -194,7 +194,7 @@
         <td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle>{{$count}}<b><br></b></td>
 
         @if($i == 4)
-            <td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle><b><br></b></td>
+            <td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle>-<b><br></b></td>
         @endif
 
         @endfor
@@ -205,14 +205,14 @@
 		<td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle>{{$totalto}}<br></td>
 		<td align="center" valign=middle><br></td>
 		<td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="left" valign=middle><font color="#0000FF">Senior Cadets</font></td>
-		<td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle><br></td>
+		<td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle>{{$newmembers->where('rank', 19)->count()}}<br></td>
 	</tr>
 	<tr>
 		@php
             $total = 0;
         @endphp
 
-        <td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff" height="16" align="left" valign=middle><font color="#0000FF">N.C.O's</font></td>
+        <td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff" height="14" align="left" valign=middle><font color="#0000FF">N.C.O's</font></td>
 
         @for ($i = 1; $i <= $nightsInMonth; $i++)
         @php
@@ -228,7 +228,7 @@
         <td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle>{{$count}}<b><br></b></td>
 
          @if($i == 4)
-            <td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle><b><br></b></td>
+            <td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle>-<b><br></b></td>
         @endif
 
         @endfor
@@ -239,7 +239,7 @@
 		<td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle>{{$totalnco}}<br></td>
 		<td align="center" valign=middle><br></td>
 		<td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="left" valign=middle><font color="#0000FF">Cadets</font><br></td>
-		<td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle><br></td>
+		<td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle>{{$newmembers->where('rank', 20)->count()}}<br></td>
 	</tr>
 	<tr>
         @php
@@ -262,7 +262,7 @@
             <td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle>{{$count}}<b><br></b></td>
 
             @if($i == 4)
-                <td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle><b><br></b></td>
+                <td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle>-<b><br></b></td>
             @endif
 
         @endfor
@@ -273,7 +273,7 @@
     <td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle>{{$totalcadets}}<br></td>
     <td align="center" valign=middle><br></td>
     <td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="left" valign=middle><font color="#0000FF">Junior Cadets</font></td>
-    <td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle><br></td>
+    <td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle>{{$newmembers->where('rank', 21)->count()}}<br></td>
 	</tr>
 	<tr>
         @php
@@ -296,7 +296,7 @@
             <td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle>{{$count}}<b><br></b></td>
 
             @if($i == 4)
-                <td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle><b><br></b></td>
+                <td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle>-<b><br></b></td>
             @endif
 
         @endfor
@@ -307,7 +307,7 @@
 <td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle>{{$totalmember}}<br></td>
 <td align="center" valign=middle><br></td>
 <td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="left" valign=middle><font color="#0000FF">Total Increase</font></td>
-<td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle><br></td>
+<td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle>{{$newmembers->count()}}</td>
 	</tr>
 	<tr>
 		<td height="16" align="left" valign=middle><br></td>
@@ -414,10 +414,12 @@
 		<td align="left" valign=middle><br></td>
     </tr>
 </table>
-<table>
+<table Style="width:80%">
+
+
 	<tr>
 		<td colspan=2 height="16" align="left" valign=middle><font color="#0000FF">General Report:</font></td>
-		<td colspan=10 rowspan=10 align="left" valign=middle>{!! nl2br(e($generalreport)) !!}<br></td>
+		<td colspan=20 rowspan=10 align="left" valign=middle>{!! nl2br(e($generalreport)) !!}<br></td>
 		</tr>
 	<tr>
 		<td height="16" align="left" valign=middle><br></td>
@@ -462,7 +464,7 @@
 		<td align="left" valign=middle><br></td>
 		<td align="left" valign=middle><br></td>
 		<td align="left" valign=middle><br></td>
-		<td align="left" valign=middle><br><?php echo date('j/m/Y'); ?></td>
+		<td align="center" valign=middle><br><?php echo date('j/m/Y'); ?></td>
 		<td align="left" valign=middle><br></td>
 		<td align="left" valign=middle><br></td>
 		<td align="left" valign=middle><br></td>
@@ -495,7 +497,7 @@
 		<td align="left" valign=bottom><font color="#000000"><br></font></td>
 	</tr>
 	<tr>
-		<td colspan=12 height="17" align="center" valign=bottom><b><font size=1 color="#0000FF">WHITE &amp; PINK COPY TO HQ  -  YELLOW COPY RETAINED BY SQUADRON</font></b></td>
+		<td colspan=13 height="17" align="center" valign=bottom><b><font size=1 color="#0000FF">WHITE &amp; PINK COPY TO HQ  -  YELLOW COPY RETAINED BY SQUADRON</font></b></td>
 		</tr>
 </table>
 <!-- ************************************************************************** -->
