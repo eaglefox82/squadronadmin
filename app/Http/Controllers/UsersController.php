@@ -119,8 +119,9 @@ class UsersController extends Controller
         // Logic for user upload of avatar
         if($request->hasFile('avatar')){
             $avatar = $request->file('avatar');
-            $filename = time() . '.' . $avatar->getClientOriginalExtension();
-            Image::make($avatar)->resize(300, 300)->save( public_path('img/avatars/' . $filename ) );
+            $filename = time() . '.png';
+            $img = Image::make($avatar)->resize(300, 300);
+            Storage::disk('profile')->put($filename, $img->encode());
             $user = Auth::user();
             $user->avatar = $filename;
             $user->save();
