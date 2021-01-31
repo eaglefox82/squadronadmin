@@ -6,16 +6,19 @@
     "type": "project",
     "require": {
         "php": "^7.2",
-        "barryvdh/laravel-dompdf": "^0.8.3",
+        "a6digital/laravel-default-profile-image": "^2.0",
+        "barryvdh/laravel-dompdf": "^0.8.6",
+        "dompdf/dompdf": "^0.8.5",
         "facade/ignition": "^2.0",
         "fideloper/proxy": "^4.0",
+        "intervention/image": "^2.5",
         "laravel/framework": "^7.0",
         "laravel/helpers": "^1.1",
         "laravel/tinker": "^2.0",
         "laravel/ui": "2.0",
         "laravelcollective/html": "^6.1",
         "maatwebsite/excel": "^3.1",
-        "realrashid/sweet-alert": "^3.1"
+        "realrashid/sweet-alert": "^3.2"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

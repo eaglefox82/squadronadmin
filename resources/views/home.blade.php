@@ -14,6 +14,15 @@
                             @endif
 
                            <h4>Today's date: <?php echo date('l - jS F Y'); ?></h4>
+                                <h4
+                                    @if ($rolldiff == '1')
+                                       style="color: red;"
+                                    @endif
+                                >Current Roll date: {{date("l - jS F Y",strtotime($rolldate))}}
+                                @if ($rolldiff == '1')
+                                - Please Create new Roll
+                             @endif
+                            </h4>
                         </div>
                 </div>
             </div>
@@ -136,6 +145,21 @@
 
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <div class="card card-stats">
+                    <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                            <i class="fa fa-birthday-cake fa-2x"></i>
+                        </div>
+                        <p class="card-category">Upcoming Birthdays<br><br></p>
+                            <h3 class="card-title">{{$members->where('birthday', '<', '30')->count()}}</h3>
+                            <a href="{{action('MembersController@birthday')}}" class='card-link'>View Birthdays</a>
+                            <div class="card-footer">
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card card-stats">
                     <div class="card-header card-header-success card-header-icon">
                         <div class="card-icon">
                             <i class="fa fa-usd fa-2x"></i>
@@ -168,6 +192,29 @@
                     </div>
                 </div>
             </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card card-stats">
+                    @if($membershipdiff > 0)
+                    <div class="card-header card-header-success card-header-icon">
+                        <div class="card-icon">
+                            <i class="fa fa-user-plus fa-2x"></i>
+                    @else
+                    <div class="card-header card-header-danger card-header-icon">
+                        <div class="card-icon">
+                            <i class="fa fa-user-plus fa-2x"></i>
+                    @endif
+                        </div>
+                        <p class="card-category">Membership Increase YTD<br><br></p>
+                            <h3 class="card-title">{{$membershipdiff}}</h3>
+                            <div class="card-footer">
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+
+
     </div>
 
 

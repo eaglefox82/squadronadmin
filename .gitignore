@@ -22,3 +22,8 @@ Homestead.json
 /.vagrant
 .phpunit.result.cache
 .vscode
+.env.example
+
+# Ignore Storage items
+public/storage/pdf
+public/img/avatars

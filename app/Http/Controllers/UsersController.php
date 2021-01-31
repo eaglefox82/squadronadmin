@@ -7,9 +7,13 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 use App\User;
 use Alert;
+use Auth;
+use Image;
+use DefaultProfileImage;
 
 class UsersController extends Controller
 {
@@ -43,12 +47,20 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         //
+
+
+        $img = DefaultProfileImage::create($request->get('firstname')." ".$request->get('lastname'),300);
+        $filename = time() . '.png';
+        Storage::disk('profile')->put($filename, $img->encode());
+
+
         $e = New User();
         $e->firstname = $request->get('firstname');
         $e->lastname = $request->get('lastname');
         $e->username = $request->get('username');
         $e->password = bcrypt($request->get('password'));
         $e->role_id = '1';
+        $e->avatar = $filename;
         $e->save();
 
         Alert::Success('Member has been added')->autoclose(1500);
@@ -64,6 +76,9 @@ class UsersController extends Controller
     public function show($id)
     {
         //
+        $user = User::find($id);
+
+        return view('profile', compact('user'));
     }
 
     /**
@@ -98,5 +113,19 @@ class UsersController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function update_avatar(Request $request){
+        // Logic for user upload of avatar
+        if($request->hasFile('avatar')){
+            $avatar = $request->file('avatar');
+            $filename = time() . '.png';
+            $img = Image::make($avatar)->resize(300, 300);
+            Storage::disk('profile')->put($filename, $img->encode());
+            $user = Auth::user();
+            $user->avatar = $filename;
+            $user->save();
+        }
+        return view('profile', ['user' => Auth::user()] );
     }
 }

@@ -7,6 +7,9 @@
             <div class = "col-sm-12">
                 <div class = "card">
                     <div class="card-header card-header-icon card-header-rose">
+                        <div class="pull-right new-button">
+                            <a data-toggle="modal" data-target="#addform19reportrModal" class="btn btn-primary btn-round" title="Add Voucher"><i class="fa fa-plus fa-2x"></i>Print Form 19</a>
+                        </div>
                         <h4 class="card-title font-weight-bold">Form 19</h4>
                     </div>
                     <div class="card-body">
@@ -162,7 +165,7 @@
                             <i class="fa fa-money fa-2x"></i>
                         </div>
                         <p class="card-category">Total Subs<br><br></p>
-                        <h3 class="card-title">${{number_format(($monthTotal*$subs),2)}}</h3>
+                        <h3 class="card-title">${{number_format(($monthTotal*$groupfee),2)}}</h3>
                         <div class="card-footer">
                         </div>
                     </div>
@@ -175,8 +178,37 @@
                             <i class="fa fa-group fa-2x"></i>
                         </div>
                         <p class="card-category">Avg Attendance<br><br></p>
-                        <h3 class="card-title">{{number_format(($total/$weeksinmonth),2)}}</h3>
+                        <h3 class="card-title">{{number_format(($total/$meetingnights),2)}}</h3>
                         <div class="card-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                            <i class="fa fa-group fa-2x"></i>
+                        </div>
+                        <p class="card-category">Total Meeting Nights <br><br></p>
+                        <h3 class="card-title">{{$meetingnights}}</h3>
+                        <div class="card-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-success card-header-icon">
+                        <div class="card-icon">
+                            <i class="fa fa-user-plus fa-2x"></i>
+                        </div>
+                        <p class="card-category">New Members this Month <br><br></p>
+                        <h3 class="card-title">{{$newmembers}}</h3>
+                        <div class="card-footer">
+                            <a href="{{action ('MembersController@newmembers')}}">View new members</a>
                         </div>
                     </div>
                 </div>
@@ -184,4 +216,34 @@
 
         </div>
     </div>
+
+
+    <div class="modal fade" id="addform19reportrModal" tabindex="-1" role="dialog" aria-labelledby="NewRollLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="addaccountModal">Add General Report</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {!!Form::open(array('action' => ['Form19Controller@printForm'], 'method'=>'POST', 'class'=>'form-horizontal'))!!}
+                <div class="modal-body">
+                        <label class ="label-control">Enter Report</label>
+                            <div class="form-group">
+                                <textarea  name="report" autocomplete="off" cols="90" rows="10"></textarea>
+                            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-round btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-round btn-primary">Download Report</button>
+                </div>
+                {!!Form::close()!!}
+            </div>
+        </div>
+    </div>
+
+
+
 @endsection
+
