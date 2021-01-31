@@ -215,13 +215,6 @@
                                 </a>
                             </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link">
-                                    <span>{{config('gloabl.Release_Name')}} ({{config('global.Release')}})</span>
-                                </a>
-                            </li>
-
-
                         </ul>
                     </div>
 
