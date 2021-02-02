@@ -129,7 +129,7 @@
             <td style="border-top: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle><font color="#0000FF">Week {{$i}}</font></td>
 
             @if($nightsInMonth != 5)
-                <td style="border-top: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle><font color="#0000FF">Week 6</font></td>
+                <td style="border-top: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle><font color="#0000FF">Week 5</font></td>
             @endif
 
         @endfor
