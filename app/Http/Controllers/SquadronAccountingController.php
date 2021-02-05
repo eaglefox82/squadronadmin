@@ -19,6 +19,7 @@ use App\Member;
 use Carbon\Carbon;
 use App\Settings;
 use App\Accounts;
+use App\Vouchers;
 
 class SquadronAccountingController extends Controller
 {
@@ -47,7 +48,29 @@ class SquadronAccountingController extends Controller
 
         $members = Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->get();
 
+<<<<<<< Updated upstream
         return view('accounting.index', compact('outstanding', 'requestbalance', 'members', 'rollid', 'totalsubs'));
+=======
+        $accountbalance = Accounts::sum('amount');
+
+        $annualfee = Settings::where('setting', 'annual subs')->value('value');
+
+        $attendance = Roll::where ('status', '!=', 'A')->where('roll_id', '=', $rollid)->count();
+
+        $grouplevies = Settings::where('setting','=', 'Group Fees')->value('value') * $attendance;
+        $winglevies = Settings::where('setting', '=', 'Wing Fees')->value('value') * $attendance;
+        $annualsubs = Settings::where('setting', '=', 'Annual Sub Allocation')->value('value')* $attendance;
+        $rent = Settings::where('setting', '=', 'Weekly Rent')->value('value');
+        $pendingvouchers = (Vouchers::where('status', 'C')->count())*100;
+
+        
+
+        $totalcost = $grouplevies + $winglevies + $annualsubs + $rent;
+        $totalincome = $attendance * $subfee;
+        $difference = $totalincome - $totalcost;
+
+        return view('accounting.index', compact('outstanding', 'requestbalance', 'pendingvouchers', 'members', 'rollid', 'totalsubs', 'accountbalance', 'annualfee', 'totalcost', 'totalincome', 'difference'));
+>>>>>>> Stashed changes
     }
 
     /**
