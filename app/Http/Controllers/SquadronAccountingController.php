@@ -48,9 +48,9 @@ class SquadronAccountingController extends Controller
 
         $members = Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->get();
 
-<<<<<<< Updated upstream
+
         return view('accounting.index', compact('outstanding', 'requestbalance', 'members', 'rollid', 'totalsubs'));
-=======
+
         $accountbalance = Accounts::sum('amount');
 
         $annualfee = Settings::where('setting', 'annual subs')->value('value');
@@ -63,14 +63,13 @@ class SquadronAccountingController extends Controller
         $rent = Settings::where('setting', '=', 'Weekly Rent')->value('value');
         $pendingvouchers = (Vouchers::where('status', 'C')->count())*100;
 
-        
 
         $totalcost = $grouplevies + $winglevies + $annualsubs + $rent;
         $totalincome = $attendance * $subfee;
         $difference = $totalincome - $totalcost;
 
+
         return view('accounting.index', compact('outstanding', 'requestbalance', 'pendingvouchers', 'members', 'rollid', 'totalsubs', 'accountbalance', 'annualfee', 'totalcost', 'totalincome', 'difference'));
->>>>>>> Stashed changes
     }
 
     /**

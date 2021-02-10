@@ -8,10 +8,12 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 use App\Member;
 use App\Accounts;
 use Alert;
+use App\Otheritemmapping;
 
 
 class AccountController extends Controller
@@ -57,9 +59,10 @@ class AccountController extends Controller
             $e->member_id = $request->get('member');
             $e->amount = $request->get('amount');
             $e->reason = "Account Top Up";
+            $e->user = Auth::user()->username;
             $e->save();
 
-            Alert::success('Success', 'Account has been updated')->autoclose(1500);
+            Alert()->success('Success', 'Account has been updated')->autoclose(1500);
 
             return redirect(action('MembersController@show', $request->get('member')));
 
@@ -120,13 +123,24 @@ class AccountController extends Controller
             return Redirect::back()->WithErrors($validateData) ->withInput();
             }
 
-            $e = new Accounts();
-            $e->member_id = $request->get('member');
-            $e->amount = $request->get('amount')*-1;
-            $e->reason = $request->get('item');
-            $e->save();
 
-            Alert::success('Success', 'Account has been updated')->autoclose(1500);
+            if($request->get('amount') <= Accounts::where('member_id', '=', $request->get('member'))->sum('amount'))
+            {
+                $item = Otheritemmapping::where('id', $request->get('item'))->value('item');
+
+                $e = new Accounts();
+                $e->member_id = $request->get('member');
+                $e->amount = $request->get('amount')*-1;
+                $e->reason = "Payment for ".$item;
+                $e->user = Auth::user()->username;
+                $e->save();
+
+                Alert()->success('Success', 'Account has been updated')->autoclose(1500);
+
+                return redirect(action('MembersController@show', $request->get('member')));
+            }
+
+            alert()->error('Fail', 'Account balance is too small for this transaction')->autoclose(1500);
 
             return redirect(action('MembersController@show', $request->get('member')));
     }

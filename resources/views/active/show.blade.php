@@ -14,6 +14,8 @@
                             <thead class="text-primary">
                             <th class="text-center">Date</th>
                             <th class="text-center">Member</th>
+                            <th class="text-center">Membership Number</th>
+                            <th class="text-center">D.O.B</th>
                             <th class="text-center">Voucher</th>
                             <th class="text-center">Type</th>
                             <th class="text-center">Status</th>
@@ -24,6 +26,8 @@
                                 <tr>
                                     <td class="text-center">{{date('j/n/Y', strtotime($v->created_at))}}</td>
                                     <td class="text-center">{{$v->member->first_name}} {{$v->member->last_name}}</td>
+                                    <td class="text-center">{{$v->member->membership_number}}</td>
+                                    <td class="text-center">{{date("jS F Y",strtotime($v->member->date_birth))}}</td>
                                     <td class="text-center">{{$v->voucher_number}}</td>
                                     <td class="text-center">{{$v->type->voucher_type}}</td>
                                     <td class="text-center">{{$v->vstatus->desc}}</td>

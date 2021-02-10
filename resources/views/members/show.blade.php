@@ -30,12 +30,6 @@
             <div class = "col-sm-12">
                 <div class = "card">
                     <div class="card-header card-header-icon card-header-rose">
-                            <div class="pull-right new-button">
-                                <a data-toggle="modal" data-target="#addvoucherModal" class="btn btn-primary btn-round" title="Add Voucher"><i class="fa fa-plus fa-2x"></i> Add Voucher</a>
-                                <a href="" data-toggle="modal" data-target="#editmemberModal" class="btn btn-success btn-round" title="Edit Member"><i class="fa fa-pencil fa-2x"></i> Edit Member</a>
-                                <a href="{{action('MembersController@inactive', $member->id)}}" class="btn btn-danger btn-round" title = "Remove Member"><i class="fa fa-close fa-2x"></i>Remove Member</a>
-                                <a data-toggle="modal" data-target="#addaccountModal" class="btn btn-info btn-round" title="Add Account"><i class="fa fa-money fa-2x"></i>Add to Account</a>
-                             </div>
                         <h4 class="card-title font-weight-bold">Member Details</h4>
                     </div>
                     <div class="card-body">
@@ -49,8 +43,8 @@
                                 <td style="border-top: 1px #ddd solid">{{$member->memberrank->rank}}</td>
                                 <th>Membership:</th>
                                 <td style="border-top: 1px #ddd solid">{{$member->membership_number}}</td>
-                                <th></th>
-                                <td style="border-top: 1px #ddd solid">{{$member->countdown}}</td>
+                                <th>Membership Type:</th>
+                                <td style="border-top: 1px #ddd solid">{{$member->member_type}}</td>
                             </tr>
                             <tr>
                                 <th>Date of Birth</th>
@@ -68,35 +62,54 @@
                                 <td>No Assigned Flight</td>
                                 @endif
                         </table>
+                        <div class="pull-right new-button">
+                            <a href="" data-toggle="modal" data-target="#addvoucherModal" class="btn btn-primary btn-round" title="Add Voucher"><i class="fa fa-plus fa-2x"></i>&nbsp; Add Voucher</a>
+                            <a href="" data-toggle="modal" data-target="#addaccountModal" class="btn btn-info btn-round" title="Add Account"><i class="fa fa-money fa-2x"></i>&nbsp; Add to Account</a>
+                            @if(config('global.Squadron_Points') != 'N')
+                                <a href="" data-toggle="modal" data-target="#pointsModal" class="btn btn-primary btn-round" title="Member Points"><i class="fa fa-trophy fa-2x"></i>&nbsp; Member Points</a>
+                            @endif
+                            <a href="" data-toggle="modal" data-target="#editmemberModal" class="btn btn-success btn-round" title="Edit Member"><i class="fa fa-pencil fa-2x"></i>&nbsp; Edit Member</a>
+                            <a href="{{action('MembersController@inactive', $member->id)}}" class="btn btn-danger btn-round" title = "Remove Member"><i class="fa fa-close fa-2x"></i>&nbsp; Remove Member</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-
-
-
         <div class="row">
+            @if(config('global.Squadron_Points') != 'N')
             <div class="col-lg-3 col-md-6 col-sm-6">
+
                 <div class = "card card-stats">
                     <div class ="card-header card-header-info card-header-icon">
                         <div class ="card-icon">
-                            <i class="fa fa-handshake-o fa-2x"></i>
+                            <i class="fa fa-trophy fa-2x"></i>
                         </div>
-                        <p class="card-category">Membership Type<br><br></p>
-                        <h3 class="card-title">{{$member->member_type}}</h3>
+                        <p class="card-category">Points<br>
+                            Rank -
+                            @if($member->points->sum('value') != 0)
+                                <?php
+                                    $numberFormatter = new NumberFormatter('en_US', NumberFormatter::ORDINAL);
+                                    echo $numberFormatter->format($member->pointrank);
+                                ?>
+                            @else
+                                N/A
+                            @endif
+                                <br></p>
+                        <h3 class="card-title" id="pointstotal">{{$member->points->sum('value')}}</h3>
                         <div class = "card-footer">
                         </div>
                     </div>
                 </div>
             </div>
+            @endif
 
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class = "card card-stats">
-                    @if ($attendance > $attendancesetting)
-                    <div class ="card-header card-header-success card-header-icon">
-                    @else
+                    @if ($attendance < $attendancesetting)
                     <div class ="card-header card-header-danger card-header-icon">
+                    @else
+                    <div class ="card-header card-header-success card-header-icon">
                     @endif
                         <div class ="card-icon">
                             <i class="fa fa-book fa-2x"></i>
@@ -197,20 +210,25 @@
                         <table class="table">
                             <thead class = 'text-primary'>
                                 <th class="text-center">Date</th>
-                                <th class="text-center">Voucher</th>
+                                <th class="text-center">Reason</th>
                                 <th class="text-center">Balance</th>
                             </thead>
                             <tbody>
-                            @foreach ($member->Accounts as $t)
+                            @foreach ($account as $t)
                             <tr>
-                                <td class="text-center">{{date("jS F Y", strtotime($t->created_at))}}</td>
+                                <td class="text-center">{{date("d-m-Y", strtotime($t->created_at))}}</td>
                                 <td class="text-center">{{$t->Reason}}</td>
-                                <td class="text-center">${{$t->amount}}</td>
+                                @if($t->amount > 0)
+                                    <td class="text-center">${{$t->amount}}</td>
+                                @else
+                                    <td class="text-center" style="color:red">${{$t->amount}}</td>
+                                @endif
                             </tr>
                             @endforeach
                             </tbody>
                         </table>
                     </div>
+                    {{ $account->links() }}
                 </div>
             </div>
             @endif
@@ -233,7 +251,10 @@
                             @foreach ($member->outstanding as $o)
                             <tr>
                                 <td class="text-center">{{date("jS F Y", strtotime($o->rollmapping->roll_date))}}</td>
-                                <td class="text-center"><a href="{{action('RollController@updateRoll', $o->id)}}" title="Paid" class="btn btn-round btn-success"><i class="material-icons">done</i></a></td>
+                                <td class="text-center">
+                                    <a href="{{action('RollController@updateRollCash', $o->id)}}" title="Cash" class="btn btn-round btn-success"><i class="material-icons">done</i></a>
+                                    <a href="{{action('RollController@updateRollAccount', $o->id)}}"  title="Account" class="btn btn-info btn-round"><i class ="fa fa-money fa-2x"></i></a>
+                                </td>
                             </tr>
                             @endforeach
                             </tbody>
@@ -243,6 +264,13 @@
             </div>
             @endif
 
+            @if( $member->Accounts->sum('amount') == 0)
+                @if( $member->currentrequests->count() == 0 )
+                    @if ($member->outstanding->count() == 0)
+                        <h3> No Outstanding Account Balance, Subs or Invoices</h3>
+                    @endif
+                @endif
+            @endif
 
         </div>
 
@@ -434,9 +462,10 @@
                                 <label class="label-control">Item:</label>
                                 <div class="input-group">
                                     <div class="form-group">
-                                        <select type="text" class="selectpicker" data-sytle="select-with-transition" name="item" value="C">
+                                        <select type="text" class="selectpicker" data-sytle="select-with-transition" name="item" value="C" id="accountselectBox">
+                                            <option value="">Select item</option>
                                             @foreach ($otheritems as $o)
-                                                <option value ={{$o->item}}>{{$o->item}}</option>
+                                                <option value ={{$o->id}} data-amount="{{$o->amount}}">{{$o->item}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -445,7 +474,49 @@
                                 <label class="label-control">Amount:</label>
                                     <div class="form-group">
                                     <div class="input-group">
-                                        <input type="number" class="form-control" name="amount">
+                                        <input type="number" class="form-control" name="amount" id="textField"></input>
+                                    </div>
+                                    </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-round btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-round btn-primary">Save Changes</button>
+                        </div>
+                        {!!Form::close()!!}
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="modal fade" id="pointsModal" tabindex="-1" role="dialog" aria-labelledby="accountpay" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="addaccountModal">Add to points to {{$member->first_name}} {{$member->last_name}}</h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        {!!Form::open(array('action' => ['PointsController@addtomember'], 'method'=>'POST', 'class'=>'form-horizontal'))!!}
+                        <div class="modal-body">
+
+                                <input type="hidden" name="member" value="{{$member->id}}">
+                                <label class="label-control">Reason:</label>
+                                <div class="input-group">
+                                    <div class="form-group">
+                                        <select type="text" class="selectpicker" data-sytle="select-with-transition" name="item" value="C" id="pointsselectBox">
+                                            <option value="">Select item</option>
+                                            @foreach ($pointsreason as $p)
+                                                <option value ={{$p->id}} data-amount="{{$p->Value}}">{{$p->Reason}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <label class="label-control">Value:</label>
+                                    <div class="form-group">
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" name="amount" id="valueField"></input>
                                     </div>
                                     </div>
                         </div>
@@ -458,3 +529,50 @@
                 </div>
             </div>
 @endsection
+
+
+@section ('scripts')
+
+<script>
+
+   $('#accountselectBox').change(function() {
+       let id = $(this).val();
+       let url = '{{ route("getPayments", ":id") }}';
+       url = url.replace(':id', id);
+
+       $.ajax({
+           url: url,
+           type: 'get',
+           dataType: 'json',
+           success: function(response) {
+               if (response != null) {
+                   $('#textField').val(response.amount);
+               }
+           }
+       });
+   });
+
+
+   $('#pointsselectBox').change(function() {
+       let id = $(this).val();
+       let url = '{{ route("getPoints", ":id") }}';
+       url = url.replace(':id', id);
+
+       $.ajax({
+           url: url,
+           type: 'get',
+           dataType: 'json',
+           success: function(response) {
+               if (response != null) {
+                   $('#valueField').val(response.Value);
+               }
+           }
+       });
+
+   });
+
+
+
+ </script>
+
+@Stop

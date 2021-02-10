@@ -64,6 +64,16 @@ return [
             'url' => env('AWS_URL'),
         ],
 
+        'completedforms' => [
+            'driver' => 'local',
+            'root' => storage_path('pdf'),
+        ],
+
+        'profile' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/avatar'),
+        ],
+
     ],
 
 ];

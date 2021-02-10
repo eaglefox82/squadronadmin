@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Pagination\Paginator;
 use Alert;
 use DataTables;
 
@@ -22,6 +23,10 @@ use App\Accounts;
 use App\Page;
 use App\Otheritemmapping;
 use App\Flight;
+use App\Events;
+use App\Eventroll;
+use App\Points;
+use App\Pointsmaster;
 
 class MembersController extends Controller
 {
@@ -106,10 +111,27 @@ class MembersController extends Controller
         $e->date_birth = Carbon::parse($request->get('dob'));
         $e->member_type = $request->get('type');
         $e->active= "Y";
-        $e->flight=10;
+        $e->flight=0;
+        $e->join_month = Carbon::parse($request->get('doj'))->month;
+        $e->join_year = Carbon::parse($request->get('doj'))->year;
         $e->save();
 
-        Alert::Success('New Member Added', 'New member has been created')->autoclose(2000);
+        //Add member to current event rolls
+        $memberid = Member::latest()->value('id');
+        $events = Events::where('finished', '=', 'N')->get();
+
+        foreach ($events as $r)
+        {
+            $e = New Eventroll;
+            $e->event_id = $r->id;
+            $e->member_id = $memberid;
+            $e->status = 'N';
+            $e->form17 = 'N';
+            $e->paid = 'N';
+            $e->save();
+        }
+
+        Alert()->success('New Member Added', 'New member has been created')->autoclose(2000);
         return redirect(action('MembersController@index'));
     }
 
@@ -128,36 +150,28 @@ class MembersController extends Controller
        $vtype = VoucherType::orderby('id')->get();
        $otheritems = Otheritemmapping::orderby('id')->get();
        $flight = Flight::orderby('id')->get();
+       $account = Accounts::where('member_id', $id)->orderBy('id', 'desc')->Paginate(10);
+       $pointsreason = Pointsmaster::orderby('id')->get();
+       $points = Points::where('year', '=', Carbon::parse(now())->year);
 
-      if ($member !=null)
-      {
+       if ($member !=null)
+       {
+           if($member->attendance->count() != 0){
+               $attendance = ($member->attendance->count()/$member->memberyear->count())*100;
+           } else {
+               $attendance = 0;
+           }
 
-       $count1 = Roll::whereHas('rollmapping', function ($query) {
-        $query->whereYear('roll_date', now()->year);
-        })
-        ->where('status', '!=', 'A')
-        ->where ('member_id', '=', $id)
-        ->count();
-
-        $count2 = Roll::whereHas('rollmapping', function ($query) {
-            $query->whereYear('roll_date', now()->year);
-            })
-            ->where ('member_id', '=', $id)
-            ->count();
-
-        $weeks = Rollmapping::where('roll_year', now()->year)->count();
-
-        if($count1 != 0){
-
-            $attendance = ($count1/$count2)*100;
-
-        }   else    {
-            $attendance = 0;
-       }
 
        $attendancesetting = Settings::where('setting', 'Attendance')->value('value');
 
-        return view('members.show', compact('member', 'attendance', 'attendancesetting', 'rank', 'vtype','otheritems', 'flight'));
+       if($member->attendancewarning == 3)
+       {
+           alert()->info('Member has missed the last 3 nights', 'Please contact member to cross off roll')->autoclose(2500);
+
+       }
+
+        return view('members.show', compact('member', 'attendance','attendancesetting', 'rank', 'vtype','otheritems', 'flight', 'account', 'points', 'pointsreason'));
       }
 
       return redirect(action('MembersController@index'));
@@ -217,7 +231,7 @@ class MembersController extends Controller
         $member->date_birth = Carbon::parse($request->get('dob'));
         $member->save();
 
-        Alert::success('Member Updated', 'Members New Details have been recored')->autoclose(1500);
+        alert()->success('Member Updated', 'Members New Details have been recored')->autoclose(1500);
         return redirect(action('MembersController@show', $request->get('member')));
     }
 
@@ -245,6 +259,33 @@ class MembersController extends Controller
             alert()->success('Complete', 'Member has been made inactive')->autoclose(1500);
             return redirect(action('MembersController@index', $member->id));
         }
+    }
+
+    public function birthday()
+    {
+        $birthdays = Member::all();
+        $birthdays = $birthdays->sortby(function($q){
+            return $q->birthday;
+        });
+
+        return view('members.birthday', compact('birthdays'));
+    }
+
+
+    public function getPayments($id = 0)
+    {
+        $data = Otheritemmapping::where('id', $id)->first();
+        return response()->json($data);
+    }
+
+    public function newmembers()
+    {
+        $month = Rollmapping::latest()->value('roll_month');
+        $year = Rollmapping::latest()->value('roll_year');
+
+        $newmembers = Member::where('join_year', $year)->where('join_month', $month)->get();
+
+        return view('members.new', compact('newmembers'));
     }
 
 

@@ -119,7 +119,7 @@ return [
     |
     */
 
-    'providers' => [
+   'providers' => [
 
         /*
          * Laravel Framework Service Providers...
@@ -147,9 +147,11 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Barryvdh\DOMPDF\ServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
         // Other Service Provides
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
+        A6digital\Image\DefaultProfileImageServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -213,7 +215,9 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
-        'Alert' => RealRashid\SweetAlert\Facade\Alert::class,
+        'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
+        'Image' => Intervention\Image\ImageManagerStatic::class,
+        'DefaultProfileImage' => A6digital\Image\DefaultProfileImageServiceProvider::class,
 
     ],
 

@@ -80,8 +80,7 @@
                             </div>
                         </div>
                     </div>
-<<<<<<< Updated upstream
-=======
+
             </div>        
 
             <div class = "row">
@@ -105,6 +104,8 @@
                     <div class = "card card-stats">
                         <div class = "card-header card-header-success card-header-icon">
                             <div class = "card-icon">
+
+
                                 <i class = "fa fa-ticket fa-2x"></i>
                             </div>
                             <p class = "card-category">Pending Vouchers<br><br></p>
@@ -120,6 +121,7 @@
                     <div class = "card card-stats">
                         <div class = "card-header card-header-success card-header-icon">
                             <div class = "card-icon">
+
                                 <i class = "fa fa-money fa-2x"></i>
                             </div>
                             <p class = "card-category">Annual Subs<br><br></p>
@@ -149,7 +151,7 @@
                         </div>
                     </div>
                 </div>
->>>>>>> Stashed changes
+
         </div>
 
 

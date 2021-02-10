@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
 use App\Vouchers;
@@ -75,9 +76,10 @@ class ActiveKidsController extends Controller
             $e->member_id = $request->get('member');
             $e->amount = $request->get('balance');
             $e->reason = "Voucher Top Up";
+            $e->user = Auth::user()->username;
             $e->save();
 
-            Alert::success('Success', 'Voucher has been recored')->autoclose(1500);
+            Alert()->success('Success', 'Voucher has been recored')->autoclose(1500);
 
             return redirect(action('MembersController@show', $request->get('member')));
     }
@@ -136,7 +138,7 @@ class ActiveKidsController extends Controller
             {
                 $v->Status = 'C';
                 $v->save();
-                Alert::success('Success', 'Voucher has been marked as completed and removed from list')->autoclose(1500);
+                Alert()->success('Success', 'Voucher has been marked as completed and removed from list')->autoclose(1500);
                 return redirect(action('ActiveKidsController@index'));
             }
             return redirect(action('ActiveKidsControler@index'));
@@ -151,7 +153,7 @@ class ActiveKidsController extends Controller
         {
             $v->Status = 'S';
             $v->save();
-            Alert::success('Success', 'Voucher has been marked as Submitted')->autoclose(1500);
+            Alert()->success('Success', 'Voucher has been marked as Submitted')->autoclose(1500);
             return redirect(action('ActiveKidsController@index'));
         }
         return redirect(action('ActiveKidsControler@index'));

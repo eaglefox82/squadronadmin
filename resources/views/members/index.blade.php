@@ -14,7 +14,7 @@
                                 <span class="bmd-form-group">
                                     <div class="input-group no-border">
                                         <button class = "btn btn-white btn-round btn-just-icon fa fa-search"></button>
-                                        <input type="text" name="search" id="search" class="form-control" placeholder="Search member Here" autofocus/>
+                                        <input type="text" name="search" id="search" class="form-control" placeholder="Search Member Here" autofocus/>
                                     </div>
                                 </span>
                             </form>
@@ -23,20 +23,26 @@
                     </div>
 
                         <div class="table-responsive">
-                            <table class="table" id="members">
+                            <table class="table" id="membertable">
                                 <thead class="text-primary">
                                 <th ></th>
-                                <th width = "25%" class="text-center">Membership Number</th>
+                                <th width = "15%" class="text-center">Membership Number</th>
                                 <th width = "30%" class="text-center">Name</th>
-                                <th width = "25%" class="text-center">Rank</th>
+                                <th width = "20%" class="text-center">Rank</th>
                                 <th Class="text-center">Flight</th>
                                 <th width = "20%" class="text-center">Account Balance</th>
+                                <th class="text-center">Days to Birthday</th>
                                 </thead>
                                 <tbody>
                                         @foreach($members as $m)
-                                      <tr>
+
+                                        @if($m->attendancewarning == 3)
+                                            <tr bgcolor="#FED3D4">
+                                        @else
+                                            <tr>
+                                        @endif
                                           <td class="text-center">
-                                            <a href="{{action('MembersController@show', $m->id)}}" title="View" class="btn btn-round btn-success"><i class="fa fa-info"></i></a>
+                                            <a href="{{action('MembersController@show', $m->id)}}" target="_blank" title="View" class="btn btn-round btn-success"><i class="fa fa-info"></i></a>
                                           </td>
                                           @if ($m->membership_number != "New")
                                               <td class="text-center">{{$m->membership_number}}</td>
@@ -46,7 +52,7 @@
 
                                           <td class="text-center">{{$m->last_name}}, {{$m->first_name}}</td>
                                           <td class="text-center">{{$m->memberrank->rank}}</td>
-                                          @if($m->flight !=0)
+                                          @if($m->flight != 0)
                                             <td clas="text-center">{{$m->flightmap->flight_name}}</td>
                                         @else
                                              <td></td>
@@ -56,8 +62,9 @@
                                           @else
                                               <td style="border-top: 1px #ddd solid"></td>
                                           @endif
-                                      </tr>
+                                                <td class="text-center">{{$m->birthday}}</td>
                                           @endforeach
+                                        </tr>
                                       </tbody>
                                       <tfooter>
                                           <tr>
@@ -137,41 +144,32 @@
             </div>
         </div>
     </div>
-
+    </div>
 
 @endsection
 
 @section ('scripts')
 <script>
-        // Write on keyup event of keyword input element
-        $(document).ready(function(){
+    // Write on keyup event of keyword input element
+    $(document).ready(function(){
+      $("#search").keyup(function(){
+      _this = this;
 
-          $("#search").keyup(function(){
-          _this = this;
+      // Show only matching TR, hide rest of them
+      $.each($("#membertable tbody tr"), function() {
+        if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
+        {
+            $(this).hide();
+        }
+        else
+        {
+           $(this).show();
+        }
+      });
+   });
+ });
+ </script>
 
-          // Show only matching TR, hide rest of them
-          $.each($("#members tbody tr"), function() {
-            if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
-            {
-                $(this).hide();
-            }
-            else
-            {
-               $(this).show();
-            }
-          });
-       });
-
-       $.ajax({
-            type:"get",
-            url:"{{ url('/getmembers') }}",
-            success: function(result){
-
-                }
-        });
-     });
-        });
-     </script>
 
      <script type="text/javascript">
             $(function () {

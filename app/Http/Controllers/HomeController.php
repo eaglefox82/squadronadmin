@@ -39,6 +39,16 @@ class HomeController extends Controller
 
 
        $activeroll = Rollmapping::latest()->value('id');
+       $year = Carbon::parse(now())->year;
+       $lastyear = $year - 1;
+       $lastyearroll = Rollmapping::latest()->where('roll_year','=', $lastyear)->value('id');
+       $rolldate = Rollmapping::latest()->value('roll_date');
+
+       if(Carbon::now()->diffInWeeks(Carbon::parse($rolldate)) > 0){
+           $rolldiff = 1;
+       } else {
+           $rolldiff = 0;
+       }
 
        $currentroll= DB::table('rolls')
        ->join('rollmappings', 'rolls.roll_id' , '=', 'rollmappings.id' )
@@ -151,6 +161,8 @@ class HomeController extends Controller
             $tend = 1;
         }
 
-        return view('home', compact ('members', 'active', 'currentroll', 'total', 'officers', 'to', 'nco', 'cadet', 'rollweek', 'avgattendance', 'tend'));
+        $membershipdiff = ($members->where ('active','Y')->where('member_type', 'League')->count()) - (Roll::where('roll_id', '=', $lastyearroll)->count());
+
+        return view('home', compact ('members', 'active', 'currentroll', 'total', 'officers', 'to', 'nco', 'cadet', 'rollweek', 'avgattendance', 'tend', 'rolldate', 'rolldiff', 'membershipdiff'));
     }
 }

@@ -33,8 +33,9 @@ class RankmappingSeeder extends Seeder
         Rankmapping::create(['id' => 16, 'rank' => 'Sergeant']);
         Rankmapping::create(['id' => 17, 'rank' => 'Corporal']);
         Rankmapping::create(['id' => 18, 'rank' => 'Leading Cadet']);
-        Rankmapping::create(['id' => 19, 'rank' => 'Cadet']);
-        Rankmapping::create(['id' => 20, 'rank' => 'Junior Cadet']);
+        Rankmapping::create(['id' => 19, 'rank' => 'Senior Cadet']);
+        Rankmapping::create(['id' => 20, 'rank' => 'Cadet']);
+        Rankmapping::create(['id' => 21, 'rank' => 'Junior Cadet']);
 
 
     }

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use App\OtherItemMapping;
-use App\OtherItem;
+
 
 
 class OtherItemsController extends Controller
@@ -104,5 +104,22 @@ class OtherItemsController extends Controller
     public function destroy($id)
     {
         //
+
+    }
+
+    public function inactive($id)
+    {
+        $setting = OtherItemMapping::find($id);
+
+        if($setting != null)
+
+        {
+            $setting->active = "N";
+            $setting->save();
+
+            return Redirect(action('SettingsController@index'))->with('success','Item Added');
+        }
+
+        return Redirect(action('SettingsController@index'));
     }
 }

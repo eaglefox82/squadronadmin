@@ -4,8 +4,12 @@ namespace App;
 use Carbon\Carbon;
 use App\Vouchers;
 use App\Roll;
+use App\Rollmapping;
 use App\Srequest;
 use App\Flight;
+use App\Points;
+use App\Eventroll;
+use App\Events;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -45,6 +49,11 @@ class Member extends Model
     public function roll()
     {
         return $this->hasMany('App\Roll');
+    }
+
+    public function eventroll()
+    {
+        return $this->hasMany('App\Eventroll');
     }
 
     public function outstanding()
@@ -89,11 +98,145 @@ class Member extends Model
 
     protected $with = array('accounts');
 
+
     public function getBirthdayAttribute()
     {
-        $birthday = (Carbon::parse(date('Y-m-d',strtotime($this->date_birth))));
+        $birthday = Carbon::parse($this->date_birth);
+
         $birthday->year(date('Y'));
-        $countdown = Carbon::now()->diffInDays($birthday);
-        return $countdown;
+
+        $birthday = Carbon::now()->diffInDays($birthday, false) +1;
+
+            if ($birthday < 0) {
+                $birthday = Carbon::parse($this->date_birth);
+
+                $birthday->year(date('Y'))->addyear();
+
+                $birthday = Carbon::now()->diffInDays($birthday, false) +1;
+            }
+
+        return $birthday;
     }
+
+    public function getAnnualsubsAttribute()
+    {
+        $subs =Carbon::parse($this->date_joined);
+        $date = Carbon::now();
+        $yearstart = $date->copy()->startOfYear();
+
+        $due = 'N';
+
+        if($subs < $yearstart ) {
+            $due = 'Y';
+        }
+
+        return $due;
+
+    }
+
+    public function pointslink()
+    {
+        return $this->hasMany('App\Points', 'member_id', 'id');
+    }
+
+    public function points()
+    {
+        $year = Carbon::now()->year;
+        return $this->pointslink()->where('year', $year);
+    }
+
+    public function rolllink()
+    {
+        return $this->hasMany('App\Roll', 'member_id', 'id');
+    }
+
+    public function eventrolls()
+    {
+        return $this->hasMany('App\Eventroll', 'member_id', 'id');
+    }
+
+    public function attendance()
+    {
+        $year = Carbon::now()->year;
+        return $this->rolllink()->wherehas('rollmapping', function ($query){
+            $query->whereYear('roll_date', now()->year);
+        })
+        ->where('status','!=', 'A');
+    }
+
+    public function event()
+    {
+        return $this->eventrolls()->wherehas('event', function ($query){
+            $query->where('year', Carbon::now()->year);
+        })
+        ->where('status', '=', 'Y');
+    }
+
+    public function memberyear()
+    {
+        $year = Carbon::now()->year;
+        return $this->rolllink()->wherehas('rollmapping', function ($query){
+            $query->whereYear('roll_date', now()->year);
+        });
+    }
+
+    public function eventyear()
+    {
+        return $this->eventrolls()->wherehas('event', function ($query){
+            $query->where('year', Carbon::now()->year);
+        });
+    }
+
+    public function getPointrankAttribute(){
+        $year = Carbon::parse(Carbon::now())->year;
+
+        $pointrank = Points::query()
+            ->select('member_id')->selectRaw('SUM(value) as TotalPoints')
+            ->where('Year','=', $year)
+            ->groupBy('member_id')
+            ->orderbyDesc('TotalPoints')
+            ->get();
+
+        return $pointrank->search(function($points){
+            return $points->member_id == $this->id;
+        }) + 1;
+
+        return $pointrank;
+
+    }
+
+    public function getattendancewarningAttribute()
+    {
+       $week1 = Rollmapping::latest()->take(0)->value('id');
+       $week2 = Rollmapping::latest()->skip(1)->take(1)->value('id');
+       $week3 = Rollmapping::latest()->skip(2)->take(1)->value('id');
+
+        $warning = 0;
+
+       $week1a = Roll::where('Roll_id',$week1)->where('member_id', $this->id)->value('status');
+
+       if ($week1a == 'A')
+       {
+           $warning = $warning + 1;
+       }
+
+       $week2a = Roll::where('Roll_id',$week2)->where('member_id', $this->id)->value('status');
+
+       if ($week2a == 'A')
+       {
+           $warning = $warning + 1;
+       }
+
+       $week3a = Roll::where('Roll_id',$week3)->where('member_id', $this->id)->value('status');
+
+       if ($week3a == 'A')
+       {
+           $warning = $warning + 1;
+       }
+
+       return $warning;
+
+    }
+
+
 }

@@ -9,7 +9,7 @@ class Accounts extends Model
     //
 
     protected $fillable = [
-        'id', 'member_id', 'amount', 'reason'
+        'id', 'member_id', 'amount'
     ];
 
 
@@ -17,6 +17,11 @@ class Accounts extends Model
     public function member()
     {
         return $this->belongsTo('App\Member', 'id', 'member_id');
+    }
+
+    public function getBalanceAttribute()
+    {
+        return $this->sum('amount');
     }
 
 }

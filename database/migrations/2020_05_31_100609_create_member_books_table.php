@@ -14,7 +14,7 @@ class CreateMemberBooksTable extends Migration
     public function up()
     {
         Schema::create('member_books', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->integer('memberID');
             $table->integer('bookID');
             $table->dateTime('returned')->nullable();
