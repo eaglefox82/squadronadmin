@@ -63,6 +63,7 @@
                                 @endif
                         </table>
                         <div class="pull-right new-button">
+                            <a href="" data-toggle="modal" data-target="#addrequestModal" class="btn btn-info btn-round" title="Add Request"><i class="fa fa-dollar fa-2x"></i>&nbsp; Q Store Request</a>
                             <a href="" data-toggle="modal" data-target="#addvoucherModal" class="btn btn-primary btn-round" title="Add Voucher"><i class="fa fa-plus fa-2x"></i>&nbsp; Add Voucher</a>
                             <a href="" data-toggle="modal" data-target="#addaccountModal" class="btn btn-info btn-round" title="Add Account"><i class="fa fa-money fa-2x"></i>&nbsp; Add to Account</a>
                             @if(config('global.Squadron_Points') != 'N')
@@ -528,6 +529,53 @@
                     </div>
                 </div>
             </div>
+
+            <div class="modal fade" id="addrequestModal" tabindex="-1" role="dialog" aria-labelledby="NewRollLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="editmemberModal">Add Request for {{$member->first_name}} {{$member->last_name}}</h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        {!!Form::open(array('action' => ['SquadronAccountingController@store'], 'method'=>'POST', 'class'=>'form-horizontal'))!!}
+                        <div class="modal-body">
+                            <input type="hidden" name="membership" value="{{$member->id}}">
+                     
+
+                            <label class="label-control">Request Overview:</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="overview">
+                            </div>
+                            <br><br>
+                            <p> Please note the following fields are not required</p>
+
+                            <label class="label-control">Invoice Number:</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="Invoice">
+                                </div>
+
+                            <label class="label-control">Total Amount:</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="total">
+                                </div>
+
+                            <label class="label-control">Notes:</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="notes">
+                                </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary btn-round" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary btn-round">Save Changes</button>
+                        </div>
+                        {!!Form::close()!!}
+                    </div>
+                </div>
+            </div>
+
+
 @endsection
 
 

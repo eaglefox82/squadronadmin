@@ -97,7 +97,7 @@
                 <button type="button" class="btn btn-secondary btn-round" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary btn-round">Save Changes</button>
             </div>
-            {{!!Form::close()!!}}
+            {!!Form::close()!!}
         </div>
     </div>
 </div>

@@ -48,9 +48,6 @@ class SquadronAccountingController extends Controller
 
         $members = Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->get();
 
-
-        return view('accounting.index', compact('outstanding', 'requestbalance', 'members', 'rollid', 'totalsubs'));
-
         $accountbalance = Accounts::sum('amount');
 
         $annualfee = Settings::where('setting', 'annual subs')->value('value');
@@ -69,7 +66,7 @@ class SquadronAccountingController extends Controller
         $difference = $totalincome - $totalcost;
 
 
-        return view('accounting.index', compact('outstanding', 'requestbalance', 'pendingvouchers', 'members', 'rollid', 'totalsubs', 'accountbalance', 'annualfee', 'totalcost', 'totalincome', 'difference'));
+        return view('accounting.index', compact('accountbalance', 'outstanding', 'requestbalance', 'pendingvouchers', 'members', 'rollid', 'totalsubs', 'accountbalance', 'annualfee', 'totalcost', 'totalincome', 'difference'));
     }
 
     /**

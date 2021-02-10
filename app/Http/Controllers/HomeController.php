@@ -163,6 +163,11 @@ class HomeController extends Controller
 
         $membershipdiff = ($members->where ('active','Y')->where('member_type', 'League')->count()) - (Roll::where('roll_id', '=', $lastyearroll)->count());
 
+        if(Carbon::today() == Carbon::parse("last friday of this month"))
+        {
+            alert()->info('Monthly Reports', 'Monthly reports are required to be completed');
+        }
+
         return view('home', compact ('members', 'active', 'currentroll', 'total', 'officers', 'to', 'nco', 'cadet', 'rollweek', 'avgattendance', 'tend', 'rolldate', 'rolldiff', 'membershipdiff'));
     }
 }
