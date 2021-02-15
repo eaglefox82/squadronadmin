@@ -162,6 +162,7 @@ class HomeController extends Controller
         }
 
         $membershipdiff = ($members->where ('active','Y')->where('member_type', 'League')->count()) - (Roll::where('roll_id', '=', $lastyearroll)->count());
+      
 
         if(Carbon::today() == Carbon::parse("last friday of this month"))
         {
