@@ -40,8 +40,10 @@ class MembersController extends Controller
        $members = Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->orderby('rank', 'asc')->get();
        $rank = Rankmapping::orderBy('id', 'desc')->paginate(20);
        $flight = Flight::orderBy('id');
+       $malemembers =  Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->where('membership_number','LIKE','N%')->get();
+       $femalemembers = Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->where('membership_number','LIKE','W%')->get();
 
-       return view('members.index', compact('members', 'rank', 'flight'));
+       return view('members.index', compact('members', 'rank', 'flight', 'malemembers', 'femalemembers'));
     }
 
      public function getmembers()
