@@ -48,6 +48,7 @@ class SquadronAccountingController extends Controller
 
         $members = Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->get();
 
+<<<<<<< Updated upstream
         $accountbalance = Accounts::sum('amount');
 
         $annualfee = Settings::where('setting', 'annual subs')->value('value');
@@ -67,6 +68,9 @@ class SquadronAccountingController extends Controller
 
 
         return view('accounting.index', compact('accountbalance', 'outstanding', 'requestbalance', 'pendingvouchers', 'members', 'rollid', 'totalsubs', 'accountbalance', 'annualfee', 'totalcost', 'totalincome', 'difference'));
+=======
+        return view('accounting.index', compact('outstanding', 'requestbalance', 'members', 'rollid', 'totalsubs'));
+>>>>>>> Stashed changes
     }
 
     /**
