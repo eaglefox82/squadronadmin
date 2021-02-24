@@ -72,8 +72,15 @@ Route::get('/reports/attendance', 'ReportController@attendanceReport')->middlewa
 Route::get('/reports/welcome', 'ReportController@welcome')->middleware('auth');
 Route::get('reports/past', 'ReportController@past')->middleware('auth');
 Route::get('reports/download/{id}', 'ReportController@downloadpast')->middleware('auth');
+Route::get('report/email', 'ReportController@email')->middleware('auth');
 
 // Ajax requests
 Route::get('get/payments/{id}', 'MembersController@getPayments')->middleware('auth')->name('getPayments');
 Route::get('get/points/{id}', 'PointsController@getPoints')->middleware('auth')->name('getPoints');
+
+
+//Deployment
+Route::get('/storage-link', function () {
+    return Artisan::call('storage:link', ["--force" => true]);
+});
 

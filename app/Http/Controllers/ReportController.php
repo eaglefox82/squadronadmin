@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use Alert;
+use Mail;
 
 use App\Member;
 use App\Roll;
@@ -88,6 +89,21 @@ class ReportController extends Controller
         alert()->error('No Report Found');
 
 
+    }
+
+    public function email()
+    {
+        $to_name = 'Brendan Fox';
+        $to_email = 'fox82b@gmail.com';
+        $data = array('name'=>'AAL Edmondson Park', 'body' => 'A Test Email');
+
+        Mail::send('emails.test', $data, function($message) use ($to_name, $to_email){
+            $message->to($to_email, $to_name)->subject('Welcome to the Australian Air League');
+
+            $message->from('oc.edmondsonpark@airleague.com.au', 'Australian Air League - Edmondson Park');
+
+        });
+        
     }
 
     

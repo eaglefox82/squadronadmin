@@ -32,12 +32,8 @@
         <div class="sidebar-wrapper">
             <div class="user">
                 <div class="photo">
-                @if(Auth::user()->avatar != Null)
-                    <img src="{{asset("storage/avatar/".Auth::user()->avatar)}}" alt="">
-                @else
-                    <img src="{{asset("storage/avatar/user.png")}}" alt="">
-                @endif
-                  <!-- <img src="{{ asset('img/avatars/'.Auth::user()->avatar) }}"/> -->
+                  <img src="{{ asset('storage/avatar/'.Auth::user()->avatar) }}" alt="">
+
                 </div>
                 <div class="user-info">
                     <a data-toggle="collapse" href="#collapseExample" class="username">
