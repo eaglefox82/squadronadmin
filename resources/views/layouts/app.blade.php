@@ -194,7 +194,7 @@
 
 
                             <li class="nav-item">
-                                <a class="nav-link" href="{{action('ReportController@attendanceReport')}}">
+                                <a class="nav-link" href="{{action('ReportController@attendance')}}">
                                     <span>Attendance Overview</span>
                                 </a>
                             </li>

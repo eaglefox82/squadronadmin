@@ -57,7 +57,7 @@ class ReportController extends Controller
 
     }
 
-    public function attendanceReport()
+    public function attendance()
     {
         $memberlist = Member::where('member_type', '=', 'League')->get();
         $totalweeks = Rollmapping::where('roll_year', '=', Carbon::now()->year)->get();
@@ -103,8 +103,8 @@ class ReportController extends Controller
             $message->from('oc.edmondsonpark@airleague.com.au', 'Australian Air League - Edmondson Park');
 
         });
-        
+
     }
 
-    
+
 }
