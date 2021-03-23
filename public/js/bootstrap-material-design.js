@@ -1,3 +1,5 @@
+$(document).ready()
+
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('jquery'), require('popper.js')) :
 	typeof define === 'function' && define.amd ? define(['jquery', 'popper.js'], factory) :

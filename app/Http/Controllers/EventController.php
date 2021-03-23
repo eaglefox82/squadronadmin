@@ -150,6 +150,7 @@ class EventController extends Controller
         $attendance = EventRoll::where('event_id','=', $id)->where('status', '=', 'Y')->count();
         $form17 = EventRoll::where('event_id','=', $id)->where('form17', '=', 'Y')->count();
         $paid = EventRoll::where('event_id','=', $id)->where('paid', '=', 'Y')->count();
+        $cost = Events::where('id', $id)->value('amount');
 
         if($attendance != 0){
          $percentage =  ($attendance / EventRoll::where('event_id','=', $id)->count()) * 100;
@@ -157,7 +158,7 @@ class EventController extends Controller
            $percentage =  0;
         };
 
-        return view('events.roll', compact('event', 'roll', 'attendance', 'form17', 'paid', 'percentage'));
+        return view('events.roll', compact('event', 'roll', 'attendance', 'form17', 'paid', 'percentage', 'cost'));
     }
 
     /**
