@@ -51,9 +51,10 @@ class Form19Controller extends Controller
         $groupfee =Settings::where('setting', '=', 'Group Fees')->value('value');
         $subs =Settings::where('setting', '=', 'Weekly Fees')->value('value');
         $wing =Settings::where('setting', '=', 'wing Fees')->value('value');
-        $newmembers = Member::Where('join_year','=', $lastRollMap->roll_year)->where('join_month','=', $lastRollMap->roll_month)->count();
+        $newmembers = Member::Where('join_year','=', $lastRollMap->roll_year)->where('join_month','=', $lastRollMap->roll_month)->get();
+        $totalmember = Member::Where('member_type', '=' , 'League')->where('active','=', 'Y')->get();
 
-        return view('form19.index', compact('monthlyRoll', 'nightsInMonth', 'groupfee', 'subs', 'wing','weeksinmonth', 'meetingnights', 'newmembers'));
+        return view('form19.index', compact('monthlyRoll', 'nightsInMonth', 'groupfee', 'subs', 'wing','weeksinmonth', 'meetingnights', 'newmembers', 'totalmember' ));
     }
 
     /**
