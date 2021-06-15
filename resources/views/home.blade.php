@@ -20,7 +20,7 @@
                                     @endif
                                 >Current Roll date: {{date("l - jS F Y",strtotime($rolldate))}}
                                 @if ($rolldiff == '1')
-                                - <a data-toggle="modal" data-target="#newrollModal">Please Create new Roll</a>
+                                - <a data-toggle="modal" data-target="#newrollModal"><u>Please Create new Roll</u></a>
                              @endif
                             </h4>
                         </div>
