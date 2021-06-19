@@ -31,6 +31,7 @@
                     <p class="card-category">Members Attending<br><br></p>
                     <h3 class="card-title">{{$attendance}}</h3>
                     <div class="card-footer">
+                        <a href="#planning">Show Members planning to attend</a>
                     </div>
                 </div>
             </div>
@@ -45,6 +46,7 @@
                     <p class="card-category">Members Attended<br><br></p>
                     <h3 class="card-title">{{$attended}}</h3>
                     <div class="card-footer">
+                        <a href="#attended">Show Members in attendance</a>
                     </div>
                 </div>
             </div>
@@ -173,8 +175,9 @@
                             </tbody>
                         </table>
                     </div>
+                    <hr></hr>
 
-                    <div class="table-responsive">
+                    <div class="table-responsive" id="planning">
                         <table class="table" id="roll">
                             <thead class = "text-primary"><h3 class="text-center">Members Planning to Attend</h3>
                                 <tr>
@@ -247,8 +250,9 @@
                         </table>
                     </div>
 
+                    <hr></hr>
 
-                    <div class="table-responsive">
+                    <div class="table-responsive" id="attended">
                         <table class="table" id="roll">
                             <thead class = "text-primary"><h3 class="text-center">Members In Attendance</h3>
                                 <tr>
