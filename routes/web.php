@@ -49,6 +49,7 @@ Route::get('requested', 'SquadronAccountingController@requested')->middleware('a
 Route::get('/parade', 'RollController@parade')->middleware('auth');
 Route::get('/birthday', 'MembersController@birthday')->middleware('auth');
 Route::get('/eventroll/attending/{id}', 'EventController@eventattending')->middleware('auth');
+Route::get('/eventroll/attended/{id}', 'EventController@eventattended')->middleware('auth');
 Route::get('/eventroll/form17/{id}','EventController@eventform17')->middleware('auth');
 Route::get('/eventroll/paid/{id}', 'EventController@eventpaid')->middleware('auth');
 Route::get('/otheritems/{id}/inactive', 'OtheritemsController@inactive')->middleware('auth');
@@ -79,7 +80,7 @@ Route::get('get/payments/{id}', 'MembersController@getPayments')->middleware('au
 Route::get('get/points/{id}', 'PointsController@getPoints')->middleware('auth')->name('getPoints');
 
 
-//Deployment
+//Deployment - use this to force command line calls during deployments
 Route::get('/storage-link', function () {
     return Artisan::call('storage:link', ["--force" => true]);
 });

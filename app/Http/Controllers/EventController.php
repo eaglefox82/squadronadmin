@@ -47,7 +47,7 @@ class EventController extends Controller
         $membereventattendance = EventRoll::with(array('Events' => function($q) {
             return $q->where('year', '=', Carbon::now()->year);
         }))
-        ->where('status', '=', 'Y')->count();
+        ->where('status', '=', 'A')->count();
 
         if($memberevents != null)
             {
@@ -55,7 +55,6 @@ class EventController extends Controller
             } else {
               $percentage =  '0';
             }
-
 
 
         return view('events.index', compact('events', 'date', 'eventsthisyear', 'yearremain', 'levels', 'percentage'));
@@ -151,14 +150,15 @@ class EventController extends Controller
         $form17 = EventRoll::where('event_id','=', $id)->where('form17', '=', 'Y')->count();
         $paid = EventRoll::where('event_id','=', $id)->where('paid', '=', 'Y')->count();
         $cost = Events::where('id', $id)->value('amount');
+        $attended = EventRoll::where('event_id', '=', $id)->where('status', '=', 'A')->count();
 
-        if($attendance != 0){
-         $percentage =  ($attendance / EventRoll::where('event_id','=', $id)->count()) * 100;
+        if($attended != 0){
+         $percentage =  ($attended / EventRoll::where('event_id','=', $id)->count()) * 100;
         } else {
            $percentage =  0;
         };
 
-        return view('events.roll', compact('event', 'roll', 'attendance', 'form17', 'paid', 'percentage', 'cost'));
+        return view('events.roll', compact('event', 'roll', 'attendance', 'form17', 'paid', 'percentage', 'cost', 'attended'));
     }
 
     /**
@@ -236,16 +236,6 @@ class EventController extends Controller
                 $r->status = "Y";
                 $r->save();
 
-            if (config('global.Squadron_Points') != 'N')
-            {
-                $e=new Points;
-                $e->member_id = $r->member_id;
-                $e->value = $points;
-                $e->Reason ="Attendance - ".$event_level;
-                $e->year = Carbon::now()->year;
-                $e->save();
-            }
-
 
             Alert::success('Member Attending Function', 'Member has been marked as Attending')->autoclose(1500);
             return redirect(action('EventController@show', $r->event_id));
@@ -256,6 +246,46 @@ class EventController extends Controller
 
         Alert::warning('Record not found', "Please check and try again")->autoclose(2000);
         return redirect(action('EventController@show', $r->event_id));
+    }
+
+    public function eventattended($id)
+    {
+        $r = Eventroll::find($id);
+        $event = EventRoll::where('id','=', $id)->value('event_id');
+        $level = Events::where('id', '=', $event)->value('event_level');
+        $event_level = Eventlevels::where('id', '=', $level)->value('level');
+        $points = Eventlevels::where('id', '=', $level)->value('points_rank');
+        $currentstatus = Eventroll::where('id', '=', $id)->value('status');
+
+        if($currentstatus == "A")
+            {
+                alert()->error('Member already marked in attendance', "Nothing has been updated");
+                return redirect(action('EventController@show', $r->event_id));
+            }
+
+        if ($r != null)
+            {
+                $r->status = "A";
+                $r->save();
+
+                if (config('global.Squadron_Points') != 'N')
+                    {
+                        $e=new Points;
+                        $e->member_id = $r->member_id;
+                        $e->value = $points;
+                        $e->Reason ="Attendance - ".$event_level;
+                        $e->year = Carbon::now()->year;
+                        $e->save();
+                    }
+
+                Alert::success('Member marked as attended', 'Member has been marked as in attendance')->autoclose(1500);
+                return redirect(action('EventController@show', $r->event_id));
+
+            }
+
+        Alert::warning('Record not found', "Please check and try again")->autoclose(2000);
+        return redirect(action('EventController@show', $r->event_id));
+
     }
 
     public function eventform17($id)
