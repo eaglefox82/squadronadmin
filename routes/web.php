@@ -49,9 +49,9 @@ Route::get('requested', 'SquadronAccountingController@requested')->middleware('a
 Route::get('/parade', 'RollController@parade')->middleware('auth');
 Route::get('/birthday', 'MembersController@birthday')->middleware('auth');
 Route::get('/eventroll/attending/{id}', 'EventController@eventattending')->middleware('auth');
-Route::get('/eventroll/attended/{id}', 'EventController@eventattended')->middleware('auth');
-Route::get('/eventroll/form17/{id}','EventController@eventform17')->middleware('auth');
-Route::get('/eventroll/paid/{id}', 'EventController@eventpaid')->middleware('auth');
+Route::get('/eventroll/attended/{id}/{others}', 'EventController@eventattended')->middleware('auth');
+Route::get('/eventroll/form17/{id}/{others}','EventController@eventform17')->middleware('auth');
+Route::get('/eventroll/paid/{id}/{others}', 'EventController@eventpaid')->middleware('auth');
 Route::get('/otheritems/{id}/inactive', 'OtheritemsController@inactive')->middleware('auth');
 Route::get('/new/members', 'MembersController@newmembers')->middleware('auth');
 Route::get('/events/delete/{id}', 'EventController@inactive')->middleware('auth');

@@ -169,7 +169,7 @@
                                                 <a href="" title="Attending" class="btn btn-round"><i class="fa fa-user-o fa-2x"></i></a>
                                             @endif
                                             @if($r->form17 != "Y")
-                                                <a href="{{action('EventController@eventform17', $r->id)}}" title="Form 17 Handed In" class="btn btn-primary btn-round"><i class="fa fa-ticket fa-2x"></i></a>
+                                                <a href="{{action('EventController@eventform17', ['id' => $r->id, 'others' => 'N'])}}" title="Form 17 Handed In" class="btn btn-primary btn-round"><i class="fa fa-ticket fa-2x"></i></a>
                                             @else
                                                 <a href="" title="Form 17 Handed In" class="btn btn-round"><i class="fa fa-ticket fa-2x"></i></a>
                                             @endif
@@ -178,7 +178,7 @@
                                                 <a></a>
 
                                             @elseif($r->paid != "Y")
-                                                <a href="{{action('EventController@eventpaid', $r->id)}}" title="Payment Received" class="btn btn-success btn-round"><i class="fa fa-dollar fa-2x"></i></a>
+                                                <a href="{{action('EventController@eventpaid', ['id' => $r->id, 'others' => 'N'])}}" title="Payment Received" class="btn btn-success btn-round"><i class="fa fa-dollar fa-2x"></i></a>
 
                                             @else
                                                 <a href="" title="Payment Received" class="btn btn-round"><i class="fa fa-dollar fa-2x"></i></a>
@@ -240,10 +240,10 @@
                                             <td class="text-center">No</td>
                                         @endif
                                         <td class="text-center">
-                                                <a href="{{action('EventController@eventattended', $r->id)}}" title="Attended Event" class="btn btn-success btn-round"><i class="fa fa-check fa-2x"></i></a>
+                                                <a href="{{action('EventController@eventattended', ['id' => $r->id, 'others' => 'N'])}}" title="Attended Event" class="btn btn-success btn-round"><i class="fa fa-check fa-2x"></i></a>
 
                                             @if($r->form17 != "Y")
-                                                <a href="{{action('EventController@eventform17', $r->id)}}" title="Form 17 Handed In" class="btn btn-primary btn-round"><i class="fa fa-ticket fa-2x"></i></a>
+                                                <a href="{{action('EventController@eventform17', ['id' => $r->id, 'others' => 'N'])}}" title="Form 17 Handed In" class="btn btn-primary btn-round"><i class="fa fa-ticket fa-2x"></i></a>
                                             @else
                                                 <a href="" title="Form 17 Handed In" class="btn btn-round"><i class="fa fa-ticket fa-2x"></i></a>
                                             @endif
@@ -252,7 +252,7 @@
                                                 <a></a>
 
                                             @elseif($r->paid != "Y")
-                                                <a href="{{action('EventController@eventpaid', $r->id)}}" title="Payment Received" class="btn btn-success btn-round"><i class="fa fa-dollar fa-2x"></i></a>
+                                                <a href="{{action('EventController@eventpaid', ['id' => $r->id, 'others' => 'N'])}}" title="Payment Received" class="btn btn-success btn-round"><i class="fa fa-dollar fa-2x"></i></a>
 
                                             @else
                                                 <a href="" title="Payment Received" class="btn btn-round"><i class="fa fa-dollar fa-2x"></i></a>
@@ -262,46 +262,38 @@
                                 @endif
                                 @endforeach
 
-                                @foreach($others as $r)
-                                    @if($r->status = "Y")
+                                @foreach($others as $o)
+                                    @if($o->status == "Y")
 
                                     <tr>
-                                        <td class="text-center">{{$r->last_name}}, {{$r->first_name}}<br><small style="color:#808080">{{$r->relationship}} of {{$r->member->first_name}} {{$r->last_name}}</small></td>
+                                        <td class="text-center">{{$o->last_name}}, {{$o->first_name}}<br><small style="color:#808080">{{$o->relationship}} of {{$o->member->first_name}} {{$o->member->last_name}}</small></td>
 
-                                        @if($r->status == 'Y')
+                                        @if($o->status == 'Y')
                                             <td class="text-center">Planning</td>
                                         @else
                                             <td class="text-center">No</td>
                                         @endif
 
-                                        @if($r->form17 == 'Y')
+                                        @if($o->form17 == 'Y')
                                             <td class="text-center">Yes</td>
                                         @else
-                                            @if($r->status == 'Y')
-                                                <td class="text-center" style="color:Red"><strong>No</strong></td>
-                                            @else
-                                                @if ($r->paid == 'Y')
-                                                    <td class="text-center" style="color:Red"><strong>No</strong></td>
-                                                @else
-                                                    <td class="text-center">No</td>
-                                                @endif
-                                            @endif
+                                            <td class="text-center" style="color:Red"><strong>No</strong></td>
                                         @endif
 
                                        @if($cost == '0')
                                             <td class = "text-center">-</td>
                                         @endif
 
-                                        @if($r->paid == 'Y')
+                                        @if($o->paid == 'Y')
                                             <td class="text-center">Yes</td>
                                         @else
-                                            <td class="text-center">No</td>
+                                            <td class="text-center" style="color:Red"><strong>No</strong></td>
                                         @endif
                                         <td class="text-center">
-                                                <a href="{{action('EventController@eventattended', $r->id)}}" title="Attended Event" class="btn btn-success btn-round"><i class="fa fa-check fa-2x"></i></a>
+                                                <a href="{{action('EventController@eventattended', ['id' => $o->id, 'others' => 'Y'])}}" title="Attended Event" class="btn btn-success btn-round"><i class="fa fa-check fa-2x"></i></a>
 
-                                            @if($r->form17 != "Y")
-                                                <a href="{{action('EventController@eventform17', $r->id)}}" title="Form 17 Handed In" class="btn btn-primary btn-round"><i class="fa fa-ticket fa-2x"></i></a>
+                                            @if($o->form17 != "Y")
+                                                <a href="{{action('EventController@eventform17', ['id' =>$o->id, 'others' => 'Y'])}}" title="Form 17 Handed In" class="btn btn-primary btn-round"><i class="fa fa-ticket fa-2x"></i></a>
                                             @else
                                                 <a href="" title="Form 17 Handed In" class="btn btn-round"><i class="fa fa-ticket fa-2x"></i></a>
                                             @endif
@@ -309,8 +301,8 @@
                                             @if($cost == '0')
                                                 <a></a>
 
-                                            @elseif($r->paid != "Y")
-                                                <a href="{{action('EventController@eventpaid', $r->id)}}" title="Payment Received" class="btn btn-success btn-round"><i class="fa fa-dollar fa-2x"></i></a>
+                                            @elseif($o->paid != "Y")
+                                                <a href="{{action('EventController@eventpaid', ['id' => $o->id, 'others' => 'Y'])}}" title="Payment Received" class="btn btn-success btn-round"><i class="fa fa-dollar fa-2x"></i></a>
 
                                             @else
                                                 <a href="" title="Payment Received" class="btn btn-round"><i class="fa fa-dollar fa-2x"></i></a>
@@ -353,15 +345,7 @@
                                         @if($r->form17 == 'Y')
                                             <td class="text-center">Yes</td>
                                         @else
-                                            @if($r->status == 'Y')
-                                                <td class="text-center" style="color:Red"><strong>No</strong></td>
-                                            @else
-                                                @if ($r->paid == 'Y')
-                                                    <td class="text-center" style="color:Red"><strong>No</strong></td>
-                                                @else
-                                                    <td class="text-center">No</td>
-                                                @endif
-                                            @endif
+                                            <td class="text-center" style="color:Red"><strong>No</strong></td>
                                         @endif
 
                                        @if($cost == '0')
@@ -371,12 +355,12 @@
                                         @if($r->paid == 'Y')
                                             <td class="text-center">Yes</td>
                                         @else
-                                            <td class="text-center">No</td>
+                                            <td class="text-center" style="color:Red"><strong>No</strong></td>
                                         @endif
                                         <td class="text-center">
 
                                             @if($r->form17 != "Y")
-                                                <a href="{{action('EventController@eventform17', $r->id)}}" title="Form 17 Handed In" class="btn btn-primary btn-round"><i class="fa fa-ticket fa-2x"></i></a>
+                                                <a href="{{action('EventController@eventform17', ['id' => $r->id, 'others' => 'N'])}}" title="Form 17 Handed In" class="btn btn-primary btn-round"><i class="fa fa-ticket fa-2x"></i></a>
                                             @else
                                                 <a href="" title="Form 17 Handed In" class="btn btn-round"><i class="fa fa-ticket fa-2x"></i></a>
                                             @endif
@@ -385,7 +369,7 @@
                                                 <a></a>
 
                                             @elseif($r->paid != "Y")
-                                                <a href="{{action('EventController@eventpaid', $r->id)}}" title="Payment Received" class="btn btn-success btn-round"><i class="fa fa-dollar fa-2x"></i></a>
+                                                <a href="{{action('EventController@eventpaid', ['id' => $r->id, 'others' => 'N'])}}" title="Payment Received" class="btn btn-success btn-round"><i class="fa fa-dollar fa-2x"></i></a>
 
                                             @else
                                                 <a href="" title="Payment Received" class="btn btn-round"><i class="fa fa-dollar fa-2x"></i></a>
@@ -393,6 +377,51 @@
                                         </td>
                                     </tr>
                                 @endif
+                                @endforeach
+
+                                @foreach($others as $o)
+                                    @if($o->status == "A")
+                                    <tr>
+                                        <td class="text-center">{{$o->last_name}}, {{$o->first_name}}<br><small>{{$o->relationship}} of {{$o->member->first_name}} {{$o->member->last_name}}</small></td>
+
+                                        @if($o->status == 'A')
+                                            <td class="text-center">Yes</td>
+                                        @else
+                                            <td class="text-center">No</td>
+                                        @endif
+
+                                        @if($o->form17 == 'Y')
+                                            <td class="text-center">Yes</td>
+                                        @else
+                                            <td class="text-center" style="color:Red"><strong>No</strong></td>
+                                        @endif
+
+                                        @if($r->paid == 'Y')
+                                            <td class="text-center">Yes</td>
+                                        @else
+                                            <td class="text-center" style="color:Red"><strong>No</strong></td>
+                                        @endif
+                                        <td class="text-center">
+
+                                            @if($o->form17 != "Y")
+                                                <a href="{{action('EventController@eventform17', ['id' => $o->id, 'others' => 'Y'])}}" title="Form 17 Handed In" class="btn btn-primary btn-round"><i class="fa fa-ticket fa-2x"></i></a>
+                                            @else
+                                                <a href="" title="Form 17 Handed In" class="btn btn-round"><i class="fa fa-ticket fa-2x"></i></a>
+                                            @endif
+
+                                            @if($cost == '0')
+                                                <a></a>
+
+                                            @elseif($o->paid != "Y")
+                                                <a href="{{action('EventController@eventpaid', ['id' => $o->id, 'others' => 'Y'])}}" title="Payment Received" class="btn btn-success btn-round"><i class="fa fa-dollar fa-2x"></i></a>
+
+                                            @else
+                                                <a href="" title="Payment Received" class="btn btn-round"><i class="fa fa-dollar fa-2x"></i></a>
+                                            @endif
+                                        </td>
+                                    </tr>
+
+                                    @endif
                                 @endforeach
                             </tbody>
                         </table>

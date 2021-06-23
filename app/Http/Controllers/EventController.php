@@ -251,14 +251,24 @@ class EventController extends Controller
         return redirect(action('EventController@show', $r->event_id));
     }
 
-    public function eventattended($id)
+    public function eventattended($id, $other)
     {
-        $r = Eventroll::find($id);
-        $event = EventRoll::where('id','=', $id)->value('event_id');
-        $level = Events::where('id', '=', $event)->value('event_level');
-        $event_level = Eventlevels::where('id', '=', $level)->value('level');
-        $points = Eventlevels::where('id', '=', $level)->value('points_rank');
-        $currentstatus = Eventroll::where('id', '=', $id)->value('status');
+        if($other != "Y")
+        {
+            $r = Eventroll::find($id);
+            $event = EventRoll::where('id','=', $id)->value('event_id');
+            $level = Events::where('id', '=', $event)->value('event_level');
+            $event_level = Eventlevels::where('id', '=', $level)->value('level');
+            $points = Eventlevels::where('id', '=', $level)->value('points_rank');
+            $currentstatus = Eventroll::where('id', '=', $id)->value('status');
+        } else {
+            $r = Other_attendance::find($id);
+            $event = Other_attendance::where('id','=', $id)->value('event_id');
+            $level = Events::where('id', '=', $event)->value('event_level');
+            $event_level = Eventlevels::where('id', '=', $level)->value('level');
+            $points = Eventlevels::where('id', '=', $level)->value('points_rank');
+            $currentstatus = Other_attendance::where('id', '=', $id)->value('status');
+        }
 
         if($currentstatus == "A")
             {
@@ -271,14 +281,17 @@ class EventController extends Controller
                 $r->status = "A";
                 $r->save();
 
-                if (config('global.Squadron_Points') != 'N')
+                if($other != "Y")
+                    if (config('global.Squadron_Points') != 'N')
                     {
-                        $e=new Points;
-                        $e->member_id = $r->member_id;
-                        $e->value = $points;
-                        $e->Reason ="Attendance - ".$event_level;
-                        $e->year = Carbon::now()->year;
-                        $e->save();
+                        {
+                            $e=new Points;
+                            $e->member_id = $r->member_id;
+                            $e->value = $points;
+                            $e->Reason ="Attendance - ".$event_level;
+                            $e->year = Carbon::now()->year;
+                            $e->save();
+                        }
                     }
 
                 Alert::success('Member marked as attended', 'Member has been marked as in attendance')->autoclose(1500);
@@ -291,11 +304,16 @@ class EventController extends Controller
 
     }
 
-    public function eventform17($id)
+    public function eventform17($id, $others)
     {
-        $r = Eventroll::find($id);
-        $currentstatus = Eventroll::where('id', '=', $id)->value('form17');
-
+        if($others != 'Y')
+        {
+            $r = Eventroll::find($id);
+            $currentstatus = Eventroll::where('id', '=', $id)->value('form17');
+        } else {
+            $r = Other_attendance::find($id);
+            $currentstatus = Other_attendance::where('id', '=', $id)->value('form17');
+        }
         if($currentstatus == "Y")
         {
             alert()->error('Form 17 already provided', "Nothing has been updated");
@@ -313,10 +331,16 @@ class EventController extends Controller
 
     }
 
-    public function eventpaid($id)
+    public function eventpaid($id, $others)
     {
-        $r = Eventroll::find($id);
-        $currentstatus = Eventroll::where('id', '=', $id)->value('paid');
+        if($others != 'Y')
+        {
+            $r = Eventroll::find($id);
+            $currentstatus = Eventroll::where('id', '=', $id)->value('paid');
+        } else {
+            $r = Other_attendance::find($id);
+            $currentstatus = Other_attendance::where('id', '=', $id)->value('paid');
+        }
 
         if($currentstatus == "Y")
         {
