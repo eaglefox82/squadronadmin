@@ -388,7 +388,7 @@
                                             <td class="text-center" style="color:Red"><strong>No</strong></td>
                                         @endif
 
-                                        @if($r->paid == 'Y')
+                                        @if($o->paid == 'Y')
                                             <td class="text-center">Yes</td>
                                         @else
                                             <td class="text-center" style="color:Red"><strong>No</strong></td>
