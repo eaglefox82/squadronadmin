@@ -55,6 +55,7 @@ Route::get('/eventroll/paid/{id}', 'EventController@eventpaid')->middleware('aut
 Route::get('/otheritems/{id}/inactive', 'OtheritemsController@inactive')->middleware('auth');
 Route::get('/new/members', 'MembersController@newmembers')->middleware('auth');
 Route::get('/events/delete/{id}', 'EventController@inactive')->middleware('auth');
+Route::post('event/show/nonmember', 'EventController@addNonMember')->middleware('auth');
 
 Route::post('/profile/update/avatar', 'UsersController@update_avatar')->middleware('auth');
 Route::post('/pastroll/post','PastrollController@getRoll')->middleware('auth');

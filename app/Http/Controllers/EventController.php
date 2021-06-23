@@ -17,6 +17,7 @@ use App\Eventroll;
 use App\Eventlevels;
 use App\Points;
 use App\Otheritemmapping;
+use App\Other_attendance;
 
 
 use Carbon\Carbon;
@@ -151,6 +152,8 @@ class EventController extends Controller
         $paid = EventRoll::where('event_id','=', $id)->where('paid', '=', 'Y')->count();
         $cost = Events::where('id', $id)->value('amount');
         $attended = EventRoll::where('event_id', '=', $id)->where('status', '=', 'A')->count();
+        $others = Other_attendance::where('event_id', $id)->where('status', '!=', 'N')->get();
+        $member = Member::where('active', 'Y')->where('member_type', 'League')->get();
 
         if($attended != 0){
          $percentage =  ($attended / EventRoll::where('event_id','=', $id)->count()) * 100;
@@ -158,7 +161,7 @@ class EventController extends Controller
            $percentage =  0;
         };
 
-        return view('events.roll', compact('event', 'roll', 'attendance', 'form17', 'paid', 'percentage', 'cost', 'attended'));
+        return view('events.roll', compact('event', 'roll', 'attendance', 'form17', 'paid', 'percentage', 'cost', 'attended', 'others', 'member', 'id'));
     }
 
     /**
@@ -355,6 +358,26 @@ class EventController extends Controller
         return redirect(action('EventController@index'));
 
 
+
+    }
+
+    public function addNonMember(Request $request)
+    {
+
+        // Add Event Master Record
+        $e = New Other_attendance();
+        $e->member_id = $request->get('member');
+        $e->event_id = $request->get('event');
+        $e->first_name = $request->get('firstname');
+        $e->last_name = $request->get('lastname');
+        $e->relationship = $request->get('relationship');
+        $e->status = "Y";
+        $e->form17 = "N";
+        $e->paid = "N";
+        $e->save();
+
+        alert()->success("Person Added", "Person has been added to the event")->autoclose(1500);
+        return redirect(action('EventController@show', $request->get('event')));
 
     }
 }
