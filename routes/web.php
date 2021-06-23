@@ -86,3 +86,7 @@ Route::get('/storage-link', function () {
     return Artisan::call('storage:link', ["--force" => true]);
 });
 
+Route::get('/deployment', function(){
+    return Artisan::call('migrate');
+});
+
