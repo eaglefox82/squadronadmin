@@ -219,15 +219,7 @@
                                         @if($r->form17 == 'Y')
                                             <td class="text-center">Yes</td>
                                         @else
-                                            @if($r->status == 'Y')
-                                                <td class="text-center" style="color:Red"><strong>No</strong></td>
-                                            @else
-                                                @if ($r->paid == 'Y')
-                                                    <td class="text-center" style="color:Red"><strong>No</strong></td>
-                                                @else
-                                                    <td class="text-center">No</td>
-                                                @endif
-                                            @endif
+                                            <td class="text-center" style="color:Red"><strong>No</strong></td>
                                         @endif
 
                                        @if($cost == '0')
@@ -237,7 +229,7 @@
                                         @if($r->paid == 'Y')
                                             <td class="text-center">Yes</td>
                                         @else
-                                            <td class="text-center">No</td>
+                                            <td class="text-center" style="color:Red"><strong>No</strong></td>
                                         @endif
                                         <td class="text-center">
                                                 <a href="{{action('EventController@eventattended', ['id' => $r->id, 'others' => 'N'])}}" title="Attended Event" class="btn btn-success btn-round"><i class="fa fa-check fa-2x"></i></a>
