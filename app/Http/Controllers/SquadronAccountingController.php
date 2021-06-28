@@ -72,6 +72,12 @@ class SquadronAccountingController extends Controller
 
     }
 
+    public function annualsubs()
+    {
+        $members = Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->get();
+        return view('accounting.annualsubs', compact('members'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -269,4 +275,5 @@ class SquadronAccountingController extends Controller
             return redirect(action('SquadronAccountingController@show', $request->get('id')));
         }
     }
+
 }

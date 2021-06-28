@@ -20,8 +20,8 @@
                                     <th class="text-center">Week {{$i}}</th>
                                 @endfor
                                 <th class="text-center">Total</th>
-                                <th class="text-center", Width = "10%">Number on Roll</th>
-                                <th class="text-center", Width = "10%">Increase this Month</th>
+                                <th class="text-center" style="background-color:#dee0e3" Width = "10%">Number on Roll</th>
+                                <th class="text-center" style="background-color:#dee0e3" Width = "10%">Increase this Month</th>
                             </tr>
                             <tr>
                                 @php
@@ -41,8 +41,8 @@
                                     <td class="text-center">{{$count}}</td>
                                 @endfor
                                 <td class="text-center">{{$total}}</td>
-                                <td class="text-center">{{$totalmember->where('rank', '<', 12)->count()}}</td>
-                                <td class="text-center">{{$newmembers->where('rank', '<', 12)->count()}}</td>
+                                <td class="text-center" style="background-color:#dee0e3">{{$totalmember->where('rank', '<', 12)->count()}}</td>
+                                <td class="text-center" style="background-color:#dee0e3">{{$newmembers->where('rank', '<', 12)->count()}}</td>
                             </tr>
                             <tr>
                                 @php
@@ -62,8 +62,8 @@
                                     <td class="text-center">{{$count}}</td>
                                 @endfor
                                 <td class="text-center">{{$total}}</td>
-                                <td class="text-center">{{$totalmember->where('rank', 13)->count()}}</td>
-                                <td class="text-center">{{$newmembers->where('rank', 13)->count()}}</td>
+                                <td class="text-center" style="background-color:#dee0e3">{{$totalmember->where('rank', 13)->count()}}</td>
+                                <td class="text-center" style="background-color:#dee0e3">{{$newmembers->where('rank', 13)->count()}}</td>
                             </tr>
                             <tr>
                                 @php
@@ -83,8 +83,8 @@
                                     <td class="text-center">{{$count}}</td>
                                 @endfor
                                 <td class="text-center">{{$total}}</td>
-                                <td class="text-center">{{$totalmember->where('rank','>', 13)->where('rank','<', 19)->count()}}</td>
-                                <td class="text-center">{{$newmembers->where('rank','>', 13)->where('rank','<', 19)->count()}}</td>
+                                <td class="text-center" style="background-color:#dee0e3">{{$totalmember->where('rank','>', 13)->where('rank','<', 19)->count()}}</td>
+                                <td class="text-center" style="background-color:#dee0e3">{{$newmembers->where('rank','>', 13)->where('rank','<', 19)->count()}}</td>
                             </tr>
                             <tr>
                                 @php
@@ -104,8 +104,8 @@
                                     <td class="text-center">{{$count}}</td>
                                 @endfor
                                 <td class="text-center">{{$total}}</td>
-                                <td class="text-center">{{$totalmember->where('rank','>', 18)->count()}}</td>
-                                <td class="text-center">{{$newmembers->where('rank','>', 18)->count()}}</td>
+                                <td class="text-center" style="background-color:#dee0e3">{{$totalmember->where('rank','>', 18)->count()}}</td>
+                                <td class="text-center" style="background-color:#dee0e3">{{$newmembers->where('rank','>', 18)->count()}}</td>
                             </tr>
                             <tr>
                                 @php
@@ -125,8 +125,8 @@
                                     <td class="text-center">{{$count}}</td>
                                 @endfor
                                 <td class="text-center">{{$total}}</td>
-                                <td class="text-center">{{$totalmember->count()}}</td>
-                                <td class="text-center">{{$newmembers->count()}}</td>
+                                <td class="text-center" style="background-color:#dee0e3">{{$totalmember->count()}}</td>
+                                <td class="text-center" style="background-color:#dee0e3">{{$newmembers->count()}}</td>
                             </tr>
                         </table>
                     </div>

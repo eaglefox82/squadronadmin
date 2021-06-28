@@ -81,7 +81,7 @@
                         </div>
                     </div>
 
-            </div>        
+            </div>
 
             <div class = "row">
 
@@ -127,7 +127,7 @@
                             <p class = "card-category">Annual Subs<br><br></p>
                             <h3 class = "card-title">${{number_format(($members->where('annualsubs','Y')->count())*$annualfee,0)}}</h3>
                             <div class = "card-footer">
-                                <a href="">Required to pay annual subs</a>
+                                <a href="{{action('SquadronAccountingController@annualsubs')}}">Required to pay annual subs</a>
                             </div>
                         </div>
                     </div>

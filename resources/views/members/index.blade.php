@@ -4,7 +4,7 @@
     <div class="container-fluid">
 
         <div class="row">
-            
+
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-header card-header-primary card-header-icon">
@@ -18,7 +18,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-header card-header-success card-header-icon">
@@ -48,8 +48,8 @@
             </div>
 
         </div>
-        
-        
+
+
         <div class="row">
             <div class="col-sm-12">
                 <div class="card">
@@ -58,7 +58,7 @@
                     </div>
                     <div class="card-body">
                         <div class = "pull-left">
-                            <form cclass="navbar-form">
+                            <form class="navbar-form">
                                 <span class="bmd-form-group">
                                     <div class="input-group no-border">
                                         <button class = "btn btn-white btn-round btn-just-icon fa fa-search"></button>
