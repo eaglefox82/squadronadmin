@@ -58,9 +58,12 @@
                                 <tr>
                                     <td class="text-center">
                                         @if ($r->status == 'A')
-                                        <a href="{{action('RollController@paid', $r->id)}}" title="Paid" class="btn btn-success btn-round"><i class="material-icons">done</i></a>
-                                        <a href="{{action('RollController@voucher', $r->id)}}"  title="Voucher" class="btn btn-info btn-round"><i class ="fa fa-money fa-2x"></i></a>
-                                        <a href="{{action('RollController@notpaid', $r->id)}}" title="Not Paid" class="btn btn-danger btn-round"><i class="material-icons">close</i></a>
+                                        <a href="{{action('RollController@rollstatus', ['id' => $r->id, 'status' => 'C'])}}" title="Paid" class="btn btn-success btn-round"><i class="material-icons">done</i></a>
+                                        <a href="{{action('RollController@rollstatus', ['id' => $r->id, 'status' => 'V'])}}"  title="Voucher" class="btn btn-info btn-round"><i class ="fa fa-money fa-2x"></i></a>
+                                        <a href="{{action('RollController@rollstatus', ['id' => $r->id, 'status' => 'P'])}}" title="Not Paid" class="btn btn-danger btn-round"><i class="material-icons">close</i></a>
+                                        @if($online == 'Yes')
+                                            <a href="{{action('RollController@rollstatus', ['id' => $r->id, 'status' => 'O'])}}" title="Online" class="btn btn-rose btn-round"><i class="fa fa-globe fa-2x"></i></a>
+                                        @endif
                                         @endif
                                     </td>
                                     <td class="text-center">{{$r->member->membership_number}}</td>
