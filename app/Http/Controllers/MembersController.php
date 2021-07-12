@@ -265,7 +265,7 @@ class MembersController extends Controller
 
     public function birthday()
     {
-        $birthdays = Member::all();
+        $birthdays = Member::where('active', 'Y')->get();
         $birthdays = $birthdays->sortby(function($q){
             return $q->birthday;
         });
