@@ -59,7 +59,7 @@ class SquadronAccountingController extends Controller
         $winglevies = Settings::where('setting', '=', 'Wing Fees')->value('value') * $attendance;
         $annualsubs = Settings::where('setting', '=', 'Annual Sub Allocation')->value('value')* $attendance;
         $rent = Settings::where('setting', '=', 'Weekly Rent')->value('value');
-        $pendingvouchers = (Vouchers::where('status', 'C')->count())*100;
+        $pendingvouchers = (Vouchers::where('status','!=', 'C')->count())*100;
 
 
         $totalcost = $grouplevies + $winglevies + $annualsubs + $rent;
