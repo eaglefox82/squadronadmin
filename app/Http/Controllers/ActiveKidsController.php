@@ -167,13 +167,13 @@ class ActiveKidsController extends Controller
     }
 
 
-        public function bankingreference(Request $request)
+        public function bankingreference(Request $request, $id)
         {
-            $v = Vouchers::find($request->get('id'));
+            $v = Vouchers::find($id);
 
             if ($v != null)
             {
-                $v->banking_reference = $request-> get('bankingreference');
+                $v->banking_reference = $request-> get('banking_reference');
                 $v->save();
 
                 alert()->success('Success', 'Banking Reference has been added')->autoclose(1500);

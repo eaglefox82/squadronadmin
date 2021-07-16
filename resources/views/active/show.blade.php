@@ -39,7 +39,7 @@
                                         </td>
                                     @else
                                         <td class="text-center">
-                                            <a href="{{'ActiveKidsController@edit', $v->id}}" class="btn btn-round btn-rose" title="Banking Reference">Baning Reference</a>
+                                            <a href="{{action('ActiveKidsController@edit', $v->id)}}" class="btn btn-round btn-rose" title="Banking Reference"">Baning Reference</a>
                                             <a href="{{action('ActiveKidsController@complete', $v->id)}}" class="btn btn-round btn-success" title="Complete Voucher">Completed</a>
                                         </td>
                                     @endif
@@ -54,47 +54,5 @@
     </div>
 </div>
 
-
-
-<div class="modal fade" id="addbankingModal" tabindex="-1" role="dialog" aria-labelledby="bankingreferenceLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3 class="modal-title" id="exampleModalLabel">Add Banking Reference</h3>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        {!!Form::open(array('action' => ['ActiveKidsController@bankingreference'], 'method'=>'POST', 'class'=>'form-horizontal'))!!}
-        <div class="modal-body">
-            <input name="voucherid" id="voucherid">
-            <label class="label-control">Reference Number</label>
-                <div class="form-group">
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="bankingreference">
-                    </div>
-                </div>
-            </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary btn-round" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary btn-round">Add Banking Reference</button>
-        </div>
-    </div>
-        {!!Form::close()!!}
-    </div>
-</div>
-</div>
-
 @endsection
 
-@section ('scripts')
-
-<script type="text/javascript">
-    $(docuement).on("click", ".banking reference", function(){
-        var voucherId = $(this).data('voucher_id');
-        $(".modal-body #voucherid").val(voucherId);
-        console.log(voucherId);
-    });
-</script>
-
-@stop

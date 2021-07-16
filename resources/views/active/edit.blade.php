@@ -12,7 +12,7 @@
                             <h4 class="card-title">Add Banking Reference</h4>
                         </div>
                     </div>
-                    {!! Form::open(array('action' => ['SettingsController@bankingreference', $voucher->id],'method'=>'PUT', 'class'=>'form-horizontal')) !!}
+                    {!! Form::open(array('action' => ['ActiveKidsController@bankingreference', $voucher->id],'method'=>'POST', 'class'=>'form-horizontal')) !!}
                     <div class = "card-body">
                         @if (count($errors)>0)
                             <div class = "alert alert-danger">
@@ -29,7 +29,7 @@
                             <label class = "col-sm-2 col-form-label">Voucher Number: </label>
                             <div class = "col-sm-6">
                                 <div class = "form-group">
-                                    <input type = "text" class = "form-control" name="setting" value="{{$voucher->voucher_number}}">
+                                    <input type = "text" class = "form-control" name="Voucher Number" value="{{$voucher->voucher_number}}">
                                 </div>
                             </div>
                         </div>
@@ -38,7 +38,7 @@
                             <label class = "col-sm-2 col-form-label">Value: </label>
                             <div class = "col-sm-6">
                                 <div class = "form-group">
-                                    <input type = "text" class = "form-control" name="value">
+                                    <input type = "text" class = "form-control" name="banking_reference">
                                 </div>
                             </div>
                         </div>
