@@ -63,6 +63,7 @@ Route::post('/accounts/voucher/', 'AccountController@item')->middleware('auth');
 Route::post('/requested/accountpay', 'SquadronAccountingController@accountpayment')->middleware('auth');
 Route::post('/member/points', 'PointsController@addtomember')->middleware('auth');
 Route::post('event/show/nonmember', 'EventController@addNonMember')->middleware('auth');
+Route::post('vouchers/banking', 'ActiveKidsController@bankingreference')->middleware('auth');
 
 
 
@@ -74,6 +75,7 @@ Route::get('/reports/welcome', 'ReportController@welcome')->middleware('auth');
 Route::get('reports/past', 'ReportController@past')->middleware('auth');
 Route::get('reports/download/{id}', 'ReportController@downloadpast')->middleware('auth');
 Route::get('report/email', 'ReportController@email')->middleware('auth');
+
 
 // Ajax requests
 Route::get('get/payments/{id}', 'MembersController@getPayments')->middleware('auth')->name('getPayments');

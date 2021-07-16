@@ -60,10 +60,10 @@ class ReportController extends Controller
     public function attendance()
     {
         $memberlist = Member::where('member_type', '=', 'League')->get();
-        $totalweeks = Rollmapping::where('roll_year', '=', Carbon::now()->year)->get();
+        $totalrolls = Rollmapping::where('roll_year', '=', Carbon::now()->year)->get();
         $totalevents = Event::Where('year', '=', Carbon::now()->year)->get();
 
-        return view('report.attendance', compact('memberlist', 'totalweeks', 'totalevents'));
+        return view('report.attendance', compact('memberlist', 'totalrolls', 'totalevents'));
     }
 
     public function welcome()

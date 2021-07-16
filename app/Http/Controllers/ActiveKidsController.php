@@ -157,6 +157,17 @@ class ActiveKidsController extends Controller
             return redirect(action('ActiveKidsController@index'));
         }
         return redirect(action('ActiveKidsControler@index'));
-
     }
+
+
+        public function bankingreference(Request $request)
+        {
+            $v = Vouchers::find($request->get('id'));
+
+            if ($v != null)
+            {
+                $v->banking_reference = $request-> get('bankingreference');
+                $v->save();
+            }
+        }
 }

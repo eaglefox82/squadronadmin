@@ -257,18 +257,21 @@ class RollController extends Controller
         $rollid = RollMapping::latest()->value('id');
 
         switch ($status) {
-            // Define variables for member paying using account
+            // Define variables for member paying using account and check balance
             case 'V':
-                $paid = 'Y';
-                $title = 'Member Present';
-                $message = 'Member paid using account balance';
 
+                // Check Account Balance and back out if account balance is too low
                 if($r->member->Accounts->sum('amount') < 10)
                 {
                     Alert()->error("Error", "Insufficient Account Balance")->autoclose(1500);
                     return redirect(action('RollController@index'));
                 }
 
+                $paid = 'Y';
+                $title = 'Member Present';
+                $message = 'Member paid using account balance';
+
+                // Add Voucher use record
                 $voucher = new Accounts();
                 $voucher->member_id = $r->member_id;
                 $voucher->Reason = 'Weekly Subs';
@@ -316,7 +319,7 @@ class RollController extends Controller
             $p=new Points();
             $p->member_id = $member;
             $p->value = $points;
-            $p->year = $year;
+
             $p->reason = "Squadron Night Attendance";
             $p->save();
         }

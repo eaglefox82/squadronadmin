@@ -22,7 +22,7 @@
                 <h2 class="text-center">Year Attendance Overview</h2>
                 <div class="card-header card-header-icon card-header-rose">
                   <div class="pull-right new-button">
-                        <a href="" class="btn btn-success"  title="Not a button"></i>Parade Nights = {{$totalweeks->count()}}</a>
+                        <a href="" class="btn btn-success"  title="Not a button"></i>Parade Nights = {{$totalrolls->count()}}</a>
                     </div>
                     <div class="pull-right new-button">
                         <a href="" class="btn btn-rose"  title="Not a button"></i>Event this Year = {{$totalevents->count()}}</a>
