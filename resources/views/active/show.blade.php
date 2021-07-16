@@ -39,7 +39,7 @@
                                         </td>
                                     @else
                                         <td class="text-center">
-                                            <a href="#" class="btn btn-round btn-rose" title="Banking Reference" data-target="#addbankingModal" data-toggle="modal" data-voucher_id="{{$v->id}}">Baning Reference</a>
+                                            <a href="{{'ActiveKidsController@edit', $v->id}}" class="btn btn-round btn-rose" title="Banking Reference">Baning Reference</a>
                                             <a href="{{action('ActiveKidsController@complete', $v->id)}}" class="btn btn-round btn-success" title="Complete Voucher">Completed</a>
                                         </td>
                                     @endif
@@ -90,13 +90,11 @@
 @section ('scripts')
 
 <script type="text/javascript">
-  $('#addbankingModal').on('show.bs.modal', function(e) {
-      var voucherId = $(e.relatedTarget).data('voucher_id');
-      var inputF - document.getElementById("voucherid");
-      inputF.value = voucherID;
-      el_down.innerHTML = "Value =" + "'" + inputF.value  + "'";
-      console.log(voucherID);
-  });
+    $(docuement).on("click", ".banking reference", function(){
+        var voucherId = $(this).data('voucher_id');
+        $(".modal-body #voucherid").val(voucherId);
+        console.log(voucherId);
+    });
 </script>
 
 @stop

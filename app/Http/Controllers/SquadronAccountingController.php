@@ -118,7 +118,7 @@ class SquadronAccountingController extends Controller
         $e->complete = 'N';
         $e->save();
 
-        Alert::Success('New Requested Added', 'New Stock Request has been added')->autoclose(2000);
+        Alert()->Success('New Requested Added', 'New Stock Request has been added')->autoclose(2000);
         return redirect(action('SquadronAccountingController@requested'));
     }
 

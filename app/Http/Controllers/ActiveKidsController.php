@@ -105,6 +105,13 @@ class ActiveKidsController extends Controller
     public function edit($id)
     {
         //
+        $voucher = Vouchers::find($id);
+
+        if ($voucher != null)
+        {
+            return view('active.edit', compact('voucher'));
+        }
+        return redirect(action('ActiveKidsController@index'));
     }
 
     /**
@@ -168,6 +175,10 @@ class ActiveKidsController extends Controller
             {
                 $v->banking_reference = $request-> get('bankingreference');
                 $v->save();
+
+                alert()->success('Success', 'Banking Reference has been added')->autoclose(1500);
+                return redirect(action('ActiveKidsController@index'));
             }
+            return redirect(action('ActiveKidsController@index'));
         }
 }
