@@ -39,7 +39,7 @@
                                         </td>
                                     @else
                                         <td class="text-center">
-                                            <a href="{{action('ActiveKidsController@edit', $v->id)}}" class="btn btn-round btn-rose" title="Banking Reference"">Baning Reference</a>
+                                            <a href="{{action('ActiveKidsController@edit', $v->id)}}" class="btn btn-round btn-rose" title="Banking Reference"">Banking Reference</a>
                                             <a href="{{action('ActiveKidsController@complete', $v->id)}}" class="btn btn-round btn-success" title="Complete Voucher">Completed</a>
                                         </td>
                                     @endif

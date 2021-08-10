@@ -42,8 +42,9 @@ class MembersController extends Controller
        $flight = Flight::orderBy('id');
        $malemembers =  Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->where('membership_number','LIKE','N%')->get();
        $femalemembers = Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->where('membership_number','LIKE','W%')->get();
+       $followup = $members->where('attendancewarning', '<', 2);
 
-       return view('members.index', compact('members', 'rank', 'flight', 'malemembers', 'femalemembers'));
+       return view('members.index', compact('members', 'rank', 'flight', 'malemembers', 'femalemembers','followup'));
     }
 
      public function getmembers()

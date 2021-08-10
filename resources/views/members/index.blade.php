@@ -47,6 +47,20 @@
                 </div>
             </div>
 
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-danger card-header-icon">
+                        <div class="card-icon">
+                            <i class="fa fa-phone fa-2x"></i>
+                        </div>
+                        <p class="card-category">Members requiring follow up</br></br></p>
+                        <h3 class="card-title">{{$members->where('attendancewarning',"<", 2)->count()}}</h3>
+                        <div class="card-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
 
