@@ -32,7 +32,7 @@ class Form19Controller extends Controller
 
         $weeksinmonth = Rollmapping::latest()->value('roll_week');
 
-        $monthlyRoll = Rollmapping::where('roll_month', $lastRollMap->roll_month)->get();
+        $monthlyRoll = Rollmapping::where('roll_year', $lastRollMap->roll_year)->where('roll_month', $lastRollMap->roll_month)->get();
         $nightsInMonth = 0;
 
         $startDate = Carbon::create($lastRollMap->roll_year, $lastRollMap->roll_month, 1);
@@ -54,7 +54,7 @@ class Form19Controller extends Controller
         $newmembers = Member::Where('join_year','=', $lastRollMap->roll_year)->where('join_month','=', $lastRollMap->roll_month)->get();
         $totalmember = Member::Where('member_type', '=' , 'League')->where('active','=', 'Y')->get();
 
-        return view('form19.index', compact('monthlyRoll', 'nightsInMonth', 'groupfee', 'subs', 'wing','weeksinmonth', 'meetingnights', 'newmembers', 'totalmember' ));
+        return view('form19.index', compact('monthlyRoll', 'nightsInMonth', 'groupfee', 'subs', 'wing','weeksinmonth', 'meetingnights', 'newmembers', 'totalmember'));
     }
 
     /**
@@ -155,6 +155,8 @@ class Form19Controller extends Controller
         {
             $nightsInMonth++;
         }
+
+        $nightdate = $startDate; $date->lte($endDate); $date->addWeek();
 
         $groupfee =Settings::where('setting', '=', 'Group Fees')->value('value');
         $subs =Settings::where('setting', '=', 'Weekly Fees')->value('value');

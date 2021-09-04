@@ -173,6 +173,15 @@ class EventController extends Controller
     public function edit($id)
     {
         //
+        $event = events::find($id);
+
+        if($event->id != null) {
+
+            return view('event.edit', compact('event'));
+
+        }
+
+        return redirect(action('EventController@index'));
     }
 
     /**

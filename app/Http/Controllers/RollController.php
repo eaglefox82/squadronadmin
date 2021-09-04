@@ -319,7 +319,7 @@ class RollController extends Controller
             $p=new Points();
             $p->member_id = $member;
             $p->value = $points;
-
+            $p->year = $year;
             $p->reason = "Squadron Night Attendance";
             $p->save();
         }
