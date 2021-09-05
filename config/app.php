@@ -152,6 +152,7 @@ return [
         // Other Service Provides
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
         A6digital\Image\DefaultProfileImageServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -218,6 +219,7 @@ return [
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
         'Image' => Intervention\Image\ImageManagerStatic::class,
         'DefaultProfileImage' => A6digital\Image\DefaultProfileImageServiceProvider::class,
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
 
     ],
 

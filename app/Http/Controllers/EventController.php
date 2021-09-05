@@ -17,6 +17,7 @@ use App\Eventroll;
 use App\Eventlevels;
 use App\Points;
 use App\Otheritemmapping;
+use App\Other_attendance;
 
 
 use Carbon\Carbon;
@@ -47,7 +48,7 @@ class EventController extends Controller
         $membereventattendance = EventRoll::with(array('Events' => function($q) {
             return $q->where('year', '=', Carbon::now()->year);
         }))
-        ->where('status', '=', 'Y')->count();
+        ->where('status', '=', 'A')->count();
 
         if($memberevents != null)
             {
@@ -55,7 +56,6 @@ class EventController extends Controller
             } else {
               $percentage =  '0';
             }
-
 
 
         return view('events.index', compact('events', 'date', 'eventsthisyear', 'yearremain', 'levels', 'percentage'));
@@ -150,14 +150,18 @@ class EventController extends Controller
         $attendance = EventRoll::where('event_id','=', $id)->where('status', '=', 'Y')->count();
         $form17 = EventRoll::where('event_id','=', $id)->where('form17', '=', 'Y')->count();
         $paid = EventRoll::where('event_id','=', $id)->where('paid', '=', 'Y')->count();
+        $cost = Events::where('id', $id)->value('amount');
+        $attended = EventRoll::where('event_id', '=', $id)->where('status', '=', 'A')->count();
+        $others = Other_attendance::where('event_id', $id)->where('status', '!=', 'N')->get();
+        $member = Member::where('active', 'Y')->where('member_type', 'League')->get();
 
-        if($attendance != 0){
-         $percentage =  ($attendance / EventRoll::where('event_id','=', $id)->count()) * 100;
+        if($attended != 0){
+         $percentage =  ($attended / EventRoll::where('event_id','=', $id)->count()) * 100;
         } else {
            $percentage =  0;
         };
 
-        return view('events.roll', compact('event', 'roll', 'attendance', 'form17', 'paid', 'percentage'));
+        return view('events.roll', compact('event', 'roll', 'attendance', 'form17', 'paid', 'percentage', 'cost', 'attended', 'others', 'member', 'id'));
     }
 
     /**
@@ -169,6 +173,15 @@ class EventController extends Controller
     public function edit($id)
     {
         //
+        $event = events::find($id);
+
+        if($event->id != null) {
+
+            return view('event.edit', compact('event'));
+
+        }
+
+        return redirect(action('EventController@index'));
     }
 
     /**
@@ -235,16 +248,6 @@ class EventController extends Controller
                 $r->status = "Y";
                 $r->save();
 
-            if (config('global.Squadron_Points') != 'N')
-            {
-                $e=new Points;
-                $e->member_id = $r->member_id;
-                $e->value = $points;
-                $e->Reason ="Attendance - ".$event_level;
-                $e->year = Carbon::now()->year;
-                $e->save();
-            }
-
 
             Alert::success('Member Attending Function', 'Member has been marked as Attending')->autoclose(1500);
             return redirect(action('EventController@show', $r->event_id));
@@ -257,11 +260,69 @@ class EventController extends Controller
         return redirect(action('EventController@show', $r->event_id));
     }
 
-    public function eventform17($id)
+    public function eventattended($id, $other)
     {
-        $r = Eventroll::find($id);
-        $currentstatus = Eventroll::where('id', '=', $id)->value('form17');
+        if($other != "Y")
+        {
+            $r = Eventroll::find($id);
+            $event = EventRoll::where('id','=', $id)->value('event_id');
+            $level = Events::where('id', '=', $event)->value('event_level');
+            $event_level = Eventlevels::where('id', '=', $level)->value('level');
+            $points = Eventlevels::where('id', '=', $level)->value('points_rank');
+            $currentstatus = Eventroll::where('id', '=', $id)->value('status');
+        } else {
+            $r = Other_attendance::find($id);
+            $event = Other_attendance::where('id','=', $id)->value('event_id');
+            $level = Events::where('id', '=', $event)->value('event_level');
+            $event_level = Eventlevels::where('id', '=', $level)->value('level');
+            $points = Eventlevels::where('id', '=', $level)->value('points_rank');
+            $currentstatus = Other_attendance::where('id', '=', $id)->value('status');
+        }
 
+        if($currentstatus == "A")
+            {
+                alert()->error('Member already marked in attendance', "Nothing has been updated");
+                return redirect(action('EventController@show', $r->event_id));
+            }
+
+        if ($r != null)
+            {
+                $r->status = "A";
+                $r->save();
+
+                if($other != "Y")
+                    if (config('global.Squadron_Points') != 'N')
+                    {
+                        {
+                            $e=new Points;
+                            $e->member_id = $r->member_id;
+                            $e->value = $points;
+                            $e->Reason ="Attendance - ".$event_level;
+                            $e->year = Carbon::now()->year;
+                            $e->save();
+                        }
+                    }
+
+                Alert::success('Member marked as attended', 'Member has been marked as in attendance')->autoclose(1500);
+                return redirect(action('EventController@show', $r->event_id));
+
+            }
+
+        Alert::warning('Record not found', "Please check and try again")->autoclose(2000);
+        return redirect(action('EventController@show', $r->event_id));
+
+    }
+
+    public function eventform17($id, $others)
+    {
+        if($others != 'Y')
+        {
+            $r = Eventroll::find($id);
+            $currentstatus = Eventroll::where('id', '=', $id)->value('form17');
+        } else {
+            $r = Other_attendance::find($id);
+            $currentstatus = Other_attendance::where('id', '=', $id)->value('form17');
+        }
         if($currentstatus == "Y")
         {
             alert()->error('Form 17 already provided', "Nothing has been updated");
@@ -279,10 +340,16 @@ class EventController extends Controller
 
     }
 
-    public function eventpaid($id)
+    public function eventpaid($id, $others)
     {
-        $r = Eventroll::find($id);
-        $currentstatus = Eventroll::where('id', '=', $id)->value('paid');
+        if($others != 'Y')
+        {
+            $r = Eventroll::find($id);
+            $currentstatus = Eventroll::where('id', '=', $id)->value('paid');
+        } else {
+            $r = Other_attendance::find($id);
+            $currentstatus = Other_attendance::where('id', '=', $id)->value('paid');
+        }
 
         if($currentstatus == "Y")
         {
@@ -324,6 +391,26 @@ class EventController extends Controller
         return redirect(action('EventController@index'));
 
 
+
+    }
+
+    public function addNonMember(Request $request)
+    {
+
+        // Add Event Master Record
+        $e = New Other_attendance();
+        $e->member_id = $request->get('member');
+        $e->event_id = $request->get('event');
+        $e->first_name = $request->get('firstname');
+        $e->last_name = $request->get('lastname');
+        $e->relationship = $request->get('relationship');
+        $e->status = "Y";
+        $e->form17 = "N";
+        $e->paid = "N";
+        $e->save();
+
+        alert()->success("Person Added", "Person has been added to the event")->autoclose(1500);
+        return redirect(action('EventController@show', $request->get('event')));
 
     }
 }

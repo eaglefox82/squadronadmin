@@ -8,7 +8,7 @@
                 <div class = "card">
                     <div class="card-header card-header-icon card-header-rose">
                         <div class="pull-right new-button">
-                            <a data-toggle="modal" data-target="#addform19reportrModal" class="btn btn-primary btn-round" title="Add Voucher"><i class="fa fa-plus fa-2x"></i>Print Form 19</a>
+                            <a data-toggle="modal" data-target="" class="btn btn-gray btn-round" title="Add Voucher"><i class="fa fa-plus fa-2x"></i>Print Form 19</a>
                         </div>
                         <h4 class="card-title font-weight-bold">Form 19</h4>
                     </div>
@@ -20,6 +20,8 @@
                                     <th class="text-center">Week {{$i}}</th>
                                 @endfor
                                 <th class="text-center">Total</th>
+                                <th class="text-center" style="background-color:#dee0e3" Width = "10%">Number on Roll</th>
+                                <th class="text-center" style="background-color:#dee0e3" Width = "10%">Increase this Month</th>
                             </tr>
                             <tr>
                                 @php
@@ -39,6 +41,8 @@
                                     <td class="text-center">{{$count}}</td>
                                 @endfor
                                 <td class="text-center">{{$total}}</td>
+                                <td class="text-center" style="background-color:#dee0e3">{{$totalmember->where('rank', '<', 12)->count()}}</td>
+                                <td class="text-center" style="background-color:#dee0e3">{{$newmembers->where('rank', '<', 12)->count()}}</td>
                             </tr>
                             <tr>
                                 @php
@@ -58,6 +62,8 @@
                                     <td class="text-center">{{$count}}</td>
                                 @endfor
                                 <td class="text-center">{{$total}}</td>
+                                <td class="text-center" style="background-color:#dee0e3">{{$totalmember->where('rank', 13)->count()}}</td>
+                                <td class="text-center" style="background-color:#dee0e3">{{$newmembers->where('rank', 13)->count()}}</td>
                             </tr>
                             <tr>
                                 @php
@@ -77,6 +83,8 @@
                                     <td class="text-center">{{$count}}</td>
                                 @endfor
                                 <td class="text-center">{{$total}}</td>
+                                <td class="text-center" style="background-color:#dee0e3">{{$totalmember->where('rank','>', 13)->where('rank','<', 19)->count()}}</td>
+                                <td class="text-center" style="background-color:#dee0e3">{{$newmembers->where('rank','>', 13)->where('rank','<', 19)->count()}}</td>
                             </tr>
                             <tr>
                                 @php
@@ -96,6 +104,8 @@
                                     <td class="text-center">{{$count}}</td>
                                 @endfor
                                 <td class="text-center">{{$total}}</td>
+                                <td class="text-center" style="background-color:#dee0e3">{{$totalmember->where('rank','>', 18)->count()}}</td>
+                                <td class="text-center" style="background-color:#dee0e3">{{$newmembers->where('rank','>', 18)->count()}}</td>
                             </tr>
                             <tr>
                                 @php
@@ -115,6 +125,8 @@
                                     <td class="text-center">{{$count}}</td>
                                 @endfor
                                 <td class="text-center">{{$total}}</td>
+                                <td class="text-center" style="background-color:#dee0e3">{{$totalmember->count()}}</td>
+                                <td class="text-center" style="background-color:#dee0e3">{{$newmembers->count()}}</td>
                             </tr>
                         </table>
                     </div>
@@ -206,7 +218,7 @@
                             <i class="fa fa-user-plus fa-2x"></i>
                         </div>
                         <p class="card-category">New Members this Month <br><br></p>
-                        <h3 class="card-title">{{$newmembers}}</h3>
+                        <h3 class="card-title">{{$newmembers->count()}}</h3>
                         <div class="card-footer">
                             <a href="{{action ('MembersController@newmembers')}}">View new members</a>
                         </div>

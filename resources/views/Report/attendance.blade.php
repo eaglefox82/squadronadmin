@@ -22,8 +22,8 @@
                 <h2 class="text-center">Year Attendance Overview</h2>
                 <div class="card-header card-header-icon card-header-rose">
                   <div class="pull-right new-button">
-                        <a href="" class="btn btn-success"  title="Not a button"></i>Parade Nights = {{$totalweeks->count()}}</a>
-                    </div> 
+                        <a href="" class="btn btn-success"  title="Not a button"></i>Parade Nights = {{$totalrolls->count()}}</a>
+                    </div>
                     <div class="pull-right new-button">
                         <a href="" class="btn btn-rose"  title="Not a button"></i>Event this Year = {{$totalevents->count()}}</a>
                     </div>
@@ -31,7 +31,7 @@
                 <div class="card-body">
 
                     <div class="table-responsive">
-                        <table class="table" id="roll">
+                        <table class="table" id="attendance">
                             <thead class = "text-primary">
                                 <tr>
                                     <th class="text-center">Member</th>
@@ -50,10 +50,10 @@
                                     <td class="text-center">{{$r->event->count()}}</td>
                                     <td class="text-center">
                                     @if($r->attendance->count() !=0)
-                                        {{number_format((($r->attendance->count() + $r->event->count()) / ($r->memberyear->count() + $r->eventyear()->count()))*100,2)}}                                    
+                                        {{number_format((($r->attendance->count() + $r->event->count()) / ($r->memberyear->count() + $r->eventyear()->count()))*100,2)}}
                                     @else
                                         0
-                                    @endif                              
+                                    @endif
                                     %</td>
                                 </tr>
                             @endforeach
@@ -66,56 +66,13 @@
     </div>
 </div>
 
-<div class="modal fade" id="newrollModal" tabindex="-1" role="dialog" aria-labelledby="NewRollLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h3 class="modal-title" id="exampleModalLabel">New Roll</h3>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            {!!Form::open(array('action' => ['RollController@store'], 'method'=>'POST', 'class'=>'form-horizontal'))!!}
-            <div class="modal-body">
-                    <div class="form-group">
-                        <label class="label-control">Enter Date:</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control datetimepicker" name="rolldate" value="{{Carbon\Carbon::now()->format('d-m-Y')}}">
-                            </div>
-                        </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary btn-round" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary btn-round">Create Roll</button>
-            </div>
-            {!!Form::close()!!}
-          </div>
-        </div>
-    </div>
 @endsection
 
 
 @section ('scripts')
 
 <script>
-   // Write on keyup event of keyword input element
-   $(document).ready(function(){
-     $("#search").keyup(function(){
-     _this = this;
 
-     // Show only matching TR, hide rest of them
-     $.each($("#roll tbody tr"), function() {
-       if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
-       {
-           $(this).hide();
-       }
-       else
-       {
-          $(this).show();
-       }
-     });
-  });
-});
 </script>
 
 

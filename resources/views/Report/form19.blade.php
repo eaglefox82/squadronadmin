@@ -128,7 +128,7 @@
         @for ($i = 1; $i <= $nightsInMonth; $i++)
             <td style="border-top: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle><font color="#0000FF">Week {{$i}}</font></td>
 
-            @if($i == 4)
+            @if($nightsInMonth != 5)
                 <td style="border-top: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle><font color="#0000FF">Week 5</font></td>
             @endif
 
@@ -161,7 +161,7 @@
 
              <td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle>{{$count}}<b><br></b></td>
 
-            @if($i == 4)
+            @if($nightsInMonth != 5)
                 <td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle>-<b><br></b></td>
             @endif
 
@@ -193,7 +193,7 @@
 
         <td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle>{{$count}}<b><br></b></td>
 
-        @if($i == 4)
+        @if($nightsInMonth != 5)
             <td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle>-<b><br></b></td>
         @endif
 
@@ -227,7 +227,7 @@
 
         <td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle>{{$count}}<b><br></b></td>
 
-         @if($i == 4)
+         @if($nightsInMonth != 5)
             <td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle>-<b><br></b></td>
         @endif
 
@@ -261,7 +261,7 @@
 
             <td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle>{{$count}}<b><br></b></td>
 
-            @if($i == 4)
+            @if($nightsInMonth != 5)
                 <td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle>-<b><br></b></td>
             @endif
 
@@ -295,12 +295,10 @@
 
             <td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle>{{$count}}<b><br></b></td>
 
-            @if($i == 4)
+            @if($nightsInMonth != 5)
                 <td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle>-<b><br></b></td>
             @endif
-
         @endfor
-
     <td style="border-top: 1px solid #0000ff; border-bottom: 1px solid #0000ff; border-left: 1px solid #0000ff; border-right: 1px solid #0000ff" align="center" valign=middle>{{$total}}<br></td>
 
 <td align="center" valign=middle><br></td>

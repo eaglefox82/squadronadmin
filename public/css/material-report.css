@@ -17969,7 +17969,7 @@ a[aria-expanded="true"] .caret,
 }
 
 .wrapper.wrapper-full-page {
-  height: auto;
+  height: 100%;
   min-height: 100vh;
 }
 

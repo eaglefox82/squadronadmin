@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use Alert;
+use Mail;
 
 use App\Member;
 use App\Roll;
@@ -56,13 +57,13 @@ class ReportController extends Controller
 
     }
 
-    public function attendanceReport()
+    public function attendance()
     {
         $memberlist = Member::where('member_type', '=', 'League')->get();
-        $totalweeks = Rollmapping::where('roll_year', '=', Carbon::now()->year)->get();
+        $totalrolls = Rollmapping::where('roll_year', '=', Carbon::now()->year)->get();
         $totalevents = Event::Where('year', '=', Carbon::now()->year)->get();
 
-        return view('report.attendance', compact('memberlist', 'totalweeks', 'totalevents'));
+        return view('report.attendance', compact('memberlist', 'totalrolls', 'totalevents'));
     }
 
     public function welcome()
@@ -89,4 +90,21 @@ class ReportController extends Controller
 
 
     }
+
+    public function email()
+    {
+        $to_name = 'Brendan Fox';
+        $to_email = 'fox82b@gmail.com';
+        $data = array('name'=>'AAL Edmondson Park', 'body' => 'A Test Email');
+
+        Mail::send('emails.test', $data, function($message) use ($to_name, $to_email){
+            $message->to($to_email, $to_name)->subject('Welcome to the Australian Air League');
+
+            $message->from('oc.edmondsonpark@airleague.com.au', 'Australian Air League - Edmondson Park');
+
+        });
+
+    }
+
+
 }

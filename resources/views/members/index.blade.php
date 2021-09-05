@@ -2,6 +2,68 @@
 
 @section('content')
     <div class="container-fluid">
+
+        <div class="row">
+
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                            <i class="fa fa-university fa-2x"></i>
+                        </div>
+                        <p class="card-category">Members On Roll<br><br></p>
+                        <h3 class="card-title">{{$members->count()}}</h3>
+                        <div class="card-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-success card-header-icon">
+                        <div class="card-icon">
+                            <i class="fa fa-male fa-2x"></i>
+                        </div>
+                        <p class="card-category">Male Members<br>{{number_format(($malemembers->count()/($members->count()))*100,2)}}%<br></p>
+                        <h3 class="card-title">{{$malemembers->count()}}</h3>
+                        <div class="card-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-success card-header-icon">
+                        <div class="card-icon">
+                            <i class="fa fa-female fa-2x"></i>
+                        </div>
+                        <p class="card-category">Female Members<br>{{number_format(($femalemembers->count()/($members->count()))*100,2)}}%<br></p>
+                        <h3 class="card-title">{{$femalemembers->count()}}</h3>
+                        <div class="card-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-danger card-header-icon">
+                        <div class="card-icon">
+                            <i class="fa fa-phone fa-2x"></i>
+                        </div>
+                        <p class="card-category">Members requiring follow up</br></br></p>
+                        <h3 class="card-title">{{$members->where('attendancewarning',"<", 2)->count()}}</h3>
+                        <div class="card-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
         <div class="row">
             <div class="col-sm-12">
                 <div class="card">
@@ -10,7 +72,7 @@
                     </div>
                     <div class="card-body">
                         <div class = "pull-left">
-                            <form cclass="navbar-form">
+                            <form class="navbar-form">
                                 <span class="bmd-form-group">
                                     <div class="input-group no-border">
                                         <button class = "btn btn-white btn-round btn-just-icon fa fa-search"></button>
@@ -77,6 +139,7 @@
             </div>
         </div>
     </div>
+</div>
 
     <div class="modal fade" id="addmemberModal" tabindex="-1" role="dialog" aria-labelledby="NewRollLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -144,7 +207,7 @@
             </div>
         </div>
     </div>
-
+    </div>
 
 @endsection
 

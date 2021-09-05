@@ -35,10 +35,8 @@ Route::resource('/user', 'UsersController')->middleware('auth');
 
 
 Route::get('/activekids/voucher/{id}', 'ActiveKidsController@voucher')->middleware('auth');
-Route::get('/roll/paid/{id}', 'RollController@paid')->middleware('auth');
-Route::get('/roll/voucher/{id}', 'RollController@voucher')->middleware('auth');
-Route::get('/roll/notpaid/{id}', 'RollController@notpaid')->middleware('auth');
 Route::get('/roll/notpresent/{id}','RollController@notPresent')->middleware('auth');
+Route::get('/roll/update/{id}/{status}', 'RollController@rollstatus')->middleware('auth');
 Route::get('/vouchers/complete/{id}', 'ActiveKidsController@complete')->middleware('auth');
 Route::get('/vouchers/submit/{id}', 'ActiveKidsController@submit')->middleware('auth');
 Route::get('/members/updateroll/cash/{id}', 'RollController@updateRollCash')->middleware('auth');
@@ -49,11 +47,15 @@ Route::get('requested', 'SquadronAccountingController@requested')->middleware('a
 Route::get('/parade', 'RollController@parade')->middleware('auth');
 Route::get('/birthday', 'MembersController@birthday')->middleware('auth');
 Route::get('/eventroll/attending/{id}', 'EventController@eventattending')->middleware('auth');
-Route::get('/eventroll/form17/{id}','EventController@eventform17')->middleware('auth');
-Route::get('/eventroll/paid/{id}', 'EventController@eventpaid')->middleware('auth');
+Route::get('/eventroll/attended/{id}/{others}', 'EventController@eventattended')->middleware('auth');
+Route::get('/eventroll/form17/{id}/{others}','EventController@eventform17')->middleware('auth');
+Route::get('/eventroll/paid/{id}/{others}', 'EventController@eventpaid')->middleware('auth');
 Route::get('/otheritems/{id}/inactive', 'OtheritemsController@inactive')->middleware('auth');
 Route::get('/new/members', 'MembersController@newmembers')->middleware('auth');
 Route::get('/events/delete/{id}', 'EventController@inactive')->middleware('auth');
+Route::get('/annualsubs', 'SquadronAccountingController@annualsubs')->middleware('auth');
+Route::post('vouchers/banking/{id}', 'ActiveKidsController@bankingreference')->middleware('auth');
+
 
 Route::post('/profile/update/avatar', 'UsersController@update_avatar')->middleware('auth');
 Route::post('/pastroll/post','PastrollController@getRoll')->middleware('auth');
@@ -62,18 +64,32 @@ Route::post('/accounting/request/update{id}', 'SquadronAccountingController@upda
 Route::post('/accounts/voucher/', 'AccountController@item')->middleware('auth');
 Route::post('/requested/accountpay', 'SquadronAccountingController@accountpayment')->middleware('auth');
 Route::post('/member/points', 'PointsController@addtomember')->middleware('auth');
+Route::post('event/show/nonmember', 'EventController@addNonMember')->middleware('auth');
+
 
 
 
 //Reports
 Route::get('/report/roll/print/{id}', 'ReportController@printRoll')->middleware('auth');
 Route::post('/reports/form19/print', 'Form19Controller@printForm')->middleware('auth');
-Route::get('/reports/attendance', 'ReportController@attendanceReport')->middleware('auth');
+Route::get('/reports/attendance', 'ReportController@attendance')->middleware('auth');
 Route::get('/reports/welcome', 'ReportController@welcome')->middleware('auth');
 Route::get('reports/past', 'ReportController@past')->middleware('auth');
 Route::get('reports/download/{id}', 'ReportController@downloadpast')->middleware('auth');
+Route::get('report/email', 'ReportController@email')->middleware('auth');
+
 
 // Ajax requests
 Route::get('get/payments/{id}', 'MembersController@getPayments')->middleware('auth')->name('getPayments');
 Route::get('get/points/{id}', 'PointsController@getPoints')->middleware('auth')->name('getPoints');
+
+
+//Deployment - use this to force command line calls during deployments
+Route::get('/storage-link', function () {
+    return Artisan::call('storage:link', ["--force" => true]);
+});
+
+Route::get('/deployment', function(){
+    return Artisan::call('migrate');
+});
 

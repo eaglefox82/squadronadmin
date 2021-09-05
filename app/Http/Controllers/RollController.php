@@ -19,6 +19,7 @@ use App\Accounts;
 use Illuminate\Support\Facades\Auth;
 use App\Pointsmaster;
 use App\Points;
+use App\Settings;
 
 class RollController extends Controller
 {
@@ -39,7 +40,9 @@ class RollController extends Controller
         }))
         ->where('roll_id', '=', $rollid)->orderby('status')->get();
 
-        return view('roll.index', compact('members', 'rolldate', 'rollid'));
+        $online = Settings::where('setting', 'Online Meetings')->value('value');
+
+        return view('roll.index', compact('members', 'rolldate', 'rollid', 'online'));
     }
 
     /**
@@ -109,7 +112,7 @@ class RollController extends Controller
             $r->save();
         }
 
-        Alert::success('New Roll Created')->autoclose(1500);
+        alert()->success('New Roll Created')->autoclose(1500);
         return redirect(action('RollController@index'));
     }
 
@@ -137,7 +140,7 @@ class RollController extends Controller
         $strength = RollMapping::Where('id', '=', $rollid)->value('roll_strength');
         $present = Roll::Where('roll_id', '=', $rollid)->where('status', '!=', 'A')->count();
 
-        $rolls = RollMapping::orderby('id','desc')->get();
+        $rolls = RollMapping::orderby('id','desc')->where('roll_date', '>', Carbon::now()->subMonths(3))->get();
 
         return view('roll.past', compact('members', 'rolldate', 'rollid', 'strength', 'present', 'id', 'rolls'));
     }
@@ -176,143 +179,6 @@ class RollController extends Controller
         //
     }
 
-    public function paid($id)
-    {
-
-        $r = Roll::find($id);
-        $rollid = RollMapping::latest()->value('id');
-        $points = Pointsmaster::where('Reason', '=', 'Attendance')->value('Value');
-        $member = Roll::where('id', '=', $id)->value('member_id');
-        $year = Carbon::parse(now())->year;
-
-
-        if ($r != null)
-        {
-            $r->status = "C";
-            $r->paidrollid = $rollid;
-            $r->save();
-
-                //Add Points
-            if (config('global.Squadron_Points') != 'N')
-            {
-                $p=new Points();
-                $p->member_id = $member;
-                $p->value = $points;
-                $p->year = $year;
-                $p->reason = "Squadron Night Attendance";
-                $p->save();
-            }
-
-            Alert::Success('Member Paid', 'Member Paid Cash')->autoclose(1500);
-            return redirect(action('RollController@index'));
-        }
-
-        return redirect(action('RollController@index'));
-    }
-
-
-
-    public function voucher($id)
-    {
-        $r = Roll::find($id);
-        $rollid = RollMapping::latest()->value('id');
-        $rolldate = RollMapping::latest()->value('roll_date');
-        $points = Pointsmaster::where('Reason', '=', 'Attendance')->value('Value');
-        $member = Roll::where('id', '=', $id)->value('member_id');
-        $year = Carbon::parse(now())->year;
-
-        if ($r != null)
-        {
-            // Check if ActiveKids Balance is not less than 0
-            if ($r->member->Accounts->sum('amount') >= 10)
-            {
-                // Update Roll Status
-                $r->status = "V";
-                $r->paidrollid = $rollid;
-                $r->save();
-
-                // Insert Record into ActiveKids Voucher
-                $voucher = new Accounts();
-                $voucher->member_id = $r->member_id;
-                $voucher->Reason = 'Weekly Subs';
-                $voucher->amount = -10;
-                $voucher->user = Auth::user()->username;
-                $voucher->save();
-
-                // Add Points
-                if (config('global.Squadron_Points') != 'N')
-                {
-                    $p=new Points();
-                    $p->member_id = $member;
-                    $p->value = $points;
-                    $p->year = $year;
-                    $p->reason = "Squadron Night Attendance";
-                    $p->save();
-                }
-
-                Alert::Success("Paid", "Member paid from Account Balance")->autoclose(1500);
-                return redirect(action('RollController@index'));
-            }
-            else
-            {
-                //Not Enough money in the account
-                Alert::error("Error", "Insufficient Account Balance")->autoclose(1500);
-                return redirect(action('RollController@index'));
-            }
-        }
-
-        return redirect(action('RollController@index'));
-    }
-
-    public function notpaid($id)
-    {
-        $r = Roll::find($id);
-        $points = Pointsmaster::where('Reason', '=', 'Attendance')->value('Value');
-        $member = Roll::where('id', '=', $id)->value('member_id');
-        $year = Carbon::parse(now())->year;
-
-        if ($r != null)
-        {
-            $r->status = "P";
-            $r->save();
-
-               //Add Points
-               if (config('global.Squadron_Points') != 'N')
-               {
-                   $p=new Points();
-                   $p->member_id = $member;
-                   $p->value = $points;
-                   $p->year = $year;
-                   $p->reason = "Squadron Night Attendance";
-                   $p->save();
-               }
-
-            Alert::success('Member Present', 'Member has not paid')->autoclose(1500);
-            return redirect(action('RollController@index'));
-        }
-
-        return redirect(action('RollController@index'));
-    }
-
-    public function updateRollCash($id)
-    {
-        $o = Roll::find($id);
-        $rollid = RollMapping::latest()->value('id');
-
-        if ($o != null)
-        {
-            $o->status = "C";
-            $o->paidrollid = $rollid;
-            $o->save();
-
-            Alert::success('Member Paid', 'Past Sub has been marked as paid')->autoclose(2000);
-            return redirect(action('MembersController@show', $o->member_id));
-        }
-
-        return redirect(action('MembersController@index'));
-    }
-
-
     public function updateRollAccount($id)
     {
         $o = Roll::find($id);
@@ -336,13 +202,13 @@ class RollController extends Controller
                 $voucher->user = Auth::user()->username;
                 $voucher->save();
 
-                Alert::Success("Member Paid", "Past Subs have been paid from Account Balance")->autoclose(1500);
+                Alert()->Success("Member Paid", "Past Subs have been paid from Account Balance")->autoclose(1500);
                 return redirect(action('MembersController@show', $o->member_id));
             }
             else
             {
                 //Not Enough money in the account
-                Alert::error("Error", "Insufficient Account Balance")->autoclose(1500);
+                Alert()->error("Error", "Insufficient Account Balance")->autoclose(1500);
                 return redirect(action('MembersController@show', $o->member_id));
             }
         }
@@ -359,10 +225,110 @@ class RollController extends Controller
             $r->status = "A";
             $r->save();
 
-            Alert::success('Member not Present', 'Member has been marked as not present')->autoclose(1500);
+            Alert()->success('Member not Present', 'Member has been marked as not present')->autoclose(1500);
             return redirect(action('RollController@index'));
         }
 
         return redirect(action('RollController@index'));
     }
+
+    public function online($id)
+    {
+        $r = Roll::find($id);
+
+        if ($r != null)
+        {
+            $r->status = "O";
+            $r->save();
+
+            Alert()->success('Member mark present', 'Member is present online')->autoclose(1500);
+            return redirect(action('RollController@index'));
+        }
+
+        return redirect(action('RollController@index'));
+    }
+
+    public function rollstatus($id, $status)
+    {
+        $r = Roll::find($id);
+        $points = Pointsmaster::where('Reason', '=', 'Attendance')->value('Value');
+        $member = Roll::where('id', '=', $id)->value('member_id');
+        $year = Carbon::parse(now())->year;
+        $rollid = RollMapping::latest()->value('id');
+
+        switch ($status) {
+            // Define variables for member paying using account and check balance
+            case 'V':
+
+                // Check Account Balance and back out if account balance is too low
+                if($r->member->Accounts->sum('amount') < 10)
+                {
+                    Alert()->error("Error", "Insufficient Account Balance")->autoclose(1500);
+                    return redirect(action('RollController@index'));
+                }
+
+                $paid = 'Y';
+                $title = 'Member Present';
+                $message = 'Member paid using account balance';
+
+                // Add Voucher use record
+                $voucher = new Accounts();
+                $voucher->member_id = $r->member_id;
+                $voucher->Reason = 'Weekly Subs';
+                $voucher->amount = -10;
+                $voucher->user = Auth::user()->username;
+                $voucher->save();
+
+                break;
+
+            // Define variables for member who didn't pay
+            case 'P':
+                $paid = 'N';
+                $title = "Member Present";
+                $message = "Member has not paid";
+                break;
+
+            // Define variables for member who is online
+            case 'O':
+                $paid = 'N';
+                $title = "Member Online";
+                $message = "Member marked as present online";
+                break;
+
+            // Define variables for member who paid cash
+            case 'C':
+                $paid = "Y";
+                $title = "Member Present";
+                $message = "Member paid by Cash";
+                break;
+
+            default:
+                Alert()->error("Error", "System Error has occured")->autoclose(1500);
+                return redirect(action('RollController@index'));
+        }
+
+        $r->status = $status;
+        if($paid != 'N')
+            {
+                $r->paidrollid = $rollid;
+            }
+        $r->save();
+
+        if (config('global.Squadron_Points') != 'N')
+        {
+            $p=new Points();
+            $p->member_id = $member;
+            $p->value = $points;
+            $p->year = $year;
+            $p->reason = "Squadron Night Attendance";
+            $p->save();
+        }
+
+        alert()->success($title, $message)->autoclose(1500);
+        return redirect(action('RollController@index'));
+    }
+
+
+
+
 }

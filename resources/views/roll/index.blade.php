@@ -58,9 +58,13 @@
                                 <tr>
                                     <td class="text-center">
                                         @if ($r->status == 'A')
-                                        <a href="{{action('RollController@paid', $r->id)}}" title="Paid" class="btn btn-success btn-round"><i class="material-icons">done</i></a>
-                                        <a href="{{action('RollController@voucher', $r->id)}}"  title="Voucher" class="btn btn-info btn-round"><i class ="fa fa-money fa-2x"></i></a>
-                                        <a href="{{action('RollController@notpaid', $r->id)}}" title="Not Paid" class="btn btn-danger btn-round"><i class="material-icons">close</i></a>
+                                            @if($online == 'No')
+                                                <a href="{{action('RollController@rollstatus', ['id' => $r->id, 'status' => 'C'])}}" title="Paid" class="btn btn-success btn-round"><i class="material-icons">done</i></a>
+                                                <a href="{{action('RollController@rollstatus', ['id' => $r->id, 'status' => 'V'])}}" title="Voucher" class="btn btn-info btn-round"><i class ="fa fa-money fa-2x"></i></a>
+                                                <a href="{{action('RollController@rollstatus', ['id' => $r->id, 'status' => 'P'])}}" title="Not Paid" class="btn btn-danger btn-round"><i class="material-icons">close</i></a>
+                                            @else
+                                                <a href="{{action('RollController@rollstatus', ['id' => $r->id, 'status' => 'O'])}}" title="Online" class="btn btn-rose btn-round"><i class="fa fa-globe fa-2x"></i></a>
+                                            @endif
                                         @endif
                                     </td>
                                     <td class="text-center">{{$r->member->membership_number}}</td>
@@ -95,75 +99,6 @@
     </div>
 </div>
 
-<div class="modal fade" id="newrollModal" tabindex="-1" role="dialog" aria-labelledby="NewRollLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h3 class="modal-title" id="exampleModalLabel">New Roll</h3>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            {!!Form::open(array('action' => ['RollController@store'], 'method'=>'POST', 'class'=>'form-horizontal'))!!}
-            <div class="modal-body">
-                <label class="label-control">Enter Date:</label>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <input type="text" class="form-control datetimepicker" name="rolldate" value="{{Carbon\Carbon::now()->format('d-m-Y')}}">
-                        </div>
-                    </div>
-                </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary btn-round" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary btn-round">Create Roll</button>
-            </div>
-        </div>
-            {!!Form::close()!!}
-        </div>
-    </div>
 @endsection
 
 
-@section ('scripts')
-
-<script>
-   // Write on keyup event of keyword input element
-   $(document).ready(function(){
-     $("#search").keyup(function(){
-     _this = this;
-
-     // Show only matching TR, hide rest of them
-     $.each($("#roll tbody tr"), function() {
-       if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
-       {
-           $(this).hide();
-       }
-       else
-       {
-          $(this).show();
-       }
-     });
-  });
-});
-</script>
-
-
-<script type="text/javascript">
-    $( ".datepicker" ).datetimepicker({
-        icons:{
-            time: "fa fa-clock-o",
-            date: "fa fa-calendar",
-            up: "fa fa-chevron-up",
-            down: "fa fa-chevron-down",
-            previous: 'fa fa-chevron-left',
-            next: 'fa fa-chevron-right',
-            today: 'fa fa-screenshot',
-            clear: 'fa fa-trash',
-            close: 'fa fa-remove'
-        }
-        });
-</script>
-
-
-
-@stop

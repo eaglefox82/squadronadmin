@@ -18,12 +18,14 @@
         "laravel/ui": "2.0",
         "laravelcollective/html": "^6.1",
         "maatwebsite/excel": "^3.1",
-        "realrashid/sweet-alert": "^3.2"
+        "realrashid/sweet-alert": "^3.2",
+        "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
         "filp/whoops": "^2.0",
         "fzaninotto/faker": "^1.4",
+        "imanghafoori/laravel-microscope": "^1.0",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^4.1",
         "phpunit/phpunit": "^8.5"

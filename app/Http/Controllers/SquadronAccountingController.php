@@ -19,6 +19,7 @@ use App\Member;
 use Carbon\Carbon;
 use App\Settings;
 use App\Accounts;
+use App\Vouchers;
 
 class SquadronAccountingController extends Controller
 {
@@ -47,6 +48,7 @@ class SquadronAccountingController extends Controller
 
         $members = Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->get();
 
+
         $accountbalance = Accounts::sum('amount');
 
         $annualfee = Settings::where('setting', 'annual subs')->value('value');
@@ -57,12 +59,23 @@ class SquadronAccountingController extends Controller
         $winglevies = Settings::where('setting', '=', 'Wing Fees')->value('value') * $attendance;
         $annualsubs = Settings::where('setting', '=', 'Annual Sub Allocation')->value('value')* $attendance;
         $rent = Settings::where('setting', '=', 'Weekly Rent')->value('value');
+        $pendingvouchers = (Vouchers::where('status','!=', 'C')->count())*100;
+
 
         $totalcost = $grouplevies + $winglevies + $annualsubs + $rent;
         $totalincome = $attendance * $subfee;
         $difference = $totalincome - $totalcost;
 
-        return view('accounting.index', compact('outstanding', 'requestbalance', 'members', 'rollid', 'totalsubs', 'accountbalance', 'annualfee', 'totalcost', 'totalincome', 'difference'));
+
+        return view('accounting.index', compact('accountbalance', 'outstanding', 'requestbalance', 'pendingvouchers', 'members', 'rollid', 'totalsubs', 'accountbalance', 'annualfee', 'totalcost', 'totalincome', 'difference'));
+
+
+    }
+
+    public function annualsubs()
+    {
+        $members = Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->get();
+        return view('accounting.annualsubs', compact('members'));
     }
 
     /**
@@ -105,7 +118,7 @@ class SquadronAccountingController extends Controller
         $e->complete = 'N';
         $e->save();
 
-        Alert::Success('New Requested Added', 'New Stock Request has been added')->autoclose(2000);
+        Alert()->Success('New Requested Added', 'New Stock Request has been added')->autoclose(2000);
         return redirect(action('SquadronAccountingController@requested'));
     }
 
@@ -262,4 +275,5 @@ class SquadronAccountingController extends Controller
             return redirect(action('SquadronAccountingController@show', $request->get('id')));
         }
     }
+
 }

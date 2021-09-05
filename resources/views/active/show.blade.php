@@ -19,6 +19,7 @@
                             <th class="text-center">Voucher</th>
                             <th class="text-center">Type</th>
                             <th class="text-center">Status</th>
+                            <th class="text-center">Banking Reference</th>
                             <th width="20%"></th>
                             </thead>
                             <tbody>
@@ -31,12 +32,14 @@
                                     <td class="text-center">{{$v->voucher_number}}</td>
                                     <td class="text-center">{{$v->type->voucher_type}}</td>
                                     <td class="text-center">{{$v->vstatus->desc}}</td>
+                                    <td class="text-center">{{$v->banking_reference}}</td>
                                     @if($v->status != "S")
                                         <td class="text-center">
                                             <a href="{{action('ActiveKidsController@submit', $v->id)}}" class="btn btn-round btn-success" title="Sumbit Voucher">Submitted</a>
                                         </td>
                                     @else
                                         <td class="text-center">
+                                            <a href="{{action('ActiveKidsController@edit', $v->id)}}" class="btn btn-round btn-rose" title="Banking Reference"">Banking Reference</a>
                                             <a href="{{action('ActiveKidsController@complete', $v->id)}}" class="btn btn-round btn-success" title="Complete Voucher">Completed</a>
                                         </td>
                                     @endif
@@ -52,3 +55,4 @@
 </div>
 
 @endsection
+

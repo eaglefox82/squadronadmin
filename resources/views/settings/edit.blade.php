@@ -14,7 +14,7 @@
                     </div>
                     {!! Form::open(array('action' => ['SettingsController@update', $setting->id],'method'=>'PUT', 'class'=>'form-horizontal')) !!}
                     <div class = "card-body">
-                        @if (count($errors)>0)    
+                        @if (count($errors)>0)
                             <div class = "alert alert-danger">
                                 <strong>Whoops!</strong> There were some problems with your input.<br><br>
                                 <ul>
@@ -38,7 +38,7 @@
                             <label class = "col-sm-2 col-form-label">Value: </label>
                             <div class = "col-sm-6">
                                 <div class = "form-group">
-                                    <input type = "number" step = "0.05" class = "form-control" name="value" value="{{$setting->value}}">
+                                    <input type = "text" class = "form-control" name="value" value="{{$setting->value}}">
                                 </div>
                             </div>
                         </div>
@@ -65,4 +65,4 @@
 </div>
 
 @endsection
-    
+

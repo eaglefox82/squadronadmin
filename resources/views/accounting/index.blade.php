@@ -63,9 +63,8 @@
                         </div>
                     </div>
                 </div>
-        </div>
 
-        <div class ="row">
+
 
                 <div class = "col-lg-3 col-md-6 col-sm-6">
                         <div class = "card card-stats">
@@ -81,6 +80,10 @@
                             </div>
                         </div>
                     </div>
+
+            </div>
+
+            <div class = "row">
 
                 <div class ="col-lg-3 col-md-6 col-sm-6">
                     <div class = "card card-stats">
@@ -101,12 +104,30 @@
                     <div class = "card card-stats">
                         <div class = "card-header card-header-success card-header-icon">
                             <div class = "card-icon">
+
+
+                                <i class = "fa fa-ticket fa-2x"></i>
+                            </div>
+                            <p class = "card-category">Pending Vouchers<br><br></p>
+                            <h3 class = "card-title">${{number_format($pendingvouchers,0)}}</h3>
+                            <div class = "card-footer">
+                                <a href="">Balance of Pending Vouchers</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class ="col-lg-3 col-md-6 col-sm-6">
+                    <div class = "card card-stats">
+                        <div class = "card-header card-header-success card-header-icon">
+                            <div class = "card-icon">
+
                                 <i class = "fa fa-money fa-2x"></i>
                             </div>
                             <p class = "card-category">Annual Subs<br><br></p>
                             <h3 class = "card-title">${{number_format(($members->where('annualsubs','Y')->count())*$annualfee,0)}}</h3>
                             <div class = "card-footer">
-                                <a href="">Required to pay annual subs</a>
+                                <a href="{{action('SquadronAccountingController@annualsubs')}}">Required to pay annual subs</a>
                             </div>
                         </div>
                     </div>
@@ -130,6 +151,7 @@
                         </div>
                     </div>
                 </div>
+
         </div>
 
 

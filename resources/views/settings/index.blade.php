@@ -69,6 +69,36 @@
                         </div>
                     </div>
                 </div>
+
+                <div class ="card">
+                    <div class ="card-header card-header-icon card-header-rose">
+                       <h3 class = "card-title text-center"><Strong>Point Allocation</strong></h3>
+                          <button data-toggle="modal" data-target="#addpointsModal" type="button" name="Add User" class="btn btn-success btn-round pull-right">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                        <div class = "card-body">
+                            <div class = "table-responsive">
+                                <table class="table">
+                                    <thead class = "text-primary">
+                                        <th class="text-center">Reason</th>
+                                        <th class="text-center">Value</th>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($points as $p)
+                                        <tr>
+                                            <td class="text-center">{{$p->Reason}}</td>
+                                            <td class="text-center">{{$p->Value}}</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+   
+
             </div>
     </div>
 
@@ -105,38 +135,6 @@
             </div>
         </div>
 
-    @if(config('global.Squadron_Points') != 'N')
-        <div class = "col-sm-6">
-            <div class ="card">
-                <div class ="card-header card-header-icon card-header-rose">
-                    <h3 class = "card-title text-center"><Strong>Point Allocation</strong></h3>
-                        <button data-toggle="modal" data-target="#addpointsModal" type="button" name="Add User" class="btn btn-success btn-round pull-right">
-                            <i class="fa fa-plus"></i>
-                        </button>
-                    </div>
-                    <div class = "card-body">
-                        <div class = "table-responsive">
-                            <table class="table">
-                                <thead class = "text-primary">
-                                    <th class="text-center">Reason</th>
-                                    <th class="text-center">Value</th>
-                                </thead>
-                                <tbody>
-                                    @foreach ($points as $p)
-                                    <tr>
-                                        <td class="text-center">{{$p->Reason}}</td>
-                                        <td class="text-center">{{$p->Value}}</td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endif
-
     </div>
 
 
@@ -166,12 +164,12 @@
                      <label class="label-control">Username:</label>
                         <div class="input-group">
                             <input type="text" class="form-control" name="username">
-                        </div>
+                        </div> 
 
                     <label class="label-control">Password:</label>
                         <div class="input-group">
                             <input type="text" class="form-control" name="password">
-                        </div>
+                        </div>     
 
             </div>
             <div class="modal-footer">
