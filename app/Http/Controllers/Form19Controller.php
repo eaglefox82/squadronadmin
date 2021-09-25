@@ -32,7 +32,7 @@ class Form19Controller extends Controller
 
         $weeksinmonth = Rollmapping::latest()->value('roll_week');
 
-        $monthlyRoll = Rollmapping::where('roll_year', $lastRollMap->roll_year)->where('roll_month', $lastRollMap->roll_month)->get();
+        $monthlyRoll = Rollmapping::where('roll_year', $lastRollMap->roll_year)->where('roll_month', $lastRollMap->roll_month)->get(); //Added where clause to ensure the current year is selected - BF
         $nightsInMonth = 0;
 
         $startDate = Carbon::create($lastRollMap->roll_year, $lastRollMap->roll_month, 1);
