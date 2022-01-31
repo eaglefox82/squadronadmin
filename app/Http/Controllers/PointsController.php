@@ -14,6 +14,7 @@ use App\Points;
 use App\Pointsmaster;
 use App\Member;
 use Alert;
+Use DataTables;
 
 class PointsController extends Controller
 {
@@ -28,14 +29,8 @@ class PointsController extends Controller
         $year =  Carbon::parse(Carbon::now())->year;
 
 
-        $pointrank = Points::query()
-            ->select('member_id')->selectRaw('SUM(value) as TotalPoints')
-            ->where('Year','=', $year)
-            ->groupBy('member_id')
-            ->orderByDesc('Totalpoints')
-            ->get();
 
-            return view ('report.points', compact('pointrank'));
+            return view ('report.points', compact('year'));
     }
 
     /**
@@ -137,9 +132,23 @@ class PointsController extends Controller
     }
 
 
-    public function getPoints($id = 0)
+    public function getPoints(Request $request)
     {
-        $data = Pointsmaster::where('id', $id)->first();
-        return response()->json($data);
+        $year =  Carbon::parse(Carbon::now())->year;
+
+        if ($request->ajax()) {
+
+            $points = Points::query()
+            ->join('members', 'members.id', '=', 'points.member_id')
+            ->select('points.member_id', 'members.first_name', 'members.last_name')->selectRaw('SUM(points.value) as TotalPoints')
+            ->where('Year','=', $year)
+            ->groupBy('member_id')
+            ->groupBy('first_name')
+            ->groupBy('last_name')
+            ->orderByDesc('Totalpoints')
+            ->get();
+
+            return DataTables::of($points)->make(true);
+        }
     }
 }

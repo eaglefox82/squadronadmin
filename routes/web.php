@@ -81,7 +81,7 @@ Route::get('report/email', 'ReportController@email')->middleware('auth');
 
 // Ajax requests
 Route::get('get/payments/{id}', 'MembersController@getPayments')->middleware('auth')->name('getPayments');
-Route::get('get/points/{id}', 'PointsController@getPoints')->middleware('auth')->name('getPoints');
+Route::get('get/points', 'PointsController@getPoints')->name('getPoints');
 
 
 //Deployment - use this to force command line calls during deployments
