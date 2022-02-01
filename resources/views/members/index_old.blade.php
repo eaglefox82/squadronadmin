@@ -66,31 +66,72 @@
 
         <div class="row">
             <div class="col-sm-12">
-                <button class="btn btn-round btn-primary pull-right" data-toggle="modal" data-target="#addmemberModal" class="btn btn-primary btn-round" title="Add Member"><i class="fa fa-plus fa-2x"></i> Add Member</button>
                 <div class="card">
                     <div class="card-header card-header-icon card-header-rose pull-center">
                         <h2 class="card-title text-center">Members</h2>
                     </div>
+                    <div class="card-body">
+                        <div class = "pull-left">
+                            <form class="navbar-form">
+                                <span class="bmd-form-group">
+                                    <div class="input-group no-border">
+                                        <button class = "btn btn-white btn-round btn-just-icon fa fa-search"></button>
+                                        <input type="text" name="search" id="search" class="form-control" placeholder="Search Member Here" autofocus/>
+                                    </div>
+                                </span>
+                            </form>
+                        </div>
+                        <button class="btn btn-round btn-primary pull-right" data-toggle="modal" data-target="#addmemberModal" class="btn btn-primary btn-round" title="Add Member"><i class="fa fa-plus fa-2x"></i> Add Member</button>
+                    </div>
 
                         <div class="table-responsive">
-                            <table class="table table-striped table-no-boreded table-hover" width="100%" id="member-table">
+                            <table class="table" id="membertable">
                                 <thead class="text-primary">
-                                    <th class="text-center">Membership Number</th>
-                                    <th class="text-center">First Name</th>
-                                    <th class="text-center">Last Name</th>
-                                    <th class="text-center">Rank</th>
-                                    <th class="text-center">Days to Birthday</th>
-                                    <th class="text-center">Account Balance</th>
-                                    <th class="text-center">Sub Owning</th>
-                                    <th class="text-center">Attendance Warning</th>
-                                    <th class="text-center">Action</th>
+                                <th ></th>
+                                <th width = "15%" class="text-center">Membership Number</th>
+                                <th width = "30%" class="text-center">Name</th>
+                                <th width = "20%" class="text-center">Rank</th>
+                                <th Class="text-center">Flight</th>
+                                <th width = "20%" class="text-center">Account Balance</th>
+                                <th class="text-center">Days to Birthday</th>
                                 </thead>
-                                <tbody class="text-center">
-                                </tbody>
-                                <tfooter>
-                                    <tr>
-                                    </tr>
-                                </tfooter>
+                                <tbody>
+                                        @foreach($members as $m)
+
+                                        @if($m->attendancewarning == 3)
+                                            <tr bgcolor="#FED3D4">
+                                        @else
+                                            <tr>
+                                        @endif
+                                          <td class="text-center">
+                                            <a href="{{action('MembersController@show', $m->id)}}" target="_blank" title="View" class="btn btn-round btn-success"><i class="fa fa-info"></i></a>
+                                          </td>
+                                          @if ($m->membership_number != "New")
+                                              <td class="text-center">{{$m->membership_number}}</td>
+                                          @else
+                                              <td class="text-center" style="color:red"><strong>{{$m->membership_number}}</td>
+                                          @endif
+
+                                          <td class="text-center">{{$m->last_name}}, {{$m->first_name}}</td>
+                                          <td class="text-center">{{$m->memberrank->rank}}</td>
+                                          @if($m->flight != 0)
+                                            <td clas="text-center">{{$m->flightmap->flight_name}}</td>
+                                        @else
+                                             <td></td>
+                                        @endif
+                                          @if ($m->Accounts->sum('amount') != 0)
+                                              <td class="text-center"><strong>${{number_format($m->Accounts->sum('amount'),2)}}</td>
+                                          @else
+                                              <td style="border-top: 1px #ddd solid"></td>
+                                          @endif
+                                                <td class="text-center">{{$m->birthday}}</td>
+                                          @endforeach
+                                        </tr>
+                                      </tbody>
+                                      <tfooter>
+                                          <tr>
+                                          </tr>
+                                      </tfooter>
                             </table>
                         </div>
                     </div>
@@ -172,31 +213,45 @@
 
 @section ('scripts')
 <script>
+    // Write on keyup event of keyword input element
+    $(document).ready(function(){
+      $("#search").keyup(function(){
+      _this = this;
 
- $(function() {
+      // Show only matching TR, hide rest of them
+      $.each($("#membertable tbody tr"), function() {
+        if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
+        {
+            $(this).hide();
+        }
+        else
+        {
+           $(this).show();
+        }
+      });
+   });
+ });
+ </script>
 
-        var table=$('#member-table').DataTable({
-             //Add Red Line if Attendance Warning is Yes
 
-            processing: true,
-            serverSide: true,
-            ajax: '{{ route('getMembers') }}',
-            columns: [
-                { data: 'membership_number'},
-                { data: 'first_name'},
-                { data: 'last_name'},
-                { data: 'memberrank.rank'},
-                { data: 'birthday'},
-                { data: 'account', render: $.fn.dataTable.render.number(',', '.', 2, '$')},
-                { data: 'owning', render: $.fn.dataTable.render.number(',', '.', 2, '$')},
-                { data: 'attendance'},
-                { data: 'action', orderable: false, searchable: false}
-            ]
-        });
-    });
-
-</script>
-
+     <script type="text/javascript">
+            $(function () {
+                $('.datetimepicker').datetimepicker({
+                    icons: {
+            time: "fa fa-clock-o",
+            date: "fa fa-calendar",
+            up: "fa fa-chevron-up",
+            down: "fa fa-chevron-down",
+            previous: 'fa fa-chevron-left',
+            next: 'fa fa-chevron-right',
+            today: 'fa fa-screenshot',
+            clear: 'fa fa-trash',
+            close: 'fa fa-remove',
+            container: "#addmemberModal",
+            }
+                });
+            });
+        </script>
 
 @stop
 

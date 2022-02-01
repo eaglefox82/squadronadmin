@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Site') }}</title>
+    <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Fonts -->
     <link rel="stylesheet" type="text/css"
@@ -16,28 +16,16 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"/>
 
     <!-- Styles -->
-    <link rel="stylesheet" href="{{ asset('css/material-dashboard.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/material-report.css') }}">
 </head>
 <body class="off-canvas-sidebar login-page">
-<div class="wrapper wrapper-full-page header-filter" filter-color="black" style="background-image: url('{{ asset('img/login.jpg') }}'); background-size: cover; background-position: top center;">
-   <div class="page-header login-page">
+<div class="wrapper wrapper-full-page">
+    <div background="#FFFFFF">
         <!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
-
         <div class="container">
-            <h1 class="text-center">{{ config('app.name', 'Squadron') }} Admin Site </h3>
             @yield('content')
         </div>
-    <footer class="footer ">
-            <div class="container">
-                <div class="copyright pull-right">
-                    &copy;
-                    <script>
-                        document.write(new Date().getFullYear())
-                    </script>
-                    | Developed by Brendan Fox</a>
-                </div>
-            </div>
-        </footer>
+    </div>
 </div>
 </body>
 <!--   Core JS Files   -->

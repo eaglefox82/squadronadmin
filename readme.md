@@ -1,104 +1,65 @@
-# Squadron Admin Site
+<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
-Welcome to the Admin site for the Australian Air League Edmondson Park Squadron.
-This site has been developed to assist with the Squadron Operations of a meeting night. The main purpose of the site was to track the use of Active and Creative Kids vouchers. To assist with this function a roll was create which allows the squadron staff to check people are present and record how thay paid.
+<p align="center">
+<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
+</p>
 
-### Table of Contents
------
- * [Overview](#Overview)
- * [Dashboard](#Dashboard)
- * [Members](#Members-Page)
- * [Member View](#Members-View-Page)
- * [Roll](#Roll)
+## About Laravel
 
-## Overview
-----
-### Dashboard
-****
-When logging into the site, the Dashboard is the site home page. On this page you will see the following information, shown in a number of Cards
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
 
-#### Members Present
-This shows the number of members currently present based on the current Roll Date
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-#### Members on Roll
-This show the number of "League" members currently on the roll
+Laravel is accessible, yet powerful, providing tools needed for large, robust applications.
 
-#### Squadron Attandance
-This show the % of League members in attendance on the current roll night
+## Learning Laravel
 
-#### Active Kids Vouchers
-This shows the number of current Active and Creative Kids Vouchers
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of any modern web application framework, making it a breeze to get started learning the framework.
 
-#### Officers Present
-Shows the number of Officers present on the Current Roll Night
+If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 1100 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
 
-#### TO/WO Present
-Shows the number of Trainee Officers and Warrent Officers Present on the current Roll night
+## Laravel Sponsors
 
-#### NCO's Present
-Shows the number of NCO's Present on the current Roll night
+We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell):
 
-#### Cadets Present
-Shows the number of Cadet Present on the current Roll night
+- **[Vehikl](https://vehikl.com/)**
+- **[Tighten Co.](https://tighten.co)**
+- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
+- **[Cubet Techno Labs](https://cubettech.com)**
+- **[British Software Development](https://www.britishsoftware.co)**
+- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
+- [UserInsights](https://userinsights.com)
+- [Fragrantica](https://www.fragrantica.com)
+- [SOFTonSOFA](https://softonsofa.com/)
+- [User10](https://user10.com)
+- [Soumettre.fr](https://soumettre.fr/)
+- [CodeBrisk](https://codebrisk.com)
+- [1Forge](https://1forge.com)
+- [TECPRESSO](https://tecpresso.co.jp/)
+- [Runtime Converter](http://runtimeconverter.com/)
+- [WebL'Agence](https://weblagence.com/)
+- [Invoice Ninja](https://www.invoiceninja.com)
+- [iMi digital](https://www.imi-digital.de/)
+- [Earthlink](https://www.earthlink.ro/)
+- [Steadfast Collective](https://steadfastcollective.com/)
 
-#### Subs Collected
-Shows the Subs Paid on the current Roll Night (Not including paid outstadning subs)
+## Contributing
 
-#### Avg Sqaudron Attendance
-Shows the Yearly Avg Squadron Attendance.
-The Icon is a trend inducator which with show Up in a Green Box if the value is higher than last Roll week, or show Down in a Red Box if the value is lower than last week.
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-### Members Page
-This will show a list of all current active League Members, this is sorted by Rank
-Clicking on the "i" icon will take you to the Member View Page which shows information on that Member.
-From this page you can add a new member and search the member list. Some features on this page include:
-* Display of Active/Creative Kids Balance.
-* Memnbers with "New" Membership number are shown in Red. "New" is the default number unless changed.
+## Security Vulnerabilities
 
-### Member View Page
-This is accessed from 2 locations - Member List Page or Roll Page. This page contains all the information on the member. So of the features on this page include:
-* Active and Creative Kids Balance
-* Attendance Rate - Shown as a %, then the rate is above the value set in the settings, the box is green. When below the box is red. Default value for the colour  switch is 80%
-* Total Subs Owning - The icon box will be green if no subs owning and red if there is.
-* Outstanding Requests - This will show the member has requested an item from Q-Store and the payment for that item is Outstanding. If there is no item Outstanding this box is not shown
-* Active Kids Vouchers - This will show all transactions against Active Kids Vouchers. The recording of a voucher and each time an amount is deducted against the voucher - If there is no data to  show, the box is hidden
-* Outstanding Subs - This shows the weeks where the member didn't pay Subs. The tick icon marks that week as paid. If nothing to show the box is  hidden.
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-###### Edit Member
-This allows you to edit the members details which are kept within the system
+## License
 
-###### Add Voucher
-This allows you to add a Active Kids or Creative Kids Voucher. The default amount is $100, however this can be changed
-
-## Roll
-The system allows the user to create a roll for each squadron meeting night, this is a very important function of the system as it drives all values which are recorded. The roll view contains the following features:
-
-###### Create New Roll
-Allows the user to create a new roll, when creating a roll everyone  is marked as away. As the members are marked present using the buttons (covered below) they are moved to the bottom of the list. The roll is sorted in the following way:
-* Members marked as away
-    * Rank
-    
-###### Present - Paid
-If a member is present and paid, clicking on the Green Box with the Tick will mark them as such. This follows though and records the value to display as subs collected on that night
-
-###### Present - Voucher
-If a member is present and using their voucher balance to pay, ticking on the light blue box with the ticket icon will mark the member as such. This system will also add an entry for the member in the Active kids table shown in the member view and reduce their balance by the sub amount. The system will also check to see if they have a balance to cover the subs, if not a warning message is shown.
-
-###### Present - Not Paid
-If a member is present but doesn't pay their subs, click on the Red Box with the cross will mark them as such. This will record them as not paying and add a record to the Outstanding Subs view for that member and increase the total outstanding amount
-
-###### Member View
-Clicking on the green box with the "i" icon will show the member page view. This is the same information as the member view. This is handy for adding a Active or Creative kids voucher without leaving the roll
-
-###### First Parade Roll
-This will show a list of all members who are present, this is sorted by Rank. The only option is to go back to the roll from this screen
-
-
-This site has been developped to assist with the Admin operation of the Squadron.
-Tasks contained within this site include:
-* Member Overview
-* Roll
-* Active and Creative Kids Vouchers
-* Uniform Requests and Payments
-* Form 19 overview
-
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

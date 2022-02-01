@@ -86,6 +86,12 @@ class Member extends Model
                  ->orderby('id', 'DESC');
     }
 
+    public function accountbalance()
+    {
+        return $this->hasmany('App\accounts', 'member_id', 'id')
+                    ->sum('amount');
+    }
+
     public function flightmap()
     {
         return $this->hasOne('App\Flight','id', 'flight' );
@@ -211,28 +217,41 @@ class Member extends Model
        $week2 = Rollmapping::latest()->skip(1)->take(1)->value('id');
        $week3 = Rollmapping::latest()->skip(2)->take(1)->value('id');
 
-        $warning = 0;
 
-       $week1a = Roll::where('Roll_id',$week1)->where('member_id', $this->id)->value('status');
+
+        $week1a = Roll::where('Roll_id',$week1)->where('member_id', $this->id)->value('status');
+        $week2a = Roll::where('Roll_id',$week2)->where('member_id', $this->id)->value('status');
+        $week3a = Roll::where('Roll_id',$week3)->where('member_id', $this->id)->value('status');
+
+        $count = 0;
 
        if ($week1a == 'A')
        {
-           $warning = $warning + 1;
+           $count = $count + 1;
        }
 
        $week2a = Roll::where('Roll_id',$week2)->where('member_id', $this->id)->value('status');
 
        if ($week2a == 'A')
        {
-           $warning = $warning + 1;
+          $count = $count + 1;
        }
 
        $week3a = Roll::where('Roll_id',$week3)->where('member_id', $this->id)->value('status');
 
        if ($week3a == 'A')
        {
-           $warning = $warning + 1;
+           $count = $count + 1;
        }
+
+         if ($count == 3)
+         {
+              $warning = 'Yes';
+         }
+            else
+            {
+                $warning = 'No';
+            }
 
        return $warning;
 

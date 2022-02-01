@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="container-fluid">
+        <h2>Testings</h2>
 
         <div class="row">
 
@@ -81,7 +82,6 @@
                                     <th class="text-center">Rank</th>
                                     <th class="text-center">Days to Birthday</th>
                                     <th class="text-center">Account Balance</th>
-                                    <th class="text-center">Sub Owning</th>
                                     <th class="text-center">Attendance Warning</th>
                                     <th class="text-center">Action</th>
                                 </thead>
@@ -188,7 +188,6 @@
                 { data: 'memberrank.rank'},
                 { data: 'birthday'},
                 { data: 'account', render: $.fn.dataTable.render.number(',', '.', 2, '$')},
-                { data: 'owning', render: $.fn.dataTable.render.number(',', '.', 2, '$')},
                 { data: 'attendance'},
                 { data: 'action', orderable: false, searchable: false}
             ]

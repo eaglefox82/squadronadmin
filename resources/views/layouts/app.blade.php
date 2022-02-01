@@ -17,22 +17,19 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/material-dashboard.css') }}">
-
+</head>
 <body class="">
 <div class="wrapper">
     <div class="sidebar" data-color="rose" data-background-color="black" data-image="{{ asset('img/sidebar-1.jpg') }}">
         <div class="logo">
-                <a href="#" class="simple-text logo-normal text-center">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-
-
+            <a href="#" class="simple-text logo-normal text-center">
+                {{ config('app.name', 'Laravel') }}
+            </a>
         </div>
         <div class="sidebar-wrapper">
             <div class="user">
                 <div class="photo">
-                  <img src="{{ asset('storage/avatar/'.Auth::user()->avatar) }}" alt="">
-
+                    <img src="{{ asset('storage/avatar/'.Auth::user()->avatar) }}" alt="">
                 </div>
                 <div class="user-info">
                     <a data-toggle="collapse" href="#collapseExample" class="username">
@@ -47,6 +44,12 @@
                     </a>
                     <div class="collapse" id="collapseExample">
                         <ul class="nav">
+                            {{--<li class="nav-item">--}}
+                                {{--<a class="nav-link" href="#">--}}
+                                    {{--<span class="sidebar-mini"> S </span>--}}
+                                    {{--<span class="sidebar-normal"> Settings </span>--}}
+                                {{--</a>--}}
+                            {{--</li>--}}
                             <li class="nav-item">
                                 <a class="nav-link" href="{{action('UsersController@show', Auth::user()->id)}}">
                                     <span class="sidebar-mini"> P </span>
@@ -263,7 +266,6 @@
                     </div>
 
             </ul>
-        </li>
         </div>
     </div>
     <div class="main-panel">
@@ -290,7 +292,7 @@
         </nav>
         <!-- End Navbar -->
 
-        <h2 class="text-center">{{ config('app.name', 'Squadron') }} Admin System
+        <h2 class="text-center">{{  config('app.name', 'Squadron') }} Admin Site
             @if (App::environment() != 'Production')
                 - Development
             @endif
@@ -302,22 +304,18 @@
 
         <footer class="footer ">
             <div class="container">
-                <div class="copyright pull-left">
-                    <span> Release - {{config('global.Release_Name')}} ({{config('global.Release')}})</span>
-                </div>
                 <div class="copyright pull-right">
                     &copy;
-                    {{ config('global.year') }}
-                   <!-- <script>
+                    <script>
                         document.write(new Date().getFullYear())
-                    </script> -->
-                     | Developed by {{config('global.Developer')}}</a>
+                    </script>
+                     | Theme by <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>
                 </div>
             </div>
         </footer>
     </div>
 </div>
-@include('sweetalert::alert')
+@stack('scripts')
 </body>
 <!--   Core JS Files   -->
 <script src="{{ asset('js/core/jquery.min.js') }}"></script>
@@ -353,7 +351,7 @@
 <script src="{{ asset('js/plugins/jquery.bootstrap-wizard.js') }}"></script>
 <!--  Notifications Plugin, full documentation here: http://bootstrap-notify.remabledesigns.com/    -->
 <script src="{{ asset('js/plugins/bootstrap-notify.js') }}"></script>
-<!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->s
+<!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
 <script src="{{ asset('js/plugins/jquery-jvectormap.js') }}"></script>
 <!-- Sliders Plugin, full documentation here: https://refreshless.com/nouislider/ -->
 <script src="{{ asset('js/plugins/nouislider.min.js') }}"></script>
@@ -368,16 +366,6 @@
 <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
 <script src="{{ asset('js/plugins/fullcalendar.min.js') }}"></script>
 
-<!--Ajax -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-
-
-
-
 @yield('scripts')
 
-
 </html>
-
-

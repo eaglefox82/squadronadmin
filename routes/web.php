@@ -17,8 +17,6 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::get('/getmembers', 'MembersController@getmembers');
-
 Route::resource('/members', 'MembersController')->middleware('auth');
 Route::resource('/roll', 'RollController')->middleware('auth');
 Route::resource('/activekids', 'ActiveKidsController')->middleware('auth');
@@ -82,6 +80,7 @@ Route::get('report/email', 'ReportController@email')->middleware('auth');
 // Ajax requests
 Route::get('get/payments/{id}', 'MembersController@getPayments')->middleware('auth')->name('getPayments');
 Route::get('get/points', 'PointsController@getPoints')->name('getPoints');
+Route::get('get/members', 'MembersController@getMembers')->name('getMembers');
 
 
 //Deployment - use this to force command line calls during deployments
@@ -92,4 +91,8 @@ Route::get('/storage-link', function () {
 Route::get('/deployment', function(){
     return Artisan::call('migrate');
 });
+
+
+//Testing Routes
+Route::get('/members/test', 'MembersController@index_test')->middleware('auth');
 

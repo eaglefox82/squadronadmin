@@ -106,5 +106,37 @@ class ReportController extends Controller
 
     }
 
+    public function getAttendance (Request $request)
+    {
+        $memberlist = Member::where('member_type', '=', 'League')->get();
+        $totalrolls = Rollmapping::where('roll_year', '=', Carbon::now()->year)->count();
+        $totalevents = Event::Where('year', '=', Carbon::now()->year)->count();
+        $totalattendance = $totalrolls + $totalevents;
+
+        if ($request->ajax)
+
+        $points = Member::query()
+        ->join('Rollmappings', 'Rollmappings.member_id', '=', 'Members.id')
+        ->join('eventrolls', 'eventrolls.member_id', '=', 'Members.id')
+        ->join('Rolls', 'Rolls.member_id', '=', 'Members.id')
+        ->select('members.first_name', 'members.last_name', 'members.id')
+        ->selectRaw('Count(rolls.status) as rollcount')
+        ->selectRaw('Count(eventrolls.status) as eventcount')
+        ->selectRaw('Count(rolls.status) + Count(eventrolls.status) as totalcount')
+        ->selectRaw('totalcount / '.$totalattendance.' * 100 as percentage')
+        ->where('rollmappings.roll_year', '=', Carbon::now()->year)
+        ->where('members.member_type', '=', 'League')
+        ->where('rollmapping.id', '=', 'rolls.roll_id')
+        ->where('rolls.status', '!=', 'A')
+        ->where('eventrolls.status', '!=', 'A')
+        ->groupBy('members.id')
+        ->groupBy('members.first_name')
+        ->groupBy('members.last_name')
+        ->orderBy('percentage', 'DESC')
+        ->get();
+
+
+    }
+
 
 }

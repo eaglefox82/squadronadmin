@@ -28,6 +28,7 @@ use App\Eventroll;
 use App\Points;
 use App\Pointsmaster;
 
+
 class MembersController extends Controller
 {
     /**
@@ -46,15 +47,6 @@ class MembersController extends Controller
 
        return view('members.index', compact('members', 'rank', 'flight', 'malemembers', 'femalemembers','followup'));
     }
-
-     public function getmembers()
-    {
-        //
-
-        $members = Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->with('memberrank')->with('vouchers')->get();
-        return  $members;
-    }
-
 
     /**
      * Show the form for creating a new resource.
@@ -290,6 +282,53 @@ class MembersController extends Controller
 
         return view('members.new', compact('newmembers'));
     }
+
+
+    public function index_test()
+    {
+       $members = Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->orderby('rank', 'asc')->get();
+       $rank = Rankmapping::orderBy('id', 'desc')->paginate(20);
+       $flight = Flight::orderBy('id');
+       $malemembers =  Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->where('membership_number','LIKE','N%')->get();
+       $femalemembers = Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->where('membership_number','LIKE','W%')->get();
+       $followup = $members->where('attendancewarning', '<', 2);
+
+       return view('members.index_test', compact('members', 'rank', 'flight', 'malemembers', 'femalemembers','followup'));
+    }
+
+    public function getMembers(Request $request)
+    {
+       if ($request->ajax()) {
+
+          $members=Member::where('active', '!=', 'N')
+                            ->where('member_type', '=', 'League')
+                            ->orderby('rank', 'asc')
+                            ->with('memberrank', 'flightmap')
+                            ->get();
+
+            return DataTables::of($members)
+                ->addColumn('account', function($members) {
+                    return $members->Accounts->sum('amount');
+                })
+                ->addColumn('owning', function($members) {
+                    return $members->outstanding->count()*10;
+                })
+                ->addColumn('birthday', function($members) {
+                    return $members->birthday;
+                })
+                ->addColumn('attendance', function($members) {
+                    return $members->attendancewarning;
+                })
+                ->addColumn('action', function($row){
+
+                    $btn = '<a href="'.action('MembersController@show', $row->id).'" class="btn btn-success btn-sm">View</a>';
+
+                    return $btn;
+                })
+            ->make(true);
+        }
+    }
+
 
 
 }
