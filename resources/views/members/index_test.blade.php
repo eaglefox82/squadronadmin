@@ -2,7 +2,6 @@
 
 @section('content')
     <div class="container-fluid">
-        <h2>Testings</h2>
 
         <div class="row">
 
@@ -80,10 +79,10 @@
                                     <th class="text-center">First Name</th>
                                     <th class="text-center">Last Name</th>
                                     <th class="text-center">Rank</th>
-                                    <th class="text-center">Days to Birthday</th>
                                     <th class="text-center">Account Balance</th>
+                                    <th class="text-center">Sub Owning</th>
                                     <th class="text-center">Attendance Warning</th>
-                                    <th class="text-center">Action</th>
+                                    <th class="text-center">Actions</th>
                                 </thead>
                                 <tbody class="text-center">
                                 </tbody>
@@ -172,27 +171,24 @@
 
 @section ('scripts')
 <script>
-
- $(function() {
+    $(function() {
 
         var table=$('#member-table').DataTable({
-             //Add Red Line if Attendance Warning is Yes
-
             processing: true,
             serverSide: true,
-            ajax: '{{ route('getMembers') }}',
+            ajax: '{{ route('getMemberlist') }}',
             columns: [
                 { data: 'membership_number'},
                 { data: 'first_name'},
                 { data: 'last_name'},
                 { data: 'memberrank.rank'},
-                { data: 'birthday'},
                 { data: 'account', render: $.fn.dataTable.render.number(',', '.', 2, '$')},
+                { data: 'owning', render: $.fn.dataTable.render.number(',', '.', 2, '$')},
                 { data: 'attendance'},
                 { data: 'action', orderable: false, searchable: false}
-            ]
+            ],
         });
-    });
+    })
 
 </script>
 

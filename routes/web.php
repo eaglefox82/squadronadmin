@@ -80,7 +80,7 @@ Route::get('report/email', 'ReportController@email')->middleware('auth');
 // Ajax requests
 Route::get('get/payments/{id}', 'MembersController@getPayments')->middleware('auth')->name('getPayments');
 Route::get('get/points', 'PointsController@getPoints')->name('getPoints');
-Route::get('get/members', 'MembersController@getMembers')->name('getMembers');
+Route::get('get/members', 'MembersController@getMemberlist')->name('getMemberlist');
 
 
 //Deployment - use this to force command line calls during deployments
@@ -94,5 +94,5 @@ Route::get('/deployment', function(){
 
 
 //Testing Routes
-Route::get('/members/test', 'MembersController@index_test')->middleware('auth');
+Route::get('/testing/members', 'MembersController@index_test')->middleware('auth');
 

@@ -43,8 +43,9 @@ class MembersController extends Controller
        $flight = Flight::orderBy('id');
        $malemembers =  Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->where('membership_number','LIKE','N%')->get();
        $femalemembers = Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->where('membership_number','LIKE','W%')->get();
+       $followup = $members->where('attendancewarning', '<', 2);
 
-       return view('members.index', compact('members', 'rank', 'flight', 'malemembers', 'femalemembers'));
+       return view('members.index', compact('members', 'rank', 'flight', 'malemembers', 'femalemembers','followup'));
     }
 
     /**
@@ -290,7 +291,7 @@ class MembersController extends Controller
        $flight = Flight::orderBy('id');
        $malemembers =  Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->where('membership_number','LIKE','N%')->get();
        $femalemembers = Member::where('active', '!=', 'N')->where('member_type', '=', 'League')->where('membership_number','LIKE','W%')->get();
-       $followup = $members->with('attendancewarning')->where('warning','!=', 'No');
+       $followup = $members->where('attendancewarning', '<', 2);
 
        return view('members.index_test', compact('members', 'rank', 'flight', 'malemembers', 'femalemembers','followup'));
     }
@@ -320,7 +321,7 @@ class MembersController extends Controller
                 })
                 ->addColumn('action', function($row){
 
-                    $btn = '<a href="'.action('MembersController@show', $row->id).'" target="_blank" title="View" class="btn btn-round btn-success"><i class="fa fa-info"></i></a>';
+                    $btn = '<a href="'.action('MembersController@show', $row->id).'" class="btn btn-success btn-sm">View</a>';
 
                     return $btn;
                 })
