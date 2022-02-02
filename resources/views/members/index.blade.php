@@ -79,6 +79,7 @@
                                     <th class="text-center">First Name</th>
                                     <th class="text-center">Last Name</th>
                                     <th class="text-center">Rank</th>
+                                    <th class="text-center">Flight</th>
                                     <th class="text-center">Days to Birthday</th>
                                     <th class="text-center">Account Balance</th>
                                     <th class="text-center">Sub Owning</th>
@@ -186,6 +187,7 @@
                 { data: 'first_name'},
                 { data: 'last_name'},
                 { data: 'memberrank.rank'},
+                { data: 'flightmap.flight_name'},
                 { data: 'birthday'},
                 { data: 'account', render: $.fn.dataTable.render.number(',', '.', 2, '$')},
                 { data: 'owning', render: $.fn.dataTable.render.number(',', '.', 2, '$')},
