@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Pointsmaster;
 use App\Points;
 use App\Settings;
+use DataTables;
 
 class RollController extends Controller
 {
@@ -326,6 +327,57 @@ class RollController extends Controller
 
         alert()->success($title, $message)->autoclose(1500);
         return redirect(action('RollController@index'));
+    }
+
+    public function getCurrentRoll(Request $request)
+    {
+        $rollid = RollMapping::latest()->value('id');
+        $members = Roll::with(array('member' => function($q) {
+            return $q->orderby('rank');
+        }))
+        ->where('roll_id', '=', $rollid)->orderby('status')->get();
+        $roll = Roll::with(array('member' => function($q) {
+            return $q->orderby('rank');
+        }))
+        ->where('roll_id', '=', $rollid)->orderby('status')
+        ->get();
+
+        return DataTables::of($roll)
+         ->addColumn('account', function($members) {
+                    return $members->Accounts->sum('amount');
+                })
+                ->addColumn('owning', function($members) {
+                    return $members->outstanding->count()*10;
+                })
+                ->addColumn('birthday', function($members) {
+                    return $members->birthday;
+                })
+                ->addColumn('attendance', function($members) {
+                    return $members->attendancewarning;
+                })
+                ->addColumn('action', function($row){
+
+                    $btn = '<a href="'.action('MembersController@show', $row->id).'" target="_blank" title="View" class="btn btn-round btn-success"><i class="fa fa-info"></i></a>';
+
+                    return $btn;
+                })
+            ->make(true);
+    }
+
+     public function index_test()
+    {
+        //
+        $rollid = RollMapping::latest()->value('id');
+        $rolldate = RollMapping::latest()->value('roll_date');
+
+        $members = Roll::with(array('member' => function($q) {
+            return $q->orderby('rank');
+        }))
+        ->where('roll_id', '=', $rollid)->orderby('status')->get();
+
+        $online = Settings::where('setting', 'Online Meetings')->value('value');
+
+        return view('roll.index_test', compact('members', 'rolldate', 'rollid', 'online'));
     }
 
 
