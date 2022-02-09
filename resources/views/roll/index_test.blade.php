@@ -39,7 +39,7 @@
                 <div class="card-body">
 
                     <div class="table-responsive">
-                        <table class="table" id="roll-table">
+                        <table class="table table-striped table-no-boreded table-hover" width="100%" id="roll-table">
                             <thead class = "text-primary">
                             <h4> Roll Date: {{date("l - jS F Y",strtotime($rolldate))}}</h4>
                                 <tr>
@@ -49,9 +49,10 @@
                                     <th class="text-center">Last Name</th>
                                     <th class="text-center">Present</th>
                                     <th class="text-center">Account Balance</th>
+
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="text-center">
 
                             </tbody>
                         </table>
@@ -73,16 +74,18 @@
     $(function() {
 
         var table=$('#roll-table').DataTable({
+            autoWidth: false,
             processing: true,
             serverSide: true,
             ajax: '{{ route('getCurrentRoll') }}',
             columns: [
-                {data: ''},
+                { data: 'action', name: 'action', orderable: false, searchable: false, "width": "25%"},
                 { data: 'member.membership_number'},
                 { data: 'member.first_name'},
                 { data: 'member.last_name'},
-                { data: 'status'},
-                { data: 'account'}
+                { data: 'rollstatus.status'},
+                { data: 'account', render: $.fn.dataTable.render.number(',', '.', 2, '$')},
+
             ],
         });
     })

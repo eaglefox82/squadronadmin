@@ -34,7 +34,7 @@ class Roll extends Model
         return $this->hasOne('App\RollMapping', 'id','roll_id');
     }
 
-    public function Accounts()
+    public function accounts()
     {
         return $this->hasMany('App\Account', 'member_id', 'member_id');
     }

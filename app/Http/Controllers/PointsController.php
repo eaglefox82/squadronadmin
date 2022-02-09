@@ -141,6 +141,7 @@ class PointsController extends Controller
             $points = Points::query()
             ->join('members', 'members.id', '=', 'points.member_id')
             ->select('points.member_id', 'members.first_name', 'members.last_name')->selectRaw('SUM(points.value) as TotalPoints')
+            ->selectRaw("RANK() OVER (ORDER BY SUM(points.value) DESC) 'rank'")
             ->where('Year','=', $year)
             ->groupBy('member_id')
             ->groupBy('first_name')

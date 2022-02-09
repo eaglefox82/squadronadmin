@@ -64,23 +64,7 @@
                 { data: 'first_name'},
                 { data: 'last_name'},
                 { data: 'TotalPoints'},
-            ],
-                drawCallback: function () {
-                api = this.api();
-                var arr = api.columns(3).data()[0];  //get array of column 3 (extn)
-                console.log(arr);
-                var sorted = arr.slice().sort(function(a,b){return b-a});
-                var ranks = arr.slice().map(function(v){ return sorted.indexOf(v)+1 });
-                console.log(sorted);
-                console.log(ranks);
-                // interate through each row
-                api.rows().every( function ( rowIdx, tableLoop, rowLoop ) {
-                    var data = this.data();
-                    var rank = ranks[rowLoop];
-                    data.rank = ranks[arr.indexOf(data.extn)];  //set the rank column = the array index of the extn in the ranked array
-             } );
-        api.rows().invalidate();
-        }
+            ]
         });
     })
 
