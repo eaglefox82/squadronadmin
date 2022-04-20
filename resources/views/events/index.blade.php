@@ -103,7 +103,7 @@
                                     <td class="text-center">${{$e->amount}}</td>
                                     <td>
                                         <a href="{{action('EventController@show', $e->id)}}" title="Show Event Roll" target="_blank" class="btn btn-success btn-round"><i class="fa fa-info"></i></a>
-                                        <a href="{{action('EventController@inactive', $e->id)}}" title="Remove Event"  class="btn btn-danger btn-round"><i class="material-icons">close</i></a></a>
+                                        <a href="{{action('EventController@inactive', $e->id)}}" title="Complete Event"  class="btn btn-danger btn-round"><i class="fa fa-check"></i></a></a>
 
                                     </td>
                                 </tr>
