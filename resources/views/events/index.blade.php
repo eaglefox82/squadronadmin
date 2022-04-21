@@ -79,7 +79,8 @@
                             </span>
                         </form>
                     </div>
-                    <button class="btn btn-round btn-primary pull-right" data-toggle="modal" data-target="#addeventModal" class="btn btn-primary btn-round" title="Add Event"><i class="fa fa-plus fa-2x"></i> Add Event</button>
+                    <button class="btn btn-round btn-primary pull-right" data-toggle="modal" data-target="#addeventModal" title="Add Event"><i class="fa fa-plus fa-2x"></i> Add Event</button>
+                    <a class="btn btn-round btn-success pull-right" title="Past Events" target="_blank" href="{{ action('EventController@listPastEvents') }}"><i class="fa fa-calendar fa-2x"></i> Past Events</a>
                 </div>
                 <div class="card-body">
 
@@ -102,8 +103,7 @@
                                     <td class="text-center">{{$e->level->level}}</td>
                                     <td class="text-center">${{$e->amount}}</td>
                                     <td>
-                                        <a href="{{action('EventController@show', $e->id)}}" title="Show Event Roll" target="_blank" class="btn btn-success btn-round"><i class="fa fa-info"></i></a>
-                                        <a href="{{action('EventController@inactive', $e->id)}}" title="Complete Event"  class="btn btn-danger btn-round"><i class="fa fa-check"></i></a></a>
+
 
                                     </td>
                                 </tr>

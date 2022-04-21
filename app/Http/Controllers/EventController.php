@@ -413,4 +413,10 @@ class EventController extends Controller
         return redirect(action('EventController@show', $request->get('event')));
 
     }
+
+    public function listPastEvents()
+    {
+        $event = Events::where('finished', '=', 'Y')->orderby('event_date', 'desc')->get();
+        return view('events.pastlist', compact('event'));
+    }
 }

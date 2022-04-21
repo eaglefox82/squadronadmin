@@ -118,7 +118,7 @@
 
             <li class = "nav-item">
                 <a class = "nav-link" data-toggle = "collapse" href="#events">
-                    <i class="fa fa-ticket"></i>
+                    <i class="fa fa-calendar"></i>
                         <p>Squadron Events
                             <b class = "caret"></b>
                         </p>

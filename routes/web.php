@@ -52,9 +52,10 @@ Route::get('/otheritems/{id}/inactive', 'OtheritemsController@inactive')->middle
 Route::get('/new/members', 'MembersController@newmembers')->middleware('auth');
 Route::get('/events/delete/{id}', 'EventController@inactive')->middleware('auth');
 Route::get('/annualsubs', 'SquadronAccountingController@annualsubs')->middleware('auth');
+Route::get('/pastevents', 'EventController@listPastEvents')->middleware('auth');
+
+
 Route::post('vouchers/banking/{id}', 'ActiveKidsController@bankingreference')->middleware('auth');
-
-
 Route::post('/profile/update/avatar', 'UsersController@update_avatar')->middleware('auth');
 Route::post('/pastroll/post','PastrollController@getRoll')->middleware('auth');
 Route::post('/accounting/payment/', 'SquadronAccountingController@payment')->middleware('auth');
