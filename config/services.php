@@ -35,4 +35,10 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'messagebird' => [
+    'access_key' => env('IkIk3L6prXxQ77T1pdkZppUXK'),
+    'originator' => env('+61405365213'),
+    'recipients' => env('MESSAGEBIRD_RECIPIENTS'),
+],
+
 ];
