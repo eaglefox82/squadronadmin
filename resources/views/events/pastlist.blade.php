@@ -52,7 +52,7 @@
                             @foreach($event as $e)
                                 <tr>
                                     <td class="text-center">{{date("l - jS F Y",strtotime($e->event_date))}}</td>
-                                    <td class="text-center">{{$e->event}} - {{ Carbon::phase($e->event_date)->format(Y) }}</td>
+                                    <td class="text-center">{{$e->event}} - {{ date("Y",strtotime($e->event_date)) }}</td>
                                     <td class="text-center">{{$e->level->level}}</td>
                                     <td class="text-center">${{$e->amount}}</td>
                                     <td>

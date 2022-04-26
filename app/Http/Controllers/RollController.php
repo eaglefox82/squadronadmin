@@ -141,7 +141,7 @@ class RollController extends Controller
         $strength = RollMapping::Where('id', '=', $rollid)->value('roll_strength');
         $present = Roll::Where('roll_id', '=', $rollid)->where('status', '!=', 'A')->count();
 
-        $rolls = RollMapping::orderby('id','desc')->where('roll_date', '>', Carbon::now()->subMonths(3))->get();
+        $rolls = RollMapping::orderby('id','desc')->get();
 
         return view('roll.past', compact('members', 'rolldate', 'rollid', 'strength', 'present', 'id', 'rolls'));
     }
