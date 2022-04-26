@@ -58,6 +58,7 @@
         var table=$('#points-table').DataTable({
             processing: true,
             serverSide: true,
+            pageLength: 50,
             ajax: '{{ route('getPoints') }}',
             columns: [
                 { data: 'rank', defaultContent: ''},
