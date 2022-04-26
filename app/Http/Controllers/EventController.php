@@ -267,14 +267,15 @@ class EventController extends Controller
             $r = Eventroll::find($id);
             $event = EventRoll::where('id','=', $id)->value('event_id');
             $level = Events::where('id', '=', $event)->value('event_level');
-            $event_level = Eventlevels::where('id', '=', $level)->value('level');
+
             $points = Eventlevels::where('id', '=', $level)->value('points_rank');
             $currentstatus = Eventroll::where('id', '=', $id)->value('status');
+            $eventname = Events::where('id', '=', $event)->value('event');
         } else {
             $r = Other_attendance::find($id);
             $event = Other_attendance::where('id','=', $id)->value('event_id');
             $level = Events::where('id', '=', $event)->value('event_level');
-            $event_level = Eventlevels::where('id', '=', $level)->value('level');
+            $eventname = Events::where('id', '=', $event)->value('event');
             $points = Eventlevels::where('id', '=', $level)->value('points_rank');
             $currentstatus = Other_attendance::where('id', '=', $id)->value('status');
         }
@@ -297,7 +298,7 @@ class EventController extends Controller
                             $e=new Points;
                             $e->member_id = $r->member_id;
                             $e->value = $points;
-                            $e->Reason ="Attendance - ".$event_level;
+                            $e->Reason ="Attendance - ".$eventname;
                             $e->year = Carbon::now()->year;
                             $e->save();
                         }

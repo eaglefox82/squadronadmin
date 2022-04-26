@@ -99,6 +99,7 @@
                                 <br></p>
                         <h3 class="card-title" id="pointstotal">{{$member->points->sum('value')}}</h3>
                         <div class = "card-footer">
+                            <a href="" data-toggle="modal" data-target="#showpointsModal" title="Show Points">&nbsp; Show Points</a>
                         </div>
                     </div>
                 </div>
@@ -357,7 +358,7 @@
                 </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-round btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-round btn-secondary" data-dismiss="modal" onclick="javascript:window.location.reload()">Close</button>
                     <button type="submit" class="btn btn-round btn-primary">Save Changes</button>
                 </div>
                 {!!Form::close()!!}
@@ -407,7 +408,7 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-round btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-round btn-secondary" data-dismiss="modal" onclick="javascript:window.location.reload()">Close</button>
                         <button type="submit" class="btn btn-round btn-primary">Save Changes</button>
                     </div>
                     {!!Form::close()!!}
@@ -437,7 +438,7 @@
                                     </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-round btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-round btn-secondary" data-dismiss="modal" onclick="javascript:window.location.reload()">Close</button>
                             <button type="submit" class="btn btn-round btn-primary">Save Changes</button>
                         </div>
                         {!!Form::close()!!}
@@ -480,7 +481,7 @@
                                     </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-round btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-round btn-secondary" data-dismiss="modal" onclick="javascript:window.location.reload()">Close</button>
                             <button type="submit" class="btn btn-round btn-primary">Save Changes</button>
                         </div>
                         {!!Form::close()!!}
@@ -522,7 +523,7 @@
                                     </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-round btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-round btn-secondary" data-dismiss="modal" onclick="javascript:window.location.reload()">Close</button>
                             <button type="submit" class="btn btn-round btn-primary">Save Changes</button>
                         </div>
                         {!!Form::close()!!}
@@ -542,7 +543,7 @@
                         {!!Form::open(array('action' => ['SquadronAccountingController@store'], 'method'=>'POST', 'class'=>'form-horizontal'))!!}
                         <div class="modal-body">
                             <input type="hidden" name="membership" value="{{$member->id}}">
-                     
+
 
                             <label class="label-control">Request Overview:</label>
                             <div class="input-group">
@@ -567,13 +568,48 @@
                                 </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary btn-round" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary btn-round" data-dismiss="modal" onclick="javascript:window.location.reload()">Close</button>
                             <button type="submit" class="btn btn-primary btn-round">Save Changes</button>
                         </div>
                         {!!Form::close()!!}
                     </div>
                 </div>
             </div>
+
+            <div class="modal fade" id="showpointsModal" tabindex="-1" role="dialog" aria-labelledby="memberpoints" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="pointsModal">Points for {{$member->first_name}} {{$member->last_name}}</h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Reason</th>
+                                        <th>Value</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($member->points as $p)
+                                        <tr>
+                                            <td>{{$p->reason}}</td>
+                                            <td>{{$p->value}}</td>
+                                            <td>{{date("jS F Y",strtotime($p->created_at))}}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" onclick="javascript:window.location.reload()" class="btn btn-round btn-secondary" data-dismiss="modal" id="closemodal">Close</button>
+                        </div>
+                    </div>
+                </div>
 
 
 @endsection
@@ -618,8 +654,6 @@
        });
 
    });
-
-
 
  </script>
 
