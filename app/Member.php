@@ -175,7 +175,8 @@ class Member extends Model
         return $this->eventrolls()->wherehas('event', function ($query){
             $query->where('year', Carbon::now()->year);
         })
-        ->where('status', '=', 'A');
+        ->where('status', '!=', 'Y')
+        ->where('status', '!=', 'N');
     }
 
     public function memberyear()
