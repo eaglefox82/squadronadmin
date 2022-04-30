@@ -22,6 +22,8 @@ use App\Users;
 use App\Event;
 use App\Eventroll;
 use App\Completedform;
+use App\Points;
+Use DataTables;
 
 class ReportController extends Controller
 {
@@ -113,28 +115,63 @@ class ReportController extends Controller
         $totalevents = Event::Where('year', '=', Carbon::now()->year)->count();
         $totalattendance = $totalrolls + $totalevents;
 
-        if ($request->ajax)
+        if ($request->ajax){
 
         $points = Member::query()
         ->join('Rollmappings', 'Rollmappings.member_id', '=', 'Members.id')
         ->join('eventrolls', 'eventrolls.member_id', '=', 'Members.id')
         ->join('Rolls', 'Rolls.member_id', '=', 'Members.id')
         ->select('members.first_name', 'members.last_name', 'members.id')
-        ->selectRaw('Count(rolls.status) as rollcount')
-        ->selectRaw('Count(eventrolls.status) as eventcount')
-        ->selectRaw('Count(rolls.status) + Count(eventrolls.status) as totalcount')
-        ->selectRaw('totalcount / '.$totalattendance.' * 100 as percentage')
+        ->selectRaw("Count(rolls.status) 'rollcount'")
+        ->selectRaw("Count(eventrolls.status) 'eventcount'")
+        ->selectRaw("Count(rolls.status) + Count(eventrolls.status) 'totalcount'")
+        ->selectRaw("totalcount / '.$totalattendance.' * 100 'percentage'")
+        ->selectRaw("RANK() OVER (ORDER BY percentage DESC) 'rank'")
         ->where('rollmappings.roll_year', '=', Carbon::now()->year)
         ->where('members.member_type', '=', 'League')
         ->where('rollmapping.id', '=', 'rolls.roll_id')
         ->where('rolls.status', '!=', 'A')
-        ->where('eventrolls.status', '!=', 'A')
+        ->where('eventrolls.status', '=', 'A')
         ->groupBy('members.id')
         ->groupBy('members.first_name')
         ->groupBy('members.last_name')
-        ->orderBy('percentage', 'DESC')
+        ->orderByDesc('percentage')
         ->get();
 
+        return DataTables::of($points)->make(true);
+        }
+
+
+    }
+
+    public function attendance_test()
+    {
+        $totalrolls = Rollmapping::where('roll_year', '=', Carbon::now()->year)->get();
+        $totalevents = Event::Where('year', '=', Carbon::now()->year)->get();
+
+        return view('report.points_test', compact('totalrolls', 'totalevents'));
+    }
+
+    public function print_points()
+    {
+        $date = Carbon::today()->toDateString();
+        $year =  Carbon::parse(Carbon::now())->year;
+        $points = Points::query()
+            ->join('members', 'members.id', '=', 'points.member_id')
+            ->select('points.member_id', 'members.first_name', 'members.last_name')->selectRaw('SUM(points.value) as TotalPoints')
+            ->selectRaw("RANK() OVER (ORDER BY SUM(points.value) DESC) 'rank'")
+            ->where('Year','=', $year)
+            ->groupBy('member_id')
+            ->groupBy('first_name')
+            ->groupBy('last_name')
+            ->orderByDesc('Totalpoints')
+            ->get();
+
+           $pdf = PDF::loadView('report.points_report', compact('points', 'date'));
+
+           return $pdf->download('.Points Report - '.date("jS F Y",strtotime($date)).'.pdf');
+
+            return view('report.points_report', compact('points', 'date'));
 
     }
 

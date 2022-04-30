@@ -54,7 +54,6 @@ Route::get('/events/delete/{id}', 'EventController@inactive')->middleware('auth'
 Route::get('/annualsubs', 'SquadronAccountingController@annualsubs')->middleware('auth');
 Route::get('/pastevents', 'EventController@listPastEvents')->middleware('auth');
 
-
 Route::post('vouchers/banking/{id}', 'ActiveKidsController@bankingreference')->middleware('auth');
 Route::post('/profile/update/avatar', 'UsersController@update_avatar')->middleware('auth');
 Route::post('/pastroll/post','PastrollController@getRoll')->middleware('auth');
@@ -76,6 +75,7 @@ Route::get('/reports/welcome', 'ReportController@welcome')->middleware('auth');
 Route::get('reports/past', 'ReportController@past')->middleware('auth');
 Route::get('reports/download/{id}', 'ReportController@downloadpast')->middleware('auth');
 Route::get('report/email', 'ReportController@email')->middleware('auth');
+Route::get('report/points/print', 'ReportController@print_points')->middleware('auth');
 
 
 // Ajax requests
@@ -83,6 +83,7 @@ Route::get('get/payments/{id}', 'MembersController@getPayments')->middleware('au
 Route::get('get/points', 'PointsController@getPoints')->name('getPoints');
 Route::get('get/members', 'MembersController@getMemberlist')->name('getMemberlist');
 Route::get('get/roll/current', 'RollController@getCurrentRoll')->name('getCurrentRoll');
+Route::get('get/report/attendance', 'ReportController@getAttendance')->name('getAttendance');
 
 
 //Deployment - use this to force command line calls during deployments
@@ -97,4 +98,5 @@ Route::get('/deployment', function(){
 
 //Testing Routes
 Route::get('/testing/roll', 'RollController@index_test')->middleware('auth');
+Route::get('/testing/attendance', 'ReportController@attendance_test')->middleware('auth');
 

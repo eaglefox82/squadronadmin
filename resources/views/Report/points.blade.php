@@ -20,6 +20,9 @@
         <div class="col-lg-12 col-sm-12">
             <div class="card">
                 <div class="card-body">
+                    <div class="pull-right new-button">
+                            <a href="{{action('ReportController@print_points')}}" class="btn btn-round btn-success pull-right"><i class="fa fa-book fa-2x"></i>Print Points</a>
+                        </div>
                     <h3 class="text-center">Points Report</h3>
 
                     <div class="table-responsive">

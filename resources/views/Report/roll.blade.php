@@ -69,23 +69,19 @@
         <h3 style="text-align: center">Members Present</h3>
         <table style = "width:100%">
             <tr>
-                <th class="text-center">Last Name</th>
-                <th class="text-center">First Name</th>
-                <th class="text-center">Membershtip Number</th>
                 <th class="text-center">Rank</th>
-                <th class="text-center">Time In</th>
+                <th class="text-center">First Name</th>
+                <th class="text-center">Last Name</th>
+                <th class="text-center">Total Points</th>
             </tr>
 
-            @foreach($members as $m)
-                @if($m->status != 'A')
-                    <tr>
-                        <td class="text-center">{{$m->member->last_name}}</td>
-                        <td class="text-center">{{$m->member->first_name}}</td>
-                        <td class="text-center">{{$m->member->membership_number}}</td>
-                        <td class="text-center">{{$m->member->memberrank->rank}}</td>
-                        <td class="text-center">{{date("g:i a",strtotime($m->updated_at))}}</td>
-                    </tr>
-                @endif
+            @foreach ($points as $p)
+                <tr>
+                    <td class="text-center">{{ $p->rank }}</td>
+                    <td class="text-center">{{ $p->first_name }}</td>
+                    <td class="text-center">{{ $p->last_name }}</td>
+                    <td class="text-center">{{ $p->TotalPoints }}</td>
+                </tr>
             @endforeach
         </table>
         <br>

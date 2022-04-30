@@ -78,16 +78,19 @@
     'normal' => $rootDir . '\lib\fonts\DejaVuSerif',
   ),
   'material icons' => array(
-    'normal' => $fontDir . '/material-icons-normal_1f7280577de1c08ce8fae346f4bef286',
+    'normal' => $fontDir . '/material-icons-normal_869fe7bc85030397e4682c94171468b6',
   ),
   'roboto' => array(
-    'normal' => $fontDir . '/roboto-normal_9e96d9e23ad102bc05be47680b365314',
-    '300' => $fontDir . '/roboto-300_560416baba154a183b2ccc6468b2c118',
-    '500' => $fontDir . '/roboto-500_f4a9bd25e4929a6414964bb51d71950f',
-    'bold' => $fontDir . '/roboto-bold_fd07d89b19ff1de56e1d341daaa21df7',
+    'normal' => $fontDir . '/roboto-normal_ea8a516f74db1359b3df4ecad83b7f3b',
+    '300' => $fontDir . '/roboto-300_d4c0267db2aab4066cff45f83a6b1c96',
+    '500' => $fontDir . '/roboto-500_5f9df759bbe37a113d7d94b26335edef',
+    'bold' => $fontDir . '/roboto-bold_5de0bf436581c52a65958c3e004cf0a1',
   ),
   'roboto slab' => array(
-    'normal' => $fontDir . '/roboto-slab-normal_a44841dcd39f81fc6df81bdf7a0c20b2',
-    'bold' => $fontDir . '/roboto-slab-bold_7822227677cf5c4419c17501582f5430',
+    'normal' => $fontDir . '/roboto-slab-normal_e5b2daffb13f6bd5d0b432300ea6d5b9',
+    'bold' => $fontDir . '/roboto-slab-bold_bce9a152517da8254c5da953f9c3b61d',
+  ),
+  'fontawesome' => array(
+    'normal' => $fontDir . '/fontawesome-normal_d726fe9f0eedcde03c194e171054f6d7',
   ),
 ) ?>
