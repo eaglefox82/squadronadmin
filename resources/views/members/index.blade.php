@@ -68,7 +68,7 @@
                                     <th class="text-center">Last Name</th>
                                     <th class="text-center">Rank</th>
                                     <th class="text-center">Account Balance</th>
-                                    <th class="text-center">Sub Owning</th>
+                                    <th class="text-center">Sub Owing</th>
                                     <th class="text-center">Attendance Warning</th>
                                     <th class="text-center">Actions</th>
                                 </thead>
