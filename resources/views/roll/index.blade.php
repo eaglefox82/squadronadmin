@@ -49,6 +49,7 @@
                                     <th width = "20%" class="text-center">Rank</th>
                                     <th class="text-center">Present</th>
                                     <th class="text-center">Account Balance</th>
+                                    <th class="text-center">Subs Owing</th>
                                     <th class="text-center">Flight</th>
                                     <th width="10%"></th>
                                 </tr>
@@ -79,6 +80,11 @@
                                         <td class="text-center"><strong>${{number_format($r->member->accounts->sum('amount'),2)}}</strong></td>
                                     @else
                                         <td style="border-top: 1px #ddd solid"></td>
+                                    @endif
+                                     @if($r->member->outstanding->count() != 0)
+                                        <td class="text-center" style="color:red">${{number_format($r->member->outstanding->count()*10,2)}}</td>
+                                    @else
+                                        <td class="text-center"></td>
                                     @endif
                                     @if ($r->member->flight !=0)
                                         <td class="text-center">{{$r->member->flightmap->flight_name}}</td>

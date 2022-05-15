@@ -176,6 +176,20 @@
                 { data: 'attendance'},
                 { data: 'action', orderable: false, searchable: false}
             ],
+            "rowCallback": function( row, data, index ) {
+               if ( data.owning > 0) {
+                   $('td', row).css('background-color', '#d909d2');
+                    $('td', row).css('color', 'white');
+                }
+                if ( data.attendance == 'Yes') {
+                   $('td', row).css('background-color', '#d4001c');
+                    $('td', row).css('color', 'white');
+                }
+
+
+            }
+
+
         });
     })
 
