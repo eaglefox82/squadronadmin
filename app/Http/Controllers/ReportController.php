@@ -167,9 +167,9 @@ class ReportController extends Controller
             ->orderByDesc('Totalpoints')
             ->get();
 
-           $pdf = PDF::loadView('report.points_report', compact('points', 'date'));
+          $pdf = PDF::loadView('report.points_report', compact('points', 'date'));
 
-           return $pdf->download('.Points Report - '.date("jS F Y",strtotime($date)).'.pdf');
+            return $pdf->download('.Points Report - '.date("jS F Y",strtotime($date)).'.pdf');
 
             return view('report.points_report', compact('points', 'date'));
 

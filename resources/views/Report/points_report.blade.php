@@ -48,6 +48,7 @@
               Australian Air League Inc.<br>
               {{ config('app.name', 'Squadron') }} Sqaudron<br>
 
+        <div style="page-break-after:auto;">
         <h3 style="text-align: center">Points Ranking</h3>
         <table style = "width:100%">
             <tr>
@@ -66,6 +67,7 @@
                 </tr>
             @endforeach
         </table>
+        </div>
         <br>
     </body>
 </html>
