@@ -191,8 +191,14 @@
                                 <a class="nav-link" href="{{action('PointsController@index')}}">
                                     <span>Squadron Points</span>
                                 </a>
-                            <li>
+                            </li>
                         @endif
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{action('StaffAttendanceController@index')}}">
+                                    <span>Staff Leave</span>
+                                </a>
+                            </li>
 
 
                             <li class="nav-item">

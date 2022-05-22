@@ -56,7 +56,11 @@
                             </thead>
                             <tbody>
                             @foreach($members as $r)
-                                <tr>
+                                @if ($r->member->staffleave() == 'Yes')
+                                    <tr style="background-color:#e3cd3b">
+                                @else
+                                    <tr>
+                                @endif
                                     <td class="text-center">
                                         @if ($r->status == 'A')
                                             @if($online == 'No')
@@ -71,10 +75,10 @@
                                     <td class="text-center">{{$r->member->membership_number}}</td>
                                     <td class="text-center">{{$r->member->last_name}}, {{$r->member->first_name}} </td>
                                     <td class="text-center">{{$r->member->memberrank->rank}}</td>
-                                    @if ($r->status != 'P')
-                                        <td class="text-center">{{$r->rollstatus->status}}</td>
+                                    @if ($r->member->staffleave() == 'Yes')
+                                        <td class="text-center">Requested Leave</td>
                                     @else
-                                        <td class="text-center" style="color:red">{{$r->rollstatus->status}}</td>
+                                        <td class="text-center">{{$r->rollstatus->status}}</td>
                                     @endif
                                     @if ($r->member->accounts->sum('amount') != 0)
                                         <td class="text-center"><strong>${{number_format($r->member->accounts->sum('amount'),2)}}</strong></td>
@@ -103,6 +107,34 @@
             </div>
         </div>
     </div>
+</div>
+
+<!-- New Roll Modal -->
+
+<div class="modal fade" id="newrollModal" tabindex="-1" role="dialog" aria-labelledby="NewRollLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLabel">New Roll</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        {!!Form::open(array('action' => ['RollController@store'], 'method'=>'POST', 'class'=>'form-horizontal'))!!}
+        <div class="modal-body">
+            <label class="label-control">Roll Date:</label>
+                <div class="input-group">
+                    <input type="date" class="form-control" name="date" id="date" required>
+                </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-round" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary btn-round">Create Roll</button>
+        </div>
+    </div>
+        {!!Form::close()!!}
+    </div>
+</div>
 </div>
 
 @endsection

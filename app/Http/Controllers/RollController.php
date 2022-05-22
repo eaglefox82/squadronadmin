@@ -303,9 +303,86 @@ class RollController extends Controller
                 $message = "Member paid by Cash";
                 break;
 
+            // Define variables for member who is not present
+            case 'A':
+                $paid = "N";
+                $title = "Member Absent";
+                $message = "Member marked as absent";
+                break;
+
             default:
                 Alert()->error("Error", "System Error has occured")->autoclose(1500);
+
                 return redirect(action('RollController@index'));
+        }
+    }
+
+    public function rollupdate($id, $status)
+    {
+        $r = Roll::find($id);
+        $points = Pointsmaster::where('Reason', '=', 'Attendance')->value('Value');
+        $member = Roll::where('id', '=', $id)->value('member_id');
+        $year = Carbon::parse(now())->year;
+        $rollid = $r->value('roll_id');
+
+
+        switch ($status) {
+            // Define variables for member paying using account and check balance
+            case 'V':
+
+                // Check Account Balance and back out if account balance is too low
+                if($r->member->Accounts->sum('amount') < 10)
+                {
+                    Alert()->error("Error", "Insufficient Account Balance")->autoclose(1500);
+                    return redirect(action('RollController@index'));
+                }
+
+                $paid = 'Y';
+                $title = 'Member Present';
+                $message = 'Member paid using account balance';
+
+                // Add Voucher use record
+                $voucher = new Accounts();
+                $voucher->member_id = $r->member_id;
+                $voucher->Reason = 'Weekly Subs';
+                $voucher->amount = -10;
+                $voucher->user = Auth::user()->username;
+                $voucher->save();
+
+                break;
+
+            // Define variables for member who didn't pay
+            case 'P':
+                $paid = 'N';
+                $title = "Member Present";
+                $message = "Member has not paid";
+                break;
+
+            // Define variables for member who is online
+            case 'O':
+                $paid = 'N';
+                $title = "Member Online";
+                $message = "Member marked as present online";
+                break;
+
+            // Define variables for member who paid cash
+            case 'C':
+                $paid = "Y";
+                $title = "Member Present";
+                $message = "Member paid by Cash";
+                break;
+
+            // Define variables for member who is not present
+            case 'A':
+                $paid = "N";
+                $title = "Member Absent";
+                $message = "Member marked as absent";
+                break;
+
+            default:
+                Alert()->error("Error", "System Error has occured")->autoclose(1500);
+
+                return redirect(action('RollController@show', $rollid));
         }
 
         $r->status = $status;
@@ -326,7 +403,8 @@ class RollController extends Controller
         }
 
         alert()->success($title, $message)->autoclose(1500);
-        return redirect(action('RollController@index'));
+        return redirect(action('RollController@show', $rollid));
+
     }
 
     public function getCurrentRoll(Request $request)

@@ -10,6 +10,7 @@ use App\Flight;
 use App\Points;
 use App\Eventroll;
 use App\Events;
+use App\StaffAttendance;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -73,6 +74,11 @@ class Member extends Model
     public function requests()
     {
         return $this->hasMany('App\Srequest');
+    }
+
+    public function staffAttendance()
+    {
+        return $this->hasMany('App\StaffAttendance', 'member_id', 'id');
     }
 
     public function currentrequests()
@@ -257,6 +263,19 @@ class Member extends Model
        return $warning;
 
     }
+
+    public function staffleave()
+    {
+        $roll = Rollmapping::latest()->take(0)->value('roll_date');
+        $leave = StaffAttendance::where('member_id', $this->id)->where('date','=', Carbon::parse($roll))->get();
+
+      if ($leave->count() > 0)
+          { return 'Yes'; }
+        else
+          {  return 'No'; }
+    }
+
+
 
 
 }

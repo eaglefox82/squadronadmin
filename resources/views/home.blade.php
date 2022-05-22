@@ -234,13 +234,11 @@
         </div>
         {!!Form::open(array('action' => ['RollController@store'], 'method'=>'POST', 'class'=>'form-horizontal'))!!}
         <div class="modal-body">
-            <label class="label-control">Enter Date:</label>
-                <div class="form-group">
-                    <div class="input-group">
-                        <input type="text" class="form-control datetimepicker" name="rolldate" value="{{Carbon\Carbon::now()->format('d-m-Y')}}">
-                    </div>
+            <label class="label-control">Roll Date:</label>
+                <div class="input-group">
+                    <input type="date" class="form-control" name="date" id="date" required>
                 </div>
-            </div>
+        </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary btn-round" data-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-primary btn-round">Create Roll</button>

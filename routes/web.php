@@ -30,11 +30,13 @@ Route::resource('/accounts', 'AccountController')->middleware('auth');
 Route::resource('/points', 'PointsController')->middleware('auth');
 Route::resource('/events', 'EventController')->middleware('auth');
 Route::resource('/user', 'UsersController')->middleware('auth');
+Route::resource('staff/attendance', 'StaffAttendanceController')->middleware('auth');
 
 
 Route::get('/activekids/voucher/{id}', 'ActiveKidsController@voucher')->middleware('auth');
 Route::get('/roll/notpresent/{id}','RollController@notPresent')->middleware('auth');
 Route::get('/roll/update/{id}/{status}', 'RollController@rollstatus')->middleware('auth');
+Route::get('/roll/past/update/{id}/{status}', 'RollController@rollupdate')->middleware('auth');
 Route::get('/vouchers/complete/{id}', 'ActiveKidsController@complete')->middleware('auth');
 Route::get('/vouchers/submit/{id}', 'ActiveKidsController@submit')->middleware('auth');
 Route::get('/members/updateroll/cash/{id}', 'RollController@updateRollCash')->middleware('auth');

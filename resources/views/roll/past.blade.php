@@ -146,21 +146,21 @@
                                     @endif
                                     <td>
                                     @if ($r->status == 'A')
-                                        <a href="{{action('RollController@rollstatus', ['id' => $r->id, 'status' => 'C'])}}" title="Paid" class="btn btn-success btn-round"><i class="material-icons">done</i></a>
-                                        <a href="{{action('RollController@rollstatus', ['id' => $r->id, 'status' => 'V'])}}" title="Voucher" class="btn btn-info btn-round"><i class ="fa fa-money fa-2x"></i></a>
-                                        <a href="{{action('RollController@rollstatus', ['id' => $r->id, 'status' => 'P'])}}" title="Not Paid" class="btn btn-danger btn-round"><i class="material-icons">close</i></a>
+                                        <a href="{{action('RollController@rollupdate', ['id' => $r->id, 'status' => 'C'])}}" title="Paid" class="btn btn-success btn-round"><i class="material-icons">done</i></a>
+                                        <a href="{{action('RollController@rollupdate', ['id' => $r->id, 'status' => 'V'])}}" title="Voucher" class="btn btn-info btn-round"><i class ="fa fa-money fa-2x"></i></a>
+                                        <a href="{{action('RollController@rollupdate', ['id' => $r->id, 'status' => 'P'])}}" title="Not Paid" class="btn btn-danger btn-round"><i class="material-icons">close</i></a>
                                     @elseif ($r->status == 'P')
-                                        <a href="{{action('RollController@rollstatus', ['id' => $r->id, 'status' => 'C'])}}" title="Paid" class="btn btn-success btn-round"><i class="material-icons">done</i></a>
-                                        <a href="{{action('RollController@rollstatus', ['id' => $r->id, 'status' => 'V'])}}" title="Voucher" class="btn btn-info btn-round"><i class ="fa fa-money fa-2x"></i></a>
-                                        <a href="{{action('RollController@rollstatus', ['id' => $r->id, 'status' => 'A'])}}" title="Not Present" class="btn btn-danger btn-round"><i class="fa fa-ban fa-2x"></i></a>
+                                        <a href="{{action('RollController@rollupdate', ['id' => $r->id, 'status' => 'C'])}}" title="Paid" class="btn btn-success btn-round"><i class="material-icons">done</i></a>
+                                        <a href="{{action('RollController@rollupdate', ['id' => $r->id, 'status' => 'V'])}}" title="Voucher" class="btn btn-info btn-round"><i class ="fa fa-money fa-2x"></i></a>
+                                        <a href="{{action('RollController@rollupdate', ['id' => $r->id, 'status' => 'A'])}}" title="Not Present" class="btn btn-danger btn-round"><i class="fa fa-ban fa-2x"></i></a>
                                     @elseif ($r->status == 'C')
-                                        <a href="{{action('RollController@rollstatus', ['id' => $r->id, 'status' => 'V'])}}" title="Voucher" class="btn btn-info btn-round"><i class ="fa fa-money fa-2x"></i></a>
-                                        <a href="{{action('RollController@rollstatus', ['id' => $r->id, 'status' => 'P'])}}" title="Not Paid" class="btn btn-danger btn-round"><i class="material-icons">close</i></a>
-                                        <a href="{{action('RollController@rollstatus', ['id' => $r->id, 'status' => 'A'])}}" title="Not Present" class="btn btn-danger btn-round"><i class="fa fa-ban fa-2x"></i></a>
+                                        <a href="{{action('RollController@rollupdate', ['id' => $r->id, 'status' => 'V'])}}" title="Voucher" class="btn btn-info btn-round"><i class ="fa fa-money fa-2x"></i></a>
+                                        <a href="{{action('RollController@rollupdate', ['id' => $r->id, 'status' => 'P'])}}" title="Not Paid" class="btn btn-danger btn-round"><i class="material-icons">close</i></a>
+                                        <a href="{{action('RollController@rollupdate', ['id' => $r->id, 'status' => 'A'])}}" title="Not Present" class="btn btn-danger btn-round"><i class="fa fa-ban fa-2x"></i></a>
                                     @elseif ($r->status == 'V')
                                         <a href="{{action('RollController@rollstatus', ['id' => $r->id, 'status' => 'C'])}}" title="Paid" class="btn btn-success btn-round"><i class="material-icons">done</i></a>
                                         <a href="{{action('RollController@rollstatus', ['id' => $r->id, 'status' => 'P'])}}" title="Not Paid" class="btn btn-danger btn-round"><i class="material-icons">close</i></a>
-                                        <a href="{{action('RollController@rollstatus', ['id' => $r->id, 'status' => 'P'])}}" title="Not Paid" class="btn btn-danger btn-round"><i class="material-icons">close</i></a>
+                                        <a href="{{action('RollController@rollstatus', ['id' => $r->id, 'status' => 'A'])}}" title="Not Present" class="btn btn-danger btn-round"><i class="material-icons">close</i></a>
                                     @endif
                                     </td>
 
