@@ -80,19 +80,12 @@ class RollController extends Controller
      */
     public function store(Request $request)
     {
-        $validateData = Validator::make($request->all(),[
-            'rolldate' => 'required'
-        ]);
 
-        if ($validateData ->fails())
-        {
-            return Redirect::back()->withErrors($validateData)->withInput();
-        }
 
         //Create Rollmapping
-        $date = Carbon::parse($request->get('rolldate'))->format('Y-m-d');
+        $date = Carbon::parse($request->get('date'))->format('Y-m-d');
         $e = new RollMapping();
-        $e->roll_date = Carbon::parse($request->get('rolldate'));
+        $e->roll_date = Carbon::parse($request->get('date'));
         $e->roll_year = Carbon::parse($date)->year;
         $e->roll_month = Carbon::parse($date)->month;
         $e->roll_week = Carbon::parse($date)->weekOfMonth;
