@@ -56,11 +56,7 @@
                             </thead>
                             <tbody>
                             @foreach($members as $r)
-                                @if ($r->member->staffleave() == 'Yes')
-                                    <tr style="background-color:#e3cd3b">
-                                @else
-                                    <tr>
-                                @endif
+
                                     <td class="text-center">
                                         @if ($r->status == 'A')
                                             @if($online == 'No')

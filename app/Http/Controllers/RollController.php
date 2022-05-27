@@ -308,6 +308,29 @@ class RollController extends Controller
 
                 return redirect(action('RollController@index'));
         }
+
+        $r->status = $status;
+        if($paid != 'N')
+            {
+                $r->paidrollid = $rollid;
+            }
+        $r->save();
+
+        if (config('global.Squadron_Points') != 'N')
+        {
+            $p=new Points();
+            $p->member_id = $member;
+            $p->value = $points;
+            $p->year = $year;
+            $p->reason = "Squadron Night Attendance";
+            $p->save();
+        }
+
+        alert()->success($title, $message)->autoclose(1500);
+        return redirect(action('RollController@index'));
+
+
+
     }
 
     public function rollupdate($id, $status)
