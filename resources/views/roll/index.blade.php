@@ -56,9 +56,12 @@
                             </thead>
                             <tbody>
                             @foreach($members as $r)
-
+                              @if ($r->member->staffleave() == 'Yes')
+                                    <td class="text-center" style="background:color=#FFD700"
+                              @else                                   
                                     <td class="text-center">
-                                        @if ($r->status == 'A')
+                              @endif                                    
+                                     @if ($r->status == 'A')
                                             @if($online == 'No')
                                                 <a href="{{action('RollController@rollstatus', ['id' => $r->id, 'status' => 'C'])}}" title="Paid" class="btn btn-success btn-round"><i class="material-icons">done</i></a>
                                                 <a href="{{action('RollController@rollstatus', ['id' => $r->id, 'status' => 'V'])}}" title="Voucher" class="btn btn-info btn-round"><i class ="fa fa-money fa-2x"></i></a>
