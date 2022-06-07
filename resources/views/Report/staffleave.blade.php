@@ -5,7 +5,7 @@
 <div class="row">
         <div class="col-lg-12 col-sm-12">
             <div class="card">
-                <h2 class="text-center">Staff Leave Overview</h2>
+                <h2 class="text-center">Member Leave Overview</h2>
                 <div class="card-header card-header-icon card-header-rose">
                   <button class="btn btn-round btn-primary pull-right" data-toggle="modal" data-target="#addstaffleaveModal" class="btn btn-primary btn-round" title="Add Staff Leave"><i class="fa fa-plus fa-2x"></i> Add Staff Leave</button>
                 </div>
@@ -17,7 +17,7 @@
                                 <tr>
                                     <th class="text-center">Member</th>
                                     <th class="text-center">Leave Date</th>
-                                    <th class="text-center">Days Entered prior</th>
+                                    <th class="text-center">Notice</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -25,7 +25,7 @@
                                 <tr>
                                     <td class="text-center"><strong>{{$p->member->last_name}}, {{$p->member->first_name}}</strong> </td>
                                     <td class="text-center">{{date("jS F Y",strtotime($p->date))}}</td>
-                                    <td class="text-center">{{ Carbon\ Carbon::parse($p->date)->diffInDays(Carbon\Carbon::parse($p->created_at)) }}</td>
+                                    <td class="text-center">{{(Carbon\Carbon::parse($p->created_at)->diffForHumans(Carbon\ Carbon::parse($p->date)->addhours(19))) }}</td>
                                 </tr>
                             @endforeach
                             </tbody>

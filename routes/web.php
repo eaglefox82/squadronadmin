@@ -35,7 +35,7 @@ Route::resource('staff/attendance', 'StaffAttendanceController')->middleware('au
 
 Route::get('/activekids/voucher/{id}', 'ActiveKidsController@voucher')->middleware('auth');
 Route::get('/roll/notpresent/{id}','RollController@notPresent')->middleware('auth');
-Route::get('/roll/status/{id}/{status}', 'RollController@rollstatus')->middleware('auth');
+Route::get('/roll/status/{id}/{status}/{type}', 'RollController@rollstatus')->middleware('auth');
 Route::get('/roll/past/update/{id}/{status}', 'RollController@rollupdate')->middleware('auth');
 Route::get('/vouchers/complete/{id}', 'ActiveKidsController@complete')->middleware('auth');
 Route::get('/vouchers/submit/{id}', 'ActiveKidsController@submit')->middleware('auth');

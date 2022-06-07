@@ -196,7 +196,7 @@
 
                             <li class="nav-item">
                                 <a class="nav-link" href="{{action('StaffAttendanceController@index')}}">
-                                    <span>Staff Leave</span>
+                                    <span>Member Leave</span>
                                 </a>
                             </li>
 

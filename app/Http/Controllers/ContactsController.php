@@ -2,15 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\StaffAttendance;
-use App\Member;
-use Carbon\Carbon;
-
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Validator;
 
-class StaffAttendanceController extends Controller
+class ContactsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,10 +14,6 @@ class StaffAttendanceController extends Controller
     public function index()
     {
         //
-        $officerlist = Member::where('member_type', '=', 'League')->where('active', '=', 'Y')->get();
-        $pendingleave = StaffAttendance::where('date', '>=', Carbon::today())->orderby('date')->get();
-
-        return (view('Report.staffleave', compact('officerlist', 'pendingleave')));
     }
 
     /**
@@ -45,22 +35,6 @@ class StaffAttendanceController extends Controller
     public function store(Request $request)
     {
         //
-        $validateData = Validator::make($request->all(), [
-            'member_id' => 'required',
-            'date' => 'required',
-        ]);
-
-        if($validateData->fails()){
-            return Redirect::back()->withErrors($validateData)->withInput();
-        }
-
-        $e = new StaffAttendance();
-        $e->member_id = $request->input('member_id');
-        $e->date = Carbon::parse($request->input('date'));
-        $e->save();
-
-        Alert()->success('Success', 'Leave Request Submitted')->autoclose(2000);
-        return redirect(action('StaffAttendanceController@index'));
     }
 
     /**
@@ -105,6 +79,6 @@ class StaffAttendanceController extends Controller
      */
     public function destroy($id)
     {
-
+        //
     }
 }

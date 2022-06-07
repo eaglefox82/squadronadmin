@@ -264,7 +264,7 @@ class Member extends Model
 
     }
 
-    public function staffleave()
+    public function memberleave()
     {
         $roll = Rollmapping::latest()->take(0)->value('roll_date');
         $leave = StaffAttendance::where('member_id', $this->id)->where('date','=', Carbon::parse($roll))->get();
@@ -275,7 +275,29 @@ class Member extends Model
           {  return 'No'; }
     }
 
+    public function pendingleave()
+    {
+        $pendingleave = StaffAttendance::where('date', '>=', Carbon::today())->where('member_id','=',$this->id)->orderby('date')->get();
 
+        return $pendingleave;
 
+    }
 
+    public function leave()
+    {
+
+        $leave = StaffAttendance::where('member_id', $this->id)->whereYear('date',now()->year)->orderby('date')->get();
+
+        return $leave;
+
+    }
+
+    public function lastattendance()
+    {
+        $lroll = Roll::where('member_id', $this->id)->where('status', '!=', 'A')->latest()->value('roll_id');
+
+        $lattendance = Rollmapping::where('id', $lroll)->value('roll_date');
+
+        return $lattendance;
+    }
 }

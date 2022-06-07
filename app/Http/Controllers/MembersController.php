@@ -332,5 +332,21 @@ class MembersController extends Controller
     }
 
 
+    public function memberleave()
+    {
+        $roll = Rollmapping::latest()->take(0)->value('roll_date');
+        $leave = StaffAttendance::where('date', '=', Carbon::parse($roll))->where('member_id', $this->id)->get();
+
+        if ($leave->count() > 0)
+        {
+            return 'Yes';
+        }
+        else
+        {
+            return 'No';
+        }
+    }
+
+
 
 }

@@ -56,25 +56,27 @@
                             </thead>
                             <tbody>
                             @foreach($members as $r)
-                              @if ($r->member->staffleave() == 'Yes')
-                                    <td class="text-center" style="background:color=#FFD700"
-                              @else                                   
+                                @if($r->member->memberleave() == 'Yes')
+                                    <tr style="background-color:#FFD700">
+                                @else
+                                    <tr>
+                                @endif
                                     <td class="text-center">
-                              @endif                                    
+                              @endif
                                      @if ($r->status == 'A')
                                             @if($online == 'No')
-                                                <a href="{{action('RollController@rollstatus', ['id' => $r->id, 'status' => 'C'])}}" title="Paid" class="btn btn-success btn-round"><i class="material-icons">done</i></a>
-                                                <a href="{{action('RollController@rollstatus', ['id' => $r->id, 'status' => 'V'])}}" title="Voucher" class="btn btn-info btn-round"><i class ="fa fa-money fa-2x"></i></a>
-                                                <a href="{{action('RollController@rollstatus', ['id' => $r->id, 'status' => 'P'])}}" title="Not Paid" class="btn btn-danger btn-round"><i class="material-icons">close</i></a>
+                                                <a href="{{action('RollController@rollstatus', ['id' => $r->id, 'status' => 'C', 'type' => 'C'])}}" title="Paid" class="btn btn-success btn-round"><i class="material-icons">done</i></a>
+                                                <a href="{{action('RollController@rollstatus', ['id' => $r->id, 'status' => 'V', 'type' => 'C'])}}" title="Voucher" class="btn btn-info btn-round"><i class ="fa fa-money fa-2x"></i></a>
+                                                <a href="{{action('RollController@rollstatus', ['id' => $r->id, 'status' => 'P', 'type' => 'C'])}}" title="Not Paid" class="btn btn-danger btn-round"><i class="material-icons">close</i></a>
                                             @else
-                                                <a href="{{action('RollController@rollstatus', ['id' => $r->id, 'status' => 'O'])}}" title="Online" class="btn btn-rose btn-round"><i class="fa fa-globe fa-2x"></i></a>
+                                                <a href="{{action('RollController@rollstatus', ['id' => $r->id, 'status' => 'O', 'type' => 'C'])}}" title="Online" class="btn btn-rose btn-round"><i class="fa fa-globe fa-2x"></i></a>
                                             @endif
                                         @endif
                                     </td>
                                     <td class="text-center">{{$r->member->membership_number}}</td>
                                     <td class="text-center">{{$r->member->last_name}}, {{$r->member->first_name}} </td>
                                     <td class="text-center">{{$r->member->memberrank->rank}}</td>
-                                    @if ($r->member->staffleave() == 'Yes')
+                                    @if ($r->member->memberleave() == 'Yes')
                                         <td class="text-center">Requested Leave</td>
                                     @else
                                         <td class="text-center">{{$r->rollstatus->status}}</td>

@@ -55,14 +55,11 @@
                                 <td>{{date("jS F Y",strtotime($member->date_joined))}}</td>
                                 <th>Service:</td>
                                 <td>{{number_format((float)$member->service,2)}} Years</td>
-                                <th>Flight:</th>
-                                @if($member->flight != 0)
-                                <td>{{$member->flightmap->flight_name}}</td>
-                                @else
-                                <td>No Assigned Flight</td>
-                                @endif
+                                <th>Last Attendance:</th>
+                                <td>{{date("jS F Y",strtotime($member->lastattendance()))}} ({{(Carbon\Carbon::today()->diffinweeks(Carbon\ Carbon::parse($member->lastattendance()))) }} weeks) </td>
                         </table>
                         <div class="pull-right new-button">
+                            <a href="" data-toggle="modal" data-target="#addstaffleaveModal" class="btn btn-primary btn-round"><i class="fa fa-plane fa-2x"></i> Leave</a>
                             <a href="" data-toggle="modal" data-target="#addrequestModal" class="btn btn-info btn-round" title="Add Request"><i class="fa fa-dollar fa-2x"></i>&nbsp; Q Store Request</a>
                             <a href="" data-toggle="modal" data-target="#addvoucherModal" class="btn btn-primary btn-round" title="Add Voucher"><i class="fa fa-plus fa-2x"></i>&nbsp; Add Voucher</a>
                             <a href="" data-toggle="modal" data-target="#addaccountModal" class="btn btn-info btn-round" title="Add Account"><i class="fa fa-money fa-2x"></i>&nbsp; Add to Account</a>
@@ -205,7 +202,7 @@
             <div class = "col-sm-3">
                 <div class = "card">
                     <div class="card-header card-header-icon card-header-rose">
-                        <h4 class="card-title font-weight-bold">Account Balance</h4>
+                        <h4 class="card-title font-weight-bold text-center">Account Balance</h4>
                         <a data-toggle="modal" data-target="#accountpayModal" class="btn btn-info btn-round" title="Use Account"><i class="fa fa-money fa-2x"></i>Pay from Account</a>
                     </div>
                     <div class="table-responsive">
@@ -239,7 +236,7 @@
             <div class = "col-lg-3 col-md-6 col-sm-6">
                 <div class = "card">
                     <div class="card-header card-header-icon card-header-rose">
-                        <h4 class="card-title font-weight-bold">Subs Owning</h4>
+                        <h4 class="card-title font-weight-bold text-center">Subs Owning</h4>
                             <div class="pull-right new-button">
                              </div>
                     </div>
@@ -265,6 +262,38 @@
                 </div>
             </div>
             @endif
+
+            @if ($member->pendingleave()->count() > 0)
+            <div class = "col-lg-3 col-md-6 col-sm-6">
+                <div class = "card">
+                    <div class="card-header card-header-icon card-header-rose">
+                        <h4 class="card-title font-weight-bold text-center">Pending Leave</h4>
+                            <div class="pull-right new-button">
+                             </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class = 'text-primary'>
+                                <th class="text-center">Date</th>
+                                <th class="text-center">Notice</th>
+                            </thead>
+                            <tbody>
+                            @foreach ($member->pendingleave() as $p)
+                            <tr>
+                                <td class="text-center">{{date("jS F Y", strtotime($p->date))}}</td>
+                                <td class="text-center">
+                                    {{(Carbon\Carbon::parse($p->created_at)->diffForHumans(Carbon\ Carbon::parse($p->date)->addhours(19))) }}
+                                </td>
+                            </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            @endif
+
+
 
             @if( $member->Accounts->sum('amount') == 0)
                 @if( $member->currentrequests->count() == 0 )
@@ -542,7 +571,7 @@
                         </div>
                         {!!Form::open(array('action' => ['SquadronAccountingController@store'], 'method'=>'POST', 'class'=>'form-horizontal'))!!}
                         <div class="modal-body">
-                            <input type="hidden" name="membership" value="{{$member->id}}">
+                            C
 
 
                             <label class="label-control">Request Overview:</label>
@@ -568,7 +597,7 @@
                                 </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary btn-round" data-dismiss="modal" onclick="javascript:window.location.reload()">Close</button>
+                            <button type="button" class="btn btn-round btn-secondary" data-dismiss="modal" onclick="javascript:window.location.reload()">Close</button>
                             <button type="submit" class="btn btn-primary btn-round">Save Changes</button>
                         </div>
                         {!!Form::close()!!}
@@ -610,6 +639,63 @@
                         </div>
                     </div>
                 </div>
+            </div>
+
+
+
+    <div class="modal fade" id="addstaffleaveModal" tabindex="-1" role="dialog" aria-labelledby="NewStaffLeave" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="addstaffleaveModal">New Member Leave</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {!!Form::open(['action' => ['StaffAttendanceController@store'],'method' => 'POST', 'class'=>'form-horizontal'])!!}
+            <div class="modal-body">
+
+                <!-- Member -->
+
+                <input type="hidden" name="member_id" value="{{$member->id}}">
+
+                <!-- Leave Date -->
+                <label class="label-control">Leave Date:</label>
+                <div class="input-group">
+                    <input type="date" class="form-control" name="date" id="date" required>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="javascript:window.location.reload()" class="btn btn-round btn-secondary" data-dismiss="modal" id="closemodal">Close</button>
+                <button type="submit" class="btn btn-primary btn-round">Save Leave</button>
+            </div>
+            {!!Form::close()!!}
+            <div class="modal-body">
+                  <div class = "table-responsive">
+                        <table class = "table">
+                            <h3 class="text-center">Past Leave this Year</h3>
+                            <thead class = "text-primary">
+                                <th class = "text-center">Date</th>
+                                <th class = "text-center">Notice</th>
+                            </thead>
+                            <tbody>
+                              @foreach ($member->leave() as $p)
+                            <tr>
+                                <td class="text-center">{{date("jS F Y", strtotime($p->date))}}</td>
+                                <td class="text-center">
+                                    {{(Carbon\Carbon::parse($p->created_at)->diffForHumans(Carbon\ Carbon::parse($p->date)->addhours(19))) }}
+                                </td>
+                            </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 
 @endsection
@@ -654,6 +740,7 @@
        });
 
    });
+}
 
  </script>
 

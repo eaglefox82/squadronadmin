@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Pointsmaster;
 use App\Points;
 use App\Settings;
+use App\StaffAttendance;
 use DataTables;
 
 class RollController extends Controller
@@ -242,13 +243,14 @@ class RollController extends Controller
         return redirect(action('RollController@index'));
     }
 
-    public function rollstatus($id, $status)
+    public function rollstatus($id, $status, $rolltype)
     {
         $r = Roll::find($id);
         $points = Pointsmaster::where('Reason', '=', 'Attendance')->value('Value');
         $member = Roll::where('id', '=', $id)->value('member_id');
         $year = Carbon::parse(now())->year;
         $rollid = RollMapping::latest()->value('id');
+        $pastrollid = Roll::where('id', '=', $id)->value('roll_id');
 
         switch ($status) {
             // Define variables for member paying using account and check balance
@@ -308,7 +310,7 @@ class RollController extends Controller
 
                 return redirect(action('RollController@index'));
         }
-
+        // Update Roll Status
         $r->status = $status;
         if($paid != 'N')
             {
@@ -316,6 +318,7 @@ class RollController extends Controller
             }
         $r->save();
 
+        // Add Points to Member if function is turned on
         if (config('global.Squadron_Points') != 'N')
         {
             $p=new Points();
@@ -327,101 +330,19 @@ class RollController extends Controller
         }
 
         alert()->success($title, $message)->autoclose(1500);
-        return redirect(action('RollController@index'));
 
-
-
-    }
-
-    public function rollupdate($id, $status)
-    {
-        $r = Roll::find($id);
-        $points = Pointsmaster::where('Reason', '=', 'Attendance')->value('Value');
-        $member = Roll::where('id', '=', $id)->value('member_id');
-        $year = Carbon::parse(now())->year;
-        $rollid = $r->value('roll_id');
-
-
-        switch ($status) {
-            // Define variables for member paying using account and check balance
-            case 'V':
-
-                // Check Account Balance and back out if account balance is too low
-                if($r->member->Accounts->sum('amount') < 10)
-                {
-                    Alert()->error("Error", "Insufficient Account Balance")->autoclose(1500);
-                    return redirect(action('RollController@index'));
-                }
-
-                $paid = 'Y';
-                $title = 'Member Present';
-                $message = 'Member paid using account balance';
-
-                // Add Voucher use record
-                $voucher = new Accounts();
-                $voucher->member_id = $r->member_id;
-                $voucher->Reason = 'Weekly Subs';
-                $voucher->amount = -10;
-                $voucher->user = Auth::user()->username;
-                $voucher->save();
-
-                break;
-
-            // Define variables for member who didn't pay
-            case 'P':
-                $paid = 'N';
-                $title = "Member Present";
-                $message = "Member has not paid";
-                break;
-
-            // Define variables for member who is online
-            case 'O':
-                $paid = 'N';
-                $title = "Member Online";
-                $message = "Member marked as present online";
-                break;
-
-            // Define variables for member who paid cash
-            case 'C':
-                $paid = "Y";
-                $title = "Member Present";
-                $message = "Member paid by Cash";
-                break;
-
-            // Define variables for member who is not present
-            case 'A':
-                $paid = "N";
-                $title = "Member Absent";
-                $message = "Member marked as absent";
-                break;
-
-            default:
-                Alert()->error("Error", "System Error has occured")->autoclose(1500);
-
-                return redirect(action('RollController@show', $rollid));
-        }
-
-        $r->status = $status;
-        if($paid != 'N')
-            {
-                $r->paidrollid = $rollid;
-            }
-        $r->save();
-
-        if (config('global.Squadron_Points') != 'N')
+        // Redirect to Current Roll or Past Roll ('P' is for past roll)
+        if ($rolltype == "P")
         {
-            $p=new Points();
-            $p->member_id = $member;
-            $p->value = $points;
-            $p->year = $year;
-            $p->reason = "Squadron Night Attendance";
-            $p->save();
+            return redirect(action('RollController@show', $pastrollid));
         }
-
-        alert()->success($title, $message)->autoclose(1500);
-        return redirect(action('RollController@show', $rollid));
-
+        else
+        {
+            return redirect(action('RollController@index'));
+        }
     }
+
+
 
     public function getCurrentRoll(Request $request)
     {
@@ -473,6 +394,21 @@ class RollController extends Controller
         $online = Settings::where('setting', 'Online Meetings')->value('value');
 
         return view('roll.index_test', compact('members', 'rolldate', 'rollid', 'online'));
+    }
+
+    public function staffleave()
+    {
+        $roll = Rollmapping::latest()->take(0)->value('roll_date');
+        $leave = StaffAttendance::where('date', '=', Carbon::parse($roll))->where('member_id', $this->id)->get();
+
+        if ($leave->count() > 0)
+        {
+            return 'Yes';
+        }
+        else
+        {
+            return 'No';
+        }
     }
 
 
