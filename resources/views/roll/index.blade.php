@@ -62,7 +62,6 @@
                                     <tr>
                                 @endif
                                     <td class="text-center">
-                              @endif
                                      @if ($r->status == 'A')
                                             @if($online == 'No')
                                                 <a href="{{action('RollController@rollstatus', ['id' => $r->id, 'status' => 'C', 'type' => 'C'])}}" title="Paid" class="btn btn-success btn-round"><i class="material-icons">done</i></a>
