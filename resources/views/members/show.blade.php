@@ -56,10 +56,24 @@
                                 <th>Service:</td>
                                 <td>{{number_format((float)$member->service,2)}} Years</td>
                                 <th>Last Attendance:</th>
-                                <td>{{date("jS F Y",strtotime($member->lastattendance()))}} ({{(Carbon\Carbon::today()->diffinweeks(Carbon\ Carbon::parse($member->lastattendance()))) }} weeks) </td>
+                                <td>{{date("jS F Y",strtotime($member->lastattendance()))}}
+                                <!-- Show badge for last attendace -->
+                                    @if($member->attendancediff() == 0)
+                                        <span class="badge badge-success">Present</span>
+                                    @elseif($member->attendancediff() == 1)
+                                        <span class="badge badge-info">Last Week</span>
+                                    @elseif ($member->attendancediff() <= 3)
+                                        <span class="badge badge-warning">{{$member->attendancediff()}} Weeks ago</span>
+                                    @else
+                                        <span class="badge badge-danger">{{(Carbon\Carbon::today()->diffinweeks(Carbon\ Carbon::parse($member->lastattendance()))) }} weeks ago</span>
+                                    @endif
+                                </td>
+
                         </table>
+
+
                         <div class="pull-right new-button">
-                            <a href="" data-toggle="modal" data-target="#addstaffleaveModal" class="btn btn-primary btn-round"><i class="fa fa-plane fa-2x"></i> Leave</a>
+                            <a href="" data-toggle="modal" data-target="#addstaffleaveModal" class="btn btn-warning btn-round"><i class="fa fa-plane fa-2x"></i> Leave</a>
                             <a href="" data-toggle="modal" data-target="#addrequestModal" class="btn btn-info btn-round" title="Add Request"><i class="fa fa-dollar fa-2x"></i>&nbsp; Q Store Request</a>
                             <a href="" data-toggle="modal" data-target="#addvoucherModal" class="btn btn-primary btn-round" title="Add Voucher"><i class="fa fa-plus fa-2x"></i>&nbsp; Add Voucher</a>
                             <a href="" data-toggle="modal" data-target="#addaccountModal" class="btn btn-info btn-round" title="Add Account"><i class="fa fa-money fa-2x"></i>&nbsp; Add to Account</a>
@@ -113,7 +127,7 @@
                         <div class ="card-icon">
                             <i class="fa fa-book fa-2x"></i>
                         </div>
-                        <p class="card-category">Attendance Rate<br><br></p>
+                        <p class="card-category">Attendance Rate<br>No of weeks = {{ $member->attendancecount }}<br></p>
                         <h3 class="card-title">{{number_format($attendance,2)}}%</h3>
                         <div class = "card-footer">
                         </div>
@@ -312,7 +326,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class ="modal-title" id="editmemberModal">Edit Member</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="javascript:window.location.reload()">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -400,7 +414,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h3 class="modal-title" id="addvoucherModal">Add Voucher for {{$member->first_name}} {{$member->last_name}}</h3>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="javascript:window.location.reload()">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -451,7 +465,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h3 class="modal-title" id="addaccountModal">Add to Balance for {{$member->first_name}} {{$member->last_name}}</h3>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="javascript:window.location.reload()">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -482,7 +496,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h3 class="modal-title" id="addaccountModal">Pay from Account of {{$member->first_name}} {{$member->last_name}}</h3>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="javascript:window.location.reload()">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -524,7 +538,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h3 class="modal-title" id="addaccountModal">Add to points to {{$member->first_name}} {{$member->last_name}}</h3>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="javascript:window.location.reload()">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -565,7 +579,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h3 class="modal-title" id="editmemberModal">Add Request for {{$member->first_name}} {{$member->last_name}}</h3>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="javascript:window.location.reload()">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -648,7 +662,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title" id="addstaffleaveModal">New Member Leave</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="javascript:window.location.reload()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>

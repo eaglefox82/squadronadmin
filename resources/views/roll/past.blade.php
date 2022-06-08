@@ -160,7 +160,7 @@
                                     @elseif ($r->status == 'V')
                                         <a href="{{action('RollController@rollstatus', ['id' => $r->id, 'status' => 'C', 'type' => 'P'])}}" title="Paid" class="btn btn-success btn-round"><i class="material-icons">done</i></a>
                                         <a href="{{action('RollController@rollstatus', ['id' => $r->id, 'status' => 'P', 'type' => 'P'])}}" title="Not Paid" class="btn btn-danger btn-round"><i class="material-icons">close</i></a>
-                                        <a href="{{action('RollController@rollstatus', ['id' => $r->id, 'status' => 'A', 'type' => 'P'])}}" title="Not Present" class="btn btn-danger btn-round"><i class="material-icons">close</i></a>
+                                        <a href="{{action('RollController@rollstatus', ['id' => $r->id, 'status' => 'A', 'type' => 'P'])}}" title="Not Present" class="btn btn-danger btn-round"><i class="fa fa-ban fa-2x"></i></a>
                                     @endif
                                     </td>
 

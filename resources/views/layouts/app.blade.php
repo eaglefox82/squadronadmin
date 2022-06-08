@@ -383,5 +383,6 @@
 <script src="{{ asset('js/plugins/fullcalendar.min.js') }}"></script>
 
 @yield('scripts')
+@include('sweetalert::alert')
 
 </html>
