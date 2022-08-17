@@ -100,22 +100,23 @@
                 <div class="modal-body">
                             <label class="label-control">Membership Number:</label>
                             <div class="input-group">
-                                <input type = "text" class = "form-control" name = "membership" value="">
+                                <input type = "text" class = "form-control" name = "membership" value="" required>
                             </div>
 
                             <label class="label-control">First Name:</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" name="firstname" value="">
+                                <input type="text" class="form-control" name="firstname" value="" required>
                             </div>
 
                             <label class="label-control">Last Name</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" name="lastname" value="">
+                                <input type="text" class="form-control" name="lastname" value="" required>
                             </div>
 
                             <label class="label-control">Rank:</label>
                             <div class="input-group">
-                                <select type="text" class="selectpicker" data-sytle="select-with-transition" name="rank" data-size="6">
+                                <select type="text" class="selectpicker" data-sytle="select-with-transition" name="rank" data-size="6" required>
+                                    <option value="" disabled selected >Select Rank</option>
                                     @foreach ($rank as $r)
                                     <option value ={{$r->id}} >{{$r->rank}}</option>
                                     @endforeach
@@ -126,20 +127,21 @@
                             <label class="label-control">Date of Joining:</label>
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <input type="date" class="form-control" name="doj" value="{{Carbon\Carbon::now()->format('d-m-Y')}}">
+                                        <input type="date" class="form-control" name="doj" value="{{Carbon\Carbon::now()->format('d-m-Y')}}" required>
                                     </div>
                                 </div>
 
                             <label class ="label-control">Date of Birth:</label>
                                 <div class ="form-group">
                                     <div class="input-group">
-                                        <input type="date" class="form-control" name="dob" value="{{Carbon\Carbon::now()->format('d-m-Y')}}">
+                                        <input type="date" class="form-control" name="dob" value="{{Carbon\Carbon::now()->format('d-m-Y')}}" required>
                                     </div>
                                 </div>
 
                             <label class="label-control">Membership Type</label>
                            <div class="input-group">
-                                <select type="text" class="selectpicker" data-sytle="select-with-transition" name="type">
+                                <select type="text" class="selectpicker" data-sytle="select-with-transition" name="type" required>
+                                    <option value="" disabled selected >Select Membership Type</option>
                                     <option value="League">League Member</option>
                                     <option value="Associate">Associate Member</option>
                                 </select>
