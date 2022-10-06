@@ -300,4 +300,12 @@ class Member extends Model
 
         return $lattendance;
     }
+
+    public function attendancediff()
+    {
+        $lroll = Roll::where('member_id', $this->id)->where('status', '!=', 'A')->latest()->value('roll_id');
+        $lattendance = Rollmapping::where('id', $lroll)->value('roll_date');
+        $attendancediff = Carbon::parse($lattendance)->diffInWeeks(Carbon::now(), false);
+        return $attendancediff;
+    }
 }

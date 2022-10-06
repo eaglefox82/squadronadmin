@@ -180,12 +180,14 @@
             ],
             "rowCallback": function( row, data, index ) {
                if ( data.owning > 0) {
-                   $('td', row).css('background-color', '#d909d2');
+                    $('td', row).css('background-color', '#d909d2');
                     $('td', row).css('color', 'white');
                 }
                 if ( data.attendance == 'Yes') {
                    $('td', row).css('background-color', '#d4001c');
                     $('td', row).css('color', 'white');
+               //     $('td:eq(6)', row).css('background-color', '#d4001c');
+                //   $('td:eq(6)', row).css('color', 'white');
                 }
 
 
