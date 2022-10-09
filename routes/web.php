@@ -31,6 +31,7 @@ Route::resource('/points', 'PointsController')->middleware('auth');
 Route::resource('/events', 'EventController')->middleware('auth');
 Route::resource('/user', 'UsersController')->middleware('auth');
 Route::resource('staff/attendance', 'StaffAttendanceController')->middleware('auth');
+Route::resource('termfees', 'TermFeesController')->middleware('auth');
 
 
 Route::get('/activekids/voucher/{id}', 'ActiveKidsController@voucher')->middleware('auth');
@@ -86,6 +87,7 @@ Route::get('get/points', 'PointsController@getPoints')->name('getPoints');
 Route::get('get/members', 'MembersController@getMemberlist')->name('getMemberlist');
 Route::get('get/roll/current', 'RollController@getCurrentRoll')->name('getCurrentRoll');
 Route::get('get/report/attendance', 'ReportController@getAttendance')->name('getAttendance');
+Route::get('get/termfees/list', 'TermFeesController@getTermFees')->name('getTermFees');
 
 
 //Deployment - use this to force command line calls during deployments

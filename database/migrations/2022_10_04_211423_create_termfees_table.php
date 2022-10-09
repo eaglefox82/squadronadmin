@@ -18,6 +18,7 @@ class CreateTermfeesTable extends Migration
             $table->string('term_id');
             $table->string('member_id');
             $table->string('status');
+            $table->date('paid_date')->nullable();
             $table->timestamps();
         });
     }

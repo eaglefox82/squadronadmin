@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use DataTables;
 
 use App\Member;
 use App\Settings;
@@ -21,6 +22,14 @@ class TermFeesController extends Controller
     public function index()
     {
         //
+        $id = TermMapping::latest()->value('id');
+        $year = TermMapping::where('id', $id)->value('year');
+        $term = TermMapping::where('id', $id)->value('term');
+
+        $fees = TermFees::latest()->get();
+
+
+        return view('termfees.index', compact('year', 'term', 'fees'));
     }
 
     /**
@@ -48,6 +57,7 @@ class TermFeesController extends Controller
         $e->year = Carbon::now()->year;
         $e->term = $request->input('term');
         $e->amount = Settings::where('setting', 'Term Fee Value')->get('value');
+        $e->save();
 
         //Create Term Fee Status
         $termid = TermMapping::latest()->value('id');
@@ -62,8 +72,8 @@ class TermFeesController extends Controller
             $f->save();
         }
 
-        alear()->success('Term Fees Created Successfully')->autoclose(1500);
-        return redirect(action('HomeControler@index'));
+        alert()->success('Term Fees Created Successfully')->autoclose(1500);
+        return redirect(action('TermFeesController@index'));
     }
 
 
@@ -111,5 +121,34 @@ class TermFeesController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getTermFees(Request $request)
+    {
+        if($request->ajax()) {
+
+           $termid = TermMapping::latest()->value('id');
+
+           $termfees = TermFees::where('term_id', '=', $termid)->get();
+
+           return DataTables::of($termfees)
+            ->addColumn('first_name', function($termfees) {
+                return $termfees->member->first_name;
+            })
+           ->addColumn('last_name', function($termfees) {
+                return $termfees->member->last_name;
+            })
+            ->addColumn('membership', function($termfees) {
+                return $termfees->member->membership_number;
+            })
+
+          ->addColumn('action', function($row){
+                $btn = '<a href="'.action('MembersController@show', $row->member_id).'" target="_blank" title="View" class="btn btn-round btn-success"><i class="fa fa-info"></i></a>';
+
+                return $btn;
+            })
+
+           ->make(true);
+        }
     }
 }

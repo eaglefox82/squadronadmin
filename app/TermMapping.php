@@ -7,4 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class TermMapping extends Model
 {
     //
+    protected $table = 'Termmapping';
 }
