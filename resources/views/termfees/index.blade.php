@@ -86,7 +86,7 @@
                 { data: 'first_name'},
                 { data: 'last_name'},
                 { data: 'status'},
-                { data: 'date_paid', "defaultContent": "<i>-</i>"},
+                { data: 'date_paid'},
                 { data: 'action', orderable: false, searchable: false}
             ],
         });

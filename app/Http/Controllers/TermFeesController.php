@@ -148,6 +148,10 @@ class TermFeesController extends Controller
                 return $btn;
             })
 
+            ->editColumn('date_paid', function($termfees){
+                return (is_null($termfees->date_paid) ? "-" : date('d/m/Y', strtotime($termfees->date_paid)));
+            })
+
            ->make(true);
         }
     }
