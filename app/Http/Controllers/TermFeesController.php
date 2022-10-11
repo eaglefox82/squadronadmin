@@ -166,7 +166,11 @@ class TermFeesController extends Controller
                 $btn = '<a href="'.action('MembersController@show', $row->member_id).'" target="_blank" title="View" class="btn btn-round btn-success"><i class="fa fa-info"></i>';
                 $btn2  = '<a href="'.action('TermFeesController@edit', $row->id).'" title="Payment" class="btn btn-round btn-primary"><i class="fa fa-dollar"></i>';
 
-                return $btn." ".$btn2;
+                if ($row->status == "Pending") {
+                    return $btn." ".$btn2;
+                } else {
+                    return $btn;
+                }
             })
 
             ->editColumn('paid_date', function($termfees){

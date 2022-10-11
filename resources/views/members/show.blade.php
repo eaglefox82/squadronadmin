@@ -43,8 +43,8 @@
                                 <td style="border-top: 1px #ddd solid">{{$member->memberrank->rank}}</td>
                                 <th>Membership:</th>
                                 <td style="border-top: 1px #ddd solid">{{$member->membership_number}}</td>
-                                <th>Membership Type:</th>
-                                <td style="border-top: 1px #ddd solid">{{$member->member_type}}</td>
+                                <th>Term Fees:</th>
+                                <td style="border-top: 1px #ddd solid">@if($member->termfees == 'Y') Yes @else No @endif</td>
                             </tr>
                             <tr>
                                 <th>Date of Birth</th>
@@ -365,7 +365,7 @@
                             </div>
                         </div>
 
-                            <label class="label-control">Membership Type</label>
+                        <label class="label-control">Membership Type</label>
                            <div class="input-group">
                                 <div class="form-group">
                                 <select type="text" class="selectpicker" data-sytle="select-with-transition" name="type">
@@ -374,6 +374,16 @@
                                 </select>
                            </div>
                     </div>
+
+                     <label class="label-control">Term Fees</label>
+                           <div class="input-group">
+                                <div class="form-group">
+                                <select type="text" class="selectpicker" data-sytle="select-with-transition" name="termfees">
+                                    <option value="Y"<?php if($member->termfees == "Y") echo 'selected="selected"';?>>Yes</option>
+                                    <option value="N"<?php if($member->termfees == "N") echo 'selected="selected"';?>>No</option>
+                                </select>
+                                </div>
+                            </div>
 
                     <label class="label-control">Flight:</label>
                     <div class="input-group">

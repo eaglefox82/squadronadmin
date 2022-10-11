@@ -223,6 +223,7 @@ class MembersController extends Controller
         $member->flight = $request->get('flight');
         $member->date_joined = Carbon::parse($request->get('doj'));
         $member->date_birth = Carbon::parse($request->get('dob'));
+        $member->termfees = $request->get('termfees');
         $member->save();
 
         alert()->success('Member Updated', 'Members New Details have been recored')->autoclose(1500);
