@@ -98,6 +98,12 @@ class TermFeesController extends Controller
     public function edit($id)
     {
         //
+        $recordid = $id;
+        $memberid = TermFees::where("id", $recordid)->value('member_id');
+        $memberlast = Member::where('id', $memberid)->value('last_name');
+        $memberfirst = Member::where('id', $memberid)->value('first_name');
+
+        return view('termfees.payment', compact('recordid', 'memberlast', 'memberfirst'));
     }
 
     /**
@@ -107,7 +113,7 @@ class TermFeesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
     }
@@ -121,6 +127,20 @@ class TermFeesController extends Controller
     public function destroy($id)
     {
         //
+
+    }
+
+    public function recordpayment(Request $request)
+    {
+
+        $id = TermFees::find($request->get('id'));
+        $id->status = 'Paid';
+        $id->paid_date = $request->get('date');
+        $id->save();
+
+        alert()->success('Updated', 'Term Fee has been recored')->autoclose(1500);
+        return redirect(action('TermFeesController@index'));
+
     }
 
     public function getTermFees(Request $request)
@@ -143,13 +163,14 @@ class TermFeesController extends Controller
             })
 
           ->addColumn('action', function($row){
-                $btn = '<a href="'.action('MembersController@show', $row->member_id).'" target="_blank" title="View" class="btn btn-round btn-success"><i class="fa fa-info"></i></a>';
+                $btn = '<a href="'.action('MembersController@show', $row->member_id).'" target="_blank" title="View" class="btn btn-round btn-success"><i class="fa fa-info"></i>';
+                $btn2  = '<a href="'.action('TermFeesController@edit', $row->id).'" title="Payment" class="btn btn-round btn-primary"><i class="fa fa-dollar"></i>';
 
-                return $btn;
+                return $btn." ".$btn2;
             })
 
-            ->editColumn('date_paid', function($termfees){
-                return (is_null($termfees->date_paid) ? "-" : date('d/m/Y', strtotime($termfees->date_paid)));
+            ->editColumn('paid_date', function($termfees){
+                return (is_null($termfees->paid_date) ? "-" : date('d/m/Y', strtotime($termfees->paid_date)));
             })
 
            ->make(true);

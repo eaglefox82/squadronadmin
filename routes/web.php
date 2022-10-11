@@ -66,6 +66,7 @@ Route::post('/accounts/voucher/', 'AccountController@item')->middleware('auth');
 Route::post('/requested/accountpay', 'SquadronAccountingController@accountpayment')->middleware('auth');
 Route::post('/member/points', 'PointsController@addtomember')->middleware('auth');
 Route::post('event/show/nonmember', 'EventController@addNonMember')->middleware('auth');
+Route::post('/termfees/record', 'TermFeesController@recordpayment')->middleware('auth');
 
 
 

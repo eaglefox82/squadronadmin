@@ -40,7 +40,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class ="modal-title" id="addmemberModal">Add Term</h3>
+                    <h3 class ="modal-title" id="addtermModal">Add Term</h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="javascript:window.location.reload()">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -68,7 +68,41 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="termpaymentModal" tabindex="-1" role="dialog" aria-labelledby="TermPayment" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class ="modal-title" id="termpaymentModal">Add Payment</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="javascript:window.location.reload()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {!!Form::open(array('action' => ['TermFeesController@recordpayment'], 'method'=>'POST', 'class'=>'form-horizontal'))!!}
+                <div class="modal-body">
+
+                            <label class="label-control">Payment Date:</label>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input type="date" class="form-control" name="date" value="{{Carbon\Carbon::now()->format('d-m-Y')}}" required>
+                                    </div>
+                                </div>
+                                <input name="memberid", id="id"/>
+                                    <span id="idHolder"></span>
+
+                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-round btn-secondary" data-dismiss="modal" onclick="javascript:window.location.reload()">Close</button>
+                    <button type="submit" class="btn btn-round btn-primary">Add Term</button>
+                </div>
+                {!!Form::close()!!}
+            </div>
+        </div>
     </div>
+
+
+
+</div>
 
 @endsection
 
@@ -86,12 +120,19 @@
                 { data: 'first_name'},
                 { data: 'last_name'},
                 { data: 'status'},
-                { data: 'date_paid'},
+                { data: 'paid_date'},
                 { data: 'action', orderable: false, searchable: false}
             ],
         });
     })
 
+</script>
+
+<script type="text/javascript">
+    $(document).on("click", ".termpayment", function() {
+        var memberId = $(this).data('id');
+        $(".model-body #id").val(memberId);
+    });
 </script>
 
 

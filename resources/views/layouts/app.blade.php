@@ -158,6 +158,11 @@
                             </a>
                         </li>
 
+                        </li class = "nav-item">
+                            <a class = "nav-link" href="{{ action('TermFeesController@index') }}">
+                                <span class = "sidebar-normal">Term Fees</span>
+                            </a>
+
                         <li class = "nav-item">
                             <a class = "nav-link" href="{{action('ActiveKidsController@index')}}">
                                 <span class = "sidebar-normal">Vouchers</span>

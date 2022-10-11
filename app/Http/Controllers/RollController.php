@@ -43,8 +43,9 @@ class RollController extends Controller
         ->where('roll_id', '=', $rollid)->orderby('status')->get();
 
         $online = Settings::where('setting', 'Online Meetings')->value('value');
+        $termfees = Settings::where('setting', 'Term Fees')->value('value');
 
-        return view('roll.index', compact('members', 'rolldate', 'rollid', 'online'));
+        return view('roll.index', compact('members', 'rolldate', 'rollid', 'online', 'termfees'));
     }
 
     /**
@@ -282,6 +283,7 @@ class RollController extends Controller
                 $paid = 'N';
                 $title = "Member Present";
                 $message = "Member has not paid";
+                $points = "Y";
                 break;
 
             // Define variables for member who is online
@@ -289,6 +291,7 @@ class RollController extends Controller
                 $paid = 'N';
                 $title = "Member Online";
                 $message = "Member marked as present online";
+                $points = "Y";
                 break;
 
             // Define variables for member who paid cash
@@ -296,6 +299,7 @@ class RollController extends Controller
                 $paid = "Y";
                 $title = "Member Present";
                 $message = "Member paid by Cash";
+                $points = "Y";
                 break;
 
             // Define variables for member who is not present
@@ -303,6 +307,14 @@ class RollController extends Controller
                 $paid = "N";
                 $title = "Member Absent";
                 $message = "Member marked as absent";
+                $points = "N";
+                break;
+
+            case 'T':
+                $paid = "Y";
+                $title = "Member Present";
+                $message ="Member marks as present";
+                $points = "Y";
                 break;
 
             default:
@@ -321,12 +333,15 @@ class RollController extends Controller
         // Add Points to Member if function is turned on
         if (config('global.Squadron_Points') != 'N')
         {
-            $p=new Points();
-            $p->member_id = $member;
-            $p->value = $points;
-            $p->year = $year;
-            $p->reason = "Squadron Night Attendance";
-            $p->save();
+            if($points != 'N')
+            {
+                $p=new Points();
+                $p->member_id = $member;
+                $p->value = $points;
+                $p->year = $year;
+                $p->reason = "Squadron Night Attendance";
+                $p->save();
+            }
         }
 
         alert()->success($title, $message)->autoclose(1500);
