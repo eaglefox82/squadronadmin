@@ -213,6 +213,12 @@
                             </li>
 
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ action('ReportController@latetermfees') }}">
+                                    <span>Late Term Fees</span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{action('StockController@index')}}">
                                     <span>Stock List</span>
                                 </a>
