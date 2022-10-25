@@ -25,8 +25,8 @@
                         <div class ="card-icon">
                             <i class="fa fa-book fa-2x"></i>
                         </div>
-                         <p class="card-category">Outstanding Subs<br><br></p>
-                        <h3 class="card-title">${{number_format(($outstanding*10),0)}}</h3>
+                         <p class="card-category">Outstanding Term Fees<br><br></p>
+                        <h3 class="card-title">${{ number_format(($termfees->where('status', 'Pending')->count())* $termamount,0) }}</h3>
                         <div class = "card-footer">
                             <a href={{action('SquadronAccountingController@outstanding')}}>List Members</a>
                         </div>

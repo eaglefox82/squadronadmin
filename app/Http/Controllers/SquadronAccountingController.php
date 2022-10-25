@@ -20,6 +20,8 @@ use Carbon\Carbon;
 use App\Settings;
 use App\Accounts;
 use App\Vouchers;
+use App\TermMapping;
+use App\TermFees;
 
 class SquadronAccountingController extends Controller
 {
@@ -32,6 +34,8 @@ class SquadronAccountingController extends Controller
     {
 
         $subfee = Settings::where('setting', '=', 'Weekly Fees')->value('value');
+
+        $termid = TermMapping::latest()->value('id');
 
         $rollid = RollMapping::latest()->value('id');
         $outstanding = Roll::where('status', '=', 'P')->count();
@@ -66,8 +70,11 @@ class SquadronAccountingController extends Controller
         $totalincome = $attendance * $subfee;
         $difference = $totalincome - $totalcost;
 
+        $termfees = TermFees::where('term_id', $termid)->get();
+        $termamount = Settings::where('setting', 'Term Fee Value')->value('value');
 
-        return view('accounting.index', compact('accountbalance', 'outstanding', 'requestbalance', 'pendingvouchers', 'members', 'rollid', 'totalsubs', 'accountbalance', 'annualfee', 'totalcost', 'totalincome', 'difference'));
+
+        return view('accounting.index', compact('termfees', 'termamount', 'accountbalance', 'outstanding', 'requestbalance', 'pendingvouchers', 'members', 'rollid', 'totalsubs', 'accountbalance', 'annualfee', 'totalcost', 'totalincome', 'difference'));
 
 
     }

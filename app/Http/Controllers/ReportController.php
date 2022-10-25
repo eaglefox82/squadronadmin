@@ -24,6 +24,8 @@ use App\Eventroll;
 use App\Completedform;
 use App\Points;
 Use DataTables;
+use App\TermMapping;
+use App\TermFees;
 
 class ReportController extends Controller
 {
@@ -169,9 +171,25 @@ class ReportController extends Controller
 
           $pdf = PDF::loadView('report.points_report', compact('points', 'date'));
 
-            return $pdf->download('.Points Report - '.date("jS F Y",strtotime($date)).'.pdf');
+            return $pdf->download('.Points Report - '.date("jS F Y", strtotime($date)).'.pdf');
 
             return view('report.points_report', compact('points', 'date'));
+
+    }
+
+    public function latetermfees()
+    {
+        $date = Carbon::today()->toDateString();
+        $termid = TermMapping::latest()->value('id');
+        $term = TermMapping::where('id', $termid)->get();
+        $latetermfees = Termfees::where('term_id', $termid)->where('late', 'Y')->get();
+
+        $pdf = PDF::loadView('report.latetermfees', compact('latetermfees', 'term'));
+
+        return $pdf->download('Late Term Fees Report.pdf');
+
+
+        return view('report.latetermfees', compact('latetermfees', 'term'));
 
     }
 

@@ -11,8 +11,6 @@
 |
 */
 
-use App\Http\Controllers\PastrollController;
-
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
@@ -80,6 +78,7 @@ Route::get('reports/past', 'ReportController@past')->middleware('auth');
 Route::get('reports/download/{id}', 'ReportController@downloadpast')->middleware('auth');
 Route::get('report/email', 'ReportController@email')->middleware('auth');
 Route::get('report/points/print', 'ReportController@print_points')->middleware('auth');
+Route::get('report/latetermfees', 'ReportController@latetermfees')->middleware('auth');
 
 
 // Ajax requests

@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Member;
+use Carbon\Carbon;
 
 use Illuminate\Database\Eloquent\Model;
 

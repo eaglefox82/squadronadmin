@@ -11,6 +11,8 @@ use App\Points;
 use App\Eventroll;
 use App\Events;
 use App\StaffAttendance;
+use App\TermMapping;
+use App\TermFees;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -307,5 +309,47 @@ class Member extends Model
         $lattendance = Rollmapping::where('id', $lroll)->value('roll_date');
         $attendancediff = Carbon::parse($lattendance)->diffInWeeks(Carbon::now(), false);
         return $attendancediff;
+    }
+
+    public function overduefees()
+    {
+        $termid = TermMapping::latest()->value('id');
+        $termdate = TermMapping::latest()->value('start_date');
+
+        $termweek = Carbon::parse($termdate)->diffInDays(Carbon::now(), false);
+        $feestatus = TermFees::where('member_id', $this->id)->where('term_id', $termid)->value('status');
+
+
+       if ($feestatus == "Pending")
+       {
+            if ($termweek > 7)
+            {
+                $overdue = "Yes";
+            } else {
+                $overdue = "No";
+            }
+       } else {
+        $overdue = "No";
+       }
+
+        return $overdue;
+
+    }
+
+    public function overduefeesweek()
+    {
+        $termid = TermMapping::latest()->value('id');
+        $termdate = TermMapping::latest()->value('start_date');
+        $datepaid = TermFees::where('member_id', $this->id)->where('term_id', $termid)->value('paid_date');
+
+        $overdueweek = Carbon::parse($termdate)->addWeek(1);
+
+       return Carbon::parse($overdueweek)->diffInWeeks(Carbon::parse($datepaid), false);
+
+    }
+
+    public function termfees()
+    {
+        return $this->hasMany('App\Termfees', 'member_id', 'id');
     }
 }

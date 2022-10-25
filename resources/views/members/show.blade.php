@@ -149,23 +149,36 @@
                     </div>
                 </div>
 
+                @if($member->termfees == 'Y')
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="card card-stats">
-                        @if ($member->outstanding->where('status','P')->count() != 0)
-                        <div class="card-header card-header-danger card-header-icon">
-                        @else
                         <div class="card-header card-header-success card-header-icon">
-                        @endif
                             <div class="card-icon">
                                 <i class="fa fa-usd fa-2x"></i>
                             </div>
-                            <p class="card-category">Total Subs Owning<br><br></p>
-                            <h3 class="card-title">${{($member->outstanding->where('status','P')->count())*10}}</h3>
+                            <p class="card-category">Late Term Fees<br>{{($member->termfees()->where('late','Y')->count())}}<br></p>
+                            <h3 class="card-title">{{number_format((($member->termfees()->where('late','Y')->count())/($member->termfees()->count()))*100,2)}}%</h3>
                             <div class="card-footer">
                             </div>
                         </div>
                     </div>
                 </div>
+            @else
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-header card-header-success card-header-icon">
+                            <div class="card-icon">
+                                <i class="fa fa-usd fa-2x"></i>
+                            </div>
+                            <p class="card-category">Total Subs Owning<br><br></p>
+                            <h3 class="card-title">${{ ($member->outstanding->where('status', 'P')->count())*10 }}</h3>
+                            <div class="card-footer">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            @endif
         </div>
 
         <!-- This is to only show the table if there is data to show -->

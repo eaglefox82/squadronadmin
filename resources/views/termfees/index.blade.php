@@ -19,6 +19,7 @@
                                     <th class="text-center">Last Name</th>
                                     <th class="text-center">Status</th>
                                     <th class="text-center">Date Paid</th>
+                                    <th class="text-center">Overdue</th>
                                     <th class="text-center">Actions</th>
                                 </thead>
                                 <tbody class="text-center">
@@ -121,8 +122,19 @@
                 { data: 'last_name'},
                 { data: 'status'},
                 { data: 'paid_date'},
+                { data: 'overdue', visible: false},
                 { data: 'action', orderable: false, searchable: false}
             ],
+            "rowCallback": function( row, data, index ) {
+                if ( data.overdue == 'Yes') {
+                   $('td', row).css('background-color', '#d4001c');
+                    $('td', row).css('color', 'white');
+               //     $('td:eq(6)', row).css('background-color', '#d4001c');
+                //   $('td:eq(6)', row).css('color', 'white');
+                }
+
+
+            }
         });
     })
 

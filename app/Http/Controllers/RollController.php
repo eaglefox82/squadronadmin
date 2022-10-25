@@ -283,7 +283,7 @@ class RollController extends Controller
                 $paid = 'N';
                 $title = "Member Present";
                 $message = "Member has not paid";
-                $points = "Y";
+                $pointsallocated = "Y";
                 break;
 
             // Define variables for member who is online
@@ -291,7 +291,7 @@ class RollController extends Controller
                 $paid = 'N';
                 $title = "Member Online";
                 $message = "Member marked as present online";
-                $points = "Y";
+                $pointsallocated = "Y";
                 break;
 
             // Define variables for member who paid cash
@@ -299,7 +299,7 @@ class RollController extends Controller
                 $paid = "Y";
                 $title = "Member Present";
                 $message = "Member paid by Cash";
-                $points = "Y";
+                $pointsallocated = "Y";
                 break;
 
             // Define variables for member who is not present
@@ -307,14 +307,14 @@ class RollController extends Controller
                 $paid = "N";
                 $title = "Member Absent";
                 $message = "Member marked as absent";
-                $points = "N";
+                $pointsallocated = "N";
                 break;
 
             case 'T':
                 $paid = "Y";
                 $title = "Member Present";
                 $message ="Member marks as present";
-                $points = "Y";
+                $pointsallocated = "Y";
                 break;
 
             default:
@@ -333,7 +333,7 @@ class RollController extends Controller
         // Add Points to Member if function is turned on
         if (config('global.Squadron_Points') != 'N')
         {
-            if($points != 'N')
+            if($pointsallocated != 'N')
             {
                 $p=new Points();
                 $p->member_id = $member;
