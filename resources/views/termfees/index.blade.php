@@ -6,6 +6,8 @@
         <div class="row">
             <div class="col-sm-12">
                 <button class="btn btn-round btn-primary pull-right" data-toggle="modal" data-target="#addtermModal" class="btn btn-primary btn-round" title="Add New Term"><i class="fa fa-plus fa-2x"></i> Add New Term</button>
+                                    <button class="btn btn-round btn-success">Paid = {{ $status->where('status', "Paid")->count() }} ({{ number_format(($status->where('status', "Paid")->count()/ $status->count())*100,2)}}%)</button>
+                                    <button class="btn btn-round btn-danger">Outstanding = {{ $status->where('status', "Pending")->count() }} ({{ number_format(($status->where('status', "Pending")->count()/ $status->count())*100,2)}}%)</button>
                 <div class="card">
                     <div class="card-header card-header-icon card-header-rose pull-center">
                         <h2 class="card-title text-center">Term Fees for {{ $year }} - Term {{ $term }}</h2>

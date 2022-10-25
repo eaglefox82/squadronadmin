@@ -26,12 +26,13 @@ class TermFeesController extends Controller
         $year = TermMapping::where('id', $id)->value('year');
         $term = TermMapping::where('id', $id)->value('term');
         $startdate = TermMapping::where('id', $id)->value('start_date');
+        $status = TermFees::where('term_id', $id)->get();
 
 
         $fees = TermFees::latest()->get();
 
 
-        return view('termfees.index', compact('year', 'term', 'fees'));
+        return view('termfees.index', compact('year', 'term', 'fees', 'status'));
     }
 
     /**
