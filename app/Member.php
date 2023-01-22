@@ -220,49 +220,26 @@ class Member extends Model
 
     }
 
+
+
     public function getattendancewarningAttribute()
     {
        $week1 = Rollmapping::latest()->take(0)->value('id');
        $week2 = Rollmapping::latest()->skip(1)->take(1)->value('id');
        $week3 = Rollmapping::latest()->skip(2)->take(1)->value('id');
 
-
-
-        $week1a = Roll::where('Roll_id',$week1)->where('member_id', $this->id)->value('status');
-        $week2a = Roll::where('Roll_id',$week2)->where('member_id', $this->id)->value('status');
-        $week3a = Roll::where('Roll_id',$week3)->where('member_id', $this->id)->value('status');
-
-        $count = 0;
-
-       if ($week1a == 'A')
-       {
-           $count = $count + 1;
-       }
-
+       $week1a = Roll::where('Roll_id',$week1)->where('member_id', $this->id)->value('status');
        $week2a = Roll::where('Roll_id',$week2)->where('member_id', $this->id)->value('status');
-
-       if ($week2a == 'A')
-       {
-          $count = $count + 1;
-       }
-
        $week3a = Roll::where('Roll_id',$week3)->where('member_id', $this->id)->value('status');
 
-       if ($week3a == 'A')
-       {
-           $count = $count + 1;
-       }
+       $count = 0;
 
-         if ($count == 3)
-         {
-              $warning = 'Yes';
-         }
-            else
-            {
-                $warning = 'No';
-            }
+        // Count if 3 weeks have been missing
+        if ($week1a == 'A') {$count++;}
+        if ($week2a == 'A') {$count++;}
+        if ($week3a == 'A') {$count++;}
 
-       return $warning;
+       return $count == 3 ? 'Yes' : 'No';
 
     }
 
@@ -313,26 +290,20 @@ class Member extends Model
 
     public function overduefees()
     {
-        $termid = TermMapping::latest()->value('id');
+        $term = TermMapping::latest()->value('id');
         $termdate = TermMapping::latest()->value('start_date');
 
         $termweek = Carbon::parse($termdate)->diffInDays(Carbon::now(), false);
-        $feestatus = TermFees::where('member_id', $this->id)->where('term_id', $termid)->value('status');
+        $feestatus = TermFees::where('member_id', $this->id)
+                            ->where('term_id', $term)
+                            ->pluck('status')->first();
 
 
-       if ($feestatus == "Pending")
-       {
-            if ($termweek > 7)
-            {
-                $overdue = "Yes";
-            } else {
-                $overdue = "No";
-            }
-       } else {
-        $overdue = "No";
-       }
-
-        return $overdue;
+        if ($feestatus == "Pending" && $termweek > 7) {
+            return "Yes";
+        } else {
+            return "No";
+        }
 
     }
 

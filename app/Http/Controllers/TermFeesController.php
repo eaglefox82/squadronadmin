@@ -25,14 +25,11 @@ class TermFeesController extends Controller
         $id = TermMapping::latest()->value('id');
         $year = TermMapping::where('id', $id)->value('year');
         $term = TermMapping::where('id', $id)->value('term');
-        $startdate = TermMapping::where('id', $id)->value('start_date');
+
         $status = TermFees::where('term_id', $id)->get();
 
 
-        $fees = TermFees::latest()->get();
-
-
-        return view('termfees.index', compact('year', 'term', 'fees', 'status'));
+        return view('termfees.index', compact('year', 'term', 'status'));
     }
 
     /**
@@ -58,9 +55,8 @@ class TermFeesController extends Controller
         //Insert into Mapping Table
         $e = new TermMapping;
         $e->year = Carbon::now()->year;
-        $e->start_date = $request->input('date');
         $e->term = $request->input('term');
-        $e->amount = Settings::where('setting', 'Term Fee Value')->value('value');
+        $e->amount = Settings::where('setting', 'Term Fee Value')->get('value');
         $e->save();
 
         //Create Term Fee Status
@@ -138,23 +134,11 @@ class TermFeesController extends Controller
     {
 
         $id = TermFees::find($request->get('id'));
-        $termid = TermFees::where('id', $request->get('id'))->value('term_id');
-        $termdate = TermMapping::where('id', $termid)->value('start_date');
-
-        $late = Carbon::parse($termdate)->diffinDays(Carbon::parse($request->get('date')));
-
-
         $id->status = 'Paid';
         $id->paid_date = $request->get('date');
-        if ($late > 7)
-        {
-            $id->late = 'Y';
-        } else {
-            $id->late = 'N';
-        }
         $id->save();
 
-        alert()->success('Success', "Terms Fees Paid")->autoclose(1500);
+        alert()->success('Updated', 'Term Fee has been recored')->autoclose(1500);
         return redirect(action('TermFeesController@index'));
 
     }
@@ -177,23 +161,19 @@ class TermFeesController extends Controller
             ->addColumn('membership', function($termfees) {
                 return $termfees->member->membership_number;
             })
+            ->addColumn('overdue', function($termfees) {
+                return $termfees->member->overduefees();
+            })
 
           ->addColumn('action', function($row){
                 $btn = '<a href="'.action('MembersController@show', $row->member_id).'" target="_blank" title="View" class="btn btn-round btn-success"><i class="fa fa-info"></i>';
                 $btn2  = '<a href="'.action('TermFeesController@edit', $row->id).'" title="Payment" class="btn btn-round btn-primary"><i class="fa fa-dollar"></i>';
 
-                if ($row->status == "Pending") {
-                    return $btn." ".$btn2;
-                } else {
-                    return $btn;
-                }
+                return $btn." ".$btn2;
             })
 
             ->editColumn('paid_date', function($termfees){
                 return (is_null($termfees->paid_date) ? "-" : date('d/m/Y', strtotime($termfees->paid_date)));
-            })
-            ->addColumn('overdue', function($termfees) {
-                return $termfees->member->overduefees();
             })
 
            ->make(true);
