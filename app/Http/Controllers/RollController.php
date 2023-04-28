@@ -368,26 +368,14 @@ class RollController extends Controller
             return $q->orderby('rank');
         }))
         ->where('roll_id', '=', $rollid)->orderby('status')
-        ->with ('rollstatus')
         ->get();
 
         return DataTables::of($roll)
 
-                ->addColumn('account', function($roll) {
-                    return $roll->member->Accounts->sum('amount');
-                })
 
                 ->addColumn('action', function($row){
                     $btn = '<a href="'.action('MembersController@show', $row->member_id).'" target="_blank" title="View" class="btn btn-round btn-info"><i class="fa fa-info"></i></a>';
 
-                    if ($row->status == 'A')
-                    {
-                        $btn .= '<a href="'.action('RollController@rollstatus', [$row->id, 'C']).'" class="btn btn-round btn-success" title="Paid Cash""><i class="fa fa-check"></i></a>';
-                        $btn .= '<a href="'.action('RollController@rollstatus', [$row->id, 'P']).'" class="btn btn-round btn-danger" title="Not Paid"><i class="fa fa-times"></i></a>';
-                        $btn .= '<a href="'.action('RollController@rollstatus', [$row->id, 'P']).'" class="btn btn-round btn-warning" title="Account Payment"><i class="fa fa-money"></i></a>';
-                    }
-
-                    return $btn;
                 })
 
             ->make(true);

@@ -111,44 +111,36 @@
 
 @section ('scripts')
 <script>
-    $(function() {
-
-        var table=$('#termfee-table').DataTable({
-            processing: true,
-            serverSide: true,
-            pageLength: 50,
-            ajax: '{{ route('getTermFees') }}',
-            columns: [
-                { data: 'membership'},
-                { data: 'first_name'},
-                { data: 'last_name'},
-                { data: 'status'},
-                { data: 'paid_date'},
-                { data: 'overdue', visible: false},
-                { data: 'action', orderable: false, searchable: false}
-            ],
-            "rowCallback": function( row, data, index ) {
-                if ( data.overdue == 'Yes') {
-                   $('td', row).css('background-color', '#d4001c');
-                    $('td', row).css('color', 'white');
-               //     $('td:eq(6)', row).css('background-color', '#d4001c');
-                //   $('td:eq(6)', row).css('color', 'white');
-                }
-
-
-            }
-        });
-    })
-
-</script>
-
-<script type="text/javascript">
-    $(document).on("click", ".termpayment", function() {
-        var memberId = $(this).data('id');
-        $(".model-body #id").val(memberId);
+  $(function() {
+    const table = $('#termfee-table').DataTable({
+      processing: true,
+      serverSide: true,
+      pageLength: 50,
+      ajax: '{{ route('getTermFees') }}',
+      columns: [
+        { data: 'id' },
+        { data: 'first_name' },
+        { data: 'last_name' },
+        { data: 'status' },
+        { data: 'paid_date' },
+        { data: 'overdue', visible: false },
+        { data: 'action', orderable: false, searchable: false }
+      ],
+      rowCallback: function(row, data, index) {
+        if (data.overdue === 'Yes') {
+          $('td', row)
+            .css('background-color', '#d4001c')
+            .css('color', 'white');
+        }
+      }
     });
-</script>
+  });
 
+  $(document).on('click', '.termpayment', function() {
+    const memberId = $(this).data('id');
+    $('.model-body #id').val(memberId);
+  });
+</script>
 
 @stop
 

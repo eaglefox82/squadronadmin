@@ -86,7 +86,7 @@
 
                                     </td>
                                     <td class="text-center">{{$r->member->membership_number}}</td>
-                                    <td class="text-center">{{$r->member->last_name}}, {{$r->member->first_name}} </td>
+                                    <td class="text-center">{{$r->member->first_name}} {{$r->member->last_name}}</td>
                                     <td class="text-center">{{$r->member->memberrank->rank}}</td>
                                     @if ($r->member->memberleave() == 'Yes')
                                         <td class="text-center">Requested Leave</td>

@@ -79,12 +79,11 @@
             serverSide: true,
             ajax: '{{ route('getCurrentRoll') }}',
             columns: [
-                { data: 'action', name: 'action', orderable: false, searchable: false, "width": "25%"},
                 { data: 'member.membership_number'},
                 { data: 'member.first_name'},
                 { data: 'member.last_name'},
-                { data: 'rollstatus.status'},
-                { data: 'account', render: $.fn.dataTable.render.number(',', '.', 2, '$')},
+                { data: 'status'},
+                { data: 'action', name: 'action', orderable: false, searchable: false, "width": "25%"},
 
             ],
         });
