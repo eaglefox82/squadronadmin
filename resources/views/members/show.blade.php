@@ -157,7 +157,11 @@
                                 <i class="fa fa-usd fa-2x"></i>
                             </div>
                             <p class="card-category">Late Term Fees<br>{{($member->termfees()->where('late','Y')->count())}}<br></p>
-                            <h3 class="card-title">{{number_format((($member->termfees()->where('late','Y')->count())/($member->termfees()->count()))*100,2)}}%</h3>
+                            @if ($member->termfees()->count() == 0)
+                                <h3 class="card-title">0%</h3>
+                            @else
+                                <h3 class="card-title">{{number_format((($member->termfees()->where('late','Y')->count())/($member->termfees()->count()))*100,2)}}%</h3>
+                            @endif
                             <div class="card-footer">
                             </div>
                         </div>
